@@ -1,0 +1,47 @@
+# Seção
+
+Escrevendo alguma coisa nessa minha seção.
+
+## Subseção
+
+Escrevendo alguma coisa nessa minha subseção.
+
+Outra linha.
+
+Colocando texto em itálico _texto em itálico_ ou *texto em itálico*, em negrito 
+**texto em negrito** e destacando um código `f <- function() ...`.
+
+Criando uma linha horizontal:
+  
+  ---
+  
+  Listando itens:
+  
+  * R é Open Source
+* R é uma ótima linguagem de progrmação
+* Estatísticos em todo o mundo usam R
+* R é utilizado por grandes empresas para análise de dados e em aprendizagem de máquina.
+
+---
+  
+  Enumerando itens:
+  
+  1. R Agro
+2. R é Tec
+3. R é Pop
+4. R é Tudo
+
+---
+  
+  Um bom curso de estatística computacional utilizando R poderá ser encontrado em [**Estatística Computacional**](https://prdm0.github.io/aulas_computacional).
+
+![Logo da linguagem de programação R.](https://www.r-project.org/logo/Rlogo.png "icon")
+
+Lembre-se:
+  
+  > Batatinha quando nasce, esparrama pelo chão. 
+> Se você não aprender em R irá sofrer de montão.
+
+> --- Autor desconhecido, 2019.
+
+<strong>Se eu desejar, poderei utilizar código HTML</strong>.

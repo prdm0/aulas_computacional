@@ -1,0 +1,5 @@
+# Programando em R
+
+Nesse ponto será assumido que você realizou os passos de [**revisão**][Sugestões de passos para revisão da linguagem R] da linguagem R sugeridos, bem como os [**exercícios propostos**][Exercícios propostos]. Considerá-los é de grande importância para que você consiga assimilar os conceitos apresentados nesse Capítulo.
+
+Aqui tentarei mostar que a linguagem [**R**]()

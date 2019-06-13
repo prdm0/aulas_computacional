@@ -1,0 +1,14 @@
+output_dir: "docs"
+new_session: yes
+delete_merged_file: yes
+language:
+  label:
+    fig: "Figura "
+
+rmd_files: [
+  "index.Rmd",
+  "prefacio.Rmd",
+  "revisao_r.Rmd",
+  "linux.Rmd",
+  "rmarkdown.Rmd",
+]
