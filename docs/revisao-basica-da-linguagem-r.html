@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Revisão básica da linguagem R | ESTATÍSTICA COMPUTACIONAL</title>
+  <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Revisão básica da linguagem R | ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
+  
+  <meta property="og:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  <meta name="github-repo" content="prdm0/aulas_computacional" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Revisão básica da linguagem R | ESTATÍSTICA COMPUTACIONAL" />
+  
+  <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  
+
+<meta name="author" content="Docente: Prof. Dr. Pedro Rafael Diniz Marinho   E-mail: pedro.rafael.marinho@gmail.com / pedro@de.ufpb.br   Período Letivo: 2019.1" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prefacio.html">
+<link rel="next" href="o-evangelho-do-gnulinux.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.1/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#section"></a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#sugestoes-de-passos-para-revisao-da-linguagem-r"><i class="fa fa-check"></i>Sugestões de passos para revisão da linguagem R</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="revisao-basica-da-linguagem-r.html"><a href="revisao-basica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a><ul>
+<li class="chapter" data-level="" data-path="revisao-basica-da-linguagem-r.html"><a href="revisao-basica-da-linguagem-r.html#exercicios-propostos"><i class="fa fa-check"></i>Exercícios propostos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a><ul>
+<li class="chapter" data-level="2.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-historico"><i class="fa fa-check"></i><b>2.1</b> Um breve histórico</a></li>
+<li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
+<li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuicoes"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>3</b> Relatório Markdown em R</a><ul>
+<li class="chapter" data-level="3.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>3.1</b> Markdown</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>3.1.1</b> Sintaxe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>3.2</b> R Markdown</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ESTATÍSTICA COMPUTACIONAL</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="revisao-basica-da-linguagem-r" class="section level1">
+<h1><span class="header-section-number">1</span> Revisão básica da linguagem R</h1>
+<p>Mesmo que você se considere um programador razoável de <a href="https://www.r-project.org/about.html"><strong>R</strong></a>, aconselho que venha resolver a lista de exercícios apresentada adiante. É comum que venhamos esquecer de alguns conceitos de linguagens em que programamos. Esses exercícios é uma oportunidade que você irá ter de revisar lógica de programação utilizando a linguagem <a href="https://www.r-project.org/about.html"><strong>R</strong></a> e consequentemente revisar alguns conceitos importantes, porém básicos, da linguagem. Tente resolver esses exercícos após um olhar detalhado das <a href="prefacio.html#sugestoes-de-passos-para-revisao-da-linguagem-r">sugestões</a> apresentadas.</p>
+<p>A <a href="prefacio.html#sugestoes-de-passos-para-revisao-da-linguagem-r">lista de assuntos para revisão</a> sugerem temas bastante simples para quem já programa um pouco na linguagem <a href="https://www.r-project.org/about.html"><strong>R</strong></a>. Tais sugestões aliadas com as resoluções desses exercício irão lapidar os conhecimentos necessários e fará com que você necessariamente revise outros assuntos inseridos nos exercícios. Estes assuntos/exercícios também são simples e não envolverão conceitos avançados da linguagem <a href="https://www.r-project.org/about.html"><strong>R</strong></a>. Conceitos mais avançados serão abordados no decorrer do curso de <strong>Estatística Computacional</strong> e exercícios estarão disponíveis no decorrer de outros capítulos, à medida que forem necessários.</p>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>A google disponibilizou um <a href="https://google.github.io/styleguide/Rguide.xml">guia de estilo</a> de programação em <a href="https://www.r-project.org/about.html"><strong>R</strong></a>. Trata-se de um guia de boas práticas de programação, no que diz respeito à escrita do código. Esse guia <strong>não</strong> trata de boas práticas de programação para a obtenção de melhorias de desempenho da linuguagem <a href="https://www.r-project.org/about.html"><strong>R</strong></a>.</p>
+<p><strong>Você não é obrigado adotar essas normas. Porém, segui-las tornará o seu código mais legível.</strong></p>
+</div>
+</div>
+
+<hr />
+<div id="exercicios-propostos" class="section level2 unnumbered">
+<h2>Exercícios propostos</h2>
+<ol style="list-style-type: decimal">
+<li><p>Descreva o funcionamento e as diferenças de um compilador para um interpretador. Liste exemplos de linguagens de programação compiladas e interpretadas.</p></li>
+<li><p>Responda os itens abaixo:</p>
+<ol style="list-style-type: decimal">
+<li>Descreva os principais tipos de dados da linguagem R.</li>
+<li>Descreva as principais estruturas de dados da linguagem R.</li>
+<li>Disserte sobre as diferenças entre tipos de dados e estruturas de dados.</li>
+<li>Descreva quais estruturas de dados são homogêneas e quais estruturas são heterogêneas.</br></br></li>
+</ol></li>
+<li><p>Explique o por quê das saídas abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">7.1</span>, <span class="fl">2.3</span>, 3L, <span class="ot">TRUE</span>)
+x</code></pre>
+<pre><code>## [1] 7.1 2.3 3.0 1.0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
+y</code></pre>
+<pre><code>## [1] &quot;TRUE&quot; &quot;a&quot;    &quot;b&quot;    &quot;c&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.0</span>, <span class="dv">5</span>, <span class="dv">7</span>, 0L)
+z</code></pre>
+<pre><code>## [1] 1 5 7 0</code></pre></li>
+<li><p>Sem utilizar o R, o que você espera como retorno de <code>x &lt;- c(1, c(2, c(3, 4))); x</code>. Qual a estrutura de dados de <code>x</code>?</p></li>
+<li><p>Irá ocorrer erro ao tentar criar um vetor atômico (vetor) com objetos de tipos diferentes? Como o interpretador de R trata essas situações. Explique detalhadamente.</p></li>
+<li><p>O que signicica <code>NA</code>, <code>NaN</code>, <code>Inf</code> e <code>-Inf</code>, em R? Liste algumas das situações em que utilizando-se das operações básicas <code>+</code>, <code>-</code>, <code>*</code> e <code>/</code> poderemos ter <code>NaN</code> como retorno.</p></li>
+<li><p>Considere <code>vetor &lt;- c(2, 7, 10, 8)</code>. Qual o tipo de dados do objeto <code>vetor</code>? Crie os objetos <code>vetor_int</code>, <code>vetor_character</code> e <code>vetor_logical</code>. <strong>Dica</strong>: crie esses objetos utilizando funções para conversão dos tripos dos elementos do objeto <code>vetor</code>.</p></li>
+<li><p>O que faz o código abaixo? Explique detalhadamente o que cada função faz.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">objects</span>(<span class="kw">grep</span>(<span class="st">&quot;bas&quot;</span>, <span class="kw">search</span>()))</code></pre></li>
+<li><p>Qual o retorno do código abaixo? Explique detalhadamente o código.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>()[(<span class="kw">grep</span>(<span class="st">&quot;gr&quot;</span>, <span class="kw">search</span>()))]</code></pre></li>
+<li><p>Forneça o código que acessa o caracter <code>"a"</code> de <code>l</code>, em que <code>l &lt;- c(list(c(3, 2), "a"), c(1,2))</code>. Depois, converta <code>l</code> em um vetor atômico.</p></li>
+<li><p>Sem executar os códigos abaixo, descreva as saídas esperadas:</p>
+<ol style="list-style-type: decimal">
+<li><p>Qual a saída esperada para os códigos <code>c(1, FALSE)</code>, <code>c("a", 1)</code>, <code>c(list(1), "a")</code>, <code>c(TRUE, 1L)</code>?</p></li>
+<li><p>Por que <code>1 == "1"</code> retornará <code>TRUE</code>? Explique.</p></li>
+<li><p>Por que <code>-1 &lt; FALSE</code> retornará <code>TRUE</code>? Explique.</p></li>
+</ol></li>
+<li><p>Considere o objeto <code>vetor &lt;- 1:25</code>. Com o objeto <code>vetor</code>, construa uma matriz de ordem 5x5 usando a função <code>matrix()</code> e depois utilizando a função <code>dim()</code>.</p></li>
+<li><p>Crie a matriz <code>M</code>, de ordem 50x50, com elementos de 1 à 2500 preenchidos por linha. Atribua nomes às linhas (<strong>l_1</strong> à <strong>l_50</strong>) e colunas (<strong>c_1</strong> à <strong>c_50</strong>) de <code>M</code>. <strong>Dica</strong>: certamente você percebeu que não será nada interessante digitar os nomes das linhas e colunas de <code>M</code>. Tente utilizar as funções <code>paste()</code> e <code>rep()</code>como soluções para esse problema.</p></li>
+<li><p>Remova os nomes das linhas e colunas da matriz <code>M</code> criada no exercício anterior.</p></li>
+<li><p>Sejam <code>V1 &lt;- matrix(1:12, ncol = 4, nrow = 3)</code> e <code>W1 &lt;- matrix(1:8, ncol = 4, nrow = 2)</code>. Crie a matriz <code>M1</code>que é o resultado da concatenação, por linha, de <code>V1</code> e <code>W1</code>.</p></li>
+<li><p>Considere os objetos <code>V2 &lt;- matrix(1:12, ncol = 2, nrow = 4)</code> e <code>W2 &lt;- matrix(1:12, ncol = 3, nrow = 4)</code>. Cria a matriz <code>M2</code>como resultados da concatenação, por coluna, de <code>V2</code> e <code>W2</code>.</p></li>
+<li><p>Considere <code>obj &lt;- list(1:3, "a" , TRUE, 1.0)</code>. Construa uma matriz de ordem 2x2 a partir de <code>obj</code>. O que de interessante você observa?</p></li>
+<li><p>Construa a matriz <code>A</code> (matriz de avaliações), de ordem 30x2, em que a primeira coluna são os nomes dos alunos (<strong>Aluno_1</strong> à <strong>Aluno_30</strong>) e a segunda coluna são as notas de 3 avaliações, por aluno. <strong>Dica</strong>: para facilitar, gere as avaliações dos alunos de forma aleatória.</p></li>
+<li><p>O que a função <code>dim()</code> retorna quando aplicada à um vetor?</p></li>
+<li><p>Se <code>is.matrix(x)</code> retorna <code>TRUE</code>, o que irá retornar de <code>is.array(x)</code>? Explique.</p></li>
+<li><p>Descreva os objetos objetos <code>x1</code>, <code>x2</code> e <code>x3</code> construídos na forma apresentada abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x1 &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>))
+x2 &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>))
+x3 &lt;-<span class="st"> </span><span class="kw">array</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>))</code></pre></li>
+<li><p>Considere o código apresentado abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))
+df<span class="op">$</span>y</code></pre>
+<pre><code>## [1] a b c
+## Levels: a b c</code></pre>
+<p>Qual a estrutura de dados de <code>df$y</code>? Como poderemos alterar o comportamento do data frame <code>df</code> para que <code>df$y</code> retorne um vetor atômico com elementos do tipo <strong>character</strong>?</p></li>
+<li><p>Ao tentar criar um data frame com o código abaixo obteremos um erro. Corrija o código:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</code></pre>
+<pre><code>## Error in (function (..., row.names = NULL, check.rows = FALSE, check.names = TRUE, : arguments imply differing number of rows: 2, 3, 4</code></pre></li>
+<li><p>Considere a lista abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">notas &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="fl">7.1</span>, <span class="fl">3.2</span>, <span class="ot">NA</span>), <span class="kw">c</span>(<span class="fl">2.7</span>, <span class="fl">8.8</span>, <span class="fl">10.0</span>),
+              <span class="kw">c</span>(<span class="fl">0.0</span>, <span class="ot">NA</span>, <span class="ot">NA</span>), <span class="kw">c</span>(<span class="fl">7.7</span>, <span class="fl">8.4</span>, <span class="fl">6.3</span>),
+              <span class="kw">c</span>(<span class="fl">3.6</span>, <span class="fl">6.6</span>, <span class="fl">8.1</span>), <span class="kw">c</span>(<span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>),
+              <span class="kw">c</span>(<span class="fl">7.4</span>, <span class="fl">7.1</span>, <span class="fl">7.3</span>), <span class="kw">c</span>(<span class="fl">10.0</span>, <span class="ot">NA</span>, <span class="fl">7.0</span>),
+              <span class="kw">c</span>(<span class="fl">1.6</span>, <span class="fl">3.2</span>, <span class="fl">5.3</span>), <span class="kw">c</span>(<span class="fl">8.8</span>, <span class="fl">9.2</span>, <span class="fl">8.0</span>))</code></pre>
+<p>Responta os itens abaixo:</p>
+<ol style="list-style-type: decimal">
+<li><p>Atribua nomes (<strong>Aluno_1</strong> à <strong>Aluno_10</strong>) à cada elemento de <code>notas</code>.</p></li>
+<li><p>Crie o vetor <code>status</code> contendo o status dos dez alunos. Considere: <strong>A</strong> (aprovado), <strong>REP</strong> (reprovado), <strong>F</strong> (final). <strong>Dica</strong>: construa o vetor <code>status</code> atribuindo literalmente as categorias <strong>A</strong>, <strong>REP</strong> ou <strong>F</strong> para cada aluno, ou seja, não é preciso criar uma função para fazer isso automaticamente. Considere <strong>A</strong> para os alunos com média no intervalo <span class="math inline">\([7, 10]\)</span>, <strong>R</strong> para os alunos com média no intervalo <span class="math inline">\([0, 4)\)</span> e <strong>F</strong> para os alunos com média no intervalo <span class="math inline">\([4, 7)\)</span>.</p></li>
+<li><p>Crie o vetor <code>alunos</code> com os nomes dos alunos. Obtenha esse vetor por meio do objeto <code>notas</code>.</p></li>
+<li><p>Construa o data frame <code>historico</code> com as variáveis <strong>nomes</strong>, <strong>notas</strong> e <strong>status</strong>.</p></li>
+<li><p>Com base no data frame <code>historico</code>, construa o data frame <code>aprovados</code> com os alunos aprovados. De forma análoga, construa um data frame para cada um dos demais status, respectivamente.</p></li>
+<li><p>Suponha que o professor está interessado em saber quais alunos foram ou tem alguma chance de assumir o status de aprovado. Construa o data frame <code>bons_alunos</code> com estes alunos.</p></li>
+<li><p>Modifique os nomes das linhas do data frame <code>historico</code> colocando <strong>id_1</strong> na primeira linha e respectivamente, no mesmo padrão, para as demais linhas.</p></li>
+<li><p>Obtenha por meio do data frame <code>historico</code> um novo data frame (<code>historico_na</code>) com os alunos que deixaram ao menos uma prova para repor.</p></li>
+<li><p>Apenas para os alunos que fizeram as três avaliações, obtenha a média aritmética das avaliações. Acrescente a variável de nome <strong>media</strong> como última coluna do data frame <code>historico</code>.</p></li>
+</ol></li>
+<li><p>Consideremos o conjunto de dados <code>state.x77</code> do pacote <strong>datasets</strong> (pacote padrão de R). A base <code>state.x77</code> refere-se à um objeto de ordem 50x8, em que cada linha refere-se à um dos 50 estados dos EUA. Consulte a documentação (<code>help(state.x77)</code>) para obter maiores informações.</p>
+<p>Responda os itens abaixo:</p>
+<ol style="list-style-type: decimal">
+<li><p>Qual a estrutura de dados do objeto <code>state.x77</code>?</p></li>
+<li><p>Construa o data frame <code>dados</code> utilizando <code>state.x77</code>.</p></li>
+<li><p>Obtenha o data frame de nome <code>dados_1</code> com os estados estadunidenses que possuem população maior que 4246 (quatro milhões duzentos e quarenta e seis mil).</p></li>
+<li><p>Obtenha o data frame <code>dados_2</code> com os estatdos estadunidenses que possuem população maior que 4246 e menor que 8 milhões, isto é, menor que 8000.</p></li>
+<li><p>Obtenha o vetor <code>vetor_est</code> com os nomes dos estados que obedecem os critérios do item 3.</p></li>
+<li><p>Construa o data frame <code>dados_3</code> com os estados estadunidenses que possuem população maior que 1.5 vezes a média dos 50 estados considerados. Obtenha um vetor com o nome dos estados que obedecem essa restrição.</p></li>
+<li><p>Construa o data frame <code>dados_4</code> com os estados estadunidenses que possuem população maior que duas vezes a mediana dos 50 estados e que tenha uma população com expectativa de vida maior que 71.84 anos.</p></li>
+<li><p>Obtenha o data frame <code>dados_5</code> com os estados estadunidenses cuja população possuem renda maior que a média nacional e expectativa de vida maior que 72 anos.</p></li>
+<li><p>Adicione ao data frame <code>dados</code> duas linhas com as médias e variâncias de todas as variáveis, respectivamente.</p></li>
+</ol></li>
+<li><p>Escreva um programa que retorne a saída baixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">i1 =<span class="st"> </span><span class="dv">1</span>
+i2 =<span class="st"> </span><span class="dv">2</span> 
+i3 =<span class="st"> </span><span class="dv">3</span>
+i4 =<span class="st"> </span><span class="dv">4</span>
+i5 =<span class="st"> </span><span class="dv">5</span>
+i6 =<span class="st"> </span><span class="dv">6</span>
+i7 =<span class="st"> </span><span class="dv">7</span></code></pre>
+<p><strong>Dica</strong>: Resolva esse simples exercício de três formas diferentes (usando <code>while</code>, <code>for</code> e <code>repeat</code>).</p></li>
+<li><p>Escreva uma função que retorne o imposto pago por mulheres e por homens, sabendo que as mulheres pagam <span class="math inline">\(10\%\)</span> e que os homens pagam <span class="math inline">\(5\%\)</span> a mais do que as mulheres.</p></li>
+<li><p>Resolva o exercício anterior utilizando a função <code>switch()</code>.</p></li>
+<li><p>Implemente a função <code>tab(num, inicio, fim)</code> que é responsável por escrever no prompt de commando a tabuada de um número passado como argumento à <code>num</code>. <strong>Nota</strong>: os argumentos <code>inicio</code> e <code>fim</code> referem-se ao início e fim da tabuada, ou seja, <code>tab(num = 1, inicio = 7, fim = 12)</code> deverá escrever no prompt:</p>
+<pre><code>1 x 7 = 7
+1 x 8 = 8
+1 x 9 = 9
+1 x 10 = 10
+1 x 11 = 11
+1 x 12 = 12
+</code></pre>
+<p>Implemente <code>tab()</code> utilizando as diferentes escruturas de repetição da linguagem R (<code>for</code>, <code>while</code> e <code>repeat</code>).</p></li>
+<li><p>Escreva a função <code>celtofar()</code> que converte um vetor de temperaturas em graus Celsius para graus Fahrenheit. Considere:</p>
+<p><span class="math display">\[F = 1.8 \times C + 32,\]</span>
+em que <span class="math inline">\(C\)</span> é a temperatura em graus Celsius e <span class="math inline">\(F\)</span> é a temperatura em graus Fahrenheit.</p></li>
+<li><p>Melhore a função <code>celtofar()</code> para que critique valores não válidos de temperaturas.</p></li>
+<li><p>Modifique a função <code>celtofar()</code> para que funcione também para conversões no sentido oposto, isto é, para que converta de graus Fahrenheit para graus Celsius.</p></li>
+<li><p>Construa a função <code>imc()</code> que calcula o IMC (Índice de Massa Corporal) de uma pessoa. A função deverá retornar o IMC e um status. Observe que:</p>
+<p><span class="math display">\[\mathrm{IMC} = \frac{\mathrm{peso}}{\mathrm{altura}^2},\]</span>
+em que <span class="math inline">\(\mathrm{peso}\)</span> é dado em <span class="math inline">\(kg\)</span> e a <span class="math inline">\(\mathrm{altura}\)</span> é fornecida em <span class="math inline">\(cm\)</span>.</p>
+<p>Alem disso, considere:</p>
+<table style="width:69%;">
+<colgroup>
+<col width="25%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">IMC</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(&lt; 17.0\)</span></td>
+<td align="left">Muito abaixo do peso</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\([17.0, 18.5)\)</span></td>
+<td align="left">Abaixo do peso</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\([18.5, 25.0)\)</span></td>
+<td align="left">Peso normal</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\([25.0, 30.0)\)</span></td>
+<td align="left">Acima do peso</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\([30.0, 35.0)\)</span></td>
+<td align="left">Obesidade nível I</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\([35.0, 40.0)\)</span></td>
+<td align="left">Obesidade nível II (severa)</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\geq 40.0\)</span></td>
+<td align="left">Obesidade nível III (mórbida)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dica</strong>: Uma função robusta deverá tratar problema(s) com a(s) entrada(s), isto é, deverá criticar informações inconsistentes passadas como argumento.</p></li>
+<li><p>Utilizando a instrução de repetição <code>for</code> construa um pequeno programa que com base em um vetor de valores no intervalo
+<span class="math inline">\([0, 1]\)</span>, some apenas os valores maiores que 0.7. <strong>Dica</strong>: para economizar tempo, considere <code>vetor &lt;- runif(n = 1e5, min = 0, max = 1)</code>.</p></li>
+<li><p>Resolva o exercício anterior sem utilizar nenhuma instrução de repetição.</p></li>
+<li><p>Avalie o custo computacional dos exercícios anteriores (exercícios 34 e 35) utilizando a função <code>Sys.time()</code>. Discuta o resultado.</p></li>
+<li><p>Construa a função <code>central(x)</code> que recebe como argumeto um vetor passado à <code>x</code> e retorna algumas medidas de tendência central. A função <code>central()</code> deverá retornar:</p>
+<ol style="list-style-type: decimal">
+<li><p>Média aritmética (média amostral): <span class="math inline">\(\overline{x} = n^{-1}\sum_{i = 1}^n x_i.\)</span></p></li>
+<li><p>Média geométrica: <span class="math inline">\(G = (\prod_{i=1}^n x_i)^{\frac{1}{n}}.\)</span></p></li>
+<li><p>Média harmônica: <span class="math inline">\(H = \frac{n}{\frac{1}{x_1} + \cdots + \frac{1}{x_n}}.\)</span></p></li>
+</ol>
+<p>Algumas exigências a respeito do funcionamento da função <code>central()</code> encontram-se enumeradas abaixo:</p>
+<p>1 - A função deverá retornar todas as três medidas de tendência central ou apenas uma das estatísticas, a depender do interesse do usuário.</p>
+<p>2 - Observações <strong>Not Availables</strong> <code>NA</code> serão eleminadas do cálculo. Porém, uma mensagem de aviso ao usuário da função deverá ser emitida informando-o a repseito do número de observações eliminadas e em quais posições encontravam-se estas observações.</p>
+<p>3 - A função deverá alertar o usuário se uma estrutura/tipo de dados não suportado por <code>central()</code> for passado como argumento à <code>x</code>. A função deverá alertar qual estrutura/tipo de dados foi passado, avinsando assim que essa estrutura/tipo de dados não poderá vir a ser processado(a).</p>
+<p><strong>Nota</strong>: Não utilize a vetorização da linguagem R. Nesse exercício desejamos treinar o uso das estruturas de repetições da linguagem. Não utilizar vetorização da linguagem quer dizer que você não poderá aplicar uma função à todos elementos de um vetor. Por exemplo, se <code>x</code> é um vetor, você não poderá fazer <code>x^2</code>, <code>sqrt(x)</code>, <code>mean(x)</code>, <code>length()</code>, etc. Aplique a função a cada posição do vetor utilizando estruturas de repetições. Em seus projetos reais, utilize a capacidade de vetorização da linguagem e evite o quanto der as estruturas de repetições. Isso fará com que os seus códigos sejam mais eficientes. Aqui apenas queremos exercitar o uso das estruturas de repetições. Além disso, <code>central()</code> poderá ter outros argumentos além de <code>x</code>.</p></li>
+<li><p>Sem utilizar a capacidade de vetorização da linguagem R, nas formas do exercício anterior, implemente a função <code>myvar(x)</code> que retorna a variância amostral de um vetor passado como argumetno à <code>x</code>.</p>
+<p>Algumas exigências a respeito do funcionamento da função <code>myvar()</code> encontram-se enumeradas abaixo:</p>
+<p>1 - A função deverá retornar todas as três medidas de dispersão ou apenas uma das estatísticas, a depender do interesse do usuário.</p>
+<p>2 - Observações <strong>Not Availables</strong> <code>NA</code> serão eleminadas do cálculo. Porém, uma mensagem de aviso ao usuário deverá ser passada informando o número de observações eliminadas e em quais posições encontravam-se.</p>
+<p>3 - A função deverá alertar o usuário se uma estrutura ou tipo de dados não coerente com o interesse da função for passado como argumento à <code>x</code>.</p>
+<p><strong>Nota</strong>: Não utilize a vetorização da linguagem R. Nesse exercício desejamos treinar o uso das estruturas de repetições da linguagem. Não utilizar vetorização da linguagem quer dizer que você não poderá aplicar uma função à todos elementos de um vetor. Por exemplo, se <code>x</code> é um vetor, você não poderá fazer <code>x^2</code>, <code>sqrt(x)</code>, <code>mean(x)</code>, <code>length()</code>, etc. Aplique a função a cada posição do vetor utilizando estruturas de repetições. Em seus projetos reais, utilize a capacidade de vetorização da linguagem e evite o quanto der as estruturas de repetições. Isso fará com que os seus códigos sejam mais eficientes. Aqui apenas queremos exercitar o uso das estruturas de repetições. Além disso, <code>myvar()</code> poderá ter outros argumentos além de <code>x</code>.</p></li>
+<li><p>Se <code>x</code>, na função <code>myvar()</code>, for um vetor não numérico? E se <code>x</code> for um vetor de caracteres numéricos? E se <code>x</code> for uma string numérica como <code>"1,2,3"</code> que desejamos tratar como sendo o <code>c(1, 2, 3)</code>? Modifique a função <code>myvar()</code> para que venham tratar/considerar essas situações.</p></li>
+<li><p>Implemente a função <code>disp(x)</code> que deverá retornar uma das medidas de dispersão listadas logo abaixo:</p>
+<ul>
+<li>Amplitude: <span class="math inline">\(A = x_{\mathrm{max}} - x_{\mathrm{min}}.\)</span></li>
+<li>Variância amostral: <span class="math inline">\(S^2 = \frac{\sum_{i=1}^{n}(x_i - \overline{x})^2}{n-1}.\)</span></li>
+<li>Desvio padrão amostral: <span class="math inline">\(S = \sqrt{S^2}.\)</span></li>
+<li>Coeficiente de variação: <span class="math inline">\(CV = \frac{100 \times S}{\overline{x}}.\)</span></li>
+</ul>
+<p>Algumas exigências a respeito do funcionamento da função <code>disp()</code> encontram-se enumeradas abaixo:</p>
+<p>1 - A função deverá retornar todas as quatro estatísticas ou apenas uma das estatísticas, a depender do interesse do usuário.</p>
+<p>2 - Observações <strong>Not Availables</strong> <code>NA</code> serão eleminadas do cálculo. Porém, uma mensagem de aviso ao usuário deverá ser passada informando o número de observações eliminadas e em quais posições encontravam-se.</p>
+<p>3 - A função deverá alertar o usuário se uma estrutura ou tipo de dados não coerente com o interesse da função for passado como argumento à <code>x</code>.</p>
+<p><strong>Nota</strong>: Não utilize a vetorização da linguagem. Nesse momento também desejamos treinar o uso das estruturas de repetições da linguagem.</p></li>
+<li><p>Implemente a função <code>mycor(x, y, pearson = TRUE, rm.na = TRUE)</code> que deverá receber como argumentos dois vetores passados para <code>x</code> e <code>y</code>, respectivamente. A função <code>mycor()</code> deverá retornar o coeficiente de <a href="https://pt.wikipedia.org/wiki/Coeficiente_de_correla%C3%A7%C3%A3o_de_Pearson">correlação de Pearson</a> se <code>pearson = TRUE</code>, caso contrário, retornará o coeficiente de <a href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">correlação de Spearman</a>. Além disso, se <code>rm.na = TRUE</code>, a função <code>mycor()</code> deverá eliminar os <strong>Not Availables</strong> <code>NA</code> dos respectivos vetores. Por exemplo, se <code>x &lt;- c(1, 8, -1, NA, NA)</code> e <code>y &lt;- c(NA, 7, -2, 10, 5)</code> forem passados para <code>mycor()</code>, esta deverá eliminará as duas últimas observações de <code>x</code> e <code>y</code>, bem como a primeira observação de <code>x</code> e <code>y</code>, resultando, nesse exemplo, em <code>x &lt;- c(8, -1)</code> e <code>y &lt;- c(7, -2)</code>, respectivamente. A função deverá alertar a respeito das eliminações e informar quais as posições eliminadas dos vetores.</p>
+<p>Algumas outras exigências a respeito do funcionamento da função <code>mycor()</code> encontram-se enumeradas abaixo:</p>
+<p>1 - A função deverá parar e alertar o usuário nas situações em que os vetores não tenham os mesmos comprimentos.</p>
+<p>2 - A função deverá retornar dois objetos, <code>rho</code> e <code>level</code>, em que <code>rho</code> (<span class="math inline">\(\rho\)</span>) é o valor da correlação e <code>level</code> informa o nível dessa correlação. Os níveis possível a ser retornados são: <strong>desprezível</strong> se <span class="math inline">\(\rho \in [0, 0.3)\)</span>, <strong>fraca</strong> se <span class="math inline">\(\rho \in [0.3, 0.5)\)</span>, <strong>moderada</strong> se <span class="math inline">\(\rho \in [0.5, 0.7)\)</span>, <strong>forte</strong> se <span class="math inline">\(\rho \in [0.7, 0.9)\)</span> e <strong>fortíssima</strong> se <span class="math inline">\(\rho \in [0.9, 1]\)</span>.</p>
+<p><strong>Dica</strong>: A função <code>warning()</code> pode ser útil para emitir uma mensagem de aviso (alerta) ao usuário da função <code>mycor()</code>.</p></li>
+<li><p>Construa duas funções, <code>tree1()</code> e <code>tree2()</code>, que escrevam, no prompt de comando, as imagens abaixo, respectivamente. O programa deverá utilizar instruções de repetições para resolver o problema.</p>
+<p><strong>A primeira função deverá imprimir</strong>:</p>
+<pre><code>**********
+*********
+********
+*******
+******
+*****
+****
+***
+**
+*</code></pre>
+<p><strong>A segunda função deverá imprimir</strong>:</p>
+<pre><code>*-*-*-*-*-
+*-*-*-*-*
+*-*-*-*-
+*-*-*-*
+*-*-*-
+*-*-*
+*-*-
+*-*
+*-
+*</code></pre>
+<p>Implemente as funções utilizando as estruturas de repetições <code>for</code>, <code>while</code> e <code>repeat</code>.</p></li>
+<li><p>Escreva a função <code>tree3()</code>, utilizando instruções de repetições, de modo a fornecer as seguintes estruturas, adepender do valor de <code>n</code>.</p>
+<p>Para <span class="math inline">\(n = 1\)</span>:</p>
+<pre><code>*            </code></pre>
+<p>Para <span class="math inline">\(n = 2\)</span>:</p>
+<pre><code>* 
+**</code></pre>
+<p>Para <span class="math inline">\(n = 3\)</span>:</p>
+<pre><code>*
+**
+***</code></pre>
+<p>e assim por diante para outros valores de <span class="math inline">\(n\)</span>. Implemente <code>tree3()</code> utilizando as estruturas de repetições <code>for</code>, <code>while</code> e <code>repeat</code>.</p></li>
+<li><p>Melhore as funções <code>tree1()</code>, <code>tree2()</code> e <code>tree3()</code> de modo que estas possam considerar caracteres distintos e não somento o caracter asterisco.</p></li>
+<li><p>Modifique a função <code>tree1()</code>, de tal forma que a estrutura obtida seja:</p>
+<p>Para <span class="math inline">\(n = 1\)</span>:</p>
+<pre><code>A            </code></pre>
+<p>Para <span class="math inline">\(n = 2\)</span>:</p>
+<pre><code>A 
+BB</code></pre>
+<p>Para <span class="math inline">\(n = 3\)</span>:</p>
+<pre><code>A
+BB
+CCC</code></pre>
+<p>e assim por diante para outros valores de <span class="math inline">\(n\)</span>. <strong>Dica</strong>: Note que <span class="math inline">\(n \leq 26\)</span>. Assim, retorne uma mensagem de advertência se um valor de <span class="math inline">\(n\)</span> inapropriado for informado. <strong>Dica</strong>: utilize a função <code>stop()</code>.</p></li>
+<li><p>Implemente a função <code>aprox_e()</code> que retorna uma aproximação para <span class="math inline">\(\mathrm{e}^x\)</span>, em que:</p>
+<p><span class="math display">\[\mathrm{e}^x = \sum_{n = 0}^{\infty} \frac{x^n}{n!}.\]</span>
+<strong>Dica</strong>: A função <code>aprox_e()</code> deverá receber como argumento o número de somas a serem consideradas.</p></li>
+<li><p>Crie a função <code>aprox_pi()</code>, fazendo uso de instruções de repetição, que forneça uma aproximação para o valor da constante <span class="math inline">\(\pi\)</span>. Essa aproximação deverá considerar:</p>
+<p><span class="math display">\[\pi = 4 - \frac{4}{3} + \frac{4}{5} - \frac{4}{7} + \frac{4}{9} - \frac{4}{11} + \dots\]</span></p>
+<p><strong>Dica</strong>: Premita que o usuário de sua função forneça a quantidade de termos a serem somados. Além disso, faça com que sua função critique valores indevidos para a quantidade de termos somados.</p></li>
+<li><p>Implemente a função <code>fib()</code>, utilizando instruções de repetição, que retorna o Fibonacci de um número. Lembre-se, a sequência de Fibonacci é dada por <span class="math inline">\(1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, \ldots\)</span> . Note que Fibonacci de <span class="math inline">\(n\)</span> é dado por <span class="math inline">\(F_n = F_{n-1} + F_{n-2},\, n &gt; 2\)</span>, com <span class="math inline">\(F_1 = 1\)</span> e <span class="math inline">\(F_2 = 1\)</span>. Por exemplo, Fibonacci de 5 é dado por <span class="math inline">\(F_5 = F_{4} + F_{3} = 3 + 2 = 5\)</span>.</p></li>
+<li><p>Implemente o exercício anterior usando funções recursivas. <strong>Lembre-se</strong>: chamamos de funções recursivas as funçãos que chamam a si mesma.</p>
+<p><strong>Um esboço de função recursiva</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">func_f &lt;-<span class="st"> </span><span class="cf">function</span>(...){
+
+   <span class="co"># Ué? ...</span>
+   <span class="co"># Sim! Estamos chamando a função que estamos criando. ;)</span>
+   <span class="kw">func_f</span>(...)
+
+   <span class="co"># Será preciso parar em algum momento</span>
+   <span class="co"># somos finitos :)</span>
+   <span class="cf">if</span> (contition) <span class="cf">break</span> 
+
+}</code></pre></li>
+<li><p>Implemente a função <code>aprox_pi()</code> de forma recursiva.</p></li>
+<li><p>Implemente a função <code>nachange(df)</code>, em que <code>df</code> recebe um data frame/matriz. A função <code>nachange()</code> deverá trocar <code>NA</code> pelo character “?”. <strong>Dica</strong>: Em caso de <code>df</code> não possuir nenhum elemento <code>NA</code>, a função <code>nachange()</code> deverá retornar o objeto passado à <code>df</code>.</p></li>
+<li><p>Construa a função <code>searchindf(df, value)</code>, em que <code>df</code> é um data frame/matriz e <code>value</code> é um vetor de uma única posição. A função <code>searchindf()</code>deverá retorna <strong>TRUE</strong> se o valor passado para <code>value</code> é encontrado em alguma posição do data frame/matriz passado(a) para <code>df</code> e <strong>FALSE</strong> caso contrário. <strong>Dica</strong>: tente construir a função da forma mais robusta possível. Por exemplo, considere criticar os argumentos, caso estes não tenham a estrutura de dados adequada ao objetivo da função.</p></li>
+<li><p>Construa a função <code>namecolsort(df)</code>, em que <code>df</code> receberá como argumento um(a) data frame/matriz. A função <code>namecolsort()</code> deverá retorna o(a) data frame/matriz com as colunas ordenadas. <strong>Dica</strong>: ordene as colunas considerando o primeiro caracter que compõe o nome da coluna (variável).</p></li>
+<li><p>Escreva a função <code>exclusive(df)</code>, em que <code>df</code> receberá como argumento um(a) data frame/matriz. A função <code>exclusive()</code> deverá retornar a posição das linhas exclusivas, ou seja, as linhas que não possuem elementos repetidos.</p></li>
+<li><p>Escreva uma função <code>extremeindex(df, max = NULL)</code>, em que <code>df</code> receberá como primeiro argumento um(a) data frame/matriz. A função <code>maxindex()</code> deverá retornar a posição (linha, coluna) do valor máximo contido no objeto passado para <code>df</code>, caso <code>max = TRUE</code>. Em caso de <code>max = FALSE</code>, a função <code>maxindex()</code> deverá retornar a posição (linha, coluna) do valor mínimo contido no objeto passado à <code>df</code>. Para o caso de <code>max = NULL</code> (caso padrão), a função <code>maxindex()</code> deverá retornar uma matriz de ordem 2x2, em que cada linha deverá retornar a posição do elemento mínimo e máximo, respectivamente, contidos no objeto passado à <code>df</code>.</p></li>
+<li><p>Implemente a função <code>myt(df)</code>, em que <code>df</code>recebe como argumento um(a) data frame/matriz. A função <code>myt()</code> deverá “girar”, em 90 graus, a(o) matriz/data frame passado à <code>df</code>. <strong>Dica</strong>: não utilize a função <code>t()</code> para transpor a matriz.</p></li>
+<li><p>Crie a função <code>anagram(x, y)</code> que recebe dois argumentos (duas strings). A função <code>anagram()</code> deverá retornar <strong>TRUE</strong> se uma palavra (string) é anagrama da outra e <strong>FALSE</strong> em situação contrária. A função deverá considerar que ambas as strings possuem a mesma quantidade de caracteres. Caso a quantidade de caracteres não seja igual, em ambas as strings, a função deverá parar e advertir o usuário. <strong>Dica</strong>: você poderá utilizar a função <code>strsplit()</code>.</p></li>
+<li><p>Implemente a função <code>strposition(x)</code>, em que dado uma palavra (string) fromada por letras do alfabeto Romano e passada como argumento para <code>x</code>, retorna a posição das letras em um vetor. Por exemplo, a string (palavra) <strong>cada</strong> passada para a função fará com que <code>strposition()</code> retorne o vetor formados pelos elementos 3, 1, 4 e 1. <strong>Dica</strong>: a função <strong>não</strong> poderá aceitar strings que são formadas por pelo menos um caracter que não seja uma letra do alfabeto Romano.</p></li>
+<li><p>Altere a função <code>strposition(x)</code> para que em situação da string (palavra) possuir um ou mais caracteres não pertencentes ao alfabeto Romano, o retono seja <code>NA</code>, nas respectivas posições destes caracteres.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prefacio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="o-evangelho-do-gnulinux.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/revisao_r.Rmd",
+"text": "Editar"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"toc": {
+"collapse": "none"
+},
+"toolbar": {
+"position": "fixed",
+"download": [["_main.pdf", "PDF"]],
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
