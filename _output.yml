@@ -18,6 +18,6 @@ bookdown::gitbook:
       all: ['facebook', 'google', 'twitter', 'linkedin']
     toolbar:
       position: fixed
-      download: ["presentation.pdf"]
+      download: ["pdf"]
       search: yes
     
