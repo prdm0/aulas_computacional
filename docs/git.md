@@ -71,7 +71,7 @@ Após a instalação do [**git**](https://git-scm.com/), em seu sistema operacio
 </div>
 
 
-Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada commit (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de "carimbar" o autor da modificação. Sendo assim, no terminal, faça:
+Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada ***commit*** (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de "carimbar" o autor da modificação. Sendo assim, no terminal, faça:
 
 
 ```shell
@@ -82,20 +82,79 @@ git config --global user.email seu_email
 
 **Nota**:
 
-\BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
 A configuração acima só precisará ser realiazada uma única vez, uma vez que foi utilizado a opção `--global` no momento de definir o usuário e senha. Além disso, você sempre poderá realizar essas configurações, sem a necessidade de instalar novamente o git, caso deseje trocar o nome do usuário e e-mail utilizado.
-</div></div>\EndKnitrBlock{rmdobservation}
+</div></div>\EndKnitrBlock{rmdnote}
 
-Após instalar e configurar corretamente o git em seu sistema operacional, considere os comandos enumerados e descritos abaixo:
+Após instalar e configurar corretamente o [**git**](https://git-scm.com/) em seu sistema operacional, considere os comandos enumerados adiante. Esses comandos devem ser realizados no diretório ao qual queremos versionar com o [**git**](https://git-scm.com/). Dessa forma, você deverá, no terminal estar no diretório a ser versionado. 
 
-  1. 
+**Importante**:
 
-  2.
-
-  3.
-
-  4.
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+Os comandos `cd`, `cd ..`, `ls`, `cp`, `mkdir`, `rm` e `mv` são comandos úteis do terminal de linux e que normalmente precisamos deles quando estamos trabalhando com o [**git**](https://git-scm.com/). Muito provavelmente, esses comandos serão reconhecidos no terminal do git quando instalado no Windows. **Esses comandos foram apresentados em sala de aula**.
+</div></div>\EndKnitrBlock{rmdimportant}
   
+
+**Comando úteis do git**:  
+  
+  1. `git help <verbo>`: Esse é o comando mais importante do [**git**](https://git-scm.com/). Com ele você encontrará informações a respeito de um `<verbo>`, em que `<verbo>` deverá ser substituído por um comando [**git**](https://git-scm.com/) válido. Por exemplo, faça `git help help` para obter informações sobre o comando `help` de [**git**](https://git-scm.com/). Outras variantes de `git help <verbo>` pode ser:
+      
+      * `git <verbo> --help` 
+    
+      * `man git-<verbo>`
+
+
+  2. `git --version`: Como mencionado anteriormente, esse comando retornará a versão do git que encontra-se instalada no seu sistema operacional.
+
+  2. `git config --list`: Esse comando lista as configurações do git que você está utilizando, ou seja, retornará o nome do usuário e e-mail que você configurou ao final da insatalação do git.
+
+  3. `git config --global core.excludesfile .gitignore`: O arquivo **.gitignore** trata-se de um arquivo oculto (inicia-se com um ponto) e normalmente é colocado no diretório ao qual estamos querendo versionar. Dentro desse arquivo colocamos os nomes dos arquivos do diretório que estamos versionando e que desejamos não considerar no versionamento. O conteúdo desse arquivo de nome **.gitignore** poderia ser algo como:
+  
+      ```{git},
+      codigo1.R
+      codigo2.cpp
+      .diretorioOculto
+      .ArquivoOculto.Rmd
+      meulivro.pdf
+      figura.png
+      ```
+      Com o arquivo **.gitignore** acima estaríamos dizendo para o git ingnorar um código R de nome **codigo1.R**, um código em C++ de nome **codigo2.cpp**, o diretório oculto de nome **.diretórioOculto**, um arquivo oculto R Markdown de nome **.ArquivoOculto.Rmd**, um livro em formato PDF de nome **meulivro.pdf** e uma figura no formato png de nome **figura.png**.
+      
+      **Nota**: 
+      
+      \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+      Normalmente não utilizamos o comando `git config --global core.excludesfile .gitignore`, uma vez que esse comando irá sempre ignorar do versionamento qualquer um desses arquivos/diretórios que encontram-se listado em **.gitignore**. Algo mais útil seria apenas criar o arquivo **.gitignore** com a lista de diretórios e arquivos ao qual queremos desconsiderar no versionamento do nosso projeto.
+      </div></div>\EndKnitrBlock{rmdnote}
+
+  3. `git init`: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome **DocVersionado**:
+  
+      ```{shell},
+      cd /home/usuario/DocVersionado
+      git init
+      ```
+
+  4. `git status`: verifica o status das modificações dos arquivos e diretórios no interior de **DocVersionado**. Serão listados os arquivos que foram modificados, deletados e acrescentados no projeto.
+  
+  5. `git add .`: adiciona todas as modificações que foram realizadas no ***Working Directory*** na ***Staging Area***. 
+  
+  6. `git commit -m "comentário útil"`:  Ao utilizar o comando `git add .`, as modificações ainda não foram versionadas, ou seja, não foram adicionadas no ***Git Directory***. Para que as modificações adocionadas na ***Staging Area*** sejam versionadas, será preciso utilizar o comando `git commit -m "comentário útil"`, em que `"comentário útil"`, como o próprio nome diz, é um comentário útil a respeito das modificações realizadas no projeto.
+
+      \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+      Cada ***commit*** realizado é internamente identificado por uma chave. Será por meio dessa chave que conseguiremos retroagir ou progredir no histórico do versionamento do nosso projeto.
+      </div></div>\EndKnitrBlock{rmdnote}
+  
+  7. `git log`: exibe os históricos com todas as modificações realizadas, comentários dos ***commits*** realizados, as chaves de cada ***commit***, horário da realização da introdução das modificações e informações do usuário que realizou as alterações. Algo parecido com a imagem abaixo:
+  
+      <img src="images/figura_commit.png" width="75%" style="display: block; margin: auto;" />
+  
+  8. `git log --stat`: trás informações detalhadas das modificações realizadas em todos os arquivos e diretórios versionados dentro de um projeto. Com esse comando é possível inclusive ver a quantidade de alterações (deleções e inserções).
+  
+
+  9. `git log --pretty=oneline`: retorna informações resumidas de todos os ***commits*** realizados. Na maioria das vezes é o comnando mais utilizado para obter as chaves a chave de um dado ***commit***, uma vez que não desejamos poluir o terminal com informações que muitas vezes podem ser desnecessárias. Você poderá utiliar o comando `clear` ou as teclas de atalho **Ctrl + L** para limpar o terminal. A imagem abaixo mostra cada ***commit*** em uma linha (chave e comentário):
+  
+      <img src="images/figura_commit_resumido.png" width="85%" style="display: block; margin: auto;" />
+  
+  10. `git checkout chave`: modifica o projeto para o estado do ***commit*** referente à chave fornecida. Se deserjarmos voltar ao último ***commit***, devemos fazer `git checkout master`. As chaves poderão ser fornecidas utilizando as diferentes variações do comando `git log` paresentadas acima. 
 
 ## GitHub
 

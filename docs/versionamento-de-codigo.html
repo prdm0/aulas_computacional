@@ -172,23 +172,68 @@ Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usu
 <p><img src="images/git_windows_opcao.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Após a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>, em seu sistema operacional, abra o terminal e execute o comando <code>git --version</code>. Em caso de retorno da versão instalada do <a href="https://git-scm.com/"><strong>git</strong></a>, muito provavelmente a instalação ocorreu corretamente.</p>
 </div>
-<p>Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada commit (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de “carimbar” o autor da modificação. Sendo assim, no terminal, faça:</p>
+<p>Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada <strong><em>commit</em></strong> (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de “carimbar” o autor da modificação. Sendo assim, no terminal, faça:</p>
 <pre class="shell"><code>git config --global user.name &quot;seu nome ou sigla&quot;
 git config --global user.email seu_email</code></pre>
 <p><strong>Nota</strong>:</p>
 
-<div class="rmdobservation">
+<div class="rmdnote">
 <div class="text-justify">
 <p>A configuração acima só precisará ser realiazada uma única vez, uma vez que foi utilizado a opção <code>--global</code> no momento de definir o usuário e senha. Além disso, você sempre poderá realizar essas configurações, sem a necessidade de instalar novamente o git, caso deseje trocar o nome do usuário e e-mail utilizado.</p>
 </div>
 </div>
 
-<p>Após instalar e configurar corretamente o git em seu sistema operacional, considere os comandos enumerados e descritos abaixo:</p>
+<p>Após instalar e configurar corretamente o <a href="https://git-scm.com/"><strong>git</strong></a> em seu sistema operacional, considere os comandos enumerados adiante. Esses comandos devem ser realizados no diretório ao qual queremos versionar com o <a href="https://git-scm.com/"><strong>git</strong></a>. Dessa forma, você deverá, no terminal estar no diretório a ser versionado.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Os comandos <code>cd</code>, <code>cd ..</code>, <code>ls</code>, <code>cp</code>, <code>mkdir</code>, <code>rm</code> e <code>mv</code> são comandos úteis do terminal de linux e que normalmente precisamos deles quando estamos trabalhando com o <a href="https://git-scm.com/"><strong>git</strong></a>. Muito provavelmente, esses comandos serão reconhecidos no terminal do git quando instalado no Windows. <strong>Esses comandos foram apresentados em sala de aula</strong>.</p>
+</div>
+</div>
+
+<p><strong>Comando úteis do git</strong>:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
-<li></li>
+<li><p><code>git help &lt;verbo&gt;</code>: Esse é o comando mais importante do <a href="https://git-scm.com/"><strong>git</strong></a>. Com ele você encontrará informações a respeito de um <code>&lt;verbo&gt;</code>, em que <code>&lt;verbo&gt;</code> deverá ser substituído por um comando <a href="https://git-scm.com/"><strong>git</strong></a> válido. Por exemplo, faça <code>git help help</code> para obter informações sobre o comando <code>help</code> de <a href="https://git-scm.com/"><strong>git</strong></a>. Outras variantes de <code>git help &lt;verbo&gt;</code> pode ser:</p>
+<ul>
+<li><p><code>git &lt;verbo&gt; --help</code></p></li>
+<li><p><code>man git-&lt;verbo&gt;</code></p></li>
+</ul></li>
+<li><p><code>git --version</code>: Como mencionado anteriormente, esse comando retornará a versão do git que encontra-se instalada no seu sistema operacional.</p></li>
+<li><p><code>git config --list</code>: Esse comando lista as configurações do git que você está utilizando, ou seja, retornará o nome do usuário e e-mail que você configurou ao final da insatalação do git.</p></li>
+<li><p><code>git config --global core.excludesfile .gitignore</code>: O arquivo <strong>.gitignore</strong> trata-se de um arquivo oculto (inicia-se com um ponto) e normalmente é colocado no diretório ao qual estamos querendo versionar. Dentro desse arquivo colocamos os nomes dos arquivos do diretório que estamos versionando e que desejamos não considerar no versionamento. O conteúdo desse arquivo de nome <strong>.gitignore</strong> poderia ser algo como:</p>
+<pre class="{git},"><code>codigo1.R
+codigo2.cpp
+.diretorioOculto
+.ArquivoOculto.Rmd
+meulivro.pdf
+figura.png</code></pre>
+<p>Com o arquivo <strong>.gitignore</strong> acima estaríamos dizendo para o git ingnorar um código R de nome <strong>codigo1.R</strong>, um código em C++ de nome <strong>codigo2.cpp</strong>, o diretório oculto de nome <strong>.diretórioOculto</strong>, um arquivo oculto R Markdown de nome <strong>.ArquivoOculto.Rmd</strong>, um livro em formato PDF de nome <strong>meulivro.pdf</strong> e uma figura no formato png de nome <strong>figura.png</strong>.</p>
+<p><strong>Nota</strong>:</p>
+<p></p>
+<div class="rmdnote">
+<div class="text-justify">
+Normalmente não utilizamos o comando <code>git config --global core.excludesfile .gitignore</code>, uma vez que esse comando irá sempre ignorar do versionamento qualquer um desses arquivos/diretórios que encontram-se listado em <strong>.gitignore</strong>. Algo mais útil seria apenas criar o arquivo <strong>.gitignore</strong> com a lista de diretórios e arquivos ao qual queremos desconsiderar no versionamento do nosso projeto.
+</div>
+</div></li>
+<li><p><code>git init</code>: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome <strong>DocVersionado</strong>:</p>
+<pre class="{shell},"><code>cd /home/usuario/DocVersionado
+git init</code></pre></li>
+<li><p><code>git status</code>: verifica o status das modificações dos arquivos e diretórios no interior de <strong>DocVersionado</strong>. Serão listados os arquivos que foram modificados, deletados e acrescentados no projeto.</p></li>
+<li><p><code>git add .</code>: adiciona todas as modificações que foram realizadas no <strong><em>Working Directory</em></strong> na <strong><em>Staging Area</em></strong>.</p></li>
+<li><p><code>git commit -m "comentário útil"</code>: Ao utilizar o comando <code>git add .</code>, as modificações ainda não foram versionadas, ou seja, não foram adicionadas no <strong><em>Git Directory</em></strong>. Para que as modificações adocionadas na <strong><em>Staging Area</em></strong> sejam versionadas, será preciso utilizar o comando <code>git commit -m "comentário útil"</code>, em que <code>"comentário útil"</code>, como o próprio nome diz, é um comentário útil a respeito das modificações realizadas no projeto.</p>
+<p></p>
+<div class="rmdnote">
+<div class="text-justify">
+Cada <strong><em>commit</em></strong> realizado é internamente identificado por uma chave. Será por meio dessa chave que conseguiremos retroagir ou progredir no histórico do versionamento do nosso projeto.
+</div>
+</div></li>
+<li><p><code>git log</code>: exibe os históricos com todas as modificações realizadas, comentários dos <strong><em>commits</em></strong> realizados, as chaves de cada <strong><em>commit</em></strong>, horário da realização da introdução das modificações e informações do usuário que realizou as alterações. Algo parecido com a imagem abaixo:</p>
+<p><img src="images/figura_commit.png" width="75%" style="display: block; margin: auto;" /></p></li>
+<li><p><code>git log --stat</code>: trás informações detalhadas das modificações realizadas em todos os arquivos e diretórios versionados dentro de um projeto. Com esse comando é possível inclusive ver a quantidade de alterações (deleções e inserções).</p></li>
+<li><p><code>git log --pretty=oneline</code>: retorna informações resumidas de todos os <strong><em>commits</em></strong> realizados. Na maioria das vezes é o comnando mais utilizado para obter as chaves a chave de um dado <strong><em>commit</em></strong>, uma vez que não desejamos poluir o terminal com informações que muitas vezes podem ser desnecessárias. Você poderá utiliar o comando <code>clear</code> ou as teclas de atalho <strong>Ctrl + L</strong> para limpar o terminal. A imagem abaixo mostra cada <strong><em>commit</em></strong> em uma linha (chave e comentário):</p>
+<p><img src="images/figura_commit_resumido.png" width="85%" style="display: block; margin: auto;" /></p></li>
+<li><p><code>git checkout chave</code>: modifica o projeto para o estado do <strong><em>commit</em></strong> referente à chave fornecida. Se deserjarmos voltar ao último <strong><em>commit</em></strong>, devemos fazer <code>git checkout master</code>. As chaves poderão ser fornecidas utilizando as diferentes variações do comando <code>git log</code> paresentadas acima.</p></li>
 </ol>
 </div>
 <div id="github" class="section level2">
