@@ -33,7 +33,7 @@ Além do git, atualmente existem algumas ferramentas para versionamento de códi
 2. [**subversion**](http://subversion.apache.org/): Trata-se de um sistema de versionamento distribuido sobre os termos da [**Apache License**](https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache) e que foi desenvolvido pela [**Apache Software Foundation**](https://pt.wikipedia.org/wiki/Apache_Software_Foundation).
 
 
-Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do [**GitHub**](https://github.com/) e [**GitLab**](https://about.gitlab.com/) que são plataformas de hospedagem de código em que é possível facilmente enviar códigos versionados usando git), trataremos aqui apenas do uso do [**git**](https://git-scm.com/).
+Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do [**GitHub**](https://github.com/) e [**GitLab**](https://about.gitlab.com/) que são plataformas de hospedagem de código, em que é possível facilmente enviar códigos versionados usando git), trataremos  apenas do uso do [**git**](https://git-scm.com/).
 
 **Nota**:
 
@@ -58,20 +58,58 @@ plot_grid(linux,windows)
 ```{block2, type='rmdobservation'}
 <div class=text-justify>
   
-Para usuários de sistemas baseados em Arch Linux, por exemplo, usuários do Manjaro Linux, a instalação do git é bastante fácil. No terminal do Linux, basta fazer: </br></br>
+Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do [**Manjaro Linux**](https://manjaro.org/), a instalação do [**git**](https://git-scm.com/) é bastante fácil. No terminal do Linux, basta fazer: </br></br>
   
 ```{shell}
-                                sudo pacman -S git 
+sudo pacman -S git 
 ```
   
-Usuários do sistema operacional Windows poderão instalar facilmente o git considerando o executável fornecido [**aqui**](https://gitforwindows.org/index.html). Para esses usuários, no processo de instalação aconselho, em **Adjusting your PATH environment** é importante selecionar a última opção, conforme a imagem abaixo: 
+Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção [**Algumas distribuições**][Algumas distribuições], em que sugiro o uso do [**Manjaro Linux**](https://manjaro.org/) ou de distribuições GNU/Linux derivadas do [**Arch**](https://www.archlinux.org/). Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do [**git**](https://git-scm.com/).
 
-```{r echo=FALSE, out.width='75%', fig.align = "center"}
+> **Nota**: Se você está utilizando alguma distribuição GNU/Linux baseada em Debian/Ubuntu, você poderá instalar o [**git**](https://git-scm.com/) fazendo `sud apt-get install git`. Outros a respetio da instalação do git poderão ser encontrados [**aqui**](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git).
+
+No Linux, o [**terminal bach**](https://pt.wikipedia.org/wiki/Bash), que é instalado por padrão, será o terminal que utilizaremos o [**git**](https://git-scm.com/). Não há nenhuma necessidade de utilização de termais complementares. No [**terminal bach**](https://pt.wikipedia.org/wiki/Bash), para facilitar, você pode chamar simplesmente de "terminal do linux" é onde configuramos o sistema operacional, instalamos programas, removemos programas, programamos, compilamos, **utilizamos o git**, etc. É incrível a flexibilidade e a quantidade de coisas que podemos fazer no terminal do Linux.
+
+Usuários do sistema operacional Windows poderão instalar facilmente o [**git**](https://git-scm.com/) considerando o executável fornecido [**aqui**](https://gitforwindows.org/index.html). Se o seu sistema for 64 bits, vá ao final da página e faça o download do arquivo **Git-x-64-bit.exe**, em que **x** dá lugar a versão do [**git**](https://git-scm.com/).
+
+Para esses usuários, durante o processo de instalação, no passo ***Adjusting your PATH environment***, é importante selecionar a última opção, conforme a imagem abaixo: 
+
+```{r echo=FALSE, out.width='55%', fig.align = "center"}
 knitr::include_graphics("images/git_windows_opcao.png")
 ```
+
+Após a instalação do [**git**](https://git-scm.com/), em seu sistema operacional, abra o terminal e execute o comando `git --version`. Em caso de retorno da versão instalada do [**git**](https://git-scm.com/), muito provavelmente a instalação ocorreu corretamente.
 </div>
 
 
+Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada commit (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de "carimbar" o autor da modificação. Sendo assim, no terminal, faça:
+
+```{shell}
+git config --global user.name "seu nome ou sigla"
+git config --global user.email seu_email
+```
+
+
+**Nota**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+A configuração acima só precisará ser realiazada uma única vez, uma vez que foi utilizado a opção `--global` no momento de definir o usuário e senha. Além disso, você sempre poderá realizar essas configurações, sem a necessidade de instalar novamente o git, caso deseje trocar o nome do usuário e e-mail utilizado.
+</div>
+```
+
+Após instalar e configurar corretamente o git em seu sistema operacional, considere os comandos enumerados e descritos abaixo:
+
+  1. 
+
+  2.
+
+  3.
+
+  4.
+  
+
 ## GitHub
 
+(**conteúdo visto em sala de aula**)
 

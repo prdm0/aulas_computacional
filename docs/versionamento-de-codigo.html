@@ -70,7 +70,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Estatística Computacional</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Início</a></li>
 <li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
 <li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
@@ -139,7 +139,7 @@
 <li><p><a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>: Trata-se de um sistema de versionamento, assim como o git, com <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a> é o sistema de versionamento mais popular na plataforma de hospedagem de código fonte <a href="https://bitbucket.org/product/"><strong>Bitbucket</strong></a> que não é tão popular quanto o <a href="https://github.com/"><strong>GitHub</strong></a> e o <a href="https://about.gitlab.com/"><strong>GitLab</strong></a>;</p></li>
 <li><p><a href="http://subversion.apache.org/"><strong>subversion</strong></a>: Trata-se de um sistema de versionamento distribuido sobre os termos da <a href="https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache"><strong>Apache License</strong></a> e que foi desenvolvido pela <a href="https://pt.wikipedia.org/wiki/Apache_Software_Foundation"><strong>Apache Software Foundation</strong></a>.</p></li>
 </ol>
-<p>Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do <a href="https://github.com/"><strong>GitHub</strong></a> e <a href="https://about.gitlab.com/"><strong>GitLab</strong></a> que são plataformas de hospedagem de código em que é possível facilmente enviar códigos versionados usando git), trataremos aqui apenas do uso do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
+<p>Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do <a href="https://github.com/"><strong>GitHub</strong></a> e <a href="https://about.gitlab.com/"><strong>GitLab</strong></a> que são plataformas de hospedagem de código, em que é possível facilmente enviar códigos versionados usando git), trataremos apenas do uso do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
@@ -159,15 +159,41 @@ Figura 3.1: A imagem mais a esquerda refere-se ao terminal bash no linux e a mai
 
 <div class="rmdobservation">
 <div class="text-justify">
-Para usuários de sistemas baseados em Arch Linux, por exemplo, usuários do Manjaro Linux, a instalação do git é bastante fácil. No terminal do Linux, basta fazer: </br></br>
+Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a>, a instalação do <a href="https://git-scm.com/"><strong>git</strong></a> é bastante fácil. No terminal do Linux, basta fazer: </br></br>
 </div>
-<pre class="shell"><code>                                sudo pacman -S git </code></pre>
-<p>Usuários do sistema operacional Windows poderão instalar facilmente o git considerando o executável fornecido <a href="https://gitforwindows.org/index.html"><strong>aqui</strong></a>. Para esses usuários, no processo de instalação aconselho, em <strong>Adjusting your PATH environment</strong> é importante selecionar a última opção, conforme a imagem abaixo:</p>
-<p><img src="images/git_windows_opcao.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre class="shell"><code>sudo pacman -S git </code></pre>
+<p>Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção <a href="o-evangelho-do-gnulinux.html#algumas-distribuicoes"><strong>Algumas distribuições</strong></a>, em que sugiro o uso do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a> ou de distribuições GNU/Linux derivadas do <a href="https://www.archlinux.org/"><strong>Arch</strong></a>. Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
+<blockquote>
+<p><strong>Nota</strong>: Se você está utilizando alguma distribuição GNU/Linux baseada em Debian/Ubuntu, você poderá instalar o <a href="https://git-scm.com/"><strong>git</strong></a> fazendo <code>sud apt-get install git</code>. Outros a respetio da instalação do git poderão ser encontrados <a href="https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git"><strong>aqui</strong></a>.</p>
+</blockquote>
+<p>No Linux, o <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, que é instalado por padrão, será o terminal que utilizaremos o <a href="https://git-scm.com/"><strong>git</strong></a>. Não há nenhuma necessidade de utilização de termais complementares. No <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, para facilitar, você pode chamar simplesmente de “terminal do linux” é onde configuramos o sistema operacional, instalamos programas, removemos programas, programamos, compilamos, <strong>utilizamos o git</strong>, etc. É incrível a flexibilidade e a quantidade de coisas que podemos fazer no terminal do Linux.</p>
+<p>Usuários do sistema operacional Windows poderão instalar facilmente o <a href="https://git-scm.com/"><strong>git</strong></a> considerando o executável fornecido <a href="https://gitforwindows.org/index.html"><strong>aqui</strong></a>. Se o seu sistema for 64 bits, vá ao final da página e faça o download do arquivo <strong>Git-x-64-bit.exe</strong>, em que <strong>x</strong> dá lugar a versão do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
+<p>Para esses usuários, durante o processo de instalação, no passo <strong><em>Adjusting your PATH environment</em></strong>, é importante selecionar a última opção, conforme a imagem abaixo:</p>
+<p><img src="images/git_windows_opcao.png" width="55%" style="display: block; margin: auto;" /></p>
+<p>Após a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>, em seu sistema operacional, abra o terminal e execute o comando <code>git --version</code>. Em caso de retorno da versão instalada do <a href="https://git-scm.com/"><strong>git</strong></a>, muito provavelmente a instalação ocorreu corretamente.</p>
 </div>
+<p>Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada commit (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de “carimbar” o autor da modificação. Sendo assim, no terminal, faça:</p>
+<pre class="shell"><code>git config --global user.name &quot;seu nome ou sigla&quot;
+git config --global user.email seu_email</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>A configuração acima só precisará ser realiazada uma única vez, uma vez que foi utilizado a opção <code>--global</code> no momento de definir o usuário e senha. Além disso, você sempre poderá realizar essas configurações, sem a necessidade de instalar novamente o git, caso deseje trocar o nome do usuário e e-mail utilizado.</p>
+</div>
+</div>
+
+<p>Após instalar e configurar corretamente o git em seu sistema operacional, considere os comandos enumerados e descritos abaixo:</p>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ol>
 </div>
 <div id="github" class="section level2">
 <h2><span class="header-section-number">3.2</span> GitHub</h2>
+<p>(<strong>conteúdo visto em sala de aula</strong>)</p>
 
 </div>
 </div>
