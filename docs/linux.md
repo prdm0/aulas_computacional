@@ -51,7 +51,7 @@ O sistema operacional Linux foi inicialmente desenvolvido pelo engenheiro de sof
 
 <div class="figure" style="text-align: center">
 <img src="images/linus_torvalds.jpg" alt="Linus Torvalds em uma conferência para o [**TED**](https://pt.wikipedia.org/wiki/TED_(confer%C3%AAncia)) intitulada [**A mente por trás do Linux**](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux?language=pt-br), 2016." width="70%" />
-<p class="caption">(\#fig:unnamed-chunk-5)Linus Torvalds em uma conferência para o [**TED**](https://pt.wikipedia.org/wiki/TED_(confer%C3%AAncia)) intitulada [**A mente por trás do Linux**](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux?language=pt-br), 2016.</p>
+<p class="caption">(\#fig:linus)Linus Torvalds em uma conferência para o [**TED**](https://pt.wikipedia.org/wiki/TED_(confer%C3%AAncia)) intitulada [**A mente por trás do Linux**](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux?language=pt-br), 2016.</p>
 </div>
 
 Nessa época, inícios dos anos 90, [**Linus Torvalds**](https://github.com/torvalds) era discente na Universidade de Helsinque, Finlândia como estudante de ciência da computação. Sua dissertação de mestrado intitulada [**Linux: a Portable Operating System**](https://www.cs.helsinki.fi/u/kutvonen/index_files/linus.pdf) (56 páginas) foi defendida no Departamento de Ciência da Computação da Universidade de Helsinque, em 31 de janeiro de 1997. A dissertação introduz problemas de protabilidade do kernel Linux em diferentes arquiteturas de computadores. O autor comenta que quem acompanhou os primórdios do desenvolvimento do kernel Linux, o título de sua dissertação poderia soar como ironia, uma vez que o projeto original do Linux não estava realmente preocupado com a portabilidade do sistema em diversas arquiteturas de processadores. À época, a preocupação maior do projeto era com a execução do Linux em computadores com processadores Motorola 68k [**Amiga**](https://pt.wikipedia.org/wiki/Amiga) e [**Atari**](https://pt.wikipedia.org/wiki/Motorola_680x0), ambos de 32 bits. Isso restringia o uso de Linux em algumas arquiteturas de PCs doméstricos da época.
@@ -90,7 +90,7 @@ O desenvolvimento do sistema operacional GNU (sistema tipo Unix, Unix-like) teve
 
 <div class="figure" style="text-align: center">
 <img src="images/stallman.jpg" alt="[**Richard Matthew Stallman**](https://pt.wikipedia.org/wiki/Richard_Matthew_Stallman) (**rms**), fundador do movimento de software livre, do [**projeto GNU**](https://www.gnu.org/) e da [**Free Software Fundation**](https://www.fsf.org/) em uma de suas palestras." width="55%" />
-<p class="caption">(\#fig:unnamed-chunk-6)[**Richard Matthew Stallman**](https://pt.wikipedia.org/wiki/Richard_Matthew_Stallman) (**rms**), fundador do movimento de software livre, do [**projeto GNU**](https://www.gnu.org/) e da [**Free Software Fundation**](https://www.fsf.org/) em uma de suas palestras.</p>
+<p class="caption">(\#fig:unnamed-chunk-5)[**Richard Matthew Stallman**](https://pt.wikipedia.org/wiki/Richard_Matthew_Stallman) (**rms**), fundador do movimento de software livre, do [**projeto GNU**](https://www.gnu.org/) e da [**Free Software Fundation**](https://www.fsf.org/) em uma de suas palestras.</p>
 </div>
 
 Por volta de 1990, o sistema operacional GNU já estava quase todo completo mas faltava uma peça fundamental e indispensável em qualquer SO - **o kernel**. Nessa época, já havia-se um microkernel de nome [**GNU Hurd**](https://en.wikipedia.org/wiki/GNU_Hurd). Então, após a construção das aplicações principais, o foco seria em concentrar esforços no melhoramento do kernel Hurd. Porém, por volta de 1992, quando o kernel Linux foi anunciado como software livre, este pareceu ser mais viável a se juntar ao sistema GNU. Dessa forma, a combinação do kernel Linux com o quase completo sistema GNU resultou em um sistema opracional completo e assim sugiu o **GNU/Linux**.
@@ -121,7 +121,7 @@ Originalmente o GCC suportava apenas a linguagem C e à época era denominado de
 
 <div class="figure" style="text-align: center">
 <img src="images/logo_gcc.png" alt="Logo do **GNU Compiler Collection**, denominado de [**GCC**](https://gcc.gnu.org/) produzidos pelo projeto GNU, em que o ovo faz alusão à origem do ([**Projeto GNU**](https://www.gnu.org/gnu/gnu-history.pt-br.html))." width="30%" />
-<p class="caption">(\#fig:unnamed-chunk-8)Logo do **GNU Compiler Collection**, denominado de [**GCC**](https://gcc.gnu.org/) produzidos pelo projeto GNU, em que o ovo faz alusão à origem do ([**Projeto GNU**](https://www.gnu.org/gnu/gnu-history.pt-br.html)).</p>
+<p class="caption">(\#fig:unnamed-chunk-7)Logo do **GNU Compiler Collection**, denominado de [**GCC**](https://gcc.gnu.org/) produzidos pelo projeto GNU, em que o ovo faz alusão à origem do ([**Projeto GNU**](https://www.gnu.org/gnu/gnu-history.pt-br.html)).</p>
 </div>
 
 O logo do GCC acima é interessante e resume um pouco do que foi dito. Uma das primeiras ferramentas para se construir programas de computador, principalmente em uma época dominada por linguagens compiladas, é um compilador. Sendo assim, foi por meio do GCC que surgiu todas as aplicações do projeto GNU. O logo representa o nascimento de um [**gnu**](https://pt.wikipedia.org/wiki/Gnu), mamífero nativo do continente africano que é utilizado como símbolo/logo (Figura \@ref(fig:logognu)) do projeto GNU.
@@ -204,21 +204,21 @@ A distribuição [**Manjaro**](https://manjaro.org/download/) é distribuída of
 
 <div class="figure" style="text-align: center">
 <img src="images/manjaro_xfce.jpg" alt="Distribuição Manjaro utilizando [**XFCE**](https://pt.wikipedia.org/wiki/Xfce) como interface gráfica." width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Distribuição Manjaro utilizando [**XFCE**](https://pt.wikipedia.org/wiki/Xfce) como interface gráfica.</p>
+<p class="caption">(\#fig:unnamed-chunk-11)Distribuição Manjaro utilizando [**XFCE**](https://pt.wikipedia.org/wiki/Xfce) como interface gráfica.</p>
 </div>
 
 **Manjaro com KDE**
 
 <div class="figure" style="text-align: center">
 <img src="images/manjaro_kde.jpg" alt="Distribuição Manjaro utilizando [**KDE**](https://pt.wikipedia.org/wiki/KDE) como interface gráfica." width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-13)Distribuição Manjaro utilizando [**KDE**](https://pt.wikipedia.org/wiki/KDE) como interface gráfica.</p>
+<p class="caption">(\#fig:unnamed-chunk-12)Distribuição Manjaro utilizando [**KDE**](https://pt.wikipedia.org/wiki/KDE) como interface gráfica.</p>
 </div>
 
 **Manjaro com GNOME**
 
 <div class="figure" style="text-align: center">
 <img src="images/manjaro_gnome.jpg" alt="Distribuição Manjaro utilizando [**GNOME**](https://pt.wikipedia.org/wiki/GNOME) como interface gráfica." width="80%" />
-<p class="caption">(\#fig:unnamed-chunk-14)Distribuição Manjaro utilizando [**GNOME**](https://pt.wikipedia.org/wiki/GNOME) como interface gráfica.</p>
+<p class="caption">(\#fig:unnamed-chunk-13)Distribuição Manjaro utilizando [**GNOME**](https://pt.wikipedia.org/wiki/GNOME) como interface gráfica.</p>
 </div>
 
 

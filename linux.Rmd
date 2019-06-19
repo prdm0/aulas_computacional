@@ -57,7 +57,7 @@ Linux é uma marca registrada de Linus Torvalds. Você poderá ver essa informa�
 O sistema operacional Linux foi inicialmente desenvolvido pelo engenheiro de software [**Linus Torvalds**](https://github.com/torvalds) em 1991. Atualmente o Linux conta com diversos desenvolvedores espalhados pelo mundo, em que Linus  Torvads é o principal desenvolvedor. Não é difícil adivinhar o porquê do nome **Linux**.
 
 
-```{r echo=FALSE, out.width='70%', fig.align = "center", fig.cap = "Linus Torvalds em uma conferência para o [**TED**](https://pt.wikipedia.org/wiki/TED_(confer%C3%AAncia)) intitulada [**A mente por trás do Linux**](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux?language=pt-br), 2016."}
+```{r linus, echo=FALSE, out.width='70%', fig.align = "center", fig.cap = "Linus Torvalds em uma conferência para o [**TED**](https://pt.wikipedia.org/wiki/TED_(confer%C3%AAncia)) intitulada [**A mente por trás do Linux**](https://www.ted.com/talks/linus_torvalds_the_mind_behind_linux?language=pt-br), 2016."}
 knitr::include_graphics("images/linus_torvalds.jpg")
 ```
 
