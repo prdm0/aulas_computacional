@@ -4,16 +4,16 @@
 knitr::include_graphics("images/versoes_git.png")
 ```
 
-Na estatística, a todo momento estamos editando documentos, como por exemplo códigos, artigos, relatórios, aulas, apresentações, livros, entre outros. Nesse processo de edição dos mais variádos documentos, quase sempre sentimos a necessidade de versionar o conteúdo, uma vez que se não houver um versionamento e se desejarmos voltar à um estado de edição anterior, estariamos sobre uma tarefa extremamente difícil ou mesmo impossível, a depender do número de passos anteriores ao qual desejamos voltar.
+Na estatística, bem como em diversas outras áreas, a todo momento estamos editando documentos, como por exemplo, códigos de programação, artigos, relatórios, aulas, apresentações, livros, dentre inúmeros outros possíveis. Nesses processos de edições dos mais variádos documentos, quase sempre sentimos a necessidade de versionar as alterações, uma vez que se não houver um versionamento e se desejarmos voltar à um estado de edição anterior, estariamos sobre uma tarefa extremamente difícil ou mesmo impossível, a depender do número de passos anteriores ao qual desejamos voltar.
 
-Quando não dominamos nenhum sistema de controle de versão, normalmente o que fazemos para ter a possibilidade de voltar para uma dada versão de edição é armazenar diversas cópias do projeto em diretórios distintos. Versionar dessa forma pode servir quando temos poucas versões, proém, mesmo assim é comum os desarranjos e atrapalhos ao se tomar conta de diversos diretórios. Quando se domina um sistema de controle de versão evitamos esse tipo de problema, uma vez que continuaremos trabalhando sobre um mesmo diretório que terá seus estados modificados quando solicitado, isto é, será possível voltar para a distribuição de arquivos e conteúdos anteriores, mesmo se nesse processo de edição alguns arquivos foram deletados, renomeados ou fortemente modificados.
+Quando não dominamos nenhum sistema de controle de versão, normalmente o que fazemos para ter a possibilidade de voltar para uma dada versão de edição é armazenar diversas cópias do projeto em diretórios distintos. Versionar dessa forma pode servir quando temos poucas versões, porém, mesmo assim, é comum os desarranjos e atrapalhos no gerenciamento de diversos diretórios. Quando há o domínio de um sistema de controle de versão evitamos esse tipo de problema, uma vez que continuaremos trabalhando sobre um mesmo diretório que terá seus estados modificados quando solicitado, isto é, será possível voltar para a distribuição de arquivos e conteúdos anteriores, mesmo se nesse processo de edição alguns arquivos foram deletados, renomeados ou fortemente modificados.
 
 
 **Importante**:
 
 ```{block2, type='rmdimportant'}
 <div class=text-justify>
-Não se preocupe se você voltar à estados anteriores e desistir. Você poderá retornar à estados mais recentes (incluindo o último) sem nenhum problema. **Deixe o trabalho sujo com um sistema de versionamento**.  
+Não se preocupe se você voltar à estados anteriores e desistir. Você poderá retornar à estados mais recentes (incluindo o último) sem nenhum problema. **Deixe o trabalho sujo com o sistema de versionamento**.  
 
 Além disso, para nós estatísticos que vivemos codificando e constantemente alterando códigos de programação, versionar de forma eficiente é algo crucial.
 </div>
@@ -21,16 +21,16 @@ Além disso, para nós estatísticos que vivemos codificando e constantemente al
 
 ## Git
 
-Visando ajudar o desenvolvedor na tarefa de versionamento de projetos/códigos, a ferramenta [**git**](https://git-scm.com/) foi desenvolvida, escrita utilizando a linguagem C, por [**Linus Torvalds**](images/linus_torvalds.jpg) (criador do Linux) e [**Jun Hamano**](images/ju_hamano.jpeg), um engenheiro de sofware japonês. No [**git**](https://git-scm.com/), cada diretório de trabalho é um repositório com histórico completo das versões e não depende de acesso à um servidor ou rede central. Essa é uma das características que torna o git uma ferramenta rápida, além, é claro, de ser escrito em C, que reduz a sobrecarga de tempos de execução que é algo normalmente comum em linguagens de nível superior.
+Visando ajudar o desenvolvedor na tarefa de versionamento de projetos/códigos, a ferramenta [**git**](https://git-scm.com/) foi desenvolvida, escrita utilizando a linguagem C, por [**Linus Torvalds**](images/linus_torvalds.jpg) (criador do Linux) e atualmente mantido por [**Jun Hamano**](images/ju_hamano.jpeg), um engenheiro de sofware japonês. No [**git**](https://git-scm.com/), cada diretório de trabalho é um repositório com histórico completo das versões e não depende de acesso à um servidor ou rede central. Essa é uma das características que torna o git uma ferramenta rápida, além, é claro, de ser escrito em C, que reduz a sobrecarga de tempos de execução que é algo normalmente comum em linguagens de nível superior.
 
-Inicialmente essa ferramenta visava ajudar os desenvolvedores do kernel do Linux na tarefa de versionar, de forma eficiente, as mudanças no kernel que antes eram versionadas por meio do [**BitKeeper**](http://www.bitkeeper.org/), um software proprietário desenvolvido pela  BitMover Inc, Califórnia. Isso era um dilema entre os desenvolvedores do Linux, uma vez que ao contrário do [**BitKeeper**](http://www.bitkeeper.org/), o Linux é conhecido por suas [**iniciativas Open Source**](https://opensource.org/). À época, o projeto Linux tinha acesso gratuito ao [**BitKeeper**](http://www.bitkeeper.org/). Porém, com a acusação de programadores do kernel Linux estarem utilizando engenharia reversa, o acesso gratuito foi removido. 
+Inicialmente essa ferramenta visava ajudar os desenvolvedores do kernel do Linux na tarefa de versionar, de forma eficiente, as mudanças no kernel que antes eram versionadas por meio do [**BitKeeper**](http://www.bitkeeper.org/), um software proprietário desenvolvido pela  BitMover Inc, Califórnia. Isso era um dilema entre os desenvolvedores do Linux, uma vez que ao contrário do [**BitKeeper**](http://www.bitkeeper.org/), o Linux é conhecido por suas [**iniciativas Open Source**](https://opensource.org/). À época, o projeto Linux tinha acesso gratuito ao [**BitKeeper**](http://www.bitkeeper.org/). Porém, com a acusação de programadores do kernel Linux estarem utilizando engenharia reversa, o acesso gratuito foi removido. Esse foi o fato que forçou Linus Torvalds a desenvolver o git.
 
 
-Além do git, atualmente existem algumas ferramentas para versionamento de códigos. Entre tais ferramentas, enumero duas:
+Além do git, atualmente existem algumas ferramentas para versionamento de códigos. Entre tais ferramentas, enumero duas que considero as mais conhecidas:
 
-1. [**mercurial**](https://www.mercurial-scm.org): Trata-se de um sistema de versionamento, assim como o git, com [**iniciativas Open Source**](https://opensource.org/). Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O [**mercurial**](https://www.mercurial-scm.org) é o sistema de versionamento mais popular na plataforma de hospedagem de código fonte [**Bitbucket**](https://bitbucket.org/product/) que não é tão popular quanto o [**GitHub**](https://github.com/) e o [**GitLab**](https://about.gitlab.com/); 
+1. [**mercurial**](https://www.mercurial-scm.org): Trata-se de um sistema de versionamento, assim como o git, com [**iniciativas Open Source**](https://opensource.org/). Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O [**mercurial**](https://www.mercurial-scm.org) é o sistema de versionamento mais popular no [**Bitbucket**](https://bitbucket.org/product/), uma plataforma de hospedagem de código fonte que não é tão utilizada quanto o [**GitHub**](https://github.com/) e o [**GitLab**](https://about.gitlab.com/); 
   
-2. [**subversion**](http://subversion.apache.org/): Trata-se de um sistema de versionamento distribuido sobre os termos da [**Apache License**](https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache) e que foi desenvolvido pela [**Apache Software Foundation**](https://pt.wikipedia.org/wiki/Apache_Software_Foundation).
+2. [**subversion**](http://subversion.apache.org/): Trata-se de um sistema de versionamento distribuido sobre os termos da [**Apache License**](https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache) e que foi desenvolvido pela [**Apache Software Foundation**](https://pt.wikipedia.org/wiki/Apache_Software_Foundation). Assim como o [**mercurial**](https://www.mercurial-scm.org), o [**subversion**](http://subversion.apache.org/) não é tão popular quanto o [**git**](https://git-scm.com/).
 
 
 Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do [**GitHub**](https://github.com/) e [**GitLab**](https://about.gitlab.com/) que são plataformas de hospedagem de código, em que é possível facilmente enviar códigos versionados usando git), trataremos  apenas do uso do [**git**](https://git-scm.com/).
@@ -178,7 +178,11 @@ Os comandos `cd`, `cd ..`, `ls`, `cp`, `mkdir`, `rm` e `mv` são comandos úteis
   
   10. `git checkout chave`: modifica o projeto para o estado do ***commit*** referente à chave fornecida. Se deserjarmos voltar ao último ***commit***, devemos fazer `git checkout master`. As chaves poderão ser fornecidas utilizando as diferentes variações do comando `git log` paresentadas acima. 
 
+</br></br>
+
+**(OUTROS DETALHES FORAM ABORDADOS EM AULA NO DIA 17/06/2019)**
+
 ## GitHub
 
-(**conteúdo visto em sala de aula**)
+**(CONTEÚDO ABORDADO EM SALA DE AULA NO DIA 17/06/2019)**
 

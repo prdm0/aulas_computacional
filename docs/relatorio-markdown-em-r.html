@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL</title>
+  <title>4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:title" content="4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="prdm0/aulas_computacional" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
+  <meta name="twitter:title" content="4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
   
   <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="o-evangelho-do-gnulinux.html">
+<link rel="prev" href="versionamento-de-codigo.html">
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -147,11 +147,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
 <li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuicoes"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>3</b> Relatório Markdown em R</a><ul>
-<li class="chapter" data-level="3.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>3.1</b> Markdown</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>3.1.1</b> Sintaxe</a></li>
+<li class="chapter" data-level="3" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a><ul>
+<li class="chapter" data-level="3.1" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html#git"><i class="fa fa-check"></i><b>3.1</b> Git</a></li>
+<li class="chapter" data-level="3.2" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>3.2</b> R Markdown</a></li>
+<li class="chapter" data-level="4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
+<li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
 </ul>
 
@@ -171,16 +175,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="relatorio-markdown-em-r" class="section level1">
-<h1><span class="header-section-number">3</span> Relatório Markdown em R</h1>
+<h1><span class="header-section-number">4</span> Relatório Markdown em R</h1>
 <p>Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-se à construção de documentos (relatórios, manuais, etc). A construção desses documentos é algo que demanda tempo, uma vez que, por exemplo, temos que escrever a respeito das metodologias estatísticas consideradas e justificar o seu uso, organizar as informações obtidas de um modelo estatístico e interpretá-las, tabular os resultados de algumas simulação, escolher o formato de saída do documento e escrever de forma clara e robusta os resultados obtidos (muitos que irão ler seu documento não são estatísticos). Um pouco dessa rotina encontra-se no diagrama a baixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxo"></span>
-<div id="htmlwidget-0fbe2481156c29794f5c" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0fbe2481156c29794f5c">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0e590f22322f47045c49" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0e590f22322f47045c49">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
-Figura 3.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
+Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
 </p>
 </div>
-<p>Como descrito no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">3.1</a>, o processo de construção de um relatório é um processo frequente, uma vez que você muito provavelmente, em alguma empresa, irá deparar-se com documentos em que deverão ser atualizados, dia após dia. Por exemplo, você poderá vir a trabalhar em uma empresa em que diariamente terá que enviar relatório(s) ao seu chefe ou para um grupo de pessoas. Por exemplo, em muitas situações, esse(s) documentos(s) poderão possuir um layout predefinido, onde serão apenas alterados os resultados/retornos obtidos por suas funções implementadas em <a href="https://www.r-project.org"><strong>R</strong></a>. Ou seja, estamos considerando o caso em que você diariamente tem o mesmo relatório com diferentes estatísticas (indicadores descritivos, resultados inferenciais, etc). Com o <a href="https://www.r-project.org"><strong>R</strong></a> e o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>, bem como utlizando outras ferramentas disponíveis para programadores de <a href="https://www.r-project.org"><strong>R</strong></a>, você poderá automatizar, ao máximo, o processo de construção documentos.</p>
+<p>Como descrito no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, o processo de construção de um relatório é um processo frequente, uma vez que você muito provavelmente, em alguma empresa, irá deparar-se com documentos em que deverão ser atualizados, dia após dia. Por exemplo, você poderá vir a trabalhar em uma empresa em que diariamente terá que enviar relatório(s) ao seu chefe ou para um grupo de pessoas. Por exemplo, em muitas situações, esse(s) documentos(s) poderão possuir um layout predefinido, onde serão apenas alterados os resultados/retornos obtidos por suas funções implementadas em <a href="https://www.r-project.org"><strong>R</strong></a>. Ou seja, estamos considerando o caso em que você diariamente tem o mesmo relatório com diferentes estatísticas (indicadores descritivos, resultados inferenciais, etc). Com o <a href="https://www.r-project.org"><strong>R</strong></a> e o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>, bem como utlizando outras ferramentas disponíveis para programadores de <a href="https://www.r-project.org"><strong>R</strong></a>, você poderá automatizar, ao máximo, o processo de construção documentos.</p>
 <p>Por tratar-se de uma comunidade grande e que envolve muitos estatísticos, a comunidade de <a href="https://www.r-project.org"><strong>R</strong></a> vem constantemente desenvolvendo ferramentas de interesse para quem trabalha com estatística e aprendizado estatístico. Muitas dessas ferramentas são disponibilizadas na forma de pacotes, no <a href="https://cran.r-project.org/web/packages/index.html"><strong>CRAN</strong></a> (<strong>The Comprehensive R Archive Network</strong>), bem como no <a href="https://github.com/"><strong>GitHub</strong></a>. Isso mostra a grande flexivilidade de <a href="https://www.r-project.org"><strong>R</strong></a> e o quanto essa linguagem se adapta às necessidades de um estatístico ou à quem for de interesse a análise de dados. Você poderá programar em qualquer linguagem, porém, programar em <a href="https://www.r-project.org"><strong>R</strong></a> tornará sua vida de progamador/estatístico mais fácil, caso o seu seu interesse esteja em resolver problemas estatísticos e/ou que envolvam aprendizado estatístico, denominado por muitos de <a href="https://pt.wikipedia.org/wiki/Aprendizado_de_m%C3%A1quina"><strong>machine learning</strong> (<strong>aprendizado de máquina</strong>)</a>.</p>
 <p><strong>Observação</strong>:</p>
 
@@ -190,13 +194,13 @@ Figura 3.1: Fluxo de trabalho - organização dos dados, escolhas das metodologi
 </div>
 </div>
 
-<p>Como mostra o diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">3.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
-<p>Note que no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">3.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">3.1</a> para <a href="relatorio-markdown-em-r.html#fig:diagramafluxor">3.2</a> otimizando assim, as suas análises.</p>
+<p>Como mostra o diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
+<p>Note que no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a> para <a href="relatorio-markdown-em-r.html#fig:diagramafluxor">4.2</a> otimizando assim, as suas análises.</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxor"></span>
-<div id="htmlwidget-961600f90909ccef437f" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-961600f90909ccef437f">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c9829c4b28ea675b66d7" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c9829c4b28ea675b66d7">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
-Figura 3.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
+Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
 </p>
 </div>
 <p><strong>Nota</strong>:</p>
@@ -208,7 +212,7 @@ Figura 3.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a>
 </div>
 
 <div id="markdown" class="section level2">
-<h2><span class="header-section-number">3.1</span> Markdown</h2>
+<h2><span class="header-section-number">4.1</span> Markdown</h2>
 <p><a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é uma linguagem de marcação desenvolvida em 2004 por <a href="https://en.wikipedia.org/wiki/John_Gruber"><strong>John Gruber</strong></a> com a colaboração de <a href="https://en.wikipedia.org/wiki/Aaron_Swartz"><strong>Aaron Swartz</strong></a>. <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é uma linguagem muito leve e diponível sob os termos de uma licença de código aberto no estilo BSD.</p>
 <p><strong>Nota</strong>:</p>
 
@@ -222,7 +226,7 @@ Figura 3.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a>
 <div class="figure" style="text-align: center"><span id="fig:logomarkdown"></span>
 <img src="images/logo_markdown.png" alt="Logo da linguagem de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizada para conversão de texto em [**HTML**](https://pt.wikipedia.org/wiki/HTML)." width="40%" />
 <p class="caption">
-Figura 3.3: Logo da linguagem de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizada para conversão de texto em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>.
+Figura 4.3: Logo da linguagem de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizada para conversão de texto em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>.
 </p>
 </div>
 <p></br></p>
@@ -351,7 +355,7 @@ Se você não aprender em R irá sofrer de montão.<span class="kw">&lt;/p&gt;</
 
 <p>Antes de conversarmos a respeito das ferramentas disponíveis, em <a href="https://www.r-project.org"><strong>R</strong></a>, para a construção de saídas em HTML mais atraentes, precisaremos entender melhor a sintaxe do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>. A seção que segue é dedicada ao entendimento da sintaxe do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>.</p>
 <div id="sintaxe" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Sintaxe</h3>
+<h3><span class="header-section-number">4.1.1</span> Sintaxe</h3>
 <p>Entender a sintaxe de Markdown é algo interessante por alguns motivos. Elencarei três deles abaixo:</p>
 <ol style="list-style-type: decimal">
 <li><p>A sintaxe de <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é fácil e não requer uma grande curva de aprendizado;</p></li>
@@ -368,7 +372,7 @@ Por falar em <a href="https://stackoverflow.com"><strong>Stack Overflow</strong>
 </ol>
 <p>Utilizar o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com o <a href="https://www.r-project.org"><strong>R</strong></a> dentro do <a href="https://www.rstudio.com/"><strong>RStudio</strong></a> é algo interessante e fácil. Porém, para aprender a sintaxe, consideraremos essa <a href="https://daringfireball.net/projects/markdown/dingus"><strong>ferramenta</strong></a>. Por ela, você poderá testar rapidamente o que o que irá aprender.</p>
 <div id="paragrafo-cabecalho-e-bloco-de-codigos" class="section level4">
-<h4><span class="header-section-number">3.1.1.1</span> Parágrafo, cabeçalho e bloco de códigos</h4>
+<h4><span class="header-section-number">4.1.1.1</span> Parágrafo, cabeçalho e bloco de códigos</h4>
 <p>Um parágrafo em Markdown é constrído por uma ou mais linhas de textos separadas por uma ou mais linhas em branco.</p>
 <p></br></p>
 <p><strong>Escrevendo três parágrafos em Markdown</strong>:</p>
@@ -420,7 +424,7 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 <p></br></p>
 </div>
 <div id="secoessubsecoes-aninhadas" class="section level4">
-<h4><span class="header-section-number">3.1.1.2</span> Seções/subseções aninhadas</h4>
+<h4><span class="header-section-number">4.1.1.2</span> Seções/subseções aninhadas</h4>
 <p>Podemos utilizar sequências do caracter <code>#</code> para criar seções aninhadas. O código acima poderia ser alterador por:</p>
 <pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Um texto com parágrafos soltos</span>
 
@@ -452,7 +456,7 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 <p></br></p>
 </div>
 <div id="bloco-de-frases" class="section level4">
-<h4><span class="header-section-number">3.1.1.3</span> Bloco de Frases</h4>
+<h4><span class="header-section-number">4.1.1.3</span> Bloco de Frases</h4>
 <p>É possível criar, por meio do caracter <code>&gt;</code> frases em bloco. Por exemplo, com a ferramenta que utilizo para a construção desse material, temos abaixo três frases utilizando três níveis de blocos.</p>
 <blockquote>
 <p>Primeiro nível de bloco.</p>
@@ -480,7 +484,7 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 <p></br></p>
 </div>
 <div id="dando-enfase" class="section level4">
-<h4><span class="header-section-number">3.1.1.4</span> Dando ênfase</h4>
+<h4><span class="header-section-number">4.1.1.4</span> Dando ênfase</h4>
 <p>É possível que venhamos dar ênfase à um trecho de um texto. Isso é feito utilizando <code>*</code> (asterisco), <code>_</code> (subilinhado/underscore), <code>**</code> (duplo asterisco) ou <code>__</code> (duplo subilinhado/underscore). Essas combinações de caracteres devem envolver o texto a ser destacado e fazem:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>*</code> (asterisco): Deixa o texto envolvido em <em>itálico</em>. Isso é feito fazendo</p>
@@ -526,7 +530,7 @@ os humanos  entendam.&quot;* - **Alguém**, _5 mil anos a.C_.</code></pre>
 <p></br></p>
 </div>
 <div id="listando-itens" class="section level4">
-<h4><span class="header-section-number">3.1.1.5</span> Listando Itens</h4>
+<h4><span class="header-section-number">4.1.1.5</span> Listando Itens</h4>
 <p>Em seu texto, é possível que tenha o intenresse de listar itens de forma não ordenada. Isso é possível utilizando os caracteres <code>*</code>, <code>+</code> ou <code>-</code>. Considere o exemplo:</p>
 <pre class="sourceCode markdown"><code class="sourceCode markdown">   * Meu primeiro item;
    * Meu segundo item;
@@ -559,7 +563,7 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <p></br></p>
 </div>
 <div id="enumerando-itens" class="section level4">
-<h4><span class="header-section-number">3.1.1.6</span> Enumerando Itens</h4>
+<h4><span class="header-section-number">4.1.1.6</span> Enumerando Itens</h4>
 <p>As vezes necessitamos de itens dispostos segundo uma ordem. Você poderá ordenar os itens utilizando um número seguido de um ponto. Considere o exemplo abaixo:</p>
 <pre class="sourceCode markdown"><code class="sourceCode markdown">1. <span class="fl">Meu primeiro item enumerado;</span>
 <span class="fl">2. Meu segundo item enumerado;</span>
@@ -604,7 +608,7 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <p></br></p>
 </div>
 <div id="criando-links" class="section level4">
-<h4><span class="header-section-number">3.1.1.7</span> Criando Links</h4>
+<h4><span class="header-section-number">4.1.1.7</span> Criando Links</h4>
 <p></br></p>
 <p>A linguagem de marcação Markdown te permite inserir links no meio do seu texto. Markdown suporta dois estilos de inserção de links. São eles:</p>
 <ol style="list-style-type: decimal">
@@ -669,7 +673,7 @@ um grande número de <span class="ot">[*pacotes*][3] </span>para trabalhar com e
 
 </div>
 <div id="inserindo-figuras-no-texto" class="section level4">
-<h4><span class="header-section-number">3.1.1.8</span> Inserindo figuras no texto</h4>
+<h4><span class="header-section-number">4.1.1.8</span> Inserindo figuras no texto</h4>
 <p>Se você trabalha com estatística muito provavelmente sente corriqueiramente a necessidade de introduzir, em um texto, gráfico(s) e imagen(s) que explica(m) um resultado obtido ou que nos auxilia(m) à etender um detarminado problema. A sintaxe de inserção de figuras é muito semelhante à sintaxe de inserção de <a href="relatorio-markdown-em-r.html#criando-links">links</a>.</p>
 <p><strong>Exemplo</strong>: Suponha que desejamos inserir o logo da linguagem de programação <a href="https://www.r-project.org"><strong>R</strong></a>, na forma abaixo:</p>
 <p></br></p>
@@ -808,7 +812,7 @@ Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**a
 </div>
 </div>
 <div id="r-markdown" class="section level2">
-<h2><span class="header-section-number">3.2</span> R Markdown</h2>
+<h2><span class="header-section-number">4.2</span> R Markdown</h2>
 <p>Se você chegou à esse ponto da leitura, muito provavelmente deverá estar se perguntando sobre muitas coisas. Algumas dessas perguntas poderiam ser:</p>
 <ol style="list-style-type: decimal">
 <li>Como referenciar um texto ou figura?</li>
@@ -823,7 +827,7 @@ Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**a
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-35"></span>
 <img src="images/logo_rmarkdown.png" alt="Logo do pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) - permite programadores [**R**](https://www.r-project.org) extender a sintaxe de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizando [**R Markdown**](https://rmarkdown.rstudio.com/)." width="25%" />
 <p class="caption">
-Figura 3.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a> - permite programadores <a href="https://www.r-project.org"><strong>R</strong></a> extender a sintaxe de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizando <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a>.
+Figura 4.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a> - permite programadores <a href="https://www.r-project.org"><strong>R</strong></a> extender a sintaxe de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizando <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a>.
 </p>
 </div>
 <p>Como dito anteriormente, para fazer uso de <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a> será necessário o uso do pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a>. Esse pacote, por sua vez, trabalha sobre duas importantes ferramentas. São elas:</p>
@@ -841,13 +845,13 @@ Figura 3.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmar
 
 <p>O funcionamento geral e interações entre o pacote <strong>rmarkdown</strong> com o pacote <strong>knitr</strong> e o <strong>Pandoc</strong> poderão ser resumidos com diagrama abaixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramaRmd"></span>
-<div id="htmlwidget-8a424f0846a68927967e" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8a424f0846a68927967e">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c42c0d6abdde06f3008e" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c42c0d6abdde06f3008e">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
-Figura 3.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
+Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
 </p>
 </div>
-<p>Como podemos observar no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramaRmd">3.5</a>, o pacote <strong>knitr</strong> é responsável por converter o arquivo <strong>.Rmd</strong> que contém códigos em <strong>R Markdown</strong> para um arquivo <strong>.md</strong> que contém código em <strong>Markdown</strong> puro. Depois, o Pandoc irá agirar sobre o aquivo <strong>.md</strong> e irá converter para o formato desejado, em que por padrão, o formato é <strong>.html</strong>. A conversão para HTML é de longe a mais utilizada, uma vez que trata-se de um formato que facilita o compartilhamento do seu conteúdo, sendo possível, por exemplo, hospedar os HTMLs gerados em um servidor para o acesso de qualquer lugar, desde que se tenha um browser e uma conecção com uma rede de internet.</p>
+<p>Como podemos observar no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramaRmd">4.5</a>, o pacote <strong>knitr</strong> é responsável por converter o arquivo <strong>.Rmd</strong> que contém códigos em <strong>R Markdown</strong> para um arquivo <strong>.md</strong> que contém código em <strong>Markdown</strong> puro. Depois, o Pandoc irá agirar sobre o aquivo <strong>.md</strong> e irá converter para o formato desejado, em que por padrão, o formato é <strong>.html</strong>. A conversão para HTML é de longe a mais utilizada, uma vez que trata-se de um formato que facilita o compartilhamento do seu conteúdo, sendo possível, por exemplo, hospedar os HTMLs gerados em um servidor para o acesso de qualquer lugar, desde que se tenha um browser e uma conecção com uma rede de internet.</p>
 <p>O pacote <strong>knitr</strong> também incorpora algumas funcionalidades quando estamos trabalhando com <strong>R Markdown</strong>, em que a mais importante delas é a possibilidade de incorporar e avaliar pedaços (<strong>chuncks</strong>) de códigos R dentro do documento, isto é, dentro do arquivo <strong>.Rmd</strong>. Essa é uma grande funcionalidade que nos permitirá fazer duas coisas importantes:</p>
 <ol style="list-style-type: decimal">
 <li>Utilizar funções de R para plotagem de gráficos;</li>
@@ -894,7 +898,7 @@ Figura 3.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite traba
           </div>
         </div>
       </div>
-<a href="o-evangelho-do-gnulinux.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="versionamento-de-codigo.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

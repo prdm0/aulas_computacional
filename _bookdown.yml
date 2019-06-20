@@ -11,6 +11,7 @@ rmd_files: [
   "prefacio.Rmd",
   "revisao_r.Rmd",
   "linux.Rmd",
-  #"git.Rmd",
+  "git.Rmd",
   "rmarkdown.Rmd",
+  #"r.Rmd",
 ]
