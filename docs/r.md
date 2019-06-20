@@ -138,4 +138,127 @@ Para um entendimento geral do operador `%>%`, considere a existência dos objeto
 x %>% f(y)
 ```
 
-irá atribuir o objeto `x` como **primeiro argumento** da função `f`, ou seja, será equivalente à fazer `f(x, y)`
+irá atribuir o objeto `x` à `f`, como **primeiro argumento** da função `f`, ou seja, será equivalente à fazer `f(x, y)`.
+
+**Exercício**: Resolva os itens abaixo utilizando o operador `%>%` do pacote matrittr. 
+
+  - `as.character(log(cos(sin(pi))))`
+
+  - `round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)`
+  
+  - `summary(anova(lm(mpg ~ wt, data = mtcars)))`
+  
+  - `summary(lm(dist ~ log(accel), data = na.omit(attenu)))`
+  
+Nem sempre desejamos introduzir o que está a esquerda do operador `%>%` como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter `.` (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de `%>%` na função à sua direita. Por exemplo, a expressão `x %>% f(a, b = .)` fará com que `x` à esqueda de `%>%` seja substituído no lugar do caracter `.`, ou seja, `x` é passado como argumento à `b`, segundo argumento de `f`.
+
+**Exemplo**: Uso do caracter `.` em um contexto de bloco de instrução. Esse exemplo mostra que o que está a direita do operador `%>%` não necessariamente precisa ser uma função. Nesses casos, o caracter `.` é de grande importância para que o operador saiba substituir corretamente o objeto `x` no bloco de instruções.
+
+
+```r
+library(magrittr)
+x <- mtcars
+x %>% {
+  if (is.data.frame(.) || is.matrix(.)){
+    cat("A dimensão dos dados é", dim(.))
+  } else {
+    cat("Objeto não é uma matriz ou um data frame")
+  }
+}
+```
+
+```
+## A dimensão dos dados é 32 11
+```
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Observe que, por exemplo, fazer `x %>% f(., y = 1)`  equivale a fazer `x %>% f(y = 1)`, uma vez que por padrão, o objeto que está à esquerda de `%>%`sempre será substituído como primeiro argumento da função que está mais a sua direta, caso não seja utilizado o caractere `.` para indicar o lugar do substituição. 
+</div></div>\EndKnitrBlock{rmdnote}
+
+
+Um outro operador útil disponível no pacote magrittr é o operator ***tee***, denotado por `%T>%`. Esse operador funciona de forma muito parecida com o operador `%>%`, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e **não** o resultado da operação do seu lado diretio. 
+
+O uso do operador `%T>%` não é tão comum. Normalmente a frequência de uso do operador `%>%` é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador `%>%`.
+
+**Exemplo**: Pelo que entendemos do operador `%>%`, não faz nenhum sentido o código abaixo:
+
+
+```r
+# Fixando uma semente.
+set.seed(0) 
+rnorm(1000L) %>% hist(., main = "Histograma Qualquer", xlab = "x",
+                      ylab = "Frequência") %>% mean 
+```
+
+```
+## Warning in mean.default(.): argumento não é numérico nem lógico: retornando
+## NA
+```
+
+<img src="r_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" />
+
+```
+## [1] NA
+```
+Nesse exemplo, observamos que o histograma foi construído, porém, não faz nenhum sentido passar um gráfico à função `mean`. Muito provavelmente o desejo de quem viria escrever um código como esse seria tirar a média do vetor resultante do código `rnorm(1000L)`. Nessas situações, poderemos fazer uso do operador `%T>%` (operador ***tee***).
+
+
+**Exemplo**: Aqui temos um típico uso do operador `%T>%`. Perceba que utilizando o perador `%T>%`, foi possível passar `rnorm(1000L)` como argumento à função `hist`, assim como seria possível utilizando o operador `%>%`. Porém, com o operador `%T>%`, conseguimos passar `rnorm(1000L)` à função `mean` e não à função `hist`, que seria esperado se utilizássemos o operador `%>%`.
+
+
+```r
+# Fixando uma semente.
+set.seed(0) 
+rnorm(1000L) %T>% hist(., main = "Histograma Qualquer", xlab = "x",
+                       ylab = "Frequência") %>% mean 
+```
+
+<img src="r_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;" />
+
+```
+## [1] -0.01582957
+```
+
+Um outro operador pipe que é bastante útil é o perador de exposição, denotado por `%$%`. Trata-se de um operador que é bastante útil quando estamos trabalhando com (quadro de dados) data frames ou matrizes, onde temos variáveis dispostas em suas colunas. Com esse operador, poderemos tornar visíveis as variáveis do objeto à sua esquerda nas funções à sua direita. Considere o exemplo que segue:
+
+**Exemplo**: No código que segue, estamos tornando visíveis as variáveis do objeto `mtcars` na função `cor`. Dessa forma, poderemos calcular a correlação entre as variáveis **cyl** e **hp** do data frame **mtcars**.
+
+
+```r
+mtcars %$% cor(cyl, hp)
+```
+
+```
+## [1] 0.8324475
+```
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exmeplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:
+</div>\EndKnitrBlock{rmdnote}
+
+```r
+mtcars %>% lm(cyl ~ hp, data = .)
+```
+
+```
+## 
+## Call:
+## lm(formula = cyl ~ hp, data = .)
+## 
+## Coefficients:
+## (Intercept)           hp  
+##     3.00680      0.02168
+```
+uma vez que a função `lm` já possui um argumento para o conjunto de dados a ser utilizado. Ao passar o conjunto de dados para a função `lm`, todas as variáveis de **mtcars** estarão visíveis no interior da função `lm`.
+
+
+
+
+</div>
+```
+
+
+

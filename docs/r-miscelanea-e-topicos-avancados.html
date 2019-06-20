@@ -286,7 +286,74 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 
 <p>Para um entendimento geral do operador <code>%&gt;%</code>, considere a existência dos objetos <code>x</code>, <code>y</code>e <code>f</code>. Então,</p>
 <pre class="{r},"><code>x %&gt;% f(y)</code></pre>
-<p>irá atribuir o objeto <code>x</code> como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code></p>
+<p>irá atribuir o objeto <code>x</code> à <code>f</code>, como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code>.</p>
+<p><strong>Exercício</strong>: Resolva os itens abaixo utilizando o operador <code>%&gt;%</code> do pacote matrittr.</p>
+<ul>
+<li><p><code>as.character(log(cos(sin(pi))))</code></p></li>
+<li><p><code>round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)</code></p></li>
+<li><p><code>summary(anova(lm(mpg ~ wt, data = mtcars)))</code></p></li>
+<li><p><code>summary(lm(dist ~ log(accel), data = na.omit(attenu)))</code></p></li>
+</ul>
+<p>Nem sempre desejamos introduzir o que está a esquerda do operador <code>%&gt;%</code> como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter <code>.</code> (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de <code>%&gt;%</code> na função à sua direita. Por exemplo, a expressão <code>x %&gt;% f(a, b = .)</code> fará com que <code>x</code> à esqueda de <code>%&gt;%</code> seja substituído no lugar do caracter <code>.</code>, ou seja, <code>x</code> é passado como argumento à <code>b</code>, segundo argumento de <code>f</code>.</p>
+<p><strong>Exemplo</strong>: Uso do caracter <code>.</code> em um contexto de bloco de instrução. Esse exemplo mostra que o que está a direita do operador <code>%&gt;%</code> não necessariamente precisa ser uma função. Nesses casos, o caracter <code>.</code> é de grande importância para que o operador saiba substituir corretamente o objeto <code>x</code> no bloco de instruções.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+x &lt;-<span class="st"> </span>mtcars
+x <span class="op">%&gt;%</span><span class="st"> </span>{
+  <span class="cf">if</span> (<span class="kw">is.data.frame</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">is.matrix</span>(.)){
+    <span class="kw">cat</span>(<span class="st">&quot;A dimensão dos dados é&quot;</span>, <span class="kw">dim</span>(.))
+  } <span class="cf">else</span> {
+    <span class="kw">cat</span>(<span class="st">&quot;Objeto não é uma matriz ou um data frame&quot;</span>)
+  }
+}</code></pre>
+<pre><code>## A dimensão dos dados é 32 11</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Observe que, por exemplo, fazer <code>x %&gt;% f(., y = 1)</code> equivale a fazer <code>x %&gt;% f(y = 1)</code>, uma vez que por padrão, o objeto que está à esquerda de <code>%&gt;%</code>sempre será substituído como primeiro argumento da função que está mais a sua direta, caso não seja utilizado o caractere <code>.</code> para indicar o lugar do substituição.</p>
+</div>
+</div>
+
+<p>Um outro operador útil disponível no pacote magrittr é o operator <strong><em>tee</em></strong>, denotado por <code>%T&gt;%</code>. Esse operador funciona de forma muito parecida com o operador <code>%&gt;%</code>, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e <strong>não</strong> o resultado da operação do seu lado diretio.</p>
+<p>O uso do operador <code>%T&gt;%</code> não é tão comum. Normalmente a frequência de uso do operador <code>%&gt;%</code> é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador <code>%&gt;%</code>.</p>
+<p><strong>Exemplo</strong>: Pelo que entendemos do operador <code>%&gt;%</code>, não faz nenhum sentido o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>) 
+<span class="kw">rnorm</span>(1000L) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,
+                      <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;) %&gt;% mean </span></code></pre>
+<pre><code>## Warning in mean.default(.): argumento não é numérico nem lógico: retornando
+## NA</code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] NA</code></pre>
+<p>Nesse exemplo, observamos que o histograma foi construído, porém, não faz nenhum sentido passar um gráfico à função <code>mean</code>. Muito provavelmente o desejo de quem viria escrever um código como esse seria tirar a média do vetor resultante do código <code>rnorm(1000L)</code>. Nessas situações, poderemos fazer uso do operador <code>%T&gt;%</code> (operador <strong><em>tee</em></strong>).</p>
+<p><strong>Exemplo</strong>: Aqui temos um típico uso do operador <code>%T&gt;%</code>. Perceba que utilizando o perador <code>%T&gt;%</code>, foi possível passar <code>rnorm(1000L)</code> como argumento à função <code>hist</code>, assim como seria possível utilizando o operador <code>%&gt;%</code>. Porém, com o operador <code>%T&gt;%</code>, conseguimos passar <code>rnorm(1000L)</code> à função <code>mean</code> e não à função <code>hist</code>, que seria esperado se utilizássemos o operador <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>) 
+<span class="kw">rnorm</span>(1000L) <span class="op">%T&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,
+                       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;) %&gt;% mean </span></code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] -0.01582957</code></pre>
+<p>Um outro operador pipe que é bastante útil é o perador de exposição, denotado por <code>%$%</code>. Trata-se de um operador que é bastante útil quando estamos trabalhando com (quadro de dados) data frames ou matrizes, onde temos variáveis dispostas em suas colunas. Com esse operador, poderemos tornar visíveis as variáveis do objeto à sua esquerda nas funções à sua direita. Considere o exemplo que segue:</p>
+<p><strong>Exemplo</strong>: No código que segue, estamos tornando visíveis as variáveis do objeto <code>mtcars</code> na função <code>cor</code>. Dessa forma, poderemos calcular a correlação entre as variáveis <strong>cyl</strong> e <strong>hp</strong> do data frame <strong>mtcars</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%$%</span><span class="st"> </span><span class="kw">cor</span>(cyl, hp)</code></pre>
+<pre><code>## [1] 0.8324475</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exmeplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm</span>(cyl <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> .)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = cyl ~ hp, data = .)
+## 
+## Coefficients:
+## (Intercept)           hp  
+##     3.00680      0.02168</code></pre>
+<p>uma vez que a função <code>lm</code> já possui um argumento para o conjunto de dados a ser utilizado. Ao passar o conjunto de dados para a função <code>lm</code>, todas as variáveis de <strong>mtcars</strong> estarão visíveis no interior da função <code>lm</code>.</p>
+</div>
+<p>```</p>
 
 </div>
 </div>
