@@ -207,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você é de Minas Gerais e sabe fazer pão de queijo, desconsidere qualquer inconsistência na receita 😃.</p>
+<p>Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)</p>
 </div>
 </div>
 
@@ -223,8 +223,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Sirva</strong> quentinho;</p></li>
 </ol>
 <p>Assuma, por absurdo, que poderemos fazer nossos pães de queijo no R que que os verbos destacados nos passos acima são funções que implementamos em R. Dessa forma, forma, pelo que sabemos de R, poderemos fazer nossos pães de queijo de forma que segue:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sirva</span>(<span class="kw">fazer</span>(<span class="kw">misture</span>(<span class="kw">despeje</span>(<span class="kw">esperar</span>(<span class="kw">misture</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(povilho, sal), <span class="dt">add =</span> <span class="kw">ferver</span>(<span class="kw">c</span>(leite, óleo), <span class="dt">add_agua =</span> <span class="ot">TRUE</span>), <span class="dt">colher_grande =</span> <span class="ot">TRUE</span>), <span class="dt">tempo =</span> <span class="dv">30</span>), <span class="dt">homogenea =</span> <span class="ot">TRUE</span>), <span class="dt">modo =</span> <span class="st">&quot;amassando&quot;</span>), <span class="dt">formato =</span> <span class="st">&quot;bolinha&quot;</span>), <span class="dt">modo =</span> <span class="st">&quot;quentinho&quot;</span>)</code></pre>
-<p>Perceba que o código acima poderá ser um pouco confuso, uma vez que envolve muitas composições de funções. Porém, nada impede que você esteja salvando os resultados intermediários em objetos, de modo a facilitar a leitura do código ao relacionar esses objetos intermediários. Fazer isso funciona bem e eu particularmente utilizo muito. Porém, você também poderá fazer uso de pipes (operador <code>%&gt;%</code>) que poderá, nessas situações, deixar a leitura do código mais fácil, lógica e consequentimente mais compreensível.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sirva</span>(<span class="kw">fazer</span>(<span class="kw">misture</span>(<span class="kw">despeje</span>(<span class="kw">esperar</span>(<span class="kw">misture</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(povilho, sal), <span class="dt">add =</span> <span class="kw">ferver</span>(<span class="kw">c</span>(leite, óleo),
+      <span class="dt">add_agua =</span> <span class="ot">TRUE</span>), <span class="dt">colher_grande =</span> <span class="ot">TRUE</span>), <span class="dt">tempo =</span> <span class="dv">30</span>), <span class="dt">homogenea =</span> <span class="ot">TRUE</span>),
+      <span class="dt">modo =</span> <span class="st">&quot;amassando&quot;</span>), <span class="dt">formato =</span> <span class="st">&quot;bolinha&quot;</span>), <span class="dt">modo =</span> <span class="st">&quot;quentinho&quot;</span>)</code></pre>
+<p>Perceba que o código acima poderá ser um pouco confuso, uma vez que envolve muitas composições de funções. Porém, nada impede que você esteja salvando os resultados intermediários em objetos, de modo a facilitar a leitura do código ao relacionar esses objetos intermediários. Fazer isso funciona bem e eu particularmente utilizo muito. Porém, você também poderá fazer uso de pipes (operador <code>%&gt;%</code>) que poderá, nessas situações, deixar a leitura do código mais fácil, lógica e consequentimente mais compreensível., como veremos adiante.
+O operador de tubo <code>%&gt;%</code> foi implementando no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> por <a href="https://github.com/smbache"><strong>Stefan Milton Bache</strong></a> e atualmente recebe a colaboração de diversas pessoas, incluindo programadores da <a href="https://www.rstudio.com/"><strong>RStudio, Inc</strong></a>. Atualmente, o pacote não recebe muitas atualizações, muito provavelmente por já está estável e cumprindo bem o seu papel.</p>
+<p>O nome <strong>magrittr</strong> muito provavelmente faz alusão à <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>, um dos principais pintores surrealista belga, em que a letra <strong>r</strong>, ao final, obviamente faz referências à linguagem R. É possível inferir isso com base no logo do pacote, apresentado logo abaixo:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg)), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
+<p class="caption">
+Figura 5.1: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> com frase <strong><em>Ceci n’est pas une pipe</em></strong> (<a href="https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg"><strong>ouça a pronuncia</strong></a>), mesmo frase que acompanha pintura <strong><em>La trahison des images</em></strong> de <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>.
+</p>
+</div>
+<p>Voltemos à algo mais interessante, ao preparo de pães de queijo. O preparo, “em R”, poderia ser quase tão saboroso quanto comer os pães de queijo, se fossem “preparados” utilizando o operador <code>%&gt;%</code>, na forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fazendo pão de queijo utilizando o operador pipe, isto é,</span>
+<span class="co"># utilizando o operador %&gt;%.</span>
+
+<span class="kw">ferver</span>(<span class="dt">ingradientes =</span> <span class="kw">c</span>(leite,  água,  óleo)) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">misturar</span>(<span class="dt">colher_grande =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">esperar</span>(<span class="dt">tempo =</span> <span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">despejar</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(<span class="st">&quot;queijo&quot;</span>, <span class="st">&quot;ovos&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">amassar</span>(<span class="dt">forma =</span> <span class="st">&quot;mãos&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fazer_bolinhas</span>(<span class="dt">volume =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">sirvir</span>(<span class="dt">froma =</span> <span class="st">&quot;quentinho&quot;</span>)</code></pre>
+<p>É possível observar que o código acima é consideravelmente mais legível que o código apresentado mais acima desta subseção. O código acima é mais legível, por que os verbos/funções são encadeadas na sequência lógica do preparo e não lidos de dentro para fora, como no primeiro exemplo. Olhando rapidamente para cada um dos códigos, percebemos que o código que faz uso do operador <code>%&gt;%</code> fornece mais informações a respeito do que se está à fazer.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<p>Apesar de ser um operador útil, não exagere no uso de <code>%&gt;%</code>, principalmente quando se tem um conjunto de passos demasiadamente grande. Nessas situações, procure atribuir parte do código à objetos intermediários e depois componha esses objetos. Além disso, as funções envolvidas possuem diversas entradas e saídas, pode ser que o uso do operador <code>%&gt;%</code> não seja interessante.</p>
+No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> como atalho para escrever mais rapidamente o operador <code>%&gt;%</code>.
+</div>
+
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<p>Como curiosidade, o recurso de pipes estão disponíveis em outras linguagens de programação, como <a href="https://pt.wikipedia.org/wiki/F_Sharp"><strong>F#</strong></a>, e os pielines de sistemas *<strong>nix</strong> que usa pipes para a <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><strong>comunicação entre os processos</strong></a> utilizando passagem de mensagens.</p>
+</div>
+</div>
+
+<p>Você poderá instalar o <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> diretamente pelo CRAN ou por meio do repositório GitHub do pacote, ou seja, por meio de um dos comandos abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Instalando o pacote magrittr disponível</span>
+<span class="co"># nos repositórios do CRAN.</span>
+<span class="kw">library</span>(magrittr)
+
+<span class="co"># ou</span>
+
+<span class="co"># Para instalar pacotes diretamente do GitHub,</span>
+<span class="co"># você de deve ter instalado o pacote</span>
+<span class="co"># devtools para poder fazer uso da função</span>
+<span class="co"># install_github().</span>
+
+<span class="co"># Instalando o repositório magrittr do usuário/organização de</span>
+<span class="co"># nome tidyverse do GitHub.</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverse/magrittr&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;master&quot;</span>) </code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Há pontos positivos e negativos ao considerar a instalação de um pacote diretamente do epositório do pacote no GitHub ou em qualquer outro sistema de hospedagem de código. Mencionarei apenas GitHub, mas o comentário se extende à outros sistemas de hospedagem de códigos, como, por exemplo, o GitLab.</p>
+<p>Basicamente, o ponto positivo refere-se à possibilidade de estarmos instalando uma versão mais recente do pacote, porém, em alguns casos, o pacote poderá apresentar alguns bugs, muito embora os códigos no <strong><em>branch master</em></strong> são normalmente estáveis e possuem códigos iguais aos que temos no CRAN.</p>
+<p>Instalar diretamente um pacote que está sendo mantido no GitHub dará a possibilidade de instalar versões mais recentes do pacote que ainda não encontram-se no CRAN. Pelo GitHub, você também terá a vantagem de instalar versões mais antigas do pacote. Por exemplo, no repositório do <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>, no GitHub, você verá que, em <strong><em>Branch</em></strong>, haverá diversas versões versionadas do pacote, em que uma delas chama-se <strong>dev</strong>. Fazer <code>devtools::install_github("tidyverse/magrittr", ref = "dev")</code> fará com que você instale a versão de desenvolvimento do pacote. Dessa forma, aconselho que sempre considere a instalação da versão no <strong><em>branch master</em></strong> de qualquer pacote que venha instalar diretamente do GitHub. Assim, haverá menos possibilidade de você deparar-se com códigos que ainda não funcionam ou que possuam algum(s) bug(s).</p>
+</div>
+</div>
+
+<p>Para um entendimento geral do operador <code>%&gt;%</code>, considere a existência dos objetos <code>x</code>, <code>y</code>e <code>f</code>. Então,</p>
+<pre class="{r},"><code>x %&gt;% f(y)</code></pre>
+<p>irá atribuir o objeto <code>x</code> como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code></p>
 
 </div>
 </div>
