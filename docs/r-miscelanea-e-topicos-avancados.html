@@ -56,6 +56,69 @@
 <script src="libs/DiagrammeR-binding-1.0.1/DiagrammeR.js"></script>
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -99,7 +162,9 @@
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.5</b> R Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a></li>
+<li class="chapter" data-level="5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -135,7 +200,33 @@
 <li><p>Paralelismo</p></li>
 <li><p>Empacotando funções</p></li>
 </ol>
+<div id="operador---pipe" class="section level2">
+<h2><span class="header-section-number">5.1</span> Operador %&gt;% - Pipe</h2>
+<p>Para que possamos entender a utilidade dos operadores pipe, em especial do operador <code>%&gt;%</code>, vamos fazer um pão de queijo. Adiante, você encontrará a receita com 7 passos enumerados que deverão serem seguidos para que possamos fazer o nosso pão de queijo.</p>
+<p><strong>Nota</strong>:</p>
 
+<div class="rmdnote">
+<div class="text-justify">
+<p>Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você é de Minas Gerais e sabe fazer pão de queijo, desconsidere qualquer inconsistência na receita 😃.</p>
+</div>
+</div>
+
+<p><strong>Ingredientes</strong>: 2 copos americanos de leite, 1 copo americano de água, 1/3 de um copo americano de óleo, 1 colher de sopa de sal, 500g de povilho doce, queijo ralado a gosto, 3 ovos.</p>
+<p><strong>Passos do Preparo</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Ferva</strong> o leite com a água e o óleo;</p></li>
+<li><p>Em uma vasilha <strong>misture</strong> o polvilho e o sal;</p></li>
+<li><p><strong>Jogue</strong> o liquido fervido e <strong>misture</strong> com uma colher grande;</p></li>
+<li><p><strong>Espere</strong> esfriar (30 minutos) e <strong>despeje</strong> o queijo ralado e os ovos;</p></li>
+<li><p><strong>Misture</strong> a massa com a mão <strong>amassando</strong> até ficar homogênea;</p></li>
+<li><p><strong>Faça</strong> bolinhas do tamanho que preferir;</p></li>
+<li><p><strong>Sirva</strong> quentinho;</p></li>
+</ol>
+<p>Assuma, por absurdo, que poderemos fazer nossos pães de queijo no R que que os verbos destacados nos passos acima são funções que implementamos em R. Dessa forma, forma, pelo que sabemos de R, poderemos fazer nossos pães de queijo de forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sirva</span>(<span class="kw">fazer</span>(<span class="kw">misture</span>(<span class="kw">despeje</span>(<span class="kw">esperar</span>(<span class="kw">misture</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(povilho, sal), <span class="dt">add =</span> <span class="kw">ferver</span>(<span class="kw">c</span>(leite, óleo), <span class="dt">add_agua =</span> <span class="ot">TRUE</span>), <span class="dt">colher_grande =</span> <span class="ot">TRUE</span>), <span class="dt">tempo =</span> <span class="dv">30</span>), <span class="dt">homogenea =</span> <span class="ot">TRUE</span>), <span class="dt">modo =</span> <span class="st">&quot;amassando&quot;</span>), <span class="dt">formato =</span> <span class="st">&quot;bolinha&quot;</span>), <span class="dt">modo =</span> <span class="st">&quot;quentinho&quot;</span>)</code></pre>
+<p>Perceba que o código acima poderá ser um pouco confuso, uma vez que envolve muitas composições de funções. Porém, nada impede que você esteja salvando os resultados intermediários em objetos, de modo a facilitar a leitura do código ao relacionar esses objetos intermediários. Fazer isso funciona bem e eu particularmente utilizo muito. Porém, você também poderá fazer uso de pipes (operador <code>%&gt;%</code>) que poderá, nessas situações, deixar a leitura do código mais fácil, lógica e consequentimente mais compreensível.</p>
+
+</div>
 </div>
             </section>
 
