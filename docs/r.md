@@ -68,8 +68,8 @@ O operador de tubo `%>%` foi implementando no pacote [**magrittr**](https://gith
 O nome **magrittr** muito provavelmente faz alusão à [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte), um dos principais pintores surrealista belga, em que a letra **r**, ao final, obviamente faz referências à linguagem R. É possível inferir isso com base no logo do pacote, apresentado logo abaixo:
 
 <div class="figure" style="text-align: center">
-<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg)), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
-<p class="caption">(\#fig:unnamed-chunk-2)Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg)), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte).</p>
+<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](files/audio_magrittr.ogg), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
+<p class="caption">(\#fig:unnamed-chunk-2)Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](files/audio_magrittr.ogg), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte).</p>
 </div>
 
 Voltemos à algo mais interessante, ao preparo de pães de queijo. O preparo, "em R", poderia ser quase tão saboroso quanto comer os pães de queijo, se fossem "preparados" utilizando o operador `%>%`, na forma que segue:
@@ -140,17 +140,7 @@ x %>% f(y)
 
 irá atribuir o objeto `x` à `f`, como **primeiro argumento** da função `f`, ou seja, será equivalente à fazer `f(x, y)`.
 
-**Exercício**: Resolva os itens abaixo utilizando o operador `%>%` do pacote matrittr. 
-
-  - `as.character(log(cos(sin(pi))))`
-
-  - `round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)`
-  
-  - `summary(anova(lm(mpg ~ wt, data = mtcars)))`
-  
-  - `summary(lm(dist ~ log(accel), data = na.omit(attenu)))`
-  
-Nem sempre desejamos introduzir o que está a esquerda do operador `%>%` como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter `.` (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de `%>%` na função à sua direita. Por exemplo, a expressão `x %>% f(a, b = .)` fará com que `x` à esqueda de `%>%` seja substituído no lugar do caracter `.`, ou seja, `x` é passado como argumento à `b`, segundo argumento de `f`.
+Porém, nem sempre desejamos introduzir o que está a esquerda do operador `%>%` como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter `.` (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de `%>%` na função à sua direita. Por exemplo, a expressão `x %>% f(a, b = .)` fará com que `x` à esqueda de `%>%` seja substituído no lugar do caracter `.`, ou seja, `x` é passado como argumento à `b`, segundo argumento de `f`.
 
 **Exemplo**: Uso do caracter `.` em um contexto de bloco de instrução. Esse exemplo mostra que o que está a direita do operador `%>%` não necessariamente precisa ser uma função. Nesses casos, o caracter `.` é de grande importância para que o operador saiba substituir corretamente o objeto `x` no bloco de instruções.
 
@@ -177,7 +167,7 @@ Observe que, por exemplo, fazer `x %>% f(., y = 1)`  equivale a fazer `x %>% f(y
 </div></div>\EndKnitrBlock{rmdnote}
 
 
-Um outro operador útil disponível no pacote magrittr é o operator ***tee***, denotado por `%T>%`. Esse operador funciona de forma muito parecida com o operador `%>%`, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e **não** o resultado da operação do seu lado diretio. 
+Um outro operador útil disponível no pacote [**magrittr**](https://github.com/tidyverse/magrittr) é o operator ***tee***, denotado por `%T>%`. Esse operador funciona de forma muito parecida com o operador `%>%`, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e **não** o resultado da operação do seu lado diretio. 
 
 O uso do operador `%T>%` não é tão comum. Normalmente a frequência de uso do operador `%>%` é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador `%>%`.
 
@@ -236,7 +226,7 @@ mtcars %$% cor(cyl, hp)
 **Nota**:
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
-Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exmeplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:
+Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exemplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:
 </div>\EndKnitrBlock{rmdnote}
 
 ```r
@@ -253,12 +243,107 @@ mtcars %>% lm(cyl ~ hp, data = .)
 ##     3.00680      0.02168
 ```
 uma vez que a função `lm` já possui um argumento para o conjunto de dados a ser utilizado. Ao passar o conjunto de dados para a função `lm`, todas as variáveis de **mtcars** estarão visíveis no interior da função `lm`.
-
-
-
-
 </div>
+
+Por fim e não menos importante, existe o operador de pipe compostos, denotado por `%<>%`. Esse operador é útil quando queremos realizar uma operação e atribuir essa modificação ao objeto à esquerda do operador. Considere um exemplo de uso do operador de pipe composto:
+
+**Exemplo**: Utilizando o operador `%<>%` para alterar o conteúdo da variável **disp** do data frame **mtcars**. Perceba que ao chamar mtcars, a variável **disp** agora é do tipo inteiro.
+
+
+```r
+mtcars$disp %<>% as.integer()
+str(mtcars)
 ```
 
+```
+## 'data.frame':	32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: int  160 160 108 258 360 225 360 146 140 167 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+```
+
+**Observação**:
+
+\BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
+Alguns pacotes de R possuem vinhetas que facilitam o entendimento das funções empacotadas. Não necessariamente as vinhetas irão dissertar sobre todas as funções implementadas. Porém, essas vinhetas normalmente focam no que há de mais importante no pacote. Você poderá encontrar a vinheta do pacote [**magrittr**](https://github.com/tidyverse/magrittr) [**aqui**](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html). Normalmente essas vinhetas são mais fáceis de serem lidas do que as documentações dos pacotes. Porém, consultar a documentação é o caminho correto para encontrar as respostas mais difícies e que muitas vezes não são abordadas nas vinhetas.
+</div></div>\EndKnitrBlock{rmdobservation}
+
+### Exercícios {-}
+
+Resolva os exercícios que seguem. Os operadores pipes que você utilizará para resolver os exercícios não necessariamente irão produzir as melhores soluções. Porém, esses exercícios farão você pensar a respeito do emprego dos operadores e, aqui, é isso o que importará.
+
+1. Resolva os itens abaixo utilizando o operador `%>%` do pacote [**magrittr**](https://github.com/tidyverse/magrittr): 
+
+   - `as.character(log(cos(sin(pi))))`
+
+   - `round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)`
+  
+   - `summary(anova(lm(mpg ~ wt, data = mtcars)))`
+  
+   - `summary(lm(dist ~ log(accel), data = na.omit(attenu)))`
+   
+2. Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:
+
+   
+   ```r
+      dados <- subset(iris, Sepal.Length > mean(Sepal.Length))
+      cor(dados$Sepal.Length, dados$Sepal.Width)
+   ```
+
+3. Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:
+
+   
+   ```r
+      vetor <- 1:10
+      plot(matrix(data = vetor, ncol = 5, nrow = 5))
+      quantil <- quantile(vetor)
+      print(quantil)
+   ```
+4. Sem fazer uso dos operadores de atribuições `<-` ou `=`, reescreva o código abaixo usando operadore(s) pipe(s):
+
+   
+   ```r
+      mtcars <- transform(mtcars, cyl = cyl * 2)
+   ```
 
 
+5. Considere o código abaixo que faz uso do operador `%>%`. **Dica**: busque nas documentações do pacote [**magrittr**](https://github.com/tidyverse/magrittr), o uso das funções `subtract` e `divide_by`. O que esse código faz? Reescreva-o sem fazer uso do operador `%>%`.
+
+   
+   ```r
+       vetor <- c(1.7, 2.74, 5.66, 8.13, 4.04)
+       vetor %<>% subtract(., mean(.)) 
+       vetor %>% divide_by(., sd(.))
+   ```
+
+6. Considere o código abaixo e reescreva-o utilizando o operador `%>%` sem utilizar de passos intermediários. **Dica**: Procure identificar o uso da função `extract` do pacote [**magrittr**](https://github.com/tidyverse/magrittr).
+
+   
+   ```r
+      # Essa função não deverá entrar no pipe.
+      set.seed(0) 
+      
+      x <- runif(n = 100, min = 0, max = 100)
+      x <- x[x > 10 & x < 30]
+      round(mean(x), digits = 1)
+   ```
+
+7. Reescreva o código abaixo utilizando o operador pipe `%>%`.
+
+   
+   ```r
+      dados <- subset(iris, Sepal.Length > 5) 
+      aggregate(Sepal.Length ~ Species, dados, FUN = mean)
+   ```
+
+   Tente reescrever o código apenas utilizando o operador `%>%`e depois modifique-o para utilizar o operador de exposição `%$%`. **Dica**: procure entender o emprego das funções `subset` e `aggregate`, funções dos pacotes **base** e **stats**, respectivamente.
+   
+8. Estude a vinheta do pacote [**magrittr**](https://github.com/tidyverse/magrittr). Acesse a vinheta [**aqui**](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).

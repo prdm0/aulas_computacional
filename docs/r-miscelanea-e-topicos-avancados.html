@@ -163,7 +163,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.5</b> R Markdown</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
-<li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a></li>
+<li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-1"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -230,9 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 O operador de tubo <code>%&gt;%</code> foi implementando no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> por <a href="https://github.com/smbache"><strong>Stefan Milton Bache</strong></a> e atualmente recebe a colaboração de diversas pessoas, incluindo programadores da <a href="https://www.rstudio.com/"><strong>RStudio, Inc</strong></a>. Atualmente, o pacote não recebe muitas atualizações, muito provavelmente por já está estável e cumprindo bem o seu papel.</p>
 <p>O nome <strong>magrittr</strong> muito provavelmente faz alusão à <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>, um dos principais pintores surrealista belga, em que a letra <strong>r</strong>, ao final, obviamente faz referências à linguagem R. É possível inferir isso com base no logo do pacote, apresentado logo abaixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg)), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
+<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](files/audio_magrittr.ogg), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
 <p class="caption">
-Figura 5.1: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> com frase <strong><em>Ceci n’est pas une pipe</em></strong> (<a href="https://upload.wikimedia.org/wikipedia/commons/1/1f/Fr-Ceci-n-est-pas-une-pipe.ogg"><strong>ouça a pronuncia</strong></a>), mesmo frase que acompanha pintura <strong><em>La trahison des images</em></strong> de <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>.
+Figura 5.1: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> com frase <strong><em>Ceci n’est pas une pipe</em></strong> (<a href="files/audio_magrittr.ogg"><strong>ouça a pronuncia</strong></a>, mesmo frase que acompanha pintura <strong><em>La trahison des images</em></strong> de <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>.
 </p>
 </div>
 <p>Voltemos à algo mais interessante, ao preparo de pães de queijo. O preparo, “em R”, poderia ser quase tão saboroso quanto comer os pães de queijo, se fossem “preparados” utilizando o operador <code>%&gt;%</code>, na forma que segue:</p>
@@ -287,14 +289,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p>Para um entendimento geral do operador <code>%&gt;%</code>, considere a existência dos objetos <code>x</code>, <code>y</code>e <code>f</code>. Então,</p>
 <pre class="{r},"><code>x %&gt;% f(y)</code></pre>
 <p>irá atribuir o objeto <code>x</code> à <code>f</code>, como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code>.</p>
-<p><strong>Exercício</strong>: Resolva os itens abaixo utilizando o operador <code>%&gt;%</code> do pacote matrittr.</p>
-<ul>
-<li><p><code>as.character(log(cos(sin(pi))))</code></p></li>
-<li><p><code>round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)</code></p></li>
-<li><p><code>summary(anova(lm(mpg ~ wt, data = mtcars)))</code></p></li>
-<li><p><code>summary(lm(dist ~ log(accel), data = na.omit(attenu)))</code></p></li>
-</ul>
-<p>Nem sempre desejamos introduzir o que está a esquerda do operador <code>%&gt;%</code> como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter <code>.</code> (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de <code>%&gt;%</code> na função à sua direita. Por exemplo, a expressão <code>x %&gt;% f(a, b = .)</code> fará com que <code>x</code> à esqueda de <code>%&gt;%</code> seja substituído no lugar do caracter <code>.</code>, ou seja, <code>x</code> é passado como argumento à <code>b</code>, segundo argumento de <code>f</code>.</p>
+<p>Porém, nem sempre desejamos introduzir o que está a esquerda do operador <code>%&gt;%</code> como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter <code>.</code> (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de <code>%&gt;%</code> na função à sua direita. Por exemplo, a expressão <code>x %&gt;% f(a, b = .)</code> fará com que <code>x</code> à esqueda de <code>%&gt;%</code> seja substituído no lugar do caracter <code>.</code>, ou seja, <code>x</code> é passado como argumento à <code>b</code>, segundo argumento de <code>f</code>.</p>
 <p><strong>Exemplo</strong>: Uso do caracter <code>.</code> em um contexto de bloco de instrução. Esse exemplo mostra que o que está a direita do operador <code>%&gt;%</code> não necessariamente precisa ser uma função. Nesses casos, o caracter <code>.</code> é de grande importância para que o operador saiba substituir corretamente o objeto <code>x</code> no bloco de instruções.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 x &lt;-<span class="st"> </span>mtcars
@@ -314,7 +309,7 @@ x <span class="op">%&gt;%</span><span class="st"> </span>{
 </div>
 </div>
 
-<p>Um outro operador útil disponível no pacote magrittr é o operator <strong><em>tee</em></strong>, denotado por <code>%T&gt;%</code>. Esse operador funciona de forma muito parecida com o operador <code>%&gt;%</code>, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e <strong>não</strong> o resultado da operação do seu lado diretio.</p>
+<p>Um outro operador útil disponível no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> é o operator <strong><em>tee</em></strong>, denotado por <code>%T&gt;%</code>. Esse operador funciona de forma muito parecida com o operador <code>%&gt;%</code>, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e <strong>não</strong> o resultado da operação do seu lado diretio.</p>
 <p>O uso do operador <code>%T&gt;%</code> não é tão comum. Normalmente a frequência de uso do operador <code>%&gt;%</code> é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador <code>%&gt;%</code>.</p>
 <p><strong>Exemplo</strong>: Pelo que entendemos do operador <code>%&gt;%</code>, não faz nenhum sentido o código abaixo:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente.</span>
@@ -341,7 +336,7 @@ x <span class="op">%&gt;%</span><span class="st"> </span>{
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exmeplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:</p>
+<p>Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exemplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:</p>
 </div>
 <pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm</span>(cyl <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> .)</code></pre>
 <pre><code>## 
@@ -353,8 +348,70 @@ x <span class="op">%&gt;%</span><span class="st"> </span>{
 ##     3.00680      0.02168</code></pre>
 <p>uma vez que a função <code>lm</code> já possui um argumento para o conjunto de dados a ser utilizado. Ao passar o conjunto de dados para a função <code>lm</code>, todas as variáveis de <strong>mtcars</strong> estarão visíveis no interior da função <code>lm</code>.</p>
 </div>
-<p>```</p>
+<p>Por fim e não menos importante, existe o operador de pipe compostos, denotado por <code>%&lt;&gt;%</code>. Esse operador é útil quando queremos realizar uma operação e atribuir essa modificação ao objeto à esquerda do operador. Considere um exemplo de uso do operador de pipe composto:</p>
+<p><strong>Exemplo</strong>: Utilizando o operador <code>%&lt;&gt;%</code> para alterar o conteúdo da variável <strong>disp</strong> do data frame <strong>mtcars</strong>. Perceba que ao chamar mtcars, a variável <strong>disp</strong> agora é do tipo inteiro.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars<span class="op">$</span>disp <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">as.integer</span>()
+<span class="kw">str</span>(mtcars)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: int  160 160 108 258 360 225 360 146 140 167 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<p><strong>Observação</strong>:</p>
 
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Alguns pacotes de R possuem vinhetas que facilitam o entendimento das funções empacotadas. Não necessariamente as vinhetas irão dissertar sobre todas as funções implementadas. Porém, essas vinhetas normalmente focam no que há de mais importante no pacote. Você poderá encontrar a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>. Normalmente essas vinhetas são mais fáceis de serem lidas do que as documentações dos pacotes. Porém, consultar a documentação é o caminho correto para encontrar as respostas mais difícies e que muitas vezes não são abordadas nas vinhetas.</p>
+</div>
+</div>
+
+<div id="exercicios-1" class="section level3 unnumbered">
+<h3>Exercícios</h3>
+<p>Resolva os exercícios que seguem. Os operadores pipes que você utilizará para resolver os exercícios não necessariamente irão produzir as melhores soluções. Porém, esses exercícios farão você pensar a respeito do emprego dos operadores e, aqui, é isso o que importará.</p>
+<ol style="list-style-type: decimal">
+<li><p>Resolva os itens abaixo utilizando o operador <code>%&gt;%</code> do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>:</p>
+<ul>
+<li><p><code>as.character(log(cos(sin(pi))))</code></p></li>
+<li><p><code>round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)</code></p></li>
+<li><p><code>summary(anova(lm(mpg ~ wt, data = mtcars)))</code></p></li>
+<li><p><code>summary(lm(dist ~ log(accel), data = na.omit(attenu)))</code></p></li>
+</ul></li>
+<li><p>Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   dados &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(Sepal.Length))
+   <span class="kw">cor</span>(dados<span class="op">$</span>Sepal.Length, dados<span class="op">$</span>Sepal.Width)</code></pre></li>
+<li><p>Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   vetor &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+   <span class="kw">plot</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> vetor, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">nrow =</span> <span class="dv">5</span>))
+   quantil &lt;-<span class="st"> </span><span class="kw">quantile</span>(vetor)
+   <span class="kw">print</span>(quantil)</code></pre></li>
+<li><p>Sem fazer uso dos operadores de atribuições <code>&lt;-</code> ou <code>=</code>, reescreva o código abaixo usando operadore(s) pipe(s):</p>
+<pre class="sourceCode r"><code class="sourceCode r">   mtcars &lt;-<span class="st"> </span><span class="kw">transform</span>(mtcars, <span class="dt">cyl =</span> cyl <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</code></pre></li>
+<li><p>Considere o código abaixo que faz uso do operador <code>%&gt;%</code>. <strong>Dica</strong>: busque nas documentações do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>, o uso das funções <code>subtract</code> e <code>divide_by</code>. O que esse código faz? Reescreva-o sem fazer uso do operador <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">    vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.74</span>, <span class="fl">5.66</span>, <span class="fl">8.13</span>, <span class="fl">4.04</span>)
+    vetor <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">subtract</span>(., <span class="kw">mean</span>(.)) 
+    vetor <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">divide_by</span>(., <span class="kw">sd</span>(.))</code></pre></li>
+<li><p>Considere o código abaixo e reescreva-o utilizando o operador <code>%&gt;%</code> sem utilizar de passos intermediários. <strong>Dica</strong>: Procure identificar o uso da função <code>extract</code> do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="co"># Essa função não deverá entrar no pipe.</span>
+   <span class="kw">set.seed</span>(<span class="dv">0</span>) 
+
+   x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>)
+   x &lt;-<span class="st"> </span>x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>]
+   <span class="kw">round</span>(<span class="kw">mean</span>(x), <span class="dt">digits =</span> <span class="dv">1</span>)</code></pre></li>
+<li><p>Reescreva o código abaixo utilizando o operador pipe <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">   dados &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) 
+   <span class="kw">aggregate</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, dados, <span class="dt">FUN =</span> mean)</code></pre>
+<p>Tente reescrever o código apenas utilizando o operador <code>%&gt;%</code>e depois modifique-o para utilizar o operador de exposição <code>%$%</code>. <strong>Dica</strong>: procure entender o emprego das funções <code>subset</code> e <code>aggregate</code>, funções dos pacotes <strong>base</strong> e <strong>stats</strong>, respectivamente.</p></li>
+<li><p>Estude a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>. Acesse a vinheta <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>.</p></li>
+</ol>
+
+</div>
 </div>
 </div>
             </section>

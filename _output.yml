@@ -2,7 +2,7 @@ bookdown::gitbook:
   css: style.css
   config:
     toc:
-      collapse: none
+      collapse: 'none'
     edit: 
       link: https://github.com/prdm0/aulas_computacional/edit/master/%s
       text: "Editar"
