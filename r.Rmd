@@ -408,6 +408,8 @@ body(f)
 environment(f)
 ```
 
+### Passando atributos
+
 Uma função em R é um objeto qualquer. Dessa forma, assim como qualquer objeto, uma função poderá carregar consigo uma quantidade qualquer de atributos que podem ser recuperados e utilizados a qualquer momento. Considere os códigos que seguem:
 
 ```{r}
@@ -457,4 +459,129 @@ attr(f, "desc") <- "retorna -, 0 ou +, a depender do valor passado à x"
 # Acessando o conteúdo do atributo desc:
 attr(f, "desc")
 ```
+
+Sabemos que o uso da função `body()` permete-nos acessar o corpo de uma função (código da função). Porém, você apenas irá visualizar as partes do código que foram implementadas estritamente em R. Por exemplo, no trecho de código abaixo é apresentado o sudo da função `body()` sobre uma função implementada em R e outra função que tem o seu código implementado em uma linguagem de mais baixo nível:
+   
+   
+ ```{r, eval = FALSE}
+     # Acessando o corpo da fução rm():
+     body(ls)
+     
+     # Tentando acessar o corpo da função sum():
+     body(sum)
+ ```
+
+Note que foi possível acessar parte do conteúdo, implementado em R, da função `rm()`. Porém, no caso da função `sum()` o retorno foi `NULL`, uma vez que essa função é por completo implementada em uma linguagem de mais baixo nível. Isso se deve ao fato de que essas funções foram escritas em linguagens compiladas como o caso de C/C++, camhando assim um código objeto e não um código fonte.
+
+Em muitas situações desejamos passar uma função como argumento à outra função. O trecho de código abaixo cria duas simples funções, `f()` e `g()`, em que passamos `f()` como argumento à função `g()`:
+
+```{r}
+# As funções não necessariamente necessitam ter argumentos.
+f <- function(){
+   "Olá"
+}
+
+g <- function(func){
+   paste(func, "mundo", sep = " ")
+}
+
+# Passando a função f() como argumento da função g():
+g(func = f())
+
+# Compondo as funçoes nchar(), g() e f().
+# A função nchar() retorna a quantidade de caracteres 
+# na estring retornada por g().
+nchar(g(func = f()))
+```
+
+### Funções Anônimas
+
+Algo que é bastante útil quando estamos trabalhando com funções é a possibilidade de não nomear uma função. Essa estratégia é interessante quando temos funções curtas que não queremos nos dar o trabalho de pensarmos em um nome. Normalmente, aplica-se à casos de funções curtas que são passadas como argumento à outras funções. O trecho de código que segue apresenta o uso de uma função anônima passada como argumento à função `integrate()` de R:
+
+```{r}
+# Passando a função anônima function(x) x ^ 2 como argumento da 
+# função integrate().
+integrate(function(x) x ^ 2, lower = 0, upper = 2)$value
+```
+
+Não esqueça que, em muitos casos, compor funções utilizando o operador `%>%` pode ser interessante. As composições acimas poderiam ser realizadas da forma que segue:
+
+```{r, eval = FALSE}
+# Primeira composição utilizando o operador %>%: 
+f %>% g %>% nchar
+
+# Segunda composição utulizando os operadores pipes %>%  e %$%:
+(function(x) x^2) %>% integrate(lower = 0, upper = 2) %$% value
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma análise de dados, em que queremos deixar claro uma sequência lógica de operações. Porém, note que pipes não irão tornar o seu código mais eficientes do ponto de vista computacional, nem o contrário, ou seja, utilizar pipes não irão tornar os seus códigos menos eficientes.
+</div>
+```
+
+### Escopo Léxico
+
+Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programção o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.
+
+A linguagem R tem escopo léxico, assim como diversas outras linguagens de programação. Trata-se de tipo de escopo comum em linguagens como Pascal, C, C++, Ada, Go, Haskell, R, Julia, Python, Ruby, entre diversas outras. Considere o exemplo apresentado no código abaixo:
+
+```{r}
+x <- "fora"
+f <- function(){
+   x <- "dentro"
+   x
+}; f()
+```
+
+Para quem já programa um pouco em R, o retorno da função `f()` era esperado, uma vez que olhando para o código, entendemos facilmente qual a saída, uma vez que a sintaxe nos acusa (escopo léxico). Na verdade, o termo vem de ***lexing***, que refere-se ao processo de conversão de partes significativas do código intendíveis para o interpretador. 
+
+Existem linguagens que fazem uso de [**escopo dinâmico**](https://pt.wikipedia.org/wiki/Escopo_(computa%C3%A7%C3%A3o)#Escopo_din%C3%A2mico), como é o caso do Emacs Lisp, shell Bash, LaTeX (linguagem de marcação), entre outras. Como esse não é o caso da linguagem R que frequentemente nos deparamos em R, aqui não é o lugar para dissertar em relação à esse assunto. 
+
+No código acima, perceba que havia um objeto `x` definido no interior da função. Dessa forma, o retorno da função buscará por referências à `x` no mesmo escopo da função, isto é, irá considerar `x` definido por `x <- "dentro"`. Porém, considere a simples modificação do código na forma que segue:
+
+```{r}
+x <- "fora"
+f <- function(){
+   x
+}; f()
+```
+
+No código acima, a função `f()` não pode encontrar referências ao objeto `x` no interior da função. Dessa forma, R considerar-a o objeto `x` no respectivo escopo mais externo, que nesse caso é o objeto `x` definido por `x <- "fora"`. Esse comportamento é válido se consideramos estruturas mais aninhadas, como a que é apresentada no código que segue:
+
+```{r}
+x <- "estou fora de f"
+f <- function(){
+
+   # Podemos definir funções dentro de funções.
+   g <- function(){
+      x
+   } # fim da função interna
+   list(g = g(), x = x)
+} # fim da função externa
+
+f()
+```
+
+Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f()` referem-se ao valor de `x` definido fora do escopo da função `f()`. Isso se deve ao fato da linguagem R procurar um objeto de nome `x` de froma sucessivas, partindo do escopo ao qual o objeto é invocado à escopos em níveis mais externos. No código acima, tanto `g()` definida dentro de `f()` quanto a prórpia função `f()` apenas encontrará referência à `x` no ambiente mais externo, isto é, será considerado o objeto `x` definido por `x <- "estou fora de f"`. 
+
+Algo interessante de se observar é que muito embora o R procure em escopos mais externos a primeira referência ao objeto que invocamos em um escopo mais interno, escopo este em que não há nenhuma referência à este objeto, em futuras invocações da função, a partir da segunda chamada, o objeto `x` já encontra-se definido no interior da função `f()`.
+
+```{r}
+x <- 0
+f <- function(){
+   # x encontra-se definido no escopo externo na primeira chamada à
+   # função f.
+   x <- x + 1 
+   x
+}
+f()
+f()
+```
+
+Observe que mesmo que você chame por diversas vezes consecutivas a função `f()` o retorno sempre será `1`.
+
+
 

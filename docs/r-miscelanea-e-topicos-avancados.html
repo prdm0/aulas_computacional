@@ -166,7 +166,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-1"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes"><i class="fa fa-check"></i><b>5.2</b> Funções</a></li>
+<li class="chapter" data-level="5.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes"><i class="fa fa-check"></i><b>5.2</b> Funções</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-anonimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções Anônimas</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo Léxico</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -467,6 +471,8 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Ambiente que a função foi definida.</span>
 <span class="kw">environment</span>(f)</code></pre>
 <pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<div id="passando-atributos" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Passando atributos</h3>
 <p>Uma função em R é um objeto qualquer. Dessa forma, assim como qualquer objeto, uma função poderá carregar consigo uma quantidade qualquer de atributos que podem ser recuperados e utilizados a qualquer momento. Considere os códigos que seguem:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vetor com valores inteiros em memória de 1 à 10.</span>
 x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L
@@ -513,7 +519,105 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
 <span class="co"># Acessando o conteúdo do atributo desc:</span>
 <span class="kw">attr</span>(f, <span class="st">&quot;desc&quot;</span>)</code></pre>
 <pre><code>## [1] &quot;retorna -, 0 ou +, a depender do valor passado à x&quot;</code></pre>
+<p>Sabemos que o uso da função <code>body()</code> permete-nos acessar o corpo de uma função (código da função). Porém, você apenas irá visualizar as partes do código que foram implementadas estritamente em R. Por exemplo, no trecho de código abaixo é apresentado o sudo da função <code>body()</code> sobre uma função implementada em R e outra função que tem o seu código implementado em uma linguagem de mais baixo nível:</p>
+<pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># Acessando o corpo da fução rm():</span>
+    <span class="kw">body</span>(ls)
+    
+    <span class="co"># Tentando acessar o corpo da função sum():</span>
+    <span class="kw">body</span>(sum)</code></pre>
+<p>Note que foi possível acessar parte do conteúdo, implementado em R, da função <code>rm()</code>. Porém, no caso da função <code>sum()</code> o retorno foi <code>NULL</code>, uma vez que essa função é por completo implementada em uma linguagem de mais baixo nível. Isso se deve ao fato de que essas funções foram escritas em linguagens compiladas como o caso de C/C++, camhando assim um código objeto e não um código fonte.</p>
+<p>Em muitas situações desejamos passar uma função como argumento à outra função. O trecho de código abaixo cria duas simples funções, <code>f()</code> e <code>g()</code>, em que passamos <code>f()</code> como argumento à função <code>g()</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># As funções não necessariamente necessitam ter argumentos.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="st">&quot;Olá&quot;</span>
+}
 
+g &lt;-<span class="st"> </span><span class="cf">function</span>(func){
+   <span class="kw">paste</span>(func, <span class="st">&quot;mundo&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)
+}
+
+<span class="co"># Passando a função f() como argumento da função g():</span>
+<span class="kw">g</span>(<span class="dt">func =</span> <span class="kw">f</span>())</code></pre>
+<pre><code>## [1] &quot;Olá mundo&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compondo as funçoes nchar(), g() e f().</span>
+<span class="co"># A função nchar() retorna a quantidade de caracteres </span>
+<span class="co"># na estring retornada por g().</span>
+<span class="kw">nchar</span>(<span class="kw">g</span>(<span class="dt">func =</span> <span class="kw">f</span>()))</code></pre>
+<pre><code>## [1] 9</code></pre>
+</div>
+<div id="funcoes-anonimas" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Funções Anônimas</h3>
+<p>Algo que é bastante útil quando estamos trabalhando com funções é a possibilidade de não nomear uma função. Essa estratégia é interessante quando temos funções curtas que não queremos nos dar o trabalho de pensarmos em um nome. Normalmente, aplica-se à casos de funções curtas que são passadas como argumento à outras funções. O trecho de código que segue apresenta o uso de uma função anônima passada como argumento à função <code>integrate()</code> de R:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Passando a função anônima function(x) x ^ 2 como argumento da </span>
+<span class="co"># função integrate().</span>
+<span class="kw">integrate</span>(<span class="cf">function</span>(x) x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">2</span>)<span class="op">$</span>value</code></pre>
+<pre><code>## [1] 2.666667</code></pre>
+<p>Não esqueça que, em muitos casos, compor funções utilizando o operador <code>%&gt;%</code> pode ser interessante. As composições acimas poderiam ser realizadas da forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Primeira composição utilizando o operador %&gt;%: </span>
+f <span class="op">%&gt;%</span><span class="st"> </span>g <span class="op">%&gt;%</span><span class="st"> </span>nchar
+
+<span class="co"># Segunda composição utulizando os operadores pipes %&gt;%  e %$%:</span>
+(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">integrate</span>(<span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">2</span>) <span class="op">%$%</span><span class="st"> </span>value</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma análise de dados, em que queremos deixar claro uma sequência lógica de operações. Porém, note que pipes não irão tornar o seu código mais eficientes do ponto de vista computacional, nem o contrário, ou seja, utilizar pipes não irão tornar os seus códigos menos eficientes.</p>
+</div>
+</div>
+
+</div>
+<div id="escopo-lexico" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Escopo Léxico</h3>
+<p>Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programção o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.</p>
+<p>A linguagem R tem escopo léxico, assim como diversas outras linguagens de programação. Trata-se de tipo de escopo comum em linguagens como Pascal, C, C++, Ada, Go, Haskell, R, Julia, Python, Ruby, entre diversas outras. Considere o exemplo apresentado no código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;fora&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x &lt;-<span class="st"> &quot;dentro&quot;</span>
+   x
+}; <span class="kw">f</span>()</code></pre>
+<pre><code>## [1] &quot;dentro&quot;</code></pre>
+<p>Para quem já programa um pouco em R, o retorno da função <code>f()</code> era esperado, uma vez que olhando para o código, entendemos facilmente qual a saída, uma vez que a sintaxe nos acusa (escopo léxico). Na verdade, o termo vem de <strong><em>lexing</em></strong>, que refere-se ao processo de conversão de partes significativas do código intendíveis para o interpretador.</p>
+<p>Existem linguagens que fazem uso de <a href="https://pt.wikipedia.org/wiki/Escopo_(computa%C3%A7%C3%A3o)#Escopo_din%C3%A2mico"><strong>escopo dinâmico</strong></a>, como é o caso do Emacs Lisp, shell Bash, LaTeX (linguagem de marcação), entre outras. Como esse não é o caso da linguagem R que frequentemente nos deparamos em R, aqui não é o lugar para dissertar em relação à esse assunto.</p>
+<p>No código acima, perceba que havia um objeto <code>x</code> definido no interior da função. Dessa forma, o retorno da função buscará por referências à <code>x</code> no mesmo escopo da função, isto é, irá considerar <code>x</code> definido por <code>x &lt;- "dentro"</code>. Porém, considere a simples modificação do código na forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;fora&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x
+}; <span class="kw">f</span>()</code></pre>
+<pre><code>## [1] &quot;fora&quot;</code></pre>
+<p>No código acima, a função <code>f()</code> não pode encontrar referências ao objeto <code>x</code> no interior da função. Dessa forma, R considerar-a o objeto <code>x</code> no respectivo escopo mais externo, que nesse caso é o objeto <code>x</code> definido por <code>x &lt;- "fora"</code>. Esse comportamento é válido se consideramos estruturas mais aninhadas, como a que é apresentada no código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;estou fora de f&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+
+   <span class="co"># Podemos definir funções dentro de funções.</span>
+   g &lt;-<span class="st"> </span><span class="cf">function</span>(){
+      x
+   } <span class="co"># fim da função interna</span>
+   <span class="kw">list</span>(<span class="dt">g =</span> <span class="kw">g</span>(), <span class="dt">x =</span> x)
+} <span class="co"># fim da função externa</span>
+
+<span class="kw">f</span>()</code></pre>
+<pre><code>## $g
+## [1] &quot;estou fora de f&quot;
+## 
+## $x
+## [1] &quot;estou fora de f&quot;</code></pre>
+<p>Perceba que tanto o retorno da função <code>g()</code> quando o objeto <code>x</code> da função <code>f()</code> referem-se ao valor de <code>x</code> definido fora do escopo da função <code>f()</code>. Isso se deve ao fato da linguagem R procurar um objeto de nome <code>x</code> de froma sucessivas, partindo do escopo ao qual o objeto é invocado à escopos em níveis mais externos. No código acima, tanto <code>g()</code> definida dentro de <code>f()</code> quanto a prórpia função <code>f()</code> apenas encontrará referência à <code>x</code> no ambiente mais externo, isto é, será considerado o objeto <code>x</code> definido por <code>x &lt;- "estou fora de f"</code>.</p>
+<p>Algo interessante de se observar é que muito embora o R procure em escopos mais externos a primeira referência ao objeto que invocamos em um escopo mais interno, escopo este em que não há nenhuma referência à este objeto, em futuras invocações da função, a partir da segunda chamada, o objeto <code>x</code> já encontra-se definido no interior da função <code>f()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> 
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Observe que mesmo que você chame por diversas vezes consecutivas a função <code>f()</code> o retorno sempre será <code>1</code>.</p>
+
+</div>
 </div>
 </div>
             </section>
