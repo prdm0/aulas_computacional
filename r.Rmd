@@ -581,7 +581,32 @@ f()
 f()
 ```
 
-Observe que mesmo que você chame por diversas vezes consecutivas a função `f()` o retorno sempre será `1`.
+Observe que mesmo que você chame por diversas vezes consecutivas a função `f()` o retorno sempre será `1`. Para ser possível obter somas em 1 iterativas, uma solução para esse problema seria fazer uso do operador de atribuição profunda, denotado por `<<-`. Esse operador permite que as alterações no objeto `x` ocorra no primeiro escopo mais abrangente que faz referência à um objeto `x`. Considere o trecho de código que segue:
 
+```{r}
+x <- 0
+f <- function(){
+   # x encontra-se definido no escopo externo na primeira chamada à
+   # função f.
+   x <<- x + 1 # Operador de atribuição profunda.
+   x
+}
+f()
+f()
+```
 
+Porém, perceba o resultado que segue:
 
+```{r}
+x <- 0
+f <- function(){
+   x = 7
+   x <<- x + 1 # Operador de atribuição profunda.
+   x
+}
+f()
+x
+```
+Note no código acima que o valor retornado pela função é `7` (sempre) e não `8`, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de `f()`, sempre teremos que `x` ao lado direito do operador `<<-` será `7`, uma vez que em todas as chamadas, há dentro da função `f()` a definição de `x = 7`. Isso também implicará que o valor de `x` do lado esquerdo do operador `<<-` sempre será atualizado para `8`, em todas as chamadas. Veja que `x` ao lado esquerdo de `<<-` refere-se ao objeto `x` no escopo mais extero ao escopo de `x` no interior da função.
+
+## Exercícios {-} 

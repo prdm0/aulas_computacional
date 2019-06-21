@@ -171,6 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-anonimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções Anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo Léxico</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
 </ul>
 
@@ -615,9 +616,35 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <pre><code>## [1] 1</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
 <pre><code>## [1] 1</code></pre>
-<p>Observe que mesmo que você chame por diversas vezes consecutivas a função <code>f()</code> o retorno sempre será <code>1</code>.</p>
-
+<p>Observe que mesmo que você chame por diversas vezes consecutivas a função <code>f()</code> o retorno sempre será <code>1</code>. Para ser possível obter somas em 1 iterativas, uma solução para esse problema seria fazer uso do operador de atribuição profunda, denotado por <code>&lt;&lt;-</code>. Esse operador permite que as alterações no objeto <code>x</code> ocorra no primeiro escopo mais abrangente que faz referência à um objeto <code>x</code>. Considere o trecho de código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Porém, perceba o resultado que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x =<span class="st"> </span><span class="dv">7</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x</code></pre>
+<pre><code>## [1] 8</code></pre>
+<p>Note no código acima que o valor retornado pela função é <code>7</code> (sempre) e não <code>8</code>, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de <code>f()</code>, sempre teremos que <code>x</code> ao lado direito do operador <code>&lt;&lt;-</code> será <code>7</code>, uma vez que em todas as chamadas, há dentro da função <code>f()</code> a definição de <code>x = 7</code>. Isso também implicará que o valor de <code>x</code> do lado esquerdo do operador <code>&lt;&lt;-</code> sempre será atualizado para <code>8</code>, em todas as chamadas. Veja que <code>x</code> ao lado esquerdo de <code>&lt;&lt;-</code> refere-se ao objeto <code>x</code> no escopo mais extero ao escopo de <code>x</code> no interior da função.</p>
 </div>
+</div>
+<div id="exercicios-2" class="section level2 unnumbered">
+<h2>Exercícios</h2>
+
 </div>
 </div>
             </section>
