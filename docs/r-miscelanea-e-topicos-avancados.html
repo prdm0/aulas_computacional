@@ -166,6 +166,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-1"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
+<li class="chapter" data-level="5.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes"><i class="fa fa-check"></i><b>5.2</b> Funções</a></li>
 </ul></li>
 </ul>
 
@@ -415,8 +416,104 @@ x <span class="op">%&gt;%</span><span class="st"> </span>{
 <pre class="sourceCode r"><code class="sourceCode r">  vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.74</span>, <span class="fl">5.66</span>, <span class="fl">8.13</span>, <span class="fl">4.04</span>)
   <span class="kw">sum</span>(x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</code></pre></li>
 </ol>
-
 </div>
+</div>
+<div id="funcoes" class="section level2">
+<h2><span class="header-section-number">5.2</span> Funções</h2>
+<p>Como já sabemos, uma vez que você deve ter utilizado bastante o confeito de funções ao resolver os <a href="revisao-basica-da-linguagem-r.html#exercicios-propostos"><strong>exercícios sugeridos</strong></a>, funções são objetos que recebe uma ou algumas entradas, as processas em seu interior e te retorna uma ou mais saída(s). O diagrama <a href="r-miscelanea-e-topicos-avancados.html#fig:diagramafuncao">5.2</a> mostra um comportamento genérico de uma função qualquer (<strong>function</strong>) que recebe uma quantidade arbitrária de argumentos, com estruturas de dados distintas, e retorna também uma quantidade arbitrária de informações, objetos com estruturas de dados distintas:</p>
+<div class="figure" style="text-align: center"><span id="fig:diagramafuncao"></span>
+<div id="htmlwidget-192e9aee0e22115d0314" style="width:770px;height:350px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-192e9aee0e22115d0314">{"x":{"diagram":"\ngraph TD\n\nA(arg_1)\nB(arg_2)\nC(arg_3)\nD(...)\nE(arg_n)\nF(arg_n+1)\nG(...)\nH((function))\n\nA-->|vector|H\nB-->|matrix|H\nC-->|data frame|H\nD-->|...|H\nE-->|list|H\nF-->|factor|H\nG-->|new structure|H\n\nH-->|matrix|I(out_1)\nH-->|list|J(out_2)\nH-->|vector|K(out_3)\nH-->|...|L(...)\nH-->|factor|M(out_n)\nH-->|data frame|N(out_n+1)\nH-->|new structure|O(...)\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ff8900\nstyle I fill:#ffe5cc\nstyle J fill:#ffe5cc\nstyle K fill:#ffe5cc\nstyle L fill:#ffe5cc\nstyle M fill:#ffe5cc\nstyle N fill:#ffe5cc\nstyle O fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figura 5.2: Comportamento genérico da função de nome <strong>function</strong> que recebe diversos argumentos com estruturas de dados distintas e retorna diversos diversos objetos com estuturas de dados distintas. Note que <strong><em>new structure</em></strong>, no diagrama, deixa claro que o programador poderá criar suas novas estruturas de dados que poderão ser passadas e/ou retornadas por uma função.
+</p>
+</div>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Algo que torma uma função bastante flexível é a capacidade de podermos passar funções como argumentos à outras funções. Muito embora esse fato não esteja destacado no diagrama acima, nunca se esqueça que, em R, você facilmente poderá passar uma função como argumento de uma outra função.</p>
+<p><strong>Exemplo</strong>: <code>round(sum(c(1.73, 2.47, 7.21, 8.74, NA), na.rm = TRUE), digits = 1)</code></p>
+</div>
+</div>
+
+<p>Uma função em R é dividida em três partes:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Lista de Argumentos</strong>: Conjunto de argumentos, podendo ter as mais variadas estruras de dados que pode inclusive alterar o comportamento da função.</p></li>
+<li><p><strong>Corpo</strong>: Código no interior da função que será capas de processar e tomar decisões de acordo com sua lista de argumentos.</p></li>
+<li><p><strong>Ambiente</strong>: Os ambientes (<strong><em>environment</em></strong>) de reconhecimentos de objetos no interior da função. Isso permite que possamos ter objetos com o mesmo nome referindo-se à conteúdos distintos na memória do computador.</p></li>
+</ol>
+<p>Como já sabemos, mas irei repetir, a forma geral de implementação de uma função é:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(argumentos){
+   <span class="co"># Aqui é onde as coisas acontecem.</span>
+   corpo
+} <span class="co"># Fim da função.</span></code></pre>
+<p>Poderemos identificar essas três partes de uma função utilizando as funções <code>formals()</code>, <code>body()</code> e <code>environment()</code>. Por exemplo, considere a função abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){
+   <span class="st">`</span><span class="dt">+</span><span class="st">`</span>(x,y)
+}
+
+<span class="co"># Lista de argumentos.</span>
+<span class="kw">formals</span>(f)</code></pre>
+<pre><code>## $x
+## 
+## 
+## $y</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Corpo da função.</span>
+<span class="kw">body</span>(f)</code></pre>
+<pre><code>## {
+##     x + y
+## }</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Ambiente que a função foi definida.</span>
+<span class="kw">environment</span>(f)</code></pre>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<p>Uma função em R é um objeto qualquer. Dessa forma, assim como qualquer objeto, uma função poderá carregar consigo uma quantidade qualquer de atributos que podem ser recuperados e utilizados a qualquer momento. Considere os códigos que seguem:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vetor com valores inteiros em memória de 1 à 10.</span>
+x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L
+
+<span class="co"># Introduzindo dois argumentos ao objeto x.</span>
+<span class="co"># Primeiro argumento: desc, que apresenta uma pequena descrição do objeto x.</span>
+<span class="co"># Segundo argumento: M, uma matriz qualquer que poderia vir a ser útil guardar.</span>
+<span class="kw">attr</span>(<span class="dt">x =</span> x, <span class="dt">which =</span> <span class="st">&quot;desc&quot;</span>) &lt;-<span class="st"> &quot;vetor com valores inteiros&quot;</span>
+<span class="kw">attr</span>(<span class="dt">x =</span> x, <span class="dt">which =</span> <span class="st">&quot;M&quot;</span>) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">8</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre>
+<p>Note que agora o objeto <code>x</code> carrega não apenas os valores inteiros de 1 a 10. Foram acrescentados dois argumentos à <code>x</code>, são eles, <code>desc</code> que contém uma string descrevendo o que é o objeto <code>x</code>. Perceba que os atributos não afetam as operações que realizamos com <code>x</code>, mas poderemos, se desejarmos, acessar os atributos e trabalharmos com eles, como postra o trecho de código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Os atributos não irão afetar as operações realizadas </span>
+<span class="co"># considerando o objeto x.</span>
+<span class="kw">sum</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 65</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Listando os atributos do objeto x:</span>
+<span class="kw">attributes</span>(x)</code></pre>
+<pre><code>## $desc
+## [1] &quot;vetor com valores inteiros&quot;
+## 
+## $M
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    7    8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Acessando o atributo de nome M (uma matriz) </span>
+<span class="co"># e invertendo.</span>
+<span class="kw">solve</span>(<span class="kw">attr</span>(x, <span class="st">&quot;M&quot;</span>))</code></pre>
+<pre><code>##            [,1]        [,2]
+## [1,] -0.6153846  0.23076923
+## [2,]  0.5384615 -0.07692308</code></pre>
+<p>Como é possível introduzir atributos à qualquer objeto em R, e funções são objetos, então considerre o trecho de código que segue, em que é introduzido o atributo <code>M</code> do objeto <code>x</code> como atributo da função <code>f()</code> abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retorna os caracteres &quot;-&quot;, &quot;0&quot;, &quot;+&quot;</span>
+<span class="co"># a depender do valor informado.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   <span class="co"># x é um objeto numérico.</span>
+   
+   <span class="cf">if</span> (x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="st">&quot;0&quot;</span>
+   <span class="cf">else</span> <span class="kw">ifelse</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>)
+}
+
+<span class="co"># Introduzindo o atributo de nome desc que contém uma breve descrição da</span>
+<span class="co"># função f():</span>
+<span class="kw">attr</span>(f, <span class="st">&quot;desc&quot;</span>) &lt;-<span class="st"> &quot;retorna -, 0 ou +, a depender do valor passado à x&quot;</span>
+
+<span class="co"># Acessando o conteúdo do atributo desc:</span>
+<span class="kw">attr</span>(f, <span class="st">&quot;desc&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;retorna -, 0 ou +, a depender do valor passado à x&quot;</code></pre>
+
 </div>
 </div>
             </section>

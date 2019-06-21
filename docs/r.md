@@ -362,3 +362,161 @@ Resolva os exercícios que seguem. Os operadores pipes que você utilizará para
       vetor <- c(1.7, 2.74, 5.66, 8.13, 4.04)
       sum(x - mean(x))/sd(x)
     ```
+
+## Funções
+
+Como já sabemos, uma vez que você deve ter utilizado bastante o confeito de funções ao resolver os [**exercícios sugeridos**][Exercícios propostos], funções são objetos que recebe uma ou algumas entradas, as processas em seu interior e te retorna uma ou mais saída(s). O diagrama \@ref(fig:diagramafuncao) mostra um comportamento genérico de uma função qualquer (**function**) que recebe uma quantidade arbitrária de argumentos, com estruturas de dados distintas, e retorna também uma quantidade arbitrária de informações, objetos com estruturas de dados distintas:
+
+<div class="figure" style="text-align: center">
+<!--html_preserve--><div id="htmlwidget-192e9aee0e22115d0314" style="width:770px;height:350px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-192e9aee0e22115d0314">{"x":{"diagram":"\ngraph TD\n\nA(arg_1)\nB(arg_2)\nC(arg_3)\nD(...)\nE(arg_n)\nF(arg_n+1)\nG(...)\nH((function))\n\nA-->|vector|H\nB-->|matrix|H\nC-->|data frame|H\nD-->|...|H\nE-->|list|H\nF-->|factor|H\nG-->|new structure|H\n\nH-->|matrix|I(out_1)\nH-->|list|J(out_2)\nH-->|vector|K(out_3)\nH-->|...|L(...)\nH-->|factor|M(out_n)\nH-->|data frame|N(out_n+1)\nH-->|new structure|O(...)\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ff8900\nstyle I fill:#ffe5cc\nstyle J fill:#ffe5cc\nstyle K fill:#ffe5cc\nstyle L fill:#ffe5cc\nstyle M fill:#ffe5cc\nstyle N fill:#ffe5cc\nstyle O fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<p class="caption">(\#fig:diagramafuncao)Comportamento genérico da função de nome **function** que recebe diversos argumentos com estruturas de dados distintas e retorna diversos diversos objetos com estuturas de dados distintas. Note que ***new structure***, no diagrama, deixa claro que o programador poderá criar suas novas estruturas de dados que poderão ser passadas e/ou retornadas por uma função.</p>
+</div>
+
+**Importante**:
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+Algo que torma uma função bastante flexível é a capacidade de podermos passar funções como argumentos à outras funções. Muito embora esse fato não esteja destacado no diagrama acima, nunca se esqueça que, em R, você facilmente poderá passar uma função como argumento de uma outra função.
+
+**Exemplo**: `round(sum(c(1.73, 2.47, 7.21, 8.74, NA), na.rm = TRUE), digits = 1)`
+</div></div>\EndKnitrBlock{rmdimportant}
+
+
+
+Uma função em R é dividida em três partes:
+
+  1. **Lista de Argumentos**: Conjunto de argumentos, podendo ter as mais variadas estruras de dados que pode inclusive alterar                               o comportamento da função.
+
+  2. **Corpo**: Código no interior da função que será capas de processar e tomar decisões de acordo com sua lista de argumentos.
+  
+  3. **Ambiente**: Os ambientes (***environment***) de reconhecimentos de objetos no interior da função. Isso permite que possamos ter objetos com o mesmo nome referindo-se à conteúdos distintos na memória do computador.
+  
+Como já sabemos, mas irei repetir, a forma geral de implementação de uma função é:
+
+
+
+```r
+f <- function(argumentos){
+   # Aqui é onde as coisas acontecem.
+   corpo
+} # Fim da função.
+```
+
+Poderemos identificar essas três partes de uma função utilizando as funções `formals()`, `body()` e `environment()`. Por exemplo, considere a função abaixo:
+
+
+```r
+f <- function(x, y){
+   `+`(x,y)
+}
+
+# Lista de argumentos.
+formals(f)
+```
+
+```
+## $x
+## 
+## 
+## $y
+```
+
+```r
+# Corpo da função.
+body(f)
+```
+
+```
+## {
+##     x + y
+## }
+```
+
+```r
+# Ambiente que a função foi definida.
+environment(f)
+```
+
+```
+## <environment: R_GlobalEnv>
+```
+
+Uma função em R é um objeto qualquer. Dessa forma, assim como qualquer objeto, uma função poderá carregar consigo uma quantidade qualquer de atributos que podem ser recuperados e utilizados a qualquer momento. Considere os códigos que seguem:
+
+
+```r
+# Vetor com valores inteiros em memória de 1 à 10.
+x <- 1L:10L
+
+# Introduzindo dois argumentos ao objeto x.
+# Primeiro argumento: desc, que apresenta uma pequena descrição do objeto x.
+# Segundo argumento: M, uma matriz qualquer que poderia vir a ser útil guardar.
+attr(x = x, which = "desc") <- "vetor com valores inteiros"
+attr(x = x, which = "M") <- matrix(data = c(1, 7, 3, 8), ncol = 2, nrow = 2)
+```
+
+Note que agora o objeto `x` carrega não apenas os valores inteiros de 1 a 10. Foram acrescentados dois argumentos à `x`, são eles, `desc` que contém uma string descrevendo o que é o objeto `x`. Perceba que os atributos não afetam as operações que realizamos com `x`, mas poderemos, se desejarmos, acessar os atributos e trabalharmos com eles, como postra o trecho de código abaixo:
+
+
+```r
+# Os atributos não irão afetar as operações realizadas 
+# considerando o objeto x.
+sum(x + 1)
+```
+
+```
+## [1] 65
+```
+
+```r
+# Listando os atributos do objeto x:
+attributes(x)
+```
+
+```
+## $desc
+## [1] "vetor com valores inteiros"
+## 
+## $M
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    7    8
+```
+
+```r
+# Acessando o atributo de nome M (uma matriz) 
+# e invertendo.
+solve(attr(x, "M"))
+```
+
+```
+##            [,1]        [,2]
+## [1,] -0.6153846  0.23076923
+## [2,]  0.5384615 -0.07692308
+```
+
+Como é possível introduzir atributos à qualquer objeto em R, e funções são objetos, então considerre o trecho de código que segue, em que é introduzido o atributo `M` do objeto `x` como atributo da função `f()` abaixo:
+
+
+```r
+# Retorna os caracteres "-", "0", "+"
+# a depender do valor informado.
+f <- function(x){
+   # x é um objeto numérico.
+   
+   if (x == 0) "0"
+   else ifelse(x > 0, "+", "-")
+}
+
+# Introduzindo o atributo de nome desc que contém uma breve descrição da
+# função f():
+attr(f, "desc") <- "retorna -, 0 ou +, a depender do valor passado à x"
+
+# Acessando o conteúdo do atributo desc:
+attr(f, "desc")
+```
+
+```
+## [1] "retorna -, 0 ou +, a depender do valor passado à x"
+```
+

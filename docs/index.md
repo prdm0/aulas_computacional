@@ -69,4 +69,3 @@ Uma vez que o material está sendo mantido e versionado no [**GitHub**](https://
 \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
 Para que que seja possível propor alterações é necessário que você saiba utilizar o [**git**](https://git-scm.com/)/[**GitHub**](https://github.com/prdm0/aulas_computacional) e tenha realizado um fork do trabalho em sua conta do [**GitHub**](https://github.com/prdm0/aulas_computacional). Apreder a utilizar o [**git**](https://git-scm.com/)/[**GitHub**](https://github.com/prdm0/aulas_computacional) poderá ser muito útil (dentro da academia ou fora dela), uma vez que você saberá versionar seus códigos, artigos e trabalhos em geral.
 </div></div>\EndKnitrBlock{rmdnote}
-
