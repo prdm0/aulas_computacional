@@ -347,3 +347,18 @@ Resolva os exercícios que seguem. Os operadores pipes que você utilizará para
    Tente reescrever o código apenas utilizando o operador `%>%`e depois modifique-o para utilizar o operador de exposição `%$%`. **Dica**: procure entender o emprego das funções `subset` e `aggregate`, funções dos pacotes **base** e **stats**, respectivamente.
    
 8. Estude a vinheta do pacote [**magrittr**](https://github.com/tidyverse/magrittr). Acesse a vinheta [**aqui**](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
+
+9. Explique o que o código abaixo faz:
+
+   
+   ```r
+      f <- . %>% subtract(., mean(.)) %>% divide_by(., sd(.))
+   ```
+
+10. Use o que aprendeu ao resolver o exercício anterior para reescrever o código abaixo usando pipes:
+
+    
+    ```r
+      vetor <- c(1.7, 2.74, 5.66, 8.13, 4.04)
+      sum(x - mean(x))/sd(x)
+    ```

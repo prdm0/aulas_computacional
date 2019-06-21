@@ -296,9 +296,15 @@ Resolva os exercícios que seguem. Os operadores pipes que você utilizará para
    
 8. Estude a vinheta do pacote [**magrittr**](https://github.com/tidyverse/magrittr). Acesse a vinheta [**aqui**](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
 
-9. Explique o que a função abaixo faz:
+9. Explique o que o código abaixo faz:
 
    ```{r, eval = FALSE}
       f <- . %>% subtract(., mean(.)) %>% divide_by(., sd(.))
    ```
-   
+
+10. Use o que aprendeu ao resolver o exercício anterior para reescrever o código abaixo usando pipes:
+
+    ```{r, eval = FALSE}
+      vetor <- c(1.7, 2.74, 5.66, 8.13, 4.04)
+      sum(x - mean(x))/sd(x)
+    ```

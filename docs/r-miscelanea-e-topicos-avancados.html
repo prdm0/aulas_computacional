@@ -409,6 +409,11 @@ x <span class="op">%&gt;%</span><span class="st"> </span>{
    <span class="kw">aggregate</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, dados, <span class="dt">FUN =</span> mean)</code></pre>
 <p>Tente reescrever o código apenas utilizando o operador <code>%&gt;%</code>e depois modifique-o para utilizar o operador de exposição <code>%$%</code>. <strong>Dica</strong>: procure entender o emprego das funções <code>subset</code> e <code>aggregate</code>, funções dos pacotes <strong>base</strong> e <strong>stats</strong>, respectivamente.</p></li>
 <li><p>Estude a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>. Acesse a vinheta <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>.</p></li>
+<li><p>Explique o que o código abaixo faz:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   f &lt;-<span class="st"> </span>. <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">subtract</span>(., <span class="kw">mean</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">divide_by</span>(., <span class="kw">sd</span>(.))</code></pre></li>
+<li><p>Use o que aprendeu ao resolver o exercício anterior para reescrever o código abaixo usando pipes:</p>
+<pre class="sourceCode r"><code class="sourceCode r">  vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.74</span>, <span class="fl">5.66</span>, <span class="fl">8.13</span>, <span class="fl">4.04</span>)
+  <span class="kw">sum</span>(x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</code></pre></li>
 </ol>
 
 </div>
