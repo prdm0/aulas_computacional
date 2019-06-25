@@ -371,8 +371,6 @@ Algo que torma uma função bastante flexível é a capacidade de podermos passa
 </div>
 ```
 
-
-
 Uma função em R é dividida em três partes:
 
   1. **Lista de Argumentos**: Conjunto de argumentos, podendo ter as mais variadas estruras de dados que pode inclusive alterar                               o comportamento da função.
@@ -406,6 +404,16 @@ body(f)
 
 # Ambiente que a função foi definida.
 environment(f)
+```
+
+Além disso, lembre-se que funções podem ter argumentos com valores já pré-definidos, como é o caso de `f()` no código que segue:
+
+```{r}
+f <- function(x = 1, y = 2){
+   x + y
+}
+f(5)
+f(2,4)
 ```
 
 ### Passando atributos
@@ -494,7 +502,7 @@ g(func = f())
 nchar(g(func = f()))
 ```
 
-### Funções Anônimas
+### Funções anônimas
 
 Algo que é bastante útil quando estamos trabalhando com funções é a possibilidade de não nomear uma função. Essa estratégia é interessante quando temos funções curtas que não queremos nos dar o trabalho de pensarmos em um nome. Normalmente, aplica-se à casos de funções curtas que são passadas como argumento à outras funções. O trecho de código que segue apresenta o uso de uma função anônima passada como argumento à função `integrate()` de R:
 
@@ -522,7 +530,7 @@ Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma an
 </div>
 ```
 
-### Escopo Léxico
+### Escopo léxico
 
 Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programção o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.
 
@@ -609,8 +617,27 @@ x
 ```
 Note no código acima que o valor retornado pela função é `7` (sempre) e não `8`, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de `f()`, sempre teremos que `x` ao lado direito do operador `<<-` será `7`, uma vez que em todas as chamadas, há dentro da função `f()` a definição de `x = 7`. Isso também implicará que o valor de `x` do lado esquerdo do operador `<<-` sempre será atualizado para `8`, em todas as chamadas. Veja que `x` ao lado esquerdo de `<<-` refere-se ao objeto `x` no escopo mais extero ao escopo de `x` no interior da função.
 
+**Observação**:
 
-## Avaliação preguiçosa
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+Em R, os operadores `<-` e `<<-` também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador `=`. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores `<-` e `<<-`, isto é, quando consideramos as variantes `-> ` e `->>`, respectivamente.
+</div>
+```
+
+**Exemplo**: 
+
+```{r}
+f <- function(){
+   2 -> x
+   x * 2 ->> x
+   x
+}
+
+f(); x
+```
+
+### Avaliação preguiçosa
 
 Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy avaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem:
 
@@ -653,14 +680,290 @@ f(y <- 7)
 y
 ```
 
-Perceba que fazer `f(y = 7)` retornará um erro, uma vez que R entende que estamos passando o valor `7` à um argumento `y` que não existe em `f()`. Note que `f(y <- 7)` é equivalente a escrever `f(x = y <- 7)`,  `f(x <- y <- 7)`, `f(x = (y = 7))`, `f(x = (y <- 7))` ou `f(x <- (y = 7))`. Porém, ao utilizarmos o operador `<-`, além de passarmos os argumentos à `f()` estamos também criando os objetos à esquerda do operador fora da função.
+Perceba que fazer `f(y = 7)` retornará um erro, uma vez que R entende que estamos passando o valor `7` à um argumento `y` que não existe em `f()`. Note que `f(y <- 7)` é equivalente a escrever `f(x = y <- 7)` ou `f(x = (y = 7))`. Porém, ao utilizarmos o operador `<-`, além de passarmos os argumentos à `f()` estamos também criando os objetos à esquerda do operador fora da função.
 </div>
 
-## dot-dot-dot (...)
+### varargs: ... (dot-dot-dot)
+
+Algo bastante útil e que torna flexível uma linguagem de programação é a possibilidade de escrever funções com quantidade variádicas de argumentos, isto é, funções [**varargs**](https://en.wikipedia.org/wiki/Variadic_function). Em R isso é possível especificando o argumento especial `...` (***dot-dot-dot***), ou **ponto-ponto-ponto**, em português.
+
+Um uso comum do operador `...` é a possibilidade de passarmos argumentos adicionais para uma função que utilizamos em nossa implementação. Por exmeplo, considere o código abaixo:
 
 
+```{r, fig.align='center', fig.dim=c(4,4)}
+# Fixando uma semente para gerarmos sempre a mesma amostra.
+set.seed(0) 
 
-## Funções infix
+# Gerando um conjunto de dados com distribuição normal padrão.
+data <- rnorm(n = 100, mean = 0, sd = 1)
+myhist <- function(x = data, ...){
+  # Perceba o uso de ... em hist():   
+  result <- hist(x, ...)
+  list(n = length(result$counts), counts = result$counts)
+}
+
+# A função myhist() não possuia a definição dos argumentos col,
+# main, ylab e border.
+myhist(x = data, col = rgb(1, 0.9, 0.8), main = "", 
+       ylab = "Frequências", border = NA)
+```
+
+A função `myhist()`, implementada acima, constroi um histograma com base em um vetor de dados passado como argumento à `x`, retornando uma lista com o número de classes e a quantidade de observações da amostra, em cada uma das classes. Note que `myhist()` possui apenas dois argumentos, `x` e `...`, respectivamente. O argumento especial `...` permite que `myhist()` herde todos argumentos da função `hist()`. Asim, muito embora a função `myhist()` não possui os argumentos `col`, `main`, `ylab`e `border` definidos formalmente, poderemos ascessar esses e os demais argumentos de `hist()` mesmo sem defini-los.
+
+Nas situações em que desejarmos acessar os elementos passados à `...` por suas posições, poderemos fazer uso da notação especial `..1`, `..2`, etc. Considere o trecho de código que segue:
+
+```{r}
+f <- function(...){
+   
+   n <- ...length()
+   if (n != 3) 
+      stop("A função deve ter exatamente 3 argumentos.")
+   else
+      for(i in 1:...length()){
+         cat("O elemento ", i, " de \"...\" é: ", ...elt(i), "\n")
+      }
+   
+   return(..1 * ..2 + ..3)
+}
+f(2, 3, 1)
+```
+
+Note que a função `f()` retorna o produto do primeiro com o segundo argumento e soma com o terceiro. Além disso, foram utilizadas as funções `...length()` que retorna o tamanho de `...` e `...elt(i)` que equivale à `..i`. A função `...elt(i)` nada mais é do que fazer `eval(paste0("..", n))`.
+
+Como dito, uma das grandes vantagens do uso de `...` é a possibilidade de passarmos argumento de outras funções que estão sendo utilizadas pela função que estamos a implementar. O uso de funções **varargs** destacam-se também em situações em que fazemos uso de programação orientada à objeto por função genérica, sistema de orientação à objeto conhecido, em R, como sistema S3 de orientação à objeto e que estudaremos mais a frente. Considerando o sistema S3 de orientação à objeto, note que funções como `summary()` e `print()` podem ser utilizadas em diversas situações e que muito provavelmente terão argumentos distintos em cada uma dessas circunstâncias. A capacidade de uma função ter várias formas e se adequar a cada uma delas está fortemente relacionada com a definição de funções [**polimórficas**](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)), uma das principais características do paradigma de programação orientada à objeto e que está intimamente relacionadas com funções **varargs**, principalmente no sistema S3.
+
+Perceba que diversas funções R são **varargs**, por exemplos, a função `sum()`. Note, no trecho de código abaixo, que a característica de ***lazy avaluation*** quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema:
+
+```{r}
+   sum(1:5, NA, narm = TRUE)
+```
+
+Para o código acima, gostaríamos que o equívoco a respeito do nome correto do argumento (`na.rm`) não tivesse ocorrido. Aqui, nosso interesse seria fazer:
+
+```{r}
+   sum(1:5, NA, na.rm = TRUE)
+```
 
 
-## Exercícios {-} 
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Um outro inconveniente de construir funções **varargs** além dos equívocos desarpesebidos quando erramos algum de seus arugmentos é que essas funções normalmente são um pouco mais complicadas de serem documentadas, visto que devemos ter um grande cuidado ao deixar claro como os argumentos serão substituídos e utilizados.
+
+Esses problemas não são suficientes justificar um desaconselho do uso de funções **varargs**. Na verdade é muito importante a construção de funções **varargs** e você deve utilizar, sempre que puder e na medida da necessidade, uma vez que isto tornará suas funções bastante flexíveis.
+</div>
+```
+
+### Funções infixas
+
+Para começarmos a falar de funções infixas (***infix***), os slogans abaixo, traduzidos para o português, poderão ser úteis para um melhor entendimento:
+
+> "Para entender a computação em R, dois slogans são úteis:
+
+> * Tudo o que existe é um objeto.
+> * Tudo o que acontece é uma chamada de função."
+
+> --- [**John M. Chambers**](https://en.wikipedia.org/wiki/John_Chambers_(statistician)), no artigo intitulado [***Object-Oriented Programming, Functional Programming and R***](https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569), *Statistical Science*, Vol. 29, 2014, p. 170.
+
+Nas situações de funções que possuem dois argumentos, construir um operador infixo pode ser de grande utilidade. O exemplo abaixo mostra duas formas de somarmos dois termos utilizando a função \`+\` e o operador infixo `+`, respectivamente. Perceba que a segunda forma é mais conveniente que a primeira:
+
+```{r}
+x <- y <- 1
+
+# Forma 1 (prefix):
+`+`(x, y)
+
+# Forma 2 (infix):
+x + y
+```
+
+Além dos operadores matemáticos `+`, `-`, `*` e `/` serem funções infixas, podendo também chamar de operadores infixos ou ***infix***, diversas outras funções são infixas, como por exemplo, `^`, `::`, `&`, `|`, `&&`, `||`, `<=`, `>=`, `<`, `>`, `==`, `!=`, `$`, `%%`, `%*%`, `%in%`, `<-`, `<<-`, entre diversas outras funções. O exemplo abaixo apreseta o uso de algumas dessas funções na forma prefixa:
+
+```{r}
+`<=`(1,3)
+`^`(2,3)
+x <- list(a = 1, b = 2)
+`$`(x, a)
+```
+
+Assim como existem diversas funções infixas em R previamente implementadas, também poderemos construir nossas funções infixas. Para tanto, basta considerarmos a notação `%nome%`, em que `nome` deverá ser substituído por um nome válido de função. Considere o código abaixo:
+
+```{r}
+`%+%` <- function(x, n){
+   rep(x, times = n)
+}
+
+# Forma prefixa:
+`%+%`("infix", 4)
+
+# Forma infixa:
+"infix" %+% 4
+```
+
+### Função de substituição
+
+Você muito provavelmente já deve ter feito uso de funções de substituição, como por exemplo, `names()`, `colnames()`, `rownames()`, entre outras funções. Essas são chamadas de funções de substituição devido ao comportamento que é expresso no código que segue:
+
+```{r}
+vetor <- c(1,2,3)
+names(vetor) <- c("a", "b", "c")
+x
+```
+
+A função `names()`, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue:
+
+```{r}
+vetor <- c(1,2,3) 
+`names<-`(x = vetor, value = c("a", "b", "c"))
+```
+
+Pelo código acima podemos perceber que as funções de substituição nada mais são que funções de dois argumentos, a saber `x` e `value`, respectivamente. Dessa forma, os valores passados à `value` modificam o objeto `x` que nesse caso são os nomes do objeto `vetor`.
+
+**Exemplo**: Implementação da função de substituição `samenames()` que atribui o mesmo nome à todos elementos do vetor `x`.
+
+```{r}
+`samenames<-` <- function(x, value){
+   if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.")
+   else{
+      names(x) <- rep(value, times = length(x))
+   }
+   x
+}
+x <- 1L:10L
+samenames(x) <- "a"
+x
+```
+
+Em situações em que a função de substituição necessita de mais argumentos além dos argumentos obrigatórios `x` e `value`, deveremos colocá-los entre os argumentos `x` e `value`. No exemplo do código abaixo introduzimos o argumento `rm.id` em que, se desejarmos, poderemos omitir algumas posições do vetor `x`:
+
+
+```{r}
+`samenames<-` <- function(x, rm.id = NULL, value){
+  
+  if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.")
+  else if (!is.null(rm.id) && is.numeric(rm.id)){
+    x <- x[-rm.id]
+    names(x) <- rep(value, times = length(x))
+  }else{
+    names(x) <- rep(value, times = length(x))
+  }
+  x
+}
+x <- 1L:10L
+samenames(x) <- "a"
+# Removendo a primeira e a décima posição de x.
+samenames(x, c(1,10)) <- "a"
+x
+```
+
+**Observação**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+A linguagem R possui diversos outros recursos, escritos em forma especial, que também são funções. Abaixo pontuarei alguns desses recursos, para que você tenha uma ideia, porém, existem mais:
+   
+   * `(x)` com representação prefixa dada por `` `(`(x) ``;
+   * `x[i]` com representação prefixa dada por `` `[`(x, i) ``;
+   * `x[[i]]` com representação prefixa dada por `` `[[`(x, i) ``;
+   * `{x}` com representação prefixa dada por  `` `{`(x) ``;
+   * `if(condicao)` com representação prefixa dada por `` `if`(condicao, se_verdade, se_falso) ``;
+   * `for(variável in conjunto) ação` com representação prefixa dada por `` `for`(variável, conjunto, ação) ``;
+   * `while(condição) ação`  com representação prefixa dada por `` `while`(cond, action) ``.
+</div>
+```
+
+### Closures
+
+Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função. 
+
+Um outro uso comum e importantes para funções anônimas é quando desejamos criar [**closures**](https://en.wikipedia.org/wiki/Closure_(computer_programming)).
+
+### Exercícios {-} 
+
+1. Quais são os três componentes de uma função?
+
+2. Contrua o objeto `y` que retorne a saída abaixo:
+
+    ```{r, echo = FALSE}
+      y <- 1:10
+      attr(y, "att_1") <- "Isso é um atributo"
+      y
+    ```
+
+3. Remova o atributo `att_1` do objeto `y` acima. 
+
+4. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+    f <- function(x){
+       f <- function(x){
+          f <- function(x){
+             x * 3
+          }
+          f(x) * 2
+       }
+       f(x) + 1
+    }
+    f(7)
+    ```
+
+5. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+       x <- 1
+       f <- function() {
+          x <- 0
+          x <<- x + 1
+          x
+       }
+       f(); x
+    ```
+
+
+6. O que o código abaixo retorna? **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+    f <- function(){
+       y <- 0
+       g <- function(){
+          y <<- y + 1
+       }
+       list(rep(x = g(), times = y), rep(x = g(), times = y), rep(x = g(), times = y))
+    }
+
+    ```
+
+7. Implemente a função `%+%` que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função.
+
+    ```
+    "Estatística" %+% "Computacional" 
+    
+    ## [1] "Estatística Computacional"
+    ```
+
+8. Implemente a função `troca()` que trabalhe da forma abaixo:
+
+    ```
+       x <- 1:10
+       troca(x, 2) <- 7
+
+       ## [1] 1 7 3 4 5 6 7 8 9 10
+    ```
+
+<!-- 9. Qual o retorno da função abaixo? Explique. -->
+
+<!--     ```{r, eval = FALSE} -->
+<!--     f <- function(y) { -->
+<!--         function(x) { -->
+<!--            x + y -->
+<!--         } -->
+<!--     } -->
+<!--     g <- f(1) -->
+<!--     g(x = 2) -->
+<!--     ``` -->
+
+
+## Funcionais
+
+## Sistema S3
