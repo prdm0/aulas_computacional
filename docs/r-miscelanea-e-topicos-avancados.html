@@ -171,6 +171,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-anonimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções Anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo Léxico</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>5.3</b> Avaliação preguiçosa</a></li>
+<li class="chapter" data-level="5.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#dot-dot-dot"><i class="fa fa-check"></i><b>5.4</b> dot-dot-dot (…)</a></li>
+<li class="chapter" data-level="5.5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-infix"><i class="fa fa-check"></i><b>5.5</b> Funções infix</a></li>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
 </ul>
@@ -641,6 +644,50 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <pre><code>## [1] 8</code></pre>
 <p>Note no código acima que o valor retornado pela função é <code>7</code> (sempre) e não <code>8</code>, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de <code>f()</code>, sempre teremos que <code>x</code> ao lado direito do operador <code>&lt;&lt;-</code> será <code>7</code>, uma vez que em todas as chamadas, há dentro da função <code>f()</code> a definição de <code>x = 7</code>. Isso também implicará que o valor de <code>x</code> do lado esquerdo do operador <code>&lt;&lt;-</code> sempre será atualizado para <code>8</code>, em todas as chamadas. Veja que <code>x</code> ao lado esquerdo de <code>&lt;&lt;-</code> refere-se ao objeto <code>x</code> no escopo mais extero ao escopo de <code>x</code> no interior da função.</p>
 </div>
+</div>
+<div id="avaliacao-preguicosa" class="section level2">
+<h2><span class="header-section-number">5.3</span> Avaliação preguiçosa</h2>
+<p>Tecnicamente, os argumentos de uma função são promessas <a href="https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects"><strong><em>promises</em></strong></a> e fazem parte do mecanismo de (<strong><em>lazy avaluation</em></strong>). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (<strong><em>promises</em></strong>) trata-se de uma estrutura de dados. <strong><em>Promisses</em></strong> possuem:</p>
+<ul>
+<li>Um <strong>ambiente</strong>: ambiente em que uma função é avaliada/invocada.</li>
+<li>Uma <strong>expressão</strong>: uma expressão válida passada para um argumento de uma função;</li>
+<li>Um <strong>valor</strong>: resultado da avaliação de uma expressão em um ambiente específico.</li>
+</ul>
+<p>Em R, os argumentos de uma função são avaliados de forma preguiçosa (<strong><em>lazy avaluation</em></strong>), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A função f() tem o argumento x que</span>
+<span class="co"># não é utilizado.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">1</span>
+   y
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Como é possível observar, a função <code>f()</code> possui <code>x</code> como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que <code>x</code> não esteja definido, não teremos como retorno um erro ao executar <code>f()</code>. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa.</p>
+<p>Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, <a href="https://en.wikipedia.org/wiki/Lazy_evaluation"><strong><em>lazy avaluation</em></strong></a> é o padrão da linguagem.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador <code>&lt;-</code> para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue:</p>
+<p><strong>Exemplo</strong>:</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">2</span>
+   x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">f</span>(y &lt;-<span class="st"> </span><span class="dv">7</span>)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Perceba que fazer <code>f(y = 7)</code> retornará um erro, uma vez que R entende que estamos passando o valor <code>7</code> à um argumento <code>y</code> que não existe em <code>f()</code>. Note que <code>f(y &lt;- 7)</code> é equivalente a escrever <code>f(x = y &lt;- 7)</code>, <code>f(x &lt;- y &lt;- 7)</code>, <code>f(x = (y = 7))</code>, <code>f(x = (y &lt;- 7))</code> ou <code>f(x &lt;- (y = 7))</code>. Porém, ao utilizarmos o operador <code>&lt;-</code>, além de passarmos os argumentos à <code>f()</code> estamos também criando os objetos à esquerda do operador fora da função.</p>
+</div>
+</div>
+<div id="dot-dot-dot" class="section level2">
+<h2><span class="header-section-number">5.4</span> dot-dot-dot (…)</h2>
+</div>
+<div id="funcoes-infix" class="section level2">
+<h2><span class="header-section-number">5.5</span> Funções infix</h2>
 </div>
 <div id="exercicios-2" class="section level2 unnumbered">
 <h2>Exercícios</h2>

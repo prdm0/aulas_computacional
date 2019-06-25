@@ -742,4 +742,74 @@ x
 ```
 Note no código acima que o valor retornado pela função é `7` (sempre) e não `8`, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de `f()`, sempre teremos que `x` ao lado direito do operador `<<-` será `7`, uma vez que em todas as chamadas, há dentro da função `f()` a definição de `x = 7`. Isso também implicará que o valor de `x` do lado esquerdo do operador `<<-` sempre será atualizado para `8`, em todas as chamadas. Veja que `x` ao lado esquerdo de `<<-` refere-se ao objeto `x` no escopo mais extero ao escopo de `x` no interior da função.
 
+
+## Avaliação preguiçosa
+
+Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy avaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem:
+
+   * Um **ambiente**: ambiente em que uma função é avaliada/invocada. 
+   * Uma **expressão**: uma expressão válida passada para um argumento de uma função;
+   * Um **valor**: resultado da avaliação de uma expressão em um ambiente específico.
+
+Em R, os argumentos de uma função são avaliados de forma preguiçosa (***lazy avaluation***), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:
+
+
+```r
+# A função f() tem o argumento x que
+# não é utilizado.
+f <- function(x){
+   y <- 1
+   y
+}
+f()
+```
+
+```
+## [1] 1
+```
+
+Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa. 
+
+Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy avaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. 
+
+
+**Importante**:
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador `<-` para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue:
+   
+   **Exemplo**: 
+</div>\EndKnitrBlock{rmdimportant}
+
+```r
+y <- 0
+f <- function(x){
+   y <- 2
+   x + 1
+}
+f(y <- 7)
+```
+
+```
+## [1] 8
+```
+
+```r
+y
+```
+
+```
+## [1] 7
+```
+
+Perceba que fazer `f(y = 7)` retornará um erro, uma vez que R entende que estamos passando o valor `7` à um argumento `y` que não existe em `f()`. Note que `f(y <- 7)` é equivalente a escrever `f(x = y <- 7)`,  `f(x <- y <- 7)`, `f(x = (y = 7))`, `f(x = (y <- 7))` ou `f(x <- (y = 7))`. Porém, ao utilizarmos o operador `<-`, além de passarmos os argumentos à `f()` estamos também criando os objetos à esquerda do operador fora da função.
+</div>
+
+## dot-dot-dot (...)
+
+
+
+## Funções infix
+
+
 ## Exercícios {-} 
