@@ -942,11 +942,22 @@ Um outro uso comum e importantes para funções anônimas é quando desejamos cr
     ## [1] "Estatística Computacional"
     ```
 
-8. Implemente a função `troca()` que trabalhe da forma abaixo:
+8. Implemente a função segundo que trabalhe da seguinte forma:
+
+    ```
+       x <- 1:10
+       segundo(x) <- 5
+       x
+       
+       ## [1] 1 5 3 4 5 6 7 8 9 10
+    ```
+    
+9. Implemente a função `troca()` que trabalhe da forma abaixo:
 
     ```
        x <- 1:10
        troca(x, 2) <- 7
+       x
 
        ## [1] 1 7 3 4 5 6 7 8 9 10
     ```
