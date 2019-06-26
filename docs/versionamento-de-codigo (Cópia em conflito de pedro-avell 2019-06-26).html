@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -154,13 +154,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
 <li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
-<li class="chapter" data-level="" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#exercicios"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcoes"><i class="fa fa-check"></i><b>4.2</b> Funções</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#passando-atributos"><i class="fa fa-check"></i><b>4.2.1</b> Passando atributos</a></li>
-<li class="chapter" data-level="4.2.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcoes-anonimas"><i class="fa fa-check"></i><b>4.2.2</b> Funções anônimas</a></li>
-<li class="chapter" data-level="4.2.3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#escopo-lexico"><i class="fa fa-check"></i><b>4.2.3</b> Escopo léxico</a></li>
-</ul></li>
+<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
 </ul>
 
@@ -182,25 +177,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="versionamento-de-codigo" class="section level1">
 <h1><span class="header-section-number">3</span> Versionamento de código</h1>
 <p><img src="images/versoes_git.png" width="65%" style="display: block; margin: auto;" /></p>
-<p>Na estatística, bem como em diversas outras áreas, a todo momento estamos editando documentos, como por exemplo, códigos de programação, artigos, relatórios, aulas, apresentações, livros, dentre inúmeros outros possíveis. Nesses processos de edições dos mais variádos documentos, quase sempre sentimos a necessidade de versionar as alterações, uma vez que se não houver um versionamento e se desejarmos voltar à um estado de edição anterior, estariamos sobre uma tarefa extremamente difícil ou mesmo impossível, a depender do número de passos anteriores ao qual desejamos voltar.</p>
-<p>Quando não dominamos nenhum sistema de controle de versão, normalmente o que fazemos para ter a possibilidade de voltar para uma dada versão de edição é armazenar diversas cópias do projeto em diretórios distintos. Versionar dessa forma pode servir quando temos poucas versões, porém, mesmo assim, é comum os desarranjos e atrapalhos no gerenciamento de diversos diretórios. Quando há o domínio de um sistema de controle de versão evitamos esse tipo de problema, uma vez que continuaremos trabalhando sobre um mesmo diretório que terá seus estados modificados quando solicitado, isto é, será possível voltar para a distribuição de arquivos e conteúdos anteriores, mesmo se nesse processo de edição alguns arquivos foram deletados, renomeados ou fortemente modificados.</p>
+<p>Na estatística, a todo momento estamos editando documentos, como por exemplo códigos, artigos, relatórios, aulas, apresentações, livros, entre outros. Nesse processo de edição dos mais variádos documentos, quase sempre sentimos a necessidade de versionar o conteúdo, uma vez que se não houver um versionamento e se desejarmos voltar à um estado de edição anterior, estariamos sobre uma tarefa extremamente difícil ou mesmo impossível, a depender do número de passos anteriores ao qual desejamos voltar.</p>
+<p>Quando não dominamos nenhum sistema de controle de versão, normalmente o que fazemos para ter a possibilidade de voltar para uma dada versão de edição é armazenar diversas cópias do projeto em diretórios distintos. Versionar dessa forma pode servir quando temos poucas versões, proém, mesmo assim é comum os desarranjos e atrapalhos ao se tomar conta de diversos diretórios. Quando se domina um sistema de controle de versão evitamos esse tipo de problema, uma vez que continuaremos trabalhando sobre um mesmo diretório que terá seus estados modificados quando solicitado, isto é, será possível voltar para a distribuição de arquivos e conteúdos anteriores, mesmo se nesse processo de edição alguns arquivos foram deletados, renomeados ou fortemente modificados.</p>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
 <div class="text-justify">
-<p>Não se preocupe se você voltar à estados anteriores e desistir. Você poderá retornar à estados mais recentes (incluindo o último) sem nenhum problema. <strong>Deixe o trabalho sujo com o sistema de versionamento</strong>.</p>
+<p>Não se preocupe se você voltar à estados anteriores e desistir. Você poderá retornar à estados mais recentes (incluindo o último) sem nenhum problema. <strong>Deixe o trabalho sujo com um sistema de versionamento</strong>.</p>
 <p>Além disso, para nós estatísticos que vivemos codificando e constantemente alterando códigos de programação, versionar de forma eficiente é algo crucial.</p>
 </div>
 </div>
 
 <div id="git" class="section level2">
 <h2><span class="header-section-number">3.1</span> Git</h2>
-<p>Visando ajudar o desenvolvedor na tarefa de versionamento de projetos/códigos, a ferramenta <a href="https://git-scm.com/"><strong>git</strong></a> foi desenvolvida, escrita utilizando a linguagem C, por <a href="images/linus_torvalds.jpg"><strong>Linus Torvalds</strong></a> (criador do Linux) e atualmente mantido por <a href="images/ju_hamano.jpeg"><strong>Jun Hamano</strong></a>, um engenheiro de sofware japonês. No <a href="https://git-scm.com/"><strong>git</strong></a>, cada diretório de trabalho é um repositório com histórico completo das versões e não depende de acesso à um servidor ou rede central. Essa é uma das características que torna o git uma ferramenta rápida, além, é claro, de ser escrito em C, que reduz a sobrecarga de tempos de execução que é algo normalmente comum em linguagens de nível superior.</p>
-<p>Inicialmente essa ferramenta visava ajudar os desenvolvedores do kernel do Linux na tarefa de versionar, de forma eficiente, as mudanças no kernel que antes eram versionadas por meio do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, um software proprietário desenvolvido pela BitMover Inc, Califórnia. Isso era um dilema entre os desenvolvedores do Linux, uma vez que ao contrário do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, o Linux é conhecido por suas <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. À época, o projeto Linux tinha acesso gratuito ao <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>. Porém, com a acusação de programadores do kernel Linux estarem utilizando engenharia reversa, o acesso gratuito foi removido. Esse foi o fato que forçou Linus Torvalds a desenvolver o git.</p>
-<p>Além do git, atualmente existem algumas ferramentas para versionamento de códigos. Entre tais ferramentas, enumero duas que considero as mais conhecidas:</p>
+<p>Visando ajudar o desenvolvedor na tarefa de versionamento de projetos/códigos, a ferramenta <a href="https://git-scm.com/"><strong>git</strong></a> foi desenvolvida, escrita utilizando a linguagem C, por <a href="images/linus_torvalds.jpg"><strong>Linus Torvalds</strong></a> (criador do Linux) e <a href="images/ju_hamano.jpeg"><strong>Jun Hamano</strong></a>, um engenheiro de sofware japonês. No <a href="https://git-scm.com/"><strong>git</strong></a>, cada diretório de trabalho é um repositório com histórico completo das versões e não depende de acesso à um servidor ou rede central. Essa é uma das características que torna o git uma ferramenta rápida, além, é claro, de ser escrito em C, que reduz a sobrecarga de tempos de execução que é algo normalmente comum em linguagens de nível superior.</p>
+<p>Inicialmente essa ferramenta visava ajudar os desenvolvedores do kernel do Linux na tarefa de versionar, de forma eficiente, as mudanças no kernel que antes eram versionadas por meio do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, um software proprietário desenvolvido pela BitMover Inc, Califórnia. Isso era um dilema entre os desenvolvedores do Linux, uma vez que ao contrário do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, o Linux é conhecido por suas <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. À época, o projeto Linux tinha acesso gratuito ao <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>. Porém, com a acusação de programadores do kernel Linux estarem utilizando engenharia reversa, o acesso gratuito foi removido.</p>
+<p>Além do git, atualmente existem algumas ferramentas para versionamento de códigos. Entre tais ferramentas, enumero duas:</p>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>: Trata-se de um sistema de versionamento, assim como o git, com <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a> é o sistema de versionamento mais popular no <a href="https://bitbucket.org/product/"><strong>Bitbucket</strong></a>, uma plataforma de hospedagem de código fonte que não é tão utilizada quanto o <a href="https://github.com/"><strong>GitHub</strong></a> e o <a href="https://about.gitlab.com/"><strong>GitLab</strong></a>;</p></li>
-<li><p><a href="http://subversion.apache.org/"><strong>subversion</strong></a>: Trata-se de um sistema de versionamento distribuido sobre os termos da <a href="https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache"><strong>Apache License</strong></a> e que foi desenvolvido pela <a href="https://pt.wikipedia.org/wiki/Apache_Software_Foundation"><strong>Apache Software Foundation</strong></a>. Assim como o <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>, o <a href="http://subversion.apache.org/"><strong>subversion</strong></a> não é tão popular quanto o <a href="https://git-scm.com/"><strong>git</strong></a>.</p></li>
+<li><p><a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>: Trata-se de um sistema de versionamento, assim como o git, com <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a> é o sistema de versionamento mais popular na plataforma de hospedagem de código fonte <a href="https://bitbucket.org/product/"><strong>Bitbucket</strong></a> que não é tão popular quanto o <a href="https://github.com/"><strong>GitHub</strong></a> e o <a href="https://about.gitlab.com/"><strong>GitLab</strong></a>;</p></li>
+<li><p><a href="http://subversion.apache.org/"><strong>subversion</strong></a>: Trata-se de um sistema de versionamento distribuido sobre os termos da <a href="https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache"><strong>Apache License</strong></a> e que foi desenvolvido pela <a href="https://pt.wikipedia.org/wiki/Apache_Software_Foundation"><strong>Apache Software Foundation</strong></a>.</p></li>
 </ol>
 <p>Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do <a href="https://github.com/"><strong>GitHub</strong></a> e <a href="https://about.gitlab.com/"><strong>GitLab</strong></a> que são plataformas de hospedagem de código, em que é possível facilmente enviar códigos versionados usando git), trataremos apenas do uso do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
 <p><strong>Nota</strong>:</p>
@@ -298,12 +293,10 @@ Cada <strong><em>commit</em></strong> realizado é internamente identificado por
 <p><img src="images/figura_commit_resumido.png" width="85%" style="display: block; margin: auto;" /></p></li>
 <li><p><code>git checkout chave</code>: modifica o projeto para o estado do <strong><em>commit</em></strong> referente à chave fornecida. Se deserjarmos voltar ao último <strong><em>commit</em></strong>, devemos fazer <code>git checkout master</code>. As chaves poderão ser fornecidas utilizando as diferentes variações do comando <code>git log</code> paresentadas acima.</p></li>
 </ol>
-<p></br></br></p>
-<p><strong>(OUTROS DETALHES FORAM ABORDADOS EM AULA NO DIA 17/06/2019)</strong></p>
 </div>
 <div id="github" class="section level2">
 <h2><span class="header-section-number">3.2</span> GitHub</h2>
-<p><strong>(CONTEÚDO ABORDADO EM SALA DE AULA NO DIA 17/06/2019)</strong></p>
+<p>(<strong>conteúdo visto em sala de aula</strong>)</p>
 
 </div>
 </div>
