@@ -12,7 +12,7 @@ Esse [**Capítulo**][R - miscelânea e tópicos avançados] visa apresentar algu
     
      - Closures
     
-     - dot-dot-dot, ..1 e etc
+     - dot-dot-dot, ..1, ..2 e etc
      
      - Orientação à objeto por função genérica (sistema S3)
      
@@ -582,7 +582,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- f <- function(){ -->
 <!--    # x encontra-se definido no escopo externo na primeira chamada à -->
 <!--    # função f. -->
-<!--    x <- x + 1  -->
+<!--    x <- x + 1 -->
 <!--    x -->
 <!-- } -->
 <!-- f() -->
@@ -625,7 +625,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- </div> -->
 <!-- ``` -->
 
-<!-- **Exemplo**:  -->
+<!-- **Exemplo**: -->
 
 <!-- ```{r} -->
 <!-- f <- function(){ -->
@@ -641,7 +641,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 
 <!-- Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy evaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem: -->
 
-<!--    * Um **ambiente**: ambiente em que uma função é avaliada/invocada.  -->
+<!--    * Um **ambiente**: ambiente em que uma função é avaliada/invocada. -->
 <!--    * Uma **expressão**: uma expressão válida passada para um argumento de uma função; -->
 <!--    * Um **valor**: resultado da avaliação de uma expressão em um ambiente específico. -->
 
@@ -657,9 +657,9 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- f() -->
 <!-- ``` -->
 
-<!-- Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa.  -->
+<!-- Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa. -->
 
-<!-- Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem.  -->
+<!-- Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. -->
 
 
 <!-- **Importante**: -->
@@ -668,7 +668,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- <div class=text-justify> -->
 <!-- Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador `<-` para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue: -->
 
-<!--    **Exemplo**:  -->
+<!--    **Exemplo**: -->
 
 <!-- ```{r} -->
 <!-- y <- 0 -->
@@ -692,19 +692,19 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 
 <!-- ```{r, fig.align='center', fig.dim=c(4,4)} -->
 <!-- # Fixando uma semente para gerarmos sempre a mesma amostra. -->
-<!-- set.seed(0)  -->
+<!-- set.seed(0) -->
 
 <!-- # Gerando um conjunto de dados com distribuição normal padrão. -->
 <!-- data <- rnorm(n = 100, mean = 0, sd = 1) -->
 <!-- myhist <- function(x = data, ...){ -->
-<!--   # Perceba o uso de ... em hist():    -->
+<!--   # Perceba o uso de ... em hist(): -->
 <!--   result <- hist(x, ...) -->
 <!--   list(n = length(result$counts), counts = result$counts) -->
 <!-- } -->
 
 <!-- # A função myhist() não possuia a definição dos argumentos col, -->
 <!-- # main, ylab e border. -->
-<!-- myhist(x = data, col = rgb(1, 0.9, 0.8), main = "",  -->
+<!-- myhist(x = data, col = rgb(1, 0.9, 0.8), main = "", -->
 <!--        ylab = "Frequências", border = NA) -->
 <!-- ``` -->
 
@@ -716,7 +716,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- f <- function(...){ -->
 
 <!--    n <- ...length() -->
-<!--    if (n != 3)  -->
+<!--    if (n != 3) -->
 <!--       stop("A função deve ter exatamente 3 argumentos.") -->
 <!--    else -->
 <!--       for(i in 1:...length()){ -->
@@ -814,7 +814,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- A função `names()`, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue: -->
 
 <!-- ```{r} -->
-<!-- vetor <- c(1,2,3)  -->
+<!-- vetor <- c(1,2,3) -->
 <!-- `names<-`(x = vetor, value = c("a", "b", "c")) -->
 <!-- ``` -->
 
@@ -875,11 +875,11 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 
 <!-- ### Closures -->
 
-<!-- Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função.  -->
+<!-- Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função. -->
 
 <!-- Um outro uso comum e importantes para funções anônimas é quando desejamos criar [**closures**](https://en.wikipedia.org/wiki/Closure_(computer_programming)). -->
 
-<!-- ### Exercícios {-}  -->
+<!-- ### Exercícios {-} -->
 
 <!-- 1. Quais são os três componentes de uma função? -->
 
@@ -891,7 +891,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!--       y -->
 <!--     ``` -->
 
-<!-- 3. Remova o atributo `att_1` do objeto `y` acima.  -->
+<!-- 3. Remova o atributo `att_1` do objeto `y` acima. -->
 
 <!-- 4. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função. -->
 
@@ -937,7 +937,7 @@ Perceba que tanto o retorno da função `g()` quando o objeto `x` da função `f
 <!-- 7. Implemente a função `%+%` que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função. -->
 
 <!--     ``` -->
-<!--     "Estatística" %+% "Computacional"  -->
+<!--     "Estatística" %+% "Computacional" -->
 
 <!--     ## [1] "Estatística Computacional" -->
 <!--     ``` -->

@@ -53,9 +53,8 @@ description: "Disciplina de Estatística Computacional - Departamento de Estatí
 Os códigos que estão presentes nesse material estão sobre os termos [**GNU General Public License**](https://www.gnu.org/licenses/gpl-3.0.pt-br.html) ($\geq 3$, versão três ou superior). Assim, o leitor poderá fazer uso de qualquer código desse material em seus projetos, pacotes, desde que cite a fonte. Além disso, todas as imagens utilizadas nesse material são de uso livre e não comercial.
 
 **Na barra superior desse material você verá um ícone para download do arquivo no formato PDF das minhas aulas de programação em R. O material das aulas está sujeito a mesma licença desse material. Você é livre para utilizar e remixar, desde que referencie o autor e o [**Departamento de Estatística**](http://www.de.ufpb.br/) da [**UFPB**](https://www.ufpb.br/). Além disso, você deverá deixar claro e citar as alterações realizadas.**
-
-
 </div></div>\EndKnitrBlock{rmdobservation}
+
 **Importante**:
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>

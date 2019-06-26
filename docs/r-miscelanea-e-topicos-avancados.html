@@ -152,15 +152,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
-<li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a></li>
-<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#subsecao"><i class="fa fa-check"></i><b>4.2</b> Subseção</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.2.1</b> Sintaxe</a></li>
+<li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#um-programador-que-nao-organiza-o-seu-codigo-deveria-morrer-mais-cedo"><i class="fa fa-check"></i><b>4.3</b> Um programador que não organiza o seu código deveria morrer mais cedo</a></li>
-<li class="chapter" data-level="4.4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#subsecao-1"><i class="fa fa-check"></i><b>4.4</b> Subseção</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#subsubsecao"><i class="fa fa-check"></i><b>4.4.1</b> Subsubseção</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.5</b> R Markdown</a></li>
+<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
 <li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
@@ -199,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>Funcionais</p></li>
 <li><p>Closures</p></li>
-<li><p>dot-dot-dot, ..1 e etc</p></li>
+<li><p>dot-dot-dot, ..1, ..2 e etc</p></li>
 <li><p>Orientação à objeto por função genérica (sistema S3)</p></li>
 </ul></li>
 <li><p>Regex</p></li>
@@ -617,7 +612,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- f <- function(){ -->
 <!--    # x encontra-se definido no escopo externo na primeira chamada à -->
 <!--    # função f. -->
-<!--    x <- x + 1  -->
+<!--    x <- x + 1 -->
 <!--    x -->
 <!-- } -->
 <!-- f() -->
@@ -653,7 +648,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- Em R, os operadores `<-` e `<<-` também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador `=`. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores `<-` e `<<-`, isto é, quando consideramos as variantes `-> ` e `->>`, respectivamente. -->
 <!-- </div> -->
 <!-- ``` -->
-<!-- **Exemplo**:  -->
+<!-- **Exemplo**: -->
 <!-- ```{r} -->
 <!-- f <- function(){ -->
 <!--    2 -> x -->
@@ -664,7 +659,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- ``` -->
 <!-- ### Avaliação preguiçosa -->
 <!-- Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy evaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem: -->
-<!--    * Um **ambiente**: ambiente em que uma função é avaliada/invocada.  -->
+<!--    * Um **ambiente**: ambiente em que uma função é avaliada/invocada. -->
 <!--    * Uma **expressão**: uma expressão válida passada para um argumento de uma função; -->
 <!--    * Um **valor**: resultado da avaliação de uma expressão em um ambiente específico. -->
 <!-- Em R, os argumentos de uma função são avaliados de forma preguiçosa (***lazy evaluation***), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue: -->
@@ -677,13 +672,13 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- } -->
 <!-- f() -->
 <!-- ``` -->
-<!-- Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa.  -->
-<!-- Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem.  -->
+<!-- Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa. -->
+<!-- Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. -->
 <!-- **Importante**: -->
 <!-- ```{block2, type='rmdimportant'} -->
 <!-- <div class=text-justify> -->
 <!-- Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador `<-` para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue: -->
-<!--    **Exemplo**:  -->
+<!--    **Exemplo**: -->
 <!-- ```{r} -->
 <!-- y <- 0 -->
 <!-- f <- function(x){ -->
@@ -700,17 +695,17 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- Um uso comum do operador `...` é a possibilidade de passarmos argumentos adicionais para uma função que utilizamos em nossa implementação. Por exmeplo, considere o código abaixo: -->
 <!-- ```{r, fig.align='center', fig.dim=c(4,4)} -->
 <!-- # Fixando uma semente para gerarmos sempre a mesma amostra. -->
-<!-- set.seed(0)  -->
+<!-- set.seed(0) -->
 <!-- # Gerando um conjunto de dados com distribuição normal padrão. -->
 <!-- data <- rnorm(n = 100, mean = 0, sd = 1) -->
 <!-- myhist <- function(x = data, ...){ -->
-<!--   # Perceba o uso de ... em hist():    -->
+<!--   # Perceba o uso de ... em hist(): -->
 <!--   result <- hist(x, ...) -->
 <!--   list(n = length(result$counts), counts = result$counts) -->
 <!-- } -->
 <!-- # A função myhist() não possuia a definição dos argumentos col, -->
 <!-- # main, ylab e border. -->
-<!-- myhist(x = data, col = rgb(1, 0.9, 0.8), main = "",  -->
+<!-- myhist(x = data, col = rgb(1, 0.9, 0.8), main = "", -->
 <!--        ylab = "Frequências", border = NA) -->
 <!-- ``` -->
 <!-- A função `myhist()`, implementada acima, constroi um histograma com base em um vetor de dados passado como argumento à `x`, retornando uma lista com o número de classes e a quantidade de observações da amostra, em cada uma das classes. Note que `myhist()` possui apenas dois argumentos, `x` e `...`, respectivamente. O argumento especial `...` permite que `myhist()` herde todos argumentos da função `hist()`. Asim, muito embora a função `myhist()` não possui os argumentos `col`, `main`, `ylab`e `border` definidos formalmente, poderemos ascessar esses e os demais argumentos de `hist()` mesmo sem defini-los. -->
@@ -718,7 +713,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- ```{r} -->
 <!-- f <- function(...){ -->
 <!--    n <- ...length() -->
-<!--    if (n != 3)  -->
+<!--    if (n != 3) -->
 <!--       stop("A função deve ter exatamente 3 argumentos.") -->
 <!--    else -->
 <!--       for(i in 1:...length()){ -->
@@ -785,7 +780,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- ``` -->
 <!-- A função `names()`, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue: -->
 <!-- ```{r} -->
-<!-- vetor <- c(1,2,3)  -->
+<!-- vetor <- c(1,2,3) -->
 <!-- `names<-`(x = vetor, value = c("a", "b", "c")) -->
 <!-- ``` -->
 <!-- Pelo código acima podemos perceber que as funções de substituição nada mais são que funções de dois argumentos, a saber `x` e `value`, respectivamente. Dessa forma, os valores passados à `value` modificam o objeto `x` que nesse caso são os nomes do objeto `vetor`. -->
@@ -834,9 +829,9 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!-- </div> -->
 <!-- ``` -->
 <!-- ### Closures -->
-<!-- Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função.  -->
+<!-- Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função. -->
 <!-- Um outro uso comum e importantes para funções anônimas é quando desejamos criar [**closures**](https://en.wikipedia.org/wiki/Closure_(computer_programming)). -->
-<!-- ### Exercícios {-}  -->
+<!-- ### Exercícios {-} -->
 <!-- 1. Quais são os três componentes de uma função? -->
 <!-- 2. Contrua o objeto `y` que retorne a saída abaixo: -->
 <!--     ```{r, echo = FALSE} -->
@@ -844,7 +839,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!--       attr(y, "att_1") <- "Isso é um atributo" -->
 <!--       y -->
 <!--     ``` -->
-<!-- 3. Remova o atributo `att_1` do objeto `y` acima.  -->
+<!-- 3. Remova o atributo `att_1` do objeto `y` acima. -->
 <!-- 4. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função. -->
 <!--     ```{r, eval = FALSE} -->
 <!--     f <- function(x){ -->
@@ -880,7 +875,7 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 <!--     ``` -->
 <!-- 7. Implemente a função `%+%` que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função. -->
 <!--     ``` -->
-<!--     "Estatística" %+% "Computacional"  -->
+<!--     "Estatística" %+% "Computacional" -->
 <!--     ## [1] "Estatística Computacional" -->
 <!--     ``` -->
 <!-- 8. Implemente a função segundo que trabalhe da seguinte forma: -->
@@ -958,7 +953,7 @@ gitbook.start({
 },
 "download": ["aulas_r.pdf"],
 "toc": {
-"collapse": "none"
+"collapse": null
 },
 "toolbar": {
 "position": "fixed",
@@ -969,6 +964,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
