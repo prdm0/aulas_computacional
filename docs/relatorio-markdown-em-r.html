@@ -154,8 +154,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
 <li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
+<li class="chapter" data-level="" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#exercicios"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
+<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcoes"><i class="fa fa-check"></i><b>4.2</b> Funções</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#passando-atributos"><i class="fa fa-check"></i><b>4.2.1</b> Passando atributos</a></li>
+<li class="chapter" data-level="4.2.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcoes-anonimas"><i class="fa fa-check"></i><b>4.2.2</b> Funções anônimas</a></li>
+<li class="chapter" data-level="4.2.3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#escopo-lexico"><i class="fa fa-check"></i><b>4.2.3</b> Escopo léxico</a></li>
+<li class="chapter" data-level="4.2.4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>4.2.4</b> Avaliação preguiçosa</a></li>
+<li class="chapter" data-level="4.2.5" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#varargs-dot-dot-dot"><i class="fa fa-check"></i><b>4.2.5</b> varargs: … (dot-dot-dot)</a></li>
+<li class="chapter" data-level="4.2.6" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcoes-infixas"><i class="fa fa-check"></i><b>4.2.6</b> Funções infixas</a></li>
+<li class="chapter" data-level="4.2.7" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcao-de-substituicao"><i class="fa fa-check"></i><b>4.2.7</b> Função de substituição</a></li>
+<li class="chapter" data-level="4.2.8" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#closures"><i class="fa fa-check"></i><b>4.2.8</b> Closures</a></li>
+<li class="chapter" data-level="" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#exercicios-1"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#funcionais"><i class="fa fa-check"></i><b>4.3</b> Funcionais</a></li>
+<li class="chapter" data-level="4.4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sistema-s3"><i class="fa fa-check"></i><b>4.4</b> Sistema S3</a></li>
 </ul></li>
 </ul>
 
@@ -178,8 +191,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">4</span> Relatório Markdown em R</h1>
 <p>Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-se à construção de documentos (relatórios, manuais, etc). A construção desses documentos é algo que demanda tempo, uma vez que, por exemplo, temos que escrever a respeito das metodologias estatísticas consideradas e justificar o seu uso, organizar as informações obtidas de um modelo estatístico e interpretá-las, tabular os resultados de algumas simulação, escolher o formato de saída do documento e escrever de forma clara e robusta os resultados obtidos (muitos que irão ler seu documento não são estatísticos). Um pouco dessa rotina encontra-se no diagrama a baixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxo"></span>
-<div id="htmlwidget-920747c327f8783bff1c" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-920747c327f8783bff1c">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7dde2b474cfac0c21ac0" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7dde2b474cfac0c21ac0">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
 </p>
@@ -197,8 +210,8 @@ Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologi
 <p>Como mostra o diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
 <p>Note que no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a> para <a href="relatorio-markdown-em-r.html#fig:diagramafluxor">4.2</a> otimizando assim, as suas análises.</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxor"></span>
-<div id="htmlwidget-ccc9101402ee3f30efb6" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ccc9101402ee3f30efb6">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1190df51ac6fdd742171" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1190df51ac6fdd742171">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
 </p>
@@ -717,179 +730,946 @@ Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**a
 <li><p><code>{height="100px" width="100px"}</code>: Essa expressão é utilizada para definirmos as dimensões da imagens, a ser inserida, nesse caso em pixels, altura e largura, respectivamente.</p></li>
 </ul>
 </div>
-<p>```</p>
-</div>
-<div id="exercicios" class="section level4 unnumbered">
-<h4>Exercícios</h4>
-<ol style="list-style-type: decimal">
-<li><p>Construa um código em Markdown que retorne a saída abaixo:</p>
-<p><strong>R</strong> é um ambiente de software livre para computação estatística e gráficos. Ele compila e é executado em uma ampla variedade de plataformas <strong>UNIX</strong>, <strong>Windows</strong> e <strong>MacOS</strong>. Para fazer o download do <strong>R</strong>, escolha o seu espelho <strong>CRAN</strong> (<em>Comprehensive R Archive Network</em>) preferido.</p></li>
-<li><p>Modifique o código em Markdown utilizado no exercício anterior para que forneça:</p>
-<p><a href="https://www.r-project.org/"><strong>R</strong></a> é um ambiente de software livre para computação estatística e gráficos. Ele compila e é executado em uma ampla variedade de plataformas <strong>UNIX</strong>, <strong>Windows</strong> e <strong>MacOS</strong>. Para fazer o download do <a href="https://www.r-project.org/"><strong>R</strong></a>, escolha o seu espelho <strong>CRAN</strong> (<a href="https://cloud.r-project.org/web/packages/available_packages_by_date.html"><em><strong>C</strong>omprehensive <strong>R</strong> <strong>A</strong>rchive <strong>N</strong>etwork</em></a>) preferido.</p></li>
-<li><p>Construa o código em Markdown que forneça uma saída próxima a da imagem abaixo:</p>
-<p><img src="images/ex_markdown_01.png" /></p></li>
-<li><p>Forneça o código Markdown para a obtenção do resultado que segue:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Aqui é o item 1</strong>:</p>
-<ol style="list-style-type: decimal">
-<li>Subitem 1</li>
-<li>Subitem 2</li>
-<li>Subitem 3</li>
-</ol></li>
-<li><p><strong>Aqui é o item 2</strong>:</p>
-<ul>
-<li>Subitem 1</li>
-<li>Subitem 2</li>
-<li>Subitem 3</li>
-</ul></li>
-<li><p><strong>Aqui é o item 3</strong>:</p>
-<ol style="list-style-type: decimal">
-<li>Subitem 1
-<ul>
-<li>Subsubitem 1</li>
-<li>Subsubitem 2</li>
-</ul></li>
-<li>Subitem 2
-<ol style="list-style-type: decimal">
-<li>Subsubitem 1</li>
-<li>Subsutitem 2</li>
-</ol></li>
-</ol></li>
-</ol></li>
-</ol>
-<p></br></p>
-<ol start="5" style="list-style-type: decimal">
-<li><p>Forneça o código Markdown que retore o resultado que segue:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Aqui é o item 1</strong>:</p>
-<ol style="list-style-type: decimal">
-<li><p>Eu serei um programador de <a href="https://www.r-project.org/"><strong>R</strong></a>. Eu prometo de sempre serei fiel, na alegria e na tristeza, até que a morte nos separe…</p>
-<p>Além dos votos acima, abaixo segue <strong>dois</strong> motivos para você apresender a programar em <a href="https://www.r-project.org/"><strong>R</strong></a>:</p>
-<ul>
-<li><p>Se você não programar, você não irá passar na disciplina. =(</p>
-<blockquote>
-<p><strong><em>Acho que o motivo acima é suficiente</em></strong>.</p>
-</blockquote></li>
-<li><p>R é uma linguagem legal.</p></li>
-</ul></li>
-<li><p><strong><em><a href="https://www.r-project.org/"><strong>R</strong></a> tem vários <a href="https://cloud.r-project.org/web/packages/available_packages_by_date.html">pacotes</a></em></strong>:</p></li>
-</ol></li>
-<li><blockquote>
-<p>Mais algumas coisas <strong>…</strong> :</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>Bla bla bla bla bla bla bla bla <strong>…</strong></p>
-</blockquote>
-</blockquote>
-<ul>
-<li><blockquote>
-<blockquote>
-<blockquote>
-<p>Bla Bla</p>
-</blockquote>
-</blockquote>
-</blockquote></li>
-<li><blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p><strong>…</strong></p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote></li>
-</ul>
-<p>Se tudo der errado, mande um email para <strong><a href="mailto:jesus@aomeudeus.com" class="email">jesus@aomeudeus.com</a></strong> com o título: “<strong>Estou Chegando</strong>”.</p></li>
-</ol></li>
-<li><p>Considere o a imagem desse <a href="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg"><strong>link</strong></a>. Crie um arquivo Markdown de modo a ser inserido a imagem com dimensões 50 por 50 pixels centralizada no HTML resultante após a compilação. O resultado que você deverá obter é o que segue:</p></li>
-</ol>
-<center>
-<img src="https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg" eight="250px" width="250" /></br>
-<strong>Figura</strong>: Importando o logo do <a href="https://www.rstudio.com/"><strong>RStudio</strong></a> figura qualquer.
-</center>
-</div>
-</div>
-</div>
-<div id="r-markdown" class="section level2">
-<h2><span class="header-section-number">4.2</span> R Markdown</h2>
-<p>Se você chegou à esse ponto da leitura, muito provavelmente deverá estar se perguntando sobre muitas coisas. Algumas dessas perguntas poderiam ser:</p>
-<ol style="list-style-type: decimal">
-<li>Como referenciar um texto ou figura?</li>
-<li>E se eu quiser colocar figuras lado a lado?</li>
-<li>Como incorporar fórmulas matemáticas no corpo do texto?</li>
-<li>Como colocar referências no texto?</li>
-<li>É possível incorporar tabelas?
-<!-- 6. ~~Eu irei conseguir me formar? O que eu estou fazendo aqui?~~ --></li>
-</ol>
-<p>As respostas à estas perguntas não foram respondidas por serem bastante inconveniente ou mesmo impossível de respondê-las utilizando a linguagem <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>. A linguagem <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é bastante simples e útil para muitos casos. Aliás, na maior parte do tempo estamos utilizando a sintaxe de <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>, sendo que algumas vezes é que nós nos deparamos com com algumas dessas necessidades.</p>
-<p>Visando atender à diversas exigências, entre elas as que estão enumeradas acima, houve a necessidade de se extender a sintaxe do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> em <a href="https://www.r-project.org"><strong>R</strong></a>. Essas necessidades corriqueiras são atendidas pelo pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a> que disponibiliza ao usuário o <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a>. O pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a> foi criado por <a href="https://yihui.name/en/about/"><strong>Yihui Xie</strong></a>, PhD em estatística e que atualmente trabalha como engenheiro de software na <a href="https://www.rstudio.com/"><strong>RStudio, Inc</strong></a>. Yihui Xie atualmente mantem diversos pacotes em R em seus <a href="https://github.com/yihui"><strong>repositórios</strong></a> no GitHub.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-35"></span>
-<img src="images/logo_rmarkdown.png" alt="Logo do pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) - permite programadores [**R**](https://www.r-project.org) extender a sintaxe de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizando [**R Markdown**](https://rmarkdown.rstudio.com/)." width="25%" />
+<pre><code>
+#### Exercícios {-}
+
+1. Construa um código em Markdown que retorne a saída abaixo:
+
+    **R** é um ambiente de software livre para computação estatística e gráficos. Ele compila e é executado em uma ampla variedade de plataformas **UNIX**, **Windows** e **MacOS**. Para fazer o download do **R**, escolha o seu espelho **CRAN** (_Comprehensive R Archive Network_) preferido.
+
+2. Modifique o código em Markdown utilizado no exercício anterior para que forneça:
+
+    [**R**](https://www.r-project.org/) é um ambiente de software livre para computação estatística e gráficos. Ele compila e é executado em uma ampla variedade de plataformas **UNIX**, **Windows** e **MacOS**. Para fazer o download do [**R**](https://www.r-project.org/), escolha o seu espelho **CRAN** ([_**C**omprehensive **R** **A**rchive **N**etwork_](https://cloud.r-project.org/web/packages/available_packages_by_date.html)) preferido.
+
+3. Construa o código em Markdown que forneça uma saída próxima a da imagem abaixo:
+
+    ![](images/ex_markdown_01.png)
+
+4. Forneça o código Markdown para a obtenção do resultado que segue:
+
+    1. **Aqui é o item 1**:
+
+       1. Subitem 1
+       2. Subitem 2
+       3. Subitem 3
+
+    2. **Aqui é o item 2**:
+
+       + Subitem 1
+       + Subitem 2
+       + Subitem 3
+
+    3. **Aqui é o item 3**:
+
+       1. Subitem 1
+          + Subsubitem 1
+          + Subsubitem 2
+       2. Subitem 2
+          1. Subsubitem 1
+          2. Subsutitem 2
+
+&lt;/br&gt;
+
+5. Forneça o código Markdown que retore o resultado que segue:
+
+    1. **Aqui é o item 1**:
+
+       1. Eu serei um programador de [**R**](https://www.r-project.org/). Eu prometo de sempre serei fiel, na                alegria e na tristeza, até que a morte           nos separe...
+
+          Além dos votos acima, abaixo segue **dois** motivos para você apresender a programar em                            [**R**](https://www.r-project.org/):
+
+          - Se você não programar, você não irá passar na disciplina. =(
+
+            &gt; ***Acho que o motivo acima é suficiente***.
+
+          - R é uma linguagem legal.
+
+       2. ***[**R**](https://www.r-project.org/) tem vários                                                                  [pacotes](https://cloud.r-project.org/web/packages/available_packages_by_date.html)***:
+
+
+    2. &gt; Mais algumas coisas **...** :
+
+       &gt; &gt; Bla bla bla bla bla bla bla bla **...**
+
+       + &gt; &gt; &gt; Bla Bla
+       + &gt; &gt; &gt; &gt; **...**
+
+       Se tudo der errado, mande um email para **&lt;jesus@aomeudeus.com&gt;** com o título: &quot;**Estou Chegando**&quot;.
+
+6. Considere o a imagem desse [**link**](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg). Crie um arquivo Markdown de modo a ser inserido a imagem com dimensões 50 por 50 pixels centralizada no HTML resultante após a compilação. O resultado que você deverá obter é o que segue:
+
+&lt;center&gt;
+![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg){eight=&quot;250px&quot; width=&quot;250px&quot;}&lt;/br&gt;
+**Figura**: Importando o logo do [**RStudio**](https://www.rstudio.com/) figura qualquer.
+&lt;/center&gt;
+
+## R Markdown
+
+Se você chegou à esse ponto da leitura, muito provavelmente deverá estar se perguntando sobre muitas coisas. Algumas dessas perguntas poderiam ser:
+
+   1. Como referenciar um texto ou figura?
+   2. E se eu quiser colocar figuras lado a lado?
+   3. Como incorporar fórmulas matemáticas no corpo do texto?
+   4. Como colocar referências no texto?
+   5. É possível incorporar tabelas?
+   &lt;!-- 6. ~~Eu irei conseguir me formar? O que eu estou fazendo aqui?~~ --&gt;
+
+As respostas à estas perguntas não foram respondidas por serem bastante inconveniente ou mesmo impossível de respondê-las utilizando a linguagem [**Markdown**](https://daringfireball.net/projects/markdown/). A linguagem [**Markdown**](https://daringfireball.net/projects/markdown/) é bastante simples e útil para muitos casos. Aliás, na maior parte do tempo estamos utilizando a sintaxe de [**Markdown**](https://daringfireball.net/projects/markdown/), sendo que algumas vezes é que nós nos deparamos com com algumas dessas necessidades.
+
+Visando atender à diversas exigências, entre elas as que estão enumeradas acima, houve a necessidade de se extender a sintaxe do [**Markdown**](https://daringfireball.net/projects/markdown/) em [**R**](https://www.r-project.org). Essas necessidades corriqueiras são atendidas pelo pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) que disponibiliza ao usuário o [**R Markdown**](https://rmarkdown.rstudio.com/). O pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) foi criado por [**Yihui Xie**](https://yihui.name/en/about/), PhD em estatística e que atualmente trabalha como engenheiro de software na [**RStudio, Inc**](https://www.rstudio.com/). Yihui Xie atualmente mantem diversos pacotes em R em seus [**repositórios**](https://github.com/yihui) no GitHub.
+
+&lt;div class=&quot;figure&quot; style=&quot;text-align: center&quot;&gt;
+&lt;img src=&quot;images/logo_rmarkdown.png&quot; alt=&quot;Logo do pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) - permite programadores [**R**](https://www.r-project.org) extender a sintaxe de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizando [**R Markdown**](https://rmarkdown.rstudio.com/).&quot; width=&quot;25%&quot; /&gt;
+&lt;p class=&quot;caption&quot;&gt;(\#fig:unnamed-chunk-35)Logo do pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html) - permite programadores [**R**](https://www.r-project.org) extender a sintaxe de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizando [**R Markdown**](https://rmarkdown.rstudio.com/).&lt;/p&gt;
+&lt;/div&gt;
+
+Como dito anteriormente, para fazer uso de [**R Markdown**](https://rmarkdown.rstudio.com/) será necessário o uso do pacote [**rmarkdown**](https://cran.r-project.org/web/packages/rmarkdown/index.html). Esse pacote, por sua vez, trabalha sobre duas importantes ferramentas. São elas:
+
+1. [**knitr**](https://yihui.name/knitr/): Um [**pacote**](https://cran.r-project.org/web/packages/knitr/index.html) também criado por Yihui Xie e que hoje possui diversos colaborados.  O pacote [**knitr**](https://yihui.name/knitr/) permite converter um texto escrito em R Markdown (arquivo com extensão **.Rmd**) para Markdown (arquivo com extensão **.md**). Em 2012, o pacote **knitr** já permitia com algumas linguagens de marcação, entre as mais importantes destacam-se a linguagem LaTeX e HTML. Apenas em 2015 é que foi introduzido o **R Markdown** (arquivos com extensão **.Rmd**), uma vez que o Markdown tinha se mostrado ser um formato de documento popular e bastante utilizado pela comunidade.
+
+2. [**Pandoc**](https://pandoc.org/): Um &quot;canivete suíço&quot; escrito utilizando a linguagem de programação [**Haskell**](https://www.haskell.org/) e que permite converter textos escritos em uma linguagem de marcação para outra. Muito embora você não precisa utilizar diretamente os comandos do Pandoc quando fizer uso do pacote rmarkdown, você poderá instalar facilmente o Pandoc em seus sistema operacional e utilizar o Pandoc para converter arquivos **.tex** (TeX) em **.docx** (DOCX, formato relacionado com a ferramenta Microsoft Word), **.md** (Markdown) em **.pdf** (PDF), **.tex** (LaTeX) para **.md** (Markdown), entre diversas outras conversões. Maiores detalhes a repseito das possíveis conversões você encontrará [**aqui**](https://pandoc.org/demos.html).
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}&lt;div class=&quot;rmdnote&quot;&gt;&lt;div class=text-justify&gt;
+Com o **R Markdown** teremos a nossa disposição diversas ferramentas e ainda poderemos usufruir da simplicidade do **Markdown**.
+&lt;/div&gt;&lt;/div&gt;\EndKnitrBlock{rmdnote}
+
+O funcionamento geral e interações entre o pacote **rmarkdown** com o pacote **knitr** e o **Pandoc** poderão ser resumidos com diagrama abaixo:
+
+&lt;div class=&quot;figure&quot; style=&quot;text-align: center&quot;&gt;
+<div id="htmlwidget-ab9ddfd06d585bb5038c" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ab9ddfd06d585bb5038c">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+&lt;p class=&quot;caption&quot;&gt;(\#fig:diagramaRmd)Funcionamento do pacote **rmarkdown** que permite trabalharmos com arquivos .Rmd e sua interação com o **knitr** e **Pandoc** na converção para formatos intermediários.&lt;/p&gt;
+&lt;/div&gt;
+
+Como podemos observar no diagrama \@ref(fig:diagramaRmd), o pacote **knitr** é responsável por converter o arquivo **.Rmd** que contém códigos em **R Markdown** para um arquivo **.md** que contém código em **Markdown** puro. Depois, o Pandoc irá agirar sobre o aquivo **.md** e irá converter para o formato desejado, em que por padrão, o formato é **.html**. A conversão para HTML é de longe a mais utilizada, uma vez que trata-se de um formato que facilita o compartilhamento do seu conteúdo, sendo possível, por exemplo, hospedar os HTMLs gerados em um servidor para o acesso de qualquer lugar, desde que se tenha um browser e uma conecção com uma rede de internet.
+
+O pacote **knitr** também incorpora algumas funcionalidades quando estamos trabalhando com **R Markdown**, em que a mais importante delas é a possibilidade de incorporar e avaliar pedaços (**chuncks**) de códigos R dentro do documento, isto é, dentro do arquivo **.Rmd**. Essa é uma grande funcionalidade que nos permitirá fazer duas coisas importantes:
+
+1. Utilizar funções de R para plotagem de gráficos;
+2. Incorporar retornos de funções no interior do relatório;
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}&lt;div class=&quot;rmdnote&quot;&gt;&lt;div class=text-justify&gt;
+Acima listei apenas duas funcionalidades de julgo como mais importantes do pacote **knitr**, além, é claro, de converter arquivos **R Markdown** para arquivos em **Markdown** puro.
+
+Uma outra funcionalidade do pacote **knitr** que vale a pena ser destacada aqui, é a possibilidade de utilizar uma de suas função para incorporá figuras previamente salvas (os formatos mais populares de imagens são suportados) e controrar seu tamanhol, título, alinhamento bem como outras características de interesse.
+&lt;/div&gt;&lt;/div&gt;\EndKnitrBlock{rmdnote}
+
+**Importante**:
+
+\BeginKnitrBlock{rmdimportant}&lt;div class=&quot;rmdimportant&quot;&gt;&lt;div class=text-justify&gt;
+Tudo que você aprendeu a respeito de **Markdown** continuará valendo para arquivos **R Markdown** (arquivos com extensão **.Rmd**).
+&lt;/div&gt;&lt;/div&gt;\EndKnitrBlock{rmdimportant}
+
+Antes de iniciarmos as próximas seções a respeito do **R Markdown**, certifique-se que você possue o **rmarkdown** e o **knitr** instalados. Muito provavelmente esses pacotes juntamente com o Pandoc já estarão instalados, caso você esteja utilizando o RStudio.
+
+Em todos os exemplos que seguem nas seções que seguem, no **RStudio**, acesse as opções *File*, *New File* e *R Markdown*, respectivamente, para criar um novo arquivo **R Mardown** (arquivo com extensão **.Rmd**). Você também poderá utilizar as teclas de atalho **Ctrl + Shift + N** para criar um arquivo com extensão **.R** e no momento de salvar mude a extensão do arquivo para **.Rmd**.
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}&lt;div class=&quot;rmdnote&quot;&gt;&lt;div class=text-justify&gt;
+Você poderá compilar o código de **R Markdown** de três formas:
+
+  1. Utilizando, no RStudio, a combinação das teclas de atalho **Ctrl + Shift + K**;
+  2. Clicando no ícone do pacote **knitr**;
+  3. Utilizando a função `rmarkdown::render(input = &quot;arquivo.Rmd&quot;)`. Será criado no diretório de trabalho o arquivo       **arquivo.html**.
+&lt;/div&gt;&lt;/div&gt;\EndKnitrBlock{rmdnote}
+
+
+&lt;!-- ### Inserção de código R --&gt;
+
+
+
+
+
+&lt;!--chapter:end:rmarkdown.Rmd--&gt;
+
+# R - miscelânea e tópicos avançados
+
+Nesse ponto será assumido que você realizou os passos de [**revisão**][Sugestões de passos para revisão da linguagem R] da linguagem R sugeridos, bem como resolveu os [**exercícios propostos**][Exercícios propostos]. Considerá-los é de grande importância para que você consiga assimilar os conceitos apresentados nesse [**Capítulo**][R - miscelânea e tópicos avançados].
+
+Esse [**Capítulo**][R - miscelânea e tópicos avançados] visa apresentar algumas miscelâneas a respeito da linguagem de programação R, bem como, alguns tópicos mais avançados de programação em R. O termo &quot;**avançado**&quot; utilizado aqui não necessariamente tem correlação com dificuldade de entendimento. Aqui utilizo esse termo para abordar assuntos que normalmente eram pouco discutidos em livros mais antigos da linguagem R e que atualmente vem ganhando destaques em livros e discussões mais recentes na internet. Na verdade, a maioria dos conceitos que serão abordados são de fácil compreensão, porẽm ajudarão os programadores em R a construir códigos mais robustos e mais flexíveis. Alguns desses assuntos que serão abordados e divididos em subseções são:
+
+  1. Pipe %&gt;%
+  
+  2. Funções: 
+    
+     - Funcionais
+    
+     - Closures
+    
+     - dot-dot-dot, ..1 e etc
+     
+     - Orientação à objeto por função genérica (sistema S3)
+     
+   3. Regex
+   
+   4. Tópicos em metaprogramação
+   
+   5. Paralelismo
+   
+   6. Empacotando funções
+   
+
+## Operador %&gt;% - Pipe   
+   
+    
+Para que possamos entender a utilidade dos operadores pipe, em especial do operador `%&gt;%`, vamos fazer um pão de queijo. Adiante, você encontrará a receita com 7 passos enumerados que deverão serem seguidos para que possamos fazer o nosso pão de queijo.
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}&lt;div class=&quot;rmdnote&quot;&gt;&lt;div class=text-justify&gt;
+Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)
+&lt;/div&gt;&lt;/div&gt;\EndKnitrBlock{rmdnote}
+
+**Ingredientes**: 2 copos americanos de leite, 1 copo americano de água, 1/3 de um copo americano de óleo, 1 colher de sopa de sal, 500g de povilho doce, queijo ralado a gosto, 3 ovos.
+
+**Passos do Preparo**:
+
+   1. **Ferva** o leite com a água e o óleo;
+
+   2. Em uma vasilha **misture** o polvilho e o sal;
+   
+   3. **Jogue** o liquido fervido e **misture** com uma colher grande;
+   
+   4. **Espere** esfriar (30 minutos) e **despeje** o queijo ralado e os ovos;
+   
+   5. **Misture** a massa com a mão **amassando** até ficar homogênea;
+   
+   6. **Faça** bolinhas do tamanho que preferir;
+   
+   7. **Sirva** quentinho;
+   
+Assuma, por absurdo, que poderemos fazer nossos pães de queijo no R que que os verbos destacados nos passos acima são funções que implementamos em R. Dessa forma, forma, pelo que sabemos de R, poderemos fazer nossos pães de queijo de forma que segue:
+
+```r
+sirva(fazer(misture(despeje(esperar(misture(ingredientes = c(povilho, sal), add = ferver(c(leite, óleo),
+      add_agua = TRUE), colher_grande = TRUE), tempo = 30), homogenea = TRUE),
+      modo = &quot;amassando&quot;), formato = &quot;bolinha&quot;), modo = &quot;quentinho&quot;)</code></pre>
+<p>Perceba que o código acima poderá ser um pouco confuso, uma vez que envolve muitas composições de funções. Porém, nada impede que você esteja salvando os resultados intermediários em objetos, de modo a facilitar a leitura do código ao relacionar esses objetos intermediários. Fazer isso funciona bem e eu particularmente utilizo muito. Porém, você também poderá fazer uso de pipes (operador <code>%&gt;%</code>) que poderá, nessas situações, deixar a leitura do código mais fácil, lógica e consequentimente mais compreensível., como veremos adiante.
+O operador de tubo <code>%&gt;%</code> foi implementando no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> por <a href="https://github.com/smbache"><strong>Stefan Milton Bache</strong></a> e atualmente recebe a colaboração de diversas pessoas, incluindo programadores da <a href="https://www.rstudio.com/"><strong>RStudio, Inc</strong></a>. Atualmente, o pacote não recebe muitas atualizações, muito provavelmente por já está estável e cumprindo bem o seu papel.</p>
+<p>O nome <strong>magrittr</strong> muito provavelmente faz alusão à <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>, um dos principais pintores surrealista belga, em que a letra <strong>r</strong>, ao final, obviamente faz referências à linguagem R. É possível inferir isso com base no logo do pacote, apresentado logo abaixo:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="images/logo_magrittr.png" alt="Logo do pacote [**magrittr**](https://github.com/tidyverse/magrittr) com frase ***Ceci n'est pas une pipe*** ([**ouça a pronuncia**](files/audio_magrittr.ogg), mesmo frase que acompanha pintura ***La trahison des images*** de [**René Magritte**](https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte)." width="25%" />
 <p class="caption">
-Figura 4.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a> - permite programadores <a href="https://www.r-project.org"><strong>R</strong></a> extender a sintaxe de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizando <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a>.
+Figura 4.4: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> com frase <strong><em>Ceci n’est pas une pipe</em></strong> (<a href="files/audio_magrittr.ogg"><strong>ouça a pronuncia</strong></a>, mesmo frase que acompanha pintura <strong><em>La trahison des images</em></strong> de <a href="https://pt.wikipedia.org/wiki/Ren%C3%A9_Magritte"><strong>René Magritte</strong></a>.
 </p>
 </div>
-<p>Como dito anteriormente, para fazer uso de <a href="https://rmarkdown.rstudio.com/"><strong>R Markdown</strong></a> será necessário o uso do pacote <a href="https://cran.r-project.org/web/packages/rmarkdown/index.html"><strong>rmarkdown</strong></a>. Esse pacote, por sua vez, trabalha sobre duas importantes ferramentas. São elas:</p>
-<ol style="list-style-type: decimal">
-<li><p><a href="https://yihui.name/knitr/"><strong>knitr</strong></a>: Um <a href="https://cran.r-project.org/web/packages/knitr/index.html"><strong>pacote</strong></a> também criado por Yihui Xie e que hoje possui diversos colaborados. O pacote <a href="https://yihui.name/knitr/"><strong>knitr</strong></a> permite converter um texto escrito em R Markdown (arquivo com extensão <strong>.Rmd</strong>) para Markdown (arquivo com extensão <strong>.md</strong>). Em 2012, o pacote <strong>knitr</strong> já permitia com algumas linguagens de marcação, entre as mais importantes destacam-se a linguagem LaTeX e HTML. Apenas em 2015 é que foi introduzido o <strong>R Markdown</strong> (arquivos com extensão <strong>.Rmd</strong>), uma vez que o Markdown tinha se mostrado ser um formato de documento popular e bastante utilizado pela comunidade.</p></li>
-<li><p><a href="https://pandoc.org/"><strong>Pandoc</strong></a>: Um “canivete suíço” escrito utilizando a linguagem de programação <a href="https://www.haskell.org/"><strong>Haskell</strong></a> e que permite converter textos escritos em uma linguagem de marcação para outra. Muito embora você não precisa utilizar diretamente os comandos do Pandoc quando fizer uso do pacote rmarkdown, você poderá instalar facilmente o Pandoc em seus sistema operacional e utilizar o Pandoc para converter arquivos <strong>.tex</strong> (TeX) em <strong>.docx</strong> (DOCX, formato relacionado com a ferramenta Microsoft Word), <strong>.md</strong> (Markdown) em <strong>.pdf</strong> (PDF), <strong>.tex</strong> (LaTeX) para <strong>.md</strong> (Markdown), entre diversas outras conversões. Maiores detalhes a repseito das possíveis conversões você encontrará <a href="https://pandoc.org/demos.html"><strong>aqui</strong></a>.</p></li>
-</ol>
+<p>Voltemos à algo mais interessante, ao preparo de pães de queijo. O preparo, “em R”, poderia ser quase tão saboroso quanto comer os pães de queijo, se fossem “preparados” utilizando o operador <code>%&gt;%</code>, na forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fazendo pão de queijo utilizando o operador pipe, isto é,</span>
+<span class="co"># utilizando o operador %&gt;%.</span>
+
+<span class="kw">ferver</span>(<span class="dt">ingradientes =</span> <span class="kw">c</span>(leite,  água,  óleo)) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">misturar</span>(<span class="dt">colher_grande =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">esperar</span>(<span class="dt">tempo =</span> <span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">despejar</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(<span class="st">&quot;queijo&quot;</span>, <span class="st">&quot;ovos&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">amassar</span>(<span class="dt">forma =</span> <span class="st">&quot;mãos&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fazer_bolinhas</span>(<span class="dt">volume =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">   </span><span class="kw">sirvir</span>(<span class="dt">froma =</span> <span class="st">&quot;quentinho&quot;</span>)</code></pre>
+<p>É possível observar que o código acima é consideravelmente mais legível que o código apresentado mais acima desta subseção. O código acima é mais legível, por que os verbos/funções são encadeadas na sequência lógica do preparo e não lidos de dentro para fora, como no primeiro exemplo. Olhando rapidamente para cada um dos códigos, percebemos que o código que faz uso do operador <code>%&gt;%</code> fornece mais informações a respeito do que se está à fazer.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<p>Apesar de ser um operador útil, não exagere no uso de <code>%&gt;%</code>, principalmente quando se tem um conjunto de passos demasiadamente grande. Nessas situações, procure atribuir parte do código à objetos intermediários e depois componha esses objetos. Além disso, as funções envolvidas possuem diversas entradas e saídas, pode ser que o uso do operador <code>%&gt;%</code> não seja interessante.</p>
+No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> como atalho para escrever mais rapidamente o operador <code>%&gt;%</code>.
+</div>
+
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<p>Como curiosidade, o recurso de pipes estão disponíveis em outras linguagens de programação, como <a href="https://pt.wikipedia.org/wiki/F_Sharp"><strong>F#</strong></a>, e os pielines de sistemas *<strong>nix</strong> que usa pipes para a <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><strong>comunicação entre os processos</strong></a> utilizando passagem de mensagens.</p>
+</div>
+</div>
+
+<p>Você poderá instalar o <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> diretamente pelo CRAN ou por meio do repositório GitHub do pacote, ou seja, por meio de um dos comandos abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Instalando o pacote magrittr disponível</span>
+<span class="co"># nos repositórios do CRAN.</span>
+<span class="kw">library</span>(magrittr)
+
+<span class="co"># ou</span>
+
+<span class="co"># Para instalar pacotes diretamente do GitHub,</span>
+<span class="co"># você de deve ter instalado o pacote</span>
+<span class="co"># devtools para poder fazer uso da função</span>
+<span class="co"># install_github().</span>
+
+<span class="co"># Instalando o repositório magrittr do usuário/organização de</span>
+<span class="co"># nome tidyverse do GitHub.</span>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tidyverse/magrittr&quot;</span>, <span class="dt">ref =</span> <span class="st">&quot;master&quot;</span>) </code></pre>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Com o <strong>R Markdown</strong> teremos a nossa disposição diversas ferramentas e ainda poderemos usufruir da simplicidade do <strong>Markdown</strong>.</p>
+<p>Há pontos positivos e negativos ao considerar a instalação de um pacote diretamente do epositório do pacote no GitHub ou em qualquer outro sistema de hospedagem de código. Mencionarei apenas GitHub, mas o comentário se extende à outros sistemas de hospedagem de códigos, como, por exemplo, o GitLab.</p>
+<p>Basicamente, o ponto positivo refere-se à possibilidade de estarmos instalando uma versão mais recente do pacote, porém, em alguns casos, o pacote poderá apresentar alguns bugs, muito embora os códigos no <strong><em>branch master</em></strong> são normalmente estáveis e possuem códigos iguais aos que temos no CRAN.</p>
+<p>Instalar diretamente um pacote que está sendo mantido no GitHub dará a possibilidade de instalar versões mais recentes do pacote que ainda não encontram-se no CRAN. Pelo GitHub, você também terá a vantagem de instalar versões mais antigas do pacote. Por exemplo, no repositório do <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>, no GitHub, você verá que, em <strong><em>Branch</em></strong>, haverá diversas versões versionadas do pacote, em que uma delas chama-se <strong>dev</strong>. Fazer <code>devtools::install_github("tidyverse/magrittr", ref = "dev")</code> fará com que você instale a versão de desenvolvimento do pacote. Dessa forma, aconselho que sempre considere a instalação da versão no <strong><em>branch master</em></strong> de qualquer pacote que venha instalar diretamente do GitHub. Assim, haverá menos possibilidade de você deparar-se com códigos que ainda não funcionam ou que possuam algum(s) bug(s).</p>
 </div>
 </div>
 
-<p>O funcionamento geral e interações entre o pacote <strong>rmarkdown</strong> com o pacote <strong>knitr</strong> e o <strong>Pandoc</strong> poderão ser resumidos com diagrama abaixo:</p>
-<div class="figure" style="text-align: center"><span id="fig:diagramaRmd"></span>
-<div id="htmlwidget-f7b49dd90ca8ed626c03" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f7b49dd90ca8ed626c03">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
-<p class="caption">
-Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
-</p>
-</div>
-<p>Como podemos observar no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramaRmd">4.5</a>, o pacote <strong>knitr</strong> é responsável por converter o arquivo <strong>.Rmd</strong> que contém códigos em <strong>R Markdown</strong> para um arquivo <strong>.md</strong> que contém código em <strong>Markdown</strong> puro. Depois, o Pandoc irá agirar sobre o aquivo <strong>.md</strong> e irá converter para o formato desejado, em que por padrão, o formato é <strong>.html</strong>. A conversão para HTML é de longe a mais utilizada, uma vez que trata-se de um formato que facilita o compartilhamento do seu conteúdo, sendo possível, por exemplo, hospedar os HTMLs gerados em um servidor para o acesso de qualquer lugar, desde que se tenha um browser e uma conecção com uma rede de internet.</p>
-<p>O pacote <strong>knitr</strong> também incorpora algumas funcionalidades quando estamos trabalhando com <strong>R Markdown</strong>, em que a mais importante delas é a possibilidade de incorporar e avaliar pedaços (<strong>chuncks</strong>) de códigos R dentro do documento, isto é, dentro do arquivo <strong>.Rmd</strong>. Essa é uma grande funcionalidade que nos permitirá fazer duas coisas importantes:</p>
-<ol style="list-style-type: decimal">
-<li>Utilizar funções de R para plotagem de gráficos;</li>
-<li>Incorporar retornos de funções no interior do relatório;</li>
-</ol>
+<p>Para um entendimento geral do operador <code>%&gt;%</code>, considere a existência dos objetos <code>x</code>, <code>y</code>e <code>f</code>. Então,</p>
+<pre class="{r},"><code>x %&gt;% f(y)</code></pre>
+<p>irá atribuir o objeto <code>x</code> à <code>f</code>, como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code>.</p>
+<p>Porém, nem sempre desejamos introduzir o que está a esquerda do operador <code>%&gt;%</code> como primeiro agumento daquilo que está à sua direita. Para isso, poderemos fazer uso do caracter <code>.</code> (ponto). Esse caracter irá designar em qual posição será introduzido o objeto à esquerda de <code>%&gt;%</code> na função à sua direita. Por exemplo, a expressão <code>x %&gt;% f(a, b = .)</code> fará com que <code>x</code> à esqueda de <code>%&gt;%</code> seja substituído no lugar do caracter <code>.</code>, ou seja, <code>x</code> é passado como argumento à <code>b</code>, segundo argumento de <code>f</code>.</p>
+<p><strong>Exemplo</strong>: Uso do caracter <code>.</code> em um contexto de bloco de instrução. Esse exemplo mostra que o que está a direita do operador <code>%&gt;%</code> não necessariamente precisa ser uma função. Nesses casos, o caracter <code>.</code> é de grande importância para que o operador saiba substituir corretamente o objeto <code>x</code> no bloco de instruções.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+x &lt;-<span class="st"> </span>mtcars
+x <span class="op">%&gt;%</span><span class="st"> </span>{
+  <span class="cf">if</span> (<span class="kw">is.data.frame</span>(.) <span class="op">||</span><span class="st"> </span><span class="kw">is.matrix</span>(.)){
+    <span class="kw">cat</span>(<span class="st">&quot;A dimensão dos dados é&quot;</span>, <span class="kw">dim</span>(.))
+  } <span class="cf">else</span> {
+    <span class="kw">cat</span>(<span class="st">&quot;Objeto não é uma matriz ou um data frame&quot;</span>)
+  }
+}</code></pre>
+<pre><code>## A dimensão dos dados é 32 11</code></pre>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Acima listei apenas duas funcionalidades de julgo como mais importantes do pacote <strong>knitr</strong>, além, é claro, de converter arquivos <strong>R Markdown</strong> para arquivos em <strong>Markdown</strong> puro.</p>
-<p>Uma outra funcionalidade do pacote <strong>knitr</strong> que vale a pena ser destacada aqui, é a possibilidade de utilizar uma de suas função para incorporá figuras previamente salvas (os formatos mais populares de imagens são suportados) e controrar seu tamanhol, título, alinhamento bem como outras características de interesse.</p>
+<p>Observe que, por exemplo, fazer <code>x %&gt;% f(., y = 1)</code> equivale a fazer <code>x %&gt;% f(y = 1)</code>, uma vez que por padrão, o objeto que está à esquerda de <code>%&gt;%</code>sempre será substituído como primeiro argumento da função que está mais a sua direta, caso não seja utilizado o caractere <code>.</code> para indicar o lugar do substituição.</p>
 </div>
 </div>
 
+<p>Um outro operador útil disponível no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> é o operator <strong><em>tee</em></strong>, denotado por <code>%T&gt;%</code>. Esse operador funciona de forma muito parecida com o operador <code>%&gt;%</code>, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e <strong>não</strong> o resultado da operação do seu lado diretio.</p>
+<p>O uso do operador <code>%T&gt;%</code> não é tão comum. Normalmente a frequência de uso do operador <code>%&gt;%</code> é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador <code>%&gt;%</code>.</p>
+<p><strong>Exemplo</strong>: Pelo que entendemos do operador <code>%&gt;%</code>, não faz nenhum sentido o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>) 
+<span class="kw">rnorm</span>(1000L) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,
+                      <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;) %&gt;% mean </span></code></pre>
+<pre><code>## Warning in mean.default(.): argumento não é numérico nem lógico: retornando
+## NA</code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] NA</code></pre>
+<p>Nesse exemplo, observamos que o histograma foi construído, porém, não faz nenhum sentido passar um gráfico à função <code>mean</code>. Muito provavelmente o desejo de quem viria escrever um código como esse seria tirar a média do vetor resultante do código <code>rnorm(1000L)</code>. Nessas situações, poderemos fazer uso do operador <code>%T&gt;%</code> (operador <strong><em>tee</em></strong>).</p>
+<p><strong>Exemplo</strong>: Aqui temos um típico uso do operador <code>%T&gt;%</code>. Perceba que utilizando o perador <code>%T&gt;%</code>, foi possível passar <code>rnorm(1000L)</code> como argumento à função <code>hist</code>, assim como seria possível utilizando o operador <code>%&gt;%</code>. Porém, com o operador <code>%T&gt;%</code>, conseguimos passar <code>rnorm(1000L)</code> à função <code>mean</code> e não à função <code>hist</code>, que seria esperado se utilizássemos o operador <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>) 
+<span class="kw">rnorm</span>(1000L) <span class="op">%T&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,
+                       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;) %&gt;% mean </span></code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] -0.01582957</code></pre>
+<p>Um outro operador pipe que é bastante útil é o perador de exposição, denotado por <code>%$%</code>. Trata-se de um operador que é bastante útil quando estamos trabalhando com (quadro de dados) data frames ou matrizes, onde temos variáveis dispostas em suas colunas. Com esse operador, poderemos tornar visíveis as variáveis do objeto à sua esquerda nas funções à sua direita. Considere o exemplo que segue:</p>
+<p><strong>Exemplo</strong>: No código que segue, estamos tornando visíveis as variáveis do objeto <code>mtcars</code> na função <code>cor</code>. Dessa forma, poderemos calcular a correlação entre as variáveis <strong>cyl</strong> e <strong>hp</strong> do data frame <strong>mtcars</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%$%</span><span class="st"> </span><span class="kw">cor</span>(cyl, hp)</code></pre>
+<pre><code>## [1] 0.8324475</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Normalmente esse operador é útil quando a função a direita não possui argumento de dados. Por exemplo, se o objetivo fosse calcular uma regressão linear simples com essas variáveis, poderíamos fazer:</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm</span>(cyl <span class="op">~</span><span class="st"> </span>hp, <span class="dt">data =</span> .)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = cyl ~ hp, data = .)
+## 
+## Coefficients:
+## (Intercept)           hp  
+##     3.00680      0.02168</code></pre>
+<p>uma vez que a função <code>lm</code> já possui um argumento para o conjunto de dados a ser utilizado. Ao passar o conjunto de dados para a função <code>lm</code>, todas as variáveis de <strong>mtcars</strong> estarão visíveis no interior da função <code>lm</code>.</p>
+</div>
+<p>Por fim e não menos importante, existe o operador de pipe compostos, denotado por <code>%&lt;&gt;%</code>. Esse operador é útil quando queremos realizar uma operação e atribuir essa modificação ao objeto à esquerda do operador. Considere um exemplo de uso do operador de pipe composto:</p>
+<p><strong>Exemplo</strong>: Utilizando o operador <code>%&lt;&gt;%</code> para alterar o conteúdo da variável <strong>disp</strong> do data frame <strong>mtcars</strong>. Perceba que ao chamar mtcars, a variável <strong>disp</strong> agora é do tipo inteiro.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mtcars<span class="op">$</span>disp <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">as.integer</span>()
+<span class="kw">str</span>(mtcars)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: int  160 160 108 258 360 225 360 146 140 167 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Alguns pacotes de R possuem vinhetas que facilitam o entendimento das funções empacotadas. Não necessariamente as vinhetas irão dissertar sobre todas as funções implementadas. Porém, essas vinhetas normalmente focam no que há de mais importante no pacote. Você poderá encontrar a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>. Normalmente essas vinhetas são mais fáceis de serem lidas do que as documentações dos pacotes. Porém, consultar a documentação é o caminho correto para encontrar as respostas mais difícies e que muitas vezes não são abordadas nas vinhetas.</p>
+</div>
+</div>
+
+</div>
+</div>
+<div id="exercicios" class="section level3 unnumbered">
+<h3>Exercícios</h3>
+<p>Resolva os exercícios que seguem. Os operadores pipes que você utilizará para resolver os exercícios não necessariamente irão produzir as melhores soluções. Porém, esses exercícios farão você pensar a respeito do emprego dos operadores e, aqui, é isso o que importará.</p>
+<ol style="list-style-type: decimal">
+<li><p>Resolva os itens abaixo utilizando o operador <code>%&gt;%</code> do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>:</p>
+<ul>
+<li><p><code>as.character(log(cos(sin(pi))))</code></p></li>
+<li><p><code>round(var(seq(from = 1, to = 10, by = 0.5)), digits = 1)</code></p></li>
+<li><p><code>summary(anova(lm(mpg ~ wt, data = mtcars)))</code></p></li>
+<li><p><code>summary(lm(dist ~ log(accel), data = na.omit(attenu)))</code></p></li>
+</ul></li>
+<li><p>Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   dados &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(Sepal.Length))
+   <span class="kw">cor</span>(dados<span class="op">$</span>Sepal.Length, dados<span class="op">$</span>Sepal.Width)</code></pre></li>
+<li><p>Sem salvar objetos intermediários, utilize operadore(s) pipe(s) para reescrever o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   vetor &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+   <span class="kw">plot</span>(<span class="kw">matrix</span>(<span class="dt">data =</span> vetor, <span class="dt">ncol =</span> <span class="dv">5</span>, <span class="dt">nrow =</span> <span class="dv">5</span>))
+   quantil &lt;-<span class="st"> </span><span class="kw">quantile</span>(vetor)
+   <span class="kw">print</span>(quantil)</code></pre></li>
+<li><p>Sem fazer uso dos operadores de atribuições <code>&lt;-</code> ou <code>=</code>, reescreva o código abaixo usando operadore(s) pipe(s):</p>
+<pre class="sourceCode r"><code class="sourceCode r">   mtcars &lt;-<span class="st"> </span><span class="kw">transform</span>(mtcars, <span class="dt">cyl =</span> cyl <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</code></pre></li>
+<li><p>Considere o código abaixo que faz uso do operador <code>%&gt;%</code>. <strong>Dica</strong>: busque nas documentações do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>, o uso das funções <code>subtract</code> e <code>divide_by</code>. O que esse código faz? Reescreva-o sem fazer uso do operador <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">    vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.74</span>, <span class="fl">5.66</span>, <span class="fl">8.13</span>, <span class="fl">4.04</span>)
+    vetor <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">subtract</span>(., <span class="kw">mean</span>(.)) 
+    vetor <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">divide_by</span>(., <span class="kw">sd</span>(.))</code></pre></li>
+<li><p>Considere o código abaixo e reescreva-o utilizando o operador <code>%&gt;%</code> sem utilizar de passos intermediários. <strong>Dica</strong>: Procure identificar o uso da função <code>extract</code> do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="co"># Essa função não deverá entrar no pipe.</span>
+   <span class="kw">set.seed</span>(<span class="dv">0</span>) 
+
+   x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>)
+   x &lt;-<span class="st"> </span>x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>]
+   <span class="kw">round</span>(<span class="kw">mean</span>(x), <span class="dt">digits =</span> <span class="dv">1</span>)</code></pre></li>
+<li><p>Reescreva o código abaixo utilizando o operador pipe <code>%&gt;%</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">   dados &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Sepal.Length <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) 
+   <span class="kw">aggregate</span>(Sepal.Length <span class="op">~</span><span class="st"> </span>Species, dados, <span class="dt">FUN =</span> mean)</code></pre>
+<p>Tente reescrever o código apenas utilizando o operador <code>%&gt;%</code>e depois modifique-o para utilizar o operador de exposição <code>%$%</code>. <strong>Dica</strong>: procure entender o emprego das funções <code>subset</code> e <code>aggregate</code>, funções dos pacotes <strong>base</strong> e <strong>stats</strong>, respectivamente.</p></li>
+<li><p>Estude a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>. Acesse a vinheta <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>.</p></li>
+<li><p>Explique o que o código abaixo faz:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   f &lt;-<span class="st"> </span>. <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">subtract</span>(., <span class="kw">mean</span>(.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">divide_by</span>(., <span class="kw">sd</span>(.))</code></pre></li>
+<li><p>Use o que aprendeu ao resolver o exercício anterior para reescrever o código abaixo usando pipes:</p>
+<pre class="sourceCode r"><code class="sourceCode r">  vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">2.74</span>, <span class="fl">5.66</span>, <span class="fl">8.13</span>, <span class="fl">4.04</span>)
+  <span class="kw">sum</span>(x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</code></pre></li>
+</ol>
+</div>
+</div>
+<div id="funcoes" class="section level2">
+<h2><span class="header-section-number">4.2</span> Funções</h2>
+<p>Como já sabemos, uma vez que você deve ter utilizado bastante o confeito de funções ao resolver os <a href="revisao-basica-da-linguagem-r.html#exercicios-propostos"><strong>exercícios sugeridos</strong></a>, funções são objetos que recebe uma ou algumas entradas, as processas em seu interior e te retorna uma ou mais saída(s). O diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafuncao">4.5</a> mostra um comportamento genérico de uma função qualquer (<strong>function</strong>) que recebe uma quantidade arbitrária de argumentos, com estruturas de dados distintas, e retorna também uma quantidade arbitrária de informações, objetos com estruturas de dados distintas:</p>
+<div class="figure" style="text-align: center"><span id="fig:diagramafuncao"></span>
+<div id="htmlwidget-192e9aee0e22115d0314" style="width:770px;height:350px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-192e9aee0e22115d0314">{"x":{"diagram":"\ngraph TD\n\nA(arg_1)\nB(arg_2)\nC(arg_3)\nD(...)\nE(arg_n)\nF(arg_n+1)\nG(...)\nH((function))\n\nA-->|vector|H\nB-->|matrix|H\nC-->|data frame|H\nD-->|...|H\nE-->|list|H\nF-->|factor|H\nG-->|new structure|H\n\nH-->|matrix|I(out_1)\nH-->|list|J(out_2)\nH-->|vector|K(out_3)\nH-->|...|L(...)\nH-->|factor|M(out_n)\nH-->|data frame|N(out_n+1)\nH-->|new structure|O(...)\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ff8900\nstyle I fill:#ffe5cc\nstyle J fill:#ffe5cc\nstyle K fill:#ffe5cc\nstyle L fill:#ffe5cc\nstyle M fill:#ffe5cc\nstyle N fill:#ffe5cc\nstyle O fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figura 4.5: Comportamento genérico da função de nome <strong>function</strong> que recebe diversos argumentos com estruturas de dados distintas e retorna diversos diversos objetos com estuturas de dados distintas. Note que <strong><em>new structure</em></strong>, no diagrama, deixa claro que o programador poderá criar suas novas estruturas de dados que poderão ser passadas e/ou retornadas por uma função.
+</p>
+</div>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
 <div class="text-justify">
-<p>Tudo que você aprendeu a respeito de <strong>Markdown</strong> continuará valendo para arquivos <strong>R Markdown</strong> (arquivos com extensão <strong>.Rmd</strong>).</p>
+<p>Algo que torma uma função bastante flexível é a capacidade de podermos passar funções como argumentos à outras funções. Muito embora esse fato não esteja destacado no diagrama acima, nunca se esqueça que, em R, você facilmente poderá passar uma função como argumento de uma outra função.</p>
+<p><strong>Exemplo</strong>: <code>round(sum(c(1.73, 2.47, 7.21, 8.74, NA), na.rm = TRUE), digits = 1)</code></p>
 </div>
 </div>
 
-<p>Antes de iniciarmos as próximas seções a respeito do <strong>R Markdown</strong>, certifique-se que você possue o <strong>rmarkdown</strong> e o <strong>knitr</strong> instalados. Muito provavelmente esses pacotes juntamente com o Pandoc já estarão instalados, caso você esteja utilizando o RStudio.</p>
-<p>Em todos os exemplos que seguem nas seções que seguem, no <strong>RStudio</strong>, acesse as opções <em>File</em>, <em>New File</em> e <em>R Markdown</em>, respectivamente, para criar um novo arquivo <strong>R Mardown</strong> (arquivo com extensão <strong>.Rmd</strong>). Você também poderá utilizar as teclas de atalho <strong>Ctrl + Shift + N</strong> para criar um arquivo com extensão <strong>.R</strong> e no momento de salvar mude a extensão do arquivo para <strong>.Rmd</strong>.</p>
+<p>Uma função em R é dividida em três partes:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Lista de Argumentos</strong>: Conjunto de argumentos, podendo ter as mais variadas estruras de dados que pode inclusive alterar o comportamento da função.</p></li>
+<li><p><strong>Corpo</strong>: Código no interior da função que será capas de processar e tomar decisões de acordo com sua lista de argumentos.</p></li>
+<li><p><strong>Ambiente</strong>: Os ambientes (<strong><em>environment</em></strong>) de reconhecimentos de objetos no interior da função. Isso permite que possamos ter objetos com o mesmo nome referindo-se à conteúdos distintos na memória do computador.</p></li>
+</ol>
+<p>Como já sabemos, mas irei repetir, a forma geral de implementação de uma função é:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(argumentos){
+   <span class="co"># Aqui é onde as coisas acontecem.</span>
+   corpo
+} <span class="co"># Fim da função.</span></code></pre>
+<p>Poderemos identificar essas três partes de uma função utilizando as funções <code>formals()</code>, <code>body()</code> e <code>environment()</code>. Por exemplo, considere a função abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){
+   <span class="st">`</span><span class="dt">+</span><span class="st">`</span>(x,y)
+}
+
+<span class="co"># Lista de argumentos.</span>
+<span class="kw">formals</span>(f)</code></pre>
+<pre><code>## $x
+## 
+## 
+## $y</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Corpo da função.</span>
+<span class="kw">body</span>(f)</code></pre>
+<pre><code>## {
+##     x + y
+## }</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Ambiente que a função foi definida.</span>
+<span class="kw">environment</span>(f)</code></pre>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<p>Além disso, lembre-se que funções podem ter argumentos com valores já pré-definidos, como é o caso de <code>f()</code> no código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="dv">2</span>){
+   x <span class="op">+</span><span class="st"> </span>y
+}
+<span class="kw">f</span>(<span class="dv">5</span>)</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>(<span class="dv">2</span>,<span class="dv">4</span>)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<div id="passando-atributos" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Passando atributos</h3>
+<p>Uma função em R é um objeto qualquer. Dessa forma, assim como qualquer objeto, uma função poderá carregar consigo uma quantidade qualquer de atributos que podem ser recuperados e utilizados a qualquer momento. Considere os códigos que seguem:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Vetor com valores inteiros em memória de 1 à 10.</span>
+x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L
+
+<span class="co"># Introduzindo dois argumentos ao objeto x.</span>
+<span class="co"># Primeiro argumento: desc, que apresenta uma pequena descrição do objeto x.</span>
+<span class="co"># Segundo argumento: M, uma matriz qualquer que poderia vir a ser útil guardar.</span>
+<span class="kw">attr</span>(<span class="dt">x =</span> x, <span class="dt">which =</span> <span class="st">&quot;desc&quot;</span>) &lt;-<span class="st"> &quot;vetor com valores inteiros&quot;</span>
+<span class="kw">attr</span>(<span class="dt">x =</span> x, <span class="dt">which =</span> <span class="st">&quot;M&quot;</span>) &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">8</span>), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre>
+<p>Note que agora o objeto <code>x</code> carrega não apenas os valores inteiros de 1 a 10. Foram acrescentados dois argumentos à <code>x</code>, são eles, <code>desc</code> que contém uma string descrevendo o que é o objeto <code>x</code>. Perceba que os atributos não afetam as operações que realizamos com <code>x</code>, mas poderemos, se desejarmos, acessar os atributos e trabalharmos com eles, como postra o trecho de código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Os atributos não irão afetar as operações realizadas </span>
+<span class="co"># considerando o objeto x.</span>
+<span class="kw">sum</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 65</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Listando os atributos do objeto x:</span>
+<span class="kw">attributes</span>(x)</code></pre>
+<pre><code>## $desc
+## [1] &quot;vetor com valores inteiros&quot;
+## 
+## $M
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    7    8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Acessando o atributo de nome M (uma matriz) </span>
+<span class="co"># e invertendo.</span>
+<span class="kw">solve</span>(<span class="kw">attr</span>(x, <span class="st">&quot;M&quot;</span>))</code></pre>
+<pre><code>##            [,1]        [,2]
+## [1,] -0.6153846  0.23076923
+## [2,]  0.5384615 -0.07692308</code></pre>
+<p>Como é possível introduzir atributos à qualquer objeto em R, e funções são objetos, então considerre o trecho de código que segue, em que é introduzido o atributo <code>M</code> do objeto <code>x</code> como atributo da função <code>f()</code> abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Retorna os caracteres &quot;-&quot;, &quot;0&quot;, &quot;+&quot;</span>
+<span class="co"># a depender do valor informado.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   <span class="co"># x é um objeto numérico.</span>
+   
+   <span class="cf">if</span> (x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="st">&quot;0&quot;</span>
+   <span class="cf">else</span> <span class="kw">ifelse</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>, <span class="st">&quot;+&quot;</span>, <span class="st">&quot;-&quot;</span>)
+}
+
+<span class="co"># Introduzindo o atributo de nome desc que contém uma breve descrição da</span>
+<span class="co"># função f():</span>
+<span class="kw">attr</span>(f, <span class="st">&quot;desc&quot;</span>) &lt;-<span class="st"> &quot;retorna -, 0 ou +, a depender do valor passado à x&quot;</span>
+
+<span class="co"># Acessando o conteúdo do atributo desc:</span>
+<span class="kw">attr</span>(f, <span class="st">&quot;desc&quot;</span>)</code></pre>
+<pre><code>## [1] &quot;retorna -, 0 ou +, a depender do valor passado à x&quot;</code></pre>
+<p>Sabemos que o uso da função <code>body()</code> permete-nos acessar o corpo de uma função (código da função). Porém, você apenas irá visualizar as partes do código que foram implementadas estritamente em R. Por exemplo, no trecho de código abaixo é apresentado o sudo da função <code>body()</code> sobre uma função implementada em R e outra função que tem o seu código implementado em uma linguagem de mais baixo nível:</p>
+<pre class="sourceCode r"><code class="sourceCode r">    <span class="co"># Acessando o corpo da fução rm():</span>
+    <span class="kw">body</span>(ls)
+    
+    <span class="co"># Tentando acessar o corpo da função sum():</span>
+    <span class="kw">body</span>(sum)</code></pre>
+<p>Note que foi possível acessar parte do conteúdo, implementado em R, da função <code>rm()</code>. Porém, no caso da função <code>sum()</code> o retorno foi <code>NULL</code>, uma vez que essa função é por completo implementada em uma linguagem de mais baixo nível. Isso se deve ao fato de que essas funções foram escritas em linguagens compiladas como o caso de C/C++, camhando assim um código objeto e não um código fonte.</p>
+<p>Em muitas situações desejamos passar uma função como argumento à outra função. O trecho de código abaixo cria duas simples funções, <code>f()</code> e <code>g()</code>, em que passamos <code>f()</code> como argumento à função <code>g()</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># As funções não necessariamente necessitam ter argumentos.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="st">&quot;Olá&quot;</span>
+}
+
+g &lt;-<span class="st"> </span><span class="cf">function</span>(func){
+   <span class="kw">paste</span>(func, <span class="st">&quot;mundo&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)
+}
+
+<span class="co"># Passando a função f() como argumento da função g():</span>
+<span class="kw">g</span>(<span class="dt">func =</span> <span class="kw">f</span>())</code></pre>
+<pre><code>## [1] &quot;Olá mundo&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compondo as funçoes nchar(), g() e f().</span>
+<span class="co"># A função nchar() retorna a quantidade de caracteres </span>
+<span class="co"># na estring retornada por g().</span>
+<span class="kw">nchar</span>(<span class="kw">g</span>(<span class="dt">func =</span> <span class="kw">f</span>()))</code></pre>
+<pre><code>## [1] 9</code></pre>
+</div>
+<div id="funcoes-anonimas" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Funções anônimas</h3>
+<p>Algo que é bastante útil quando estamos trabalhando com funções é a possibilidade de não nomear uma função. Essa estratégia é interessante quando temos funções curtas que não queremos nos dar o trabalho de pensarmos em um nome. Normalmente, aplica-se à casos de funções curtas que são passadas como argumento à outras funções. O trecho de código que segue apresenta o uso de uma função anônima passada como argumento à função <code>integrate()</code> de R:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Passando a função anônima function(x) x ^ 2 como argumento da </span>
+<span class="co"># função integrate().</span>
+<span class="kw">integrate</span>(<span class="cf">function</span>(x) x <span class="op">^</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">2</span>)<span class="op">$</span>value</code></pre>
+<pre><code>## [1] 2.666667</code></pre>
+<p>Não esqueça que, em muitos casos, compor funções utilizando o operador <code>%&gt;%</code> pode ser interessante. As composições acimas poderiam ser realizadas da forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Primeira composição utilizando o operador %&gt;%: </span>
+f <span class="op">%&gt;%</span><span class="st"> </span>g <span class="op">%&gt;%</span><span class="st"> </span>nchar
+
+<span class="co"># Segunda composição utulizando os operadores pipes %&gt;%  e %$%:</span>
+(<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">integrate</span>(<span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">2</span>) <span class="op">%$%</span><span class="st"> </span>value</code></pre>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Você poderá compilar o código de <strong>R Markdown</strong> de três formas:</p>
-<ol style="list-style-type: decimal">
-<li>Utilizando, no RStudio, a combinação das teclas de atalho <strong>Ctrl + Shift + K</strong>;</li>
-<li>Clicando no ícone do pacote <strong>knitr</strong>;</li>
-<li>Utilizando a função <code>rmarkdown::render(input = "arquivo.Rmd")</code>. Será criado no diretório de trabalho o arquivo <strong>arquivo.html</strong>.</li>
-</ol>
+<p>Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma análise de dados, em que queremos deixar claro uma sequência lógica de operações. Porém, note que pipes não irão tornar o seu código mais eficientes do ponto de vista computacional, nem o contrário, ou seja, utilizar pipes não irão tornar os seus códigos menos eficientes.</p>
 </div>
 </div>
 
-<!-- ### Inserção de código R -->
+</div>
+<div id="escopo-lexico" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Escopo léxico</h3>
+<p>Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programção o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.</p>
+<p>A linguagem R tem escopo léxico, assim como diversas outras linguagens de programação. Trata-se de tipo de escopo comum em linguagens como Pascal, C, C++, Ada, Go, Haskell, R, Julia, Python, Ruby, entre diversas outras. Considere o exemplo apresentado no código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;fora&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x &lt;-<span class="st"> &quot;dentro&quot;</span>
+   x
+}; <span class="kw">f</span>()</code></pre>
+<pre><code>## [1] &quot;dentro&quot;</code></pre>
+<p>Para quem já programa um pouco em R, o retorno da função <code>f()</code> era esperado, uma vez que olhando para o código, entendemos facilmente qual a saída, uma vez que a sintaxe nos acusa (escopo léxico). Na verdade, o termo vem de <strong><em>lexing</em></strong>, que refere-se ao processo de conversão de partes significativas do código intendíveis para o interpretador.</p>
+<p>Existem linguagens que fazem uso de <a href="https://pt.wikipedia.org/wiki/Escopo_(computa%C3%A7%C3%A3o)#Escopo_din%C3%A2mico"><strong>escopo dinâmico</strong></a>, como é o caso do Emacs Lisp, shell Bash, LaTeX (linguagem de marcação), entre outras. Como esse não é o caso da linguagem R que frequentemente nos deparamos em R, aqui não é o lugar para dissertar em relação à esse assunto.</p>
+<p>No código acima, perceba que havia um objeto <code>x</code> definido no interior da função. Dessa forma, o retorno da função buscará por referências à <code>x</code> no mesmo escopo da função, isto é, irá considerar <code>x</code> definido por <code>x &lt;- "dentro"</code>. Porém, considere a simples modificação do código na forma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;fora&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x
+}; <span class="kw">f</span>()</code></pre>
+<pre><code>## [1] &quot;fora&quot;</code></pre>
+<p>No código acima, a função <code>f()</code> não pode encontrar referências ao objeto <code>x</code> no interior da função. Dessa forma, R considerar-a o objeto <code>x</code> no respectivo escopo mais externo, que nesse caso é o objeto <code>x</code> definido por <code>x &lt;- "fora"</code>. Esse comportamento é válido se consideramos estruturas mais aninhadas, como a que é apresentada no código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> &quot;estou fora de f&quot;</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+
+   <span class="co"># Podemos definir funções dentro de funções.</span>
+   g &lt;-<span class="st"> </span><span class="cf">function</span>(){
+      x
+   } <span class="co"># fim da função interna</span>
+   <span class="kw">list</span>(<span class="dt">g =</span> <span class="kw">g</span>(), <span class="dt">x =</span> x)
+} <span class="co"># fim da função externa</span>
+
+<span class="kw">f</span>()</code></pre>
+<pre><code>## $g
+## [1] &quot;estou fora de f&quot;
+## 
+## $x
+## [1] &quot;estou fora de f&quot;</code></pre>
+<p>Perceba que tanto o retorno da função <code>g()</code> quando o objeto <code>x</code> da função <code>f()</code> referem-se ao valor de <code>x</code> definido fora do escopo da função <code>f()</code>. Isso se deve ao fato da linguagem R procurar um objeto de nome <code>x</code> de froma sucessivas, partindo do escopo ao qual o objeto é invocado à escopos em níveis mais externos. No código acima, tanto <code>g()</code> definida dentro de <code>f()</code> quanto a prórpia função <code>f()</code> apenas encontrará referência à <code>x</code> no ambiente mais externo, isto é, será considerado o objeto <code>x</code> definido por <code>x &lt;- "estou fora de f"</code>.</p>
+<p>Algo interessante de se observar é que muito embora o R procure em escopos mais externos a primeira referência ao objeto que invocamos em um escopo mais interno, escopo este em que não há nenhuma referência à este objeto, em futuras invocações da função, a partir da segunda chamada, o objeto <code>x</code> já encontra-se definido no interior da função <code>f()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> 
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Observe que mesmo que você chame por diversas vezes consecutivas a função <code>f()</code> o retorno sempre será <code>1</code>. Para ser possível obter somas em 1 iterativas, uma solução para esse problema seria fazer uso do operador de atribuição profunda, denotado por <code>&lt;&lt;-</code>. Esse operador permite que as alterações no objeto <code>x</code> ocorra no primeiro escopo mais abrangente que faz referência à um objeto <code>x</code>. Considere o trecho de código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Porém, perceba o resultado que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x =<span class="st"> </span><span class="dv">7</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x</code></pre>
+<pre><code>## [1] 8</code></pre>
+<p>Note no código acima que o valor retornado pela função é <code>7</code> (sempre) e não <code>8</code>, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de <code>f()</code>, sempre teremos que <code>x</code> ao lado direito do operador <code>&lt;&lt;-</code> será <code>7</code>, uma vez que em todas as chamadas, há dentro da função <code>f()</code> a definição de <code>x = 7</code>. Isso também implicará que o valor de <code>x</code> do lado esquerdo do operador <code>&lt;&lt;-</code> sempre será atualizado para <code>8</code>, em todas as chamadas. Veja que <code>x</code> ao lado esquerdo de <code>&lt;&lt;-</code> refere-se ao objeto <code>x</code> no escopo mais extero ao escopo de <code>x</code> no interior da função.</p>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Em R, os operadores <code>&lt;-</code> e <code>&lt;&lt;-</code> também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador <code>=</code>. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores <code>&lt;-</code> e <code>&lt;&lt;-</code>, isto é, quando consideramos as variantes <code>-&gt;</code> e <code>-&gt;&gt;</code>, respectivamente.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="dv">2</span> -&gt;<span class="st"> </span>x
+   x <span class="op">*</span><span class="st"> </span><span class="dv">2</span> -&gt;&gt;<span class="st"> </span>x
+   x
+}
+
+<span class="kw">f</span>(); x</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="avaliacao-preguicosa" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Avaliação preguiçosa</h3>
+<p>Tecnicamente, os argumentos de uma função são promessas <a href="https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects"><strong><em>promises</em></strong></a> e fazem parte do mecanismo de (<strong><em>lazy avaluation</em></strong>). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (<strong><em>promises</em></strong>) trata-se de uma estrutura de dados. <strong><em>Promisses</em></strong> possuem:</p>
+<ul>
+<li>Um <strong>ambiente</strong>: ambiente em que uma função é avaliada/invocada.</li>
+<li>Uma <strong>expressão</strong>: uma expressão válida passada para um argumento de uma função;</li>
+<li>Um <strong>valor</strong>: resultado da avaliação de uma expressão em um ambiente específico.</li>
+</ul>
+<p>Em R, os argumentos de uma função são avaliados de forma preguiçosa (<strong><em>lazy avaluation</em></strong>), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A função f() tem o argumento x que</span>
+<span class="co"># não é utilizado.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">1</span>
+   y
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Como é possível observar, a função <code>f()</code> possui <code>x</code> como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que <code>x</code> não esteja definido, não teremos como retorno um erro ao executar <code>f()</code>. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa.</p>
+<p>Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, <a href="https://en.wikipedia.org/wiki/Lazy_evaluation"><strong><em>lazy avaluation</em></strong></a> é o padrão da linguagem.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador <code>&lt;-</code> para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue:</p>
+<p><strong>Exemplo</strong>:</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">2</span>
+   x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">f</span>(y &lt;-<span class="st"> </span><span class="dv">7</span>)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Perceba que fazer <code>f(y = 7)</code> retornará um erro, uma vez que R entende que estamos passando o valor <code>7</code> à um argumento <code>y</code> que não existe em <code>f()</code>. Note que <code>f(y &lt;- 7)</code> é equivalente a escrever <code>f(x = y &lt;- 7)</code> ou <code>f(x = (y = 7))</code>. Porém, ao utilizarmos o operador <code>&lt;-</code>, além de passarmos os argumentos à <code>f()</code> estamos também criando os objetos à esquerda do operador fora da função.</p>
+</div>
+</div>
+<div id="varargs-dot-dot-dot" class="section level3">
+<h3><span class="header-section-number">4.2.5</span> varargs: … (dot-dot-dot)</h3>
+<p>Algo bastante útil e que torna flexível uma linguagem de programação é a possibilidade de escrever funções com quantidade variádicas de argumentos, isto é, funções <a href="https://en.wikipedia.org/wiki/Variadic_function"><strong>varargs</strong></a>. Em R isso é possível especificando o argumento especial <code>...</code> (<strong><em>dot-dot-dot</em></strong>), ou <strong>ponto-ponto-ponto</strong>, em português.</p>
+<p>Um uso comum do operador <code>...</code> é a possibilidade de passarmos argumentos adicionais para uma função que utilizamos em nossa implementação. Por exmeplo, considere o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente para gerarmos sempre a mesma amostra.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>) 
+
+<span class="co"># Gerando um conjunto de dados com distribuição normal padrão.</span>
+data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+myhist &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x =</span> data, ...){
+  <span class="co"># Perceba o uso de ... em hist():   </span>
+  result &lt;-<span class="st"> </span><span class="kw">hist</span>(x, ...)
+  <span class="kw">list</span>(<span class="dt">n =</span> <span class="kw">length</span>(result<span class="op">$</span>counts), <span class="dt">counts =</span> result<span class="op">$</span>counts)
+}
+
+<span class="co"># A função myhist() não possuia a definição dos argumentos col,</span>
+<span class="co"># main, ylab e border.</span>
+<span class="kw">myhist</span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">main =</span> <span class="st">&quot;&quot;</span>, 
+       <span class="dt">ylab =</span> <span class="st">&quot;Frequências&quot;, border = NA)</span></code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-47-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## $n
+## [1] 10
+## 
+## $counts
+##  [1]  1  2  8 15 26 19 14 12  1  2</code></pre>
+<p>A função <code>myhist()</code>, implementada acima, constroi um histograma com base em um vetor de dados passado como argumento à <code>x</code>, retornando uma lista com o número de classes e a quantidade de observações da amostra, em cada uma das classes. Note que <code>myhist()</code> possui apenas dois argumentos, <code>x</code> e <code>...</code>, respectivamente. O argumento especial <code>...</code> permite que <code>myhist()</code> herde todos argumentos da função <code>hist()</code>. Asim, muito embora a função <code>myhist()</code> não possui os argumentos <code>col</code>, <code>main</code>, <code>ylab</code>e <code>border</code> definidos formalmente, poderemos ascessar esses e os demais argumentos de <code>hist()</code> mesmo sem defini-los.</p>
+<p>Nas situações em que desejarmos acessar os elementos passados à <code>...</code> por suas posições, poderemos fazer uso da notação especial <code>..1</code>, <code>..2</code>, etc. Considere o trecho de código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(...){
+   
+   n &lt;-<span class="st"> </span><span class="kw">...length</span>()
+   <span class="cf">if</span> (n <span class="op">!=</span><span class="st"> </span><span class="dv">3</span>) 
+      <span class="kw">stop</span>(<span class="st">&quot;A função deve ter exatamente 3 argumentos.&quot;</span>)
+   <span class="cf">else</span>
+      <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">...length</span>()){
+         <span class="kw">cat</span>(<span class="st">&quot;O elemento &quot;</span>, i, <span class="st">&quot; de </span><span class="ch">\&quot;</span><span class="st">...</span><span class="ch">\&quot;</span><span class="st"> é: &quot;</span>, <span class="kw">...elt</span>(i), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+      }
+   
+   <span class="kw">return</span>(..<span class="dv">1</span> <span class="op">*</span><span class="st"> </span>..<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>..<span class="dv">3</span>)
+}
+<span class="kw">f</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)</code></pre>
+<pre><code>## O elemento  1  de &quot;...&quot; é:  2 
+## O elemento  2  de &quot;...&quot; é:  3 
+## O elemento  3  de &quot;...&quot; é:  1</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Note que a função <code>f()</code> retorna o produto do primeiro com o segundo argumento e soma com o terceiro. Além disso, foram utilizadas as funções <code>...length()</code> que retorna o tamanho de <code>...</code> e <code>...elt(i)</code> que equivale à <code>..i</code>. A função <code>...elt(i)</code> nada mais é do que fazer <code>eval(paste0("..", n))</code>.</p>
+<p>Como dito, uma das grandes vantagens do uso de <code>...</code> é a possibilidade de passarmos argumento de outras funções que estão sendo utilizadas pela função que estamos a implementar. O uso de funções <strong>varargs</strong> destacam-se também em situações em que fazemos uso de programação orientada à objeto por função genérica, sistema de orientação à objeto conhecido, em R, como sistema S3 de orientação à objeto e que estudaremos mais a frente. Considerando o sistema S3 de orientação à objeto, note que funções como <code>summary()</code> e <code>print()</code> podem ser utilizadas em diversas situações e que muito provavelmente terão argumentos distintos em cada uma dessas circunstâncias. A capacidade de uma função ter várias formas e se adequar a cada uma delas está fortemente relacionada com a definição de funções <a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)"><strong>polimórficas</strong></a>, uma das principais características do paradigma de programação orientada à objeto e que está intimamente relacionadas com funções <strong>varargs</strong>, principalmente no sistema S3.</p>
+<p>Perceba que diversas funções R são <strong>varargs</strong>, por exemplos, a função <code>sum()</code>. Note, no trecho de código abaixo, que a característica de <strong><em>lazy avaluation</em></strong> quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>, <span class="dt">narm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Para o código acima, gostaríamos que o equívoco a respeito do nome correto do argumento (<code>na.rm</code>) não tivesse ocorrido. Aqui, nosso interesse seria fazer:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] 15</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Um outro inconveniente de construir funções <strong>varargs</strong> além dos equívocos desarpesebidos quando erramos algum de seus arugmentos é que essas funções normalmente são um pouco mais complicadas de serem documentadas, visto que devemos ter um grande cuidado ao deixar claro como os argumentos serão substituídos e utilizados.</p>
+<p>Esses problemas não são suficientes justificar um desaconselho do uso de funções <strong>varargs</strong>. Na verdade é muito importante a construção de funções <strong>varargs</strong> e você deve utilizar, sempre que puder e na medida da necessidade, uma vez que isto tornará suas funções bastante flexíveis.</p>
+</div>
+</div>
+
+</div>
+<div id="funcoes-infixas" class="section level3">
+<h3><span class="header-section-number">4.2.6</span> Funções infixas</h3>
+<p>Para começarmos a falar de funções infixas (<strong><em>infix</em></strong>), os slogans abaixo, traduzidos para o português, poderão ser úteis para um melhor entendimento:</p>
+<blockquote>
+<p>"Para entender a computação em R, dois slogans são úteis:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>Tudo o que existe é um objeto.</li>
+<li>Tudo o que acontece é uma chamada de função."</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>— <a href="https://en.wikipedia.org/wiki/John_Chambers_(statistician)"><strong>John M. Chambers</strong></a>, no artigo intitulado <a href="https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569"><strong><em>Object-Oriented Programming, Functional Programming and R</em></strong></a>, <em>Statistical Science</em>, Vol. 29, 2014, p. 170.</p>
+</blockquote>
+<p>Nas situações de funções que possuem dois argumentos, construir um operador infixo pode ser de grande utilidade. O exemplo abaixo mostra duas formas de somarmos dois termos utilizando a função `+` e o operador infixo <code>+</code>, respectivamente. Perceba que a segunda forma é mais conveniente que a primeira:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">1</span>
+
+<span class="co"># Forma 1 (prefix):</span>
+<span class="st">`</span><span class="dt">+</span><span class="st">`</span>(x, y)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Forma 2 (infix):</span>
+x <span class="op">+</span><span class="st"> </span>y</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Além dos operadores matemáticos <code>+</code>, <code>-</code>, <code>*</code> e <code>/</code> serem funções infixas, podendo também chamar de operadores infixos ou <strong><em>infix</em></strong>, diversas outras funções são infixas, como por exemplo, <code>^</code>, <code>::</code>, <code>&amp;</code>, <code>|</code>, <code>&amp;&amp;</code>, <code>||</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>==</code>, <code>!=</code>, <code>$</code>, <code>%%</code>, <code>%*%</code>, <code>%in%</code>, <code>&lt;-</code>, <code>&lt;&lt;-</code>, entre diversas outras funções. O exemplo abaixo apreseta o uso de algumas dessas funções na forma prefixa:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">&lt;=</span><span class="st">`</span>(<span class="dv">1</span>,<span class="dv">3</span>)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">^</span><span class="st">`</span>(<span class="dv">2</span>,<span class="dv">3</span>)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>, <span class="dt">b =</span> <span class="dv">2</span>)
+<span class="st">`</span><span class="dt">$</span><span class="st">`</span>(x, a)</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Assim como existem diversas funções infixas em R previamente implementadas, também poderemos construir nossas funções infixas. Para tanto, basta considerarmos a notação <code>%nome%</code>, em que <code>nome</code> deverá ser substituído por um nome válido de função. Considere o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%+%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, n){
+   <span class="kw">rep</span>(x, <span class="dt">times =</span> n)
+}
+
+<span class="co"># Forma prefixa:</span>
+<span class="st">`</span><span class="dt">%+%</span><span class="st">`</span>(<span class="st">&quot;infix&quot;</span>, <span class="dv">4</span>)</code></pre>
+<pre><code>## [1] &quot;infix&quot; &quot;infix&quot; &quot;infix&quot; &quot;infix&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Forma infixa:</span>
+<span class="st">&quot;infix&quot;</span> <span class="op">%+%</span><span class="st"> </span><span class="dv">4</span></code></pre>
+<pre><code>## [1] &quot;infix&quot; &quot;infix&quot; &quot;infix&quot; &quot;infix&quot;</code></pre>
+</div>
+<div id="funcao-de-substituicao" class="section level3">
+<h3><span class="header-section-number">4.2.7</span> Função de substituição</h3>
+<p>Você muito provavelmente já deve ter feito uso de funções de substituição, como por exemplo, <code>names()</code>, <code>colnames()</code>, <code>rownames()</code>, entre outras funções. Essas são chamadas de funções de substituição devido ao comportamento que é expresso no código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+<span class="kw">names</span>(vetor) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+x</code></pre>
+<pre><code>## $a
+## [1] 1
+## 
+## $b
+## [1] 2</code></pre>
+<p>A função <code>names()</code>, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) 
+<span class="st">`</span><span class="dt">names&lt;-</span><span class="st">`</span>(<span class="dt">x =</span> vetor, <span class="dt">value =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</code></pre>
+<pre><code>## a b c 
+## 1 2 3</code></pre>
+<p>Pelo código acima podemos perceber que as funções de substituição nada mais são que funções de dois argumentos, a saber <code>x</code> e <code>value</code>, respectivamente. Dessa forma, os valores passados à <code>value</code> modificam o objeto <code>x</code> que nesse caso são os nomes do objeto <code>vetor</code>.</p>
+<p><strong>Exemplo</strong>: Implementação da função de substituição <code>samenames()</code> que atribui o mesmo nome à todos elementos do vetor <code>x</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">samenames&lt;-</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, value){
+   <span class="cf">if</span> (<span class="kw">length</span>(value) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">stop</span>(<span class="st">&quot;Um vetor de comprimento 1 deverá ser atribuído.&quot;</span>)
+   <span class="cf">else</span>{
+      <span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">rep</span>(value, <span class="dt">times =</span> <span class="kw">length</span>(x))
+   }
+   x
+}
+x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L
+<span class="kw">samenames</span>(x) &lt;-<span class="st"> &quot;a&quot;</span>
+x</code></pre>
+<pre><code>##  a  a  a  a  a  a  a  a  a  a 
+##  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>Em situações em que a função de substituição necessita de mais argumentos além dos argumentos obrigatórios <code>x</code> e <code>value</code>, deveremos colocá-los entre os argumentos <code>x</code> e <code>value</code>. No exemplo do código abaixo introduzimos o argumento <code>rm.id</code> em que, se desejarmos, poderemos omitir algumas posições do vetor <code>x</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">samenames&lt;-</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">rm.id =</span> <span class="ot">NULL</span>, value){
+  
+  <span class="cf">if</span> (<span class="kw">length</span>(value) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">stop</span>(<span class="st">&quot;Um vetor de comprimento 1 deverá ser atribuído.&quot;</span>)
+  <span class="cf">else</span> <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(rm.id) <span class="op">&amp;&amp;</span><span class="st"> </span><span class="kw">is.numeric</span>(rm.id)){
+    x &lt;-<span class="st"> </span>x[<span class="op">-</span>rm.id]
+    <span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">rep</span>(value, <span class="dt">times =</span> <span class="kw">length</span>(x))
+  }<span class="cf">else</span>{
+    <span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="kw">rep</span>(value, <span class="dt">times =</span> <span class="kw">length</span>(x))
+  }
+  x
+}
+x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L
+<span class="kw">samenames</span>(x) &lt;-<span class="st"> &quot;a&quot;</span>
+<span class="co"># Removendo a primeira e a décima posição de x.</span>
+<span class="kw">samenames</span>(x, <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)) &lt;-<span class="st"> &quot;a&quot;</span>
+x</code></pre>
+<pre><code>## a a a a a a a a 
+## 2 3 4 5 6 7 8 9</code></pre>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>A linguagem R possui diversos outros recursos, escritos em forma especial, que também são funções. Abaixo pontuarei alguns desses recursos, para que você tenha uma ideia, porém, existem mais:</p>
+<ul>
+<li><code>(x)</code> com representação prefixa dada por <code>`(`(x)</code>;</li>
+<li><code>x[i]</code> com representação prefixa dada por <code>`[`(x, i)</code>;</li>
+<li><code>x[[i]]</code> com representação prefixa dada por <code>`[[`(x, i)</code>;</li>
+<li><code>{x}</code> com representação prefixa dada por <code>`{`(x)</code>;</li>
+<li><code>if(condicao)</code> com representação prefixa dada por <code>`if`(condicao, se_verdade, se_falso)</code>;</li>
+<li><code>for(variável in conjunto) ação</code> com representação prefixa dada por <code>`for`(variável, conjunto, ação)</code>;</li>
+<li><code>while(condição) ação</code> com representação prefixa dada por <code>`while`(cond, action)</code>.</li>
+</ul>
+</div>
+</div>
+
+</div>
+<div id="closures" class="section level3">
+<h3><span class="header-section-number">4.2.8</span> Closures</h3>
+<p>Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função.</p>
+<p>Um outro uso comum e importantes para funções anônimas é quando desejamos criar <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)"><strong>closures</strong></a>.</p>
+</div>
+<div id="exercicios-1" class="section level3 unnumbered">
+<h3>Exercícios</h3>
+<ol style="list-style-type: decimal">
+<li><p>Quais são os três componentes de uma função?</p></li>
+<li><p>Contrua o objeto <code>y</code> que retorne a saída abaixo:</p>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10
+## attr(,&quot;att_1&quot;)
+## [1] &quot;Isso é um atributo&quot;</code></pre></li>
+<li><p>Remova o atributo <code>att_1</code> do objeto <code>y</code> acima.</p></li>
+<li><p>O que o código abaixo retorna? Explique. <strong>Dica</strong>: para certificar-se que esteja entendendo, tente prever sem executar a função.</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+      f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+         x <span class="op">*</span><span class="st"> </span><span class="dv">3</span>
+      }
+      <span class="kw">f</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">2</span>
+   }
+   <span class="kw">f</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">f</span>(<span class="dv">7</span>)</code></pre></li>
+<li><p>O que o código abaixo retorna? Explique. <strong>Dica</strong>: para certificar-se que esteja entendendo, tente prever sem executar a função.</p>
+<pre class="sourceCode r"><code class="sourceCode r">   x &lt;-<span class="st"> </span><span class="dv">1</span>
+   f &lt;-<span class="st"> </span><span class="cf">function</span>() {
+      x &lt;-<span class="st"> </span><span class="dv">0</span>
+      x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+      x
+   }
+   <span class="kw">f</span>(); x</code></pre></li>
+<li><p>O que o código abaixo retorna? <strong>Dica</strong>: para certificar-se que esteja entendendo, tente prever sem executar a função.</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   y &lt;-<span class="st"> </span><span class="dv">0</span>
+   g &lt;-<span class="st"> </span><span class="cf">function</span>(){
+      y &lt;&lt;-<span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+   }
+   <span class="kw">list</span>(<span class="kw">rep</span>(<span class="dt">x =</span> <span class="kw">g</span>(), <span class="dt">times =</span> y), <span class="kw">rep</span>(<span class="dt">x =</span> <span class="kw">g</span>(), <span class="dt">times =</span> y), <span class="kw">rep</span>(<span class="dt">x =</span> <span class="kw">g</span>(), <span class="dt">times =</span> y))
+}</code></pre></li>
+<li><p>Implemente a função <code>%+%</code> que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função.</p>
+<pre><code>&quot;Estatística&quot; %+% &quot;Computacional&quot; 
+
+## [1] &quot;Estatística Computacional&quot;</code></pre></li>
+<li><p>Implemente a função segundo que trabalhe da seguinte forma:</p>
+<pre><code>   x &lt;- 1:10
+   segundo(x) &lt;- 5
+   x
+
+   ## [1] 1 5 3 4 5 6 7 8 9 10</code></pre></li>
+<li><p>Implemente a função <code>troca()</code> que trabalhe da forma abaixo:</p>
+<pre><code>   x &lt;- 1:10
+   troca(x, 2) &lt;- 7
+   x
+
+   ## [1] 1 7 3 4 5 6 7 8 9 10</code></pre></li>
+</ol>
+<!-- 9. Qual o retorno da função abaixo? Explique. -->
+<!--     ```{r, eval = FALSE} -->
+<!--     f <- function(y) { -->
+<!--         function(x) { -->
+<!--            x + y -->
+<!--         } -->
+<!--     } -->
+<!--     g <- f(1) -->
+<!--     g(x = 2) -->
+<!--     ``` -->
+</div>
+</div>
+<div id="funcionais" class="section level2">
+<h2><span class="header-section-number">4.3</span> Funcionais</h2>
+</div>
+<div id="sistema-s3" class="section level2">
+<h2><span class="header-section-number">4.4</span> Sistema S3</h2>
 
 </div>
 </div>
@@ -929,7 +1709,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/prdm0/aulas_computacional/edit/master/rmarkdown.Rmd",
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/r.Rmd",
 "text": "Editar"
 },
 "history": {

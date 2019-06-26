@@ -13,5 +13,5 @@ rmd_files: [
   "linux.Rmd",
   "git.Rmd",
   "rmarkdown.Rmd",
-  #"r.Rmd",
+  "r.Rmd",
 ]
