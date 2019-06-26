@@ -839,10 +839,3 @@ Você poderá compilar o código de **R Markdown** de três formas:
   3. Utilizando a função `rmarkdown::render(input = "arquivo.Rmd")`. Será criado no diretório de trabalho o arquivo       **arquivo.html**.
 </div>
 ```
-
-
-<!-- ### Inserção de código R -->
-
-
-
-
