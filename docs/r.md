@@ -791,13 +791,13 @@ f(); x
 
 ### Avaliação preguiçosa
 
-Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy avaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem:
+Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy evaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem:
 
    * Um **ambiente**: ambiente em que uma função é avaliada/invocada. 
    * Uma **expressão**: uma expressão válida passada para um argumento de uma função;
    * Um **valor**: resultado da avaliação de uma expressão em um ambiente específico.
 
-Em R, os argumentos de uma função são avaliados de forma preguiçosa (***lazy avaluation***), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:
+Em R, os argumentos de uma função são avaliados de forma preguiçosa (***lazy evaluation***), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:
 
 
 ```r
@@ -816,7 +816,7 @@ f()
 
 Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa. 
 
-Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy avaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. 
+Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. 
 
 
 **Importante**:
@@ -922,7 +922,7 @@ Note que a função `f()` retorna o produto do primeiro com o segundo argumento 
 
 Como dito, uma das grandes vantagens do uso de `...` é a possibilidade de passarmos argumento de outras funções que estão sendo utilizadas pela função que estamos a implementar. O uso de funções **varargs** destacam-se também em situações em que fazemos uso de programação orientada à objeto por função genérica, sistema de orientação à objeto conhecido, em R, como sistema S3 de orientação à objeto e que estudaremos mais a frente. Considerando o sistema S3 de orientação à objeto, note que funções como `summary()` e `print()` podem ser utilizadas em diversas situações e que muito provavelmente terão argumentos distintos em cada uma dessas circunstâncias. A capacidade de uma função ter várias formas e se adequar a cada uma delas está fortemente relacionada com a definição de funções [**polimórficas**](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)), uma das principais características do paradigma de programação orientada à objeto e que está intimamente relacionadas com funções **varargs**, principalmente no sistema S3.
 
-Perceba que diversas funções R são **varargs**, por exemplos, a função `sum()`. Note, no trecho de código abaixo, que a característica de ***lazy avaluation*** quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema:
+Perceba que diversas funções R são **varargs**, por exemplos, a função `sum()`. Note, no trecho de código abaixo, que a característica de ***lazy evaluation*** quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema:
 
 
 ```r
