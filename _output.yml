@@ -18,6 +18,6 @@ bookdown::gitbook:
       all: ['facebook', 'google', 'twitter', 'linkedin']
     toolbar:
       position: fixed
-      download: ["pdf"]
+      download: ["aulas_r.pdf", "Aulas de R"]
       search: yes
     
