@@ -165,6 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
 <li class="chapter" data-level="5.2.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-anonimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
+<li class="chapter" data-level="5.2.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>5.2.4</b> Avaliação preguiçosa</a></li>
+<li class="chapter" data-level="5.2.5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#varargs-dot-dot-dot"><i class="fa fa-check"></i><b>5.2.5</b> varargs: … (dot-dot-dot)</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -606,140 +608,160 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(){
 ## $x
 ## [1] &quot;estou fora de f&quot;</code></pre>
 <p>Perceba que tanto o retorno da função <code>g()</code> quando o objeto <code>x</code> da função <code>f()</code> referem-se ao valor de <code>x</code> definido fora do escopo da função <code>f()</code>. Isso se deve ao fato da linguagem R procurar um objeto de nome <code>x</code> de froma sucessivas, partindo do escopo ao qual o objeto é invocado à escopos em níveis mais externos. No código acima, tanto <code>g()</code> definida dentro de <code>f()</code> quanto a prórpia função <code>f()</code> apenas encontrará referência à <code>x</code> no ambiente mais externo, isto é, será considerado o objeto <code>x</code> definido por <code>x &lt;- "estou fora de f"</code>.</p>
-<!-- Algo interessante de se observar é que muito embora o R procure em escopos mais externos a primeira referência ao objeto que invocamos em um escopo mais interno, escopo este em que não há nenhuma referência à este objeto, em futuras invocações da função, a partir da segunda chamada, o objeto `x` já encontra-se definido no interior da função `f()`. -->
-<!-- ```{r} -->
-<!-- x <- 0 -->
-<!-- f <- function(){ -->
-<!--    # x encontra-se definido no escopo externo na primeira chamada à -->
-<!--    # função f. -->
-<!--    x <- x + 1 -->
-<!--    x -->
-<!-- } -->
-<!-- f() -->
-<!-- f() -->
-<!-- ``` -->
-<!-- Observe que mesmo que você chame por diversas vezes consecutivas a função `f()` o retorno sempre será `1`. Para ser possível obter somas em 1 iterativas, uma solução para esse problema seria fazer uso do operador de atribuição profunda, denotado por `<<-`. Esse operador permite que as alterações no objeto `x` ocorra no primeiro escopo mais abrangente que faz referência à um objeto `x`. Considere o trecho de código que segue: -->
-<!-- ```{r} -->
-<!-- x <- 0 -->
-<!-- f <- function(){ -->
-<!--    # x encontra-se definido no escopo externo na primeira chamada à -->
-<!--    # função f. -->
-<!--    x <<- x + 1 # Operador de atribuição profunda. -->
-<!--    x -->
-<!-- } -->
-<!-- f() -->
-<!-- f() -->
-<!-- ``` -->
-<!-- Porém, perceba o resultado que segue: -->
-<!-- ```{r} -->
-<!-- x <- 0 -->
-<!-- f <- function(){ -->
-<!--    x = 7 -->
-<!--    x <<- x + 1 # Operador de atribuição profunda. -->
-<!--    x -->
-<!-- } -->
-<!-- f() -->
-<!-- x -->
-<!-- ``` -->
-<!-- Note no código acima que o valor retornado pela função é `7` (sempre) e não `8`, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de `f()`, sempre teremos que `x` ao lado direito do operador `<<-` será `7`, uma vez que em todas as chamadas, há dentro da função `f()` a definição de `x = 7`. Isso também implicará que o valor de `x` do lado esquerdo do operador `<<-` sempre será atualizado para `8`, em todas as chamadas. Veja que `x` ao lado esquerdo de `<<-` refere-se ao objeto `x` no escopo mais extero ao escopo de `x` no interior da função. -->
-<!-- **Observação**: -->
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- Em R, os operadores `<-` e `<<-` também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador `=`. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores `<-` e `<<-`, isto é, quando consideramos as variantes `-> ` e `->>`, respectivamente. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo**: -->
-<!-- ```{r} -->
-<!-- f <- function(){ -->
-<!--    2 -> x -->
-<!--    x * 2 ->> x -->
-<!--    x -->
-<!-- } -->
-<!-- f(); x -->
-<!-- ``` -->
-<!-- ### Avaliação preguiçosa -->
-<!-- Tecnicamente, os argumentos de uma função são promessas [***promises***](https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects) e fazem parte do mecanismo de (***lazy evaluation***). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (***promises***) trata-se de uma estrutura de dados. ***Promisses*** possuem: -->
-<!--    * Um **ambiente**: ambiente em que uma função é avaliada/invocada. -->
-<!--    * Uma **expressão**: uma expressão válida passada para um argumento de uma função; -->
-<!--    * Um **valor**: resultado da avaliação de uma expressão em um ambiente específico. -->
-<!-- Em R, os argumentos de uma função são avaliados de forma preguiçosa (***lazy evaluation***), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue: -->
-<!-- ```{r} -->
-<!-- # A função f() tem o argumento x que -->
-<!-- # não é utilizado. -->
-<!-- f <- function(x){ -->
-<!--    y <- 1 -->
-<!--    y -->
-<!-- } -->
-<!-- f() -->
-<!-- ``` -->
-<!-- Como é possível observar, a função `f()` possui `x` como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que `x` não esteja definido, não teremos como retorno um erro ao executar `f()`. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa. -->
-<!-- Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, [***lazy evaluation***](https://en.wikipedia.org/wiki/Lazy_evaluation) é o padrão da linguagem. -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador `<-` para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue: -->
-<!--    **Exemplo**: -->
-<!-- ```{r} -->
-<!-- y <- 0 -->
-<!-- f <- function(x){ -->
-<!--    y <- 2 -->
-<!--    x + 1 -->
-<!-- } -->
-<!-- f(y <- 7) -->
-<!-- y -->
-<!-- ``` -->
-<!-- Perceba que fazer `f(y = 7)` retornará um erro, uma vez que R entende que estamos passando o valor `7` à um argumento `y` que não existe em `f()`. Note que `f(y <- 7)` é equivalente a escrever `f(x = y <- 7)` ou `f(x = (y = 7))`. Porém, ao utilizarmos o operador `<-`, além de passarmos os argumentos à `f()` estamos também criando os objetos à esquerda do operador fora da função. -->
-<!-- </div> -->
-<!-- ### varargs: ... (dot-dot-dot) -->
-<!-- Algo bastante útil e que torna flexível uma linguagem de programação é a possibilidade de escrever funções com quantidade variádicas de argumentos, isto é, funções [**varargs**](https://en.wikipedia.org/wiki/Variadic_function). Em R isso é possível especificando o argumento especial `...` (***dot-dot-dot***), ou **ponto-ponto-ponto**, em português. -->
-<!-- Um uso comum do operador `...` é a possibilidade de passarmos argumentos adicionais para uma função que utilizamos em nossa implementação. Por exmeplo, considere o código abaixo: -->
-<!-- ```{r, fig.align='center', fig.dim=c(4,4)} -->
-<!-- # Fixando uma semente para gerarmos sempre a mesma amostra. -->
-<!-- set.seed(0) -->
-<!-- # Gerando um conjunto de dados com distribuição normal padrão. -->
-<!-- data <- rnorm(n = 100, mean = 0, sd = 1) -->
-<!-- myhist <- function(x = data, ...){ -->
-<!--   # Perceba o uso de ... em hist(): -->
-<!--   result <- hist(x, ...) -->
-<!--   list(n = length(result$counts), counts = result$counts) -->
-<!-- } -->
-<!-- # A função myhist() não possuia a definição dos argumentos col, -->
-<!-- # main, ylab e border. -->
-<!-- myhist(x = data, col = rgb(1, 0.9, 0.8), main = "", -->
-<!--        ylab = "Frequência", border = NA) -->
-<!-- ``` -->
-<!-- A função `myhist()`, implementada acima, constroi um histograma com base em um vetor de dados passado como argumento à `x`, retornando uma lista com o número de classes e a quantidade de observações da amostra, em cada uma das classes. Note que `myhist()` possui apenas dois argumentos, `x` e `...`, respectivamente. O argumento especial `...` permite que `myhist()` herde todos argumentos da função `hist()`. Asim, muito embora a função `myhist()` não possui os argumentos `col`, `main`, `ylab`e `border` definidos formalmente, poderemos ascessar esses e os demais argumentos de `hist()` mesmo sem defini-los. -->
-<!-- Nas situações em que desejarmos acessar os elementos passados à `...` por suas posições, poderemos fazer uso da notação especial `..1`, `..2`, etc. Considere o trecho de código que segue: -->
-<!-- ```{r} -->
-<!-- f <- function(...){ -->
-<!--    n <- ...length() -->
-<!--    if (n != 3) -->
-<!--       stop("A função deve ter exatamente 3 argumentos.") -->
-<!--    else -->
-<!--       for(i in 1:...length()){ -->
-<!--          cat("O elemento ", i, " de \"...\" é: ", ...elt(i), "\n") -->
-<!--       } -->
-<!--    return(..1 * ..2 + ..3) -->
-<!-- } -->
-<!-- f(2, 3, 1) -->
-<!-- ``` -->
-<!-- Note que a função `f()` retorna o produto do primeiro com o segundo argumento e soma com o terceiro. Além disso, foram utilizadas as funções `...length()` que retorna o tamanho de `...` e `...elt(i)` que equivale à `..i`. A função `...elt(i)` nada mais é do que fazer `eval(paste0("..", n))`. -->
-<!-- Como dito, uma das grandes vantagens do uso de `...` é a possibilidade de passarmos argumento de outras funções que estão sendo utilizadas pela função que estamos a implementar. O uso de funções **varargs** destacam-se também em situações em que fazemos uso de programação orientada à objeto por função genérica, sistema de orientação à objeto conhecido, em R, como sistema S3 de orientação à objeto e que estudaremos mais a frente. Considerando o sistema S3 de orientação à objeto, note que funções como `summary()` e `print()` podem ser utilizadas em diversas situações e que muito provavelmente terão argumentos distintos em cada uma dessas circunstâncias. A capacidade de uma função ter várias formas e se adequar a cada uma delas está fortemente relacionada com a definição de funções [**polimórficas**](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)), uma das principais características do paradigma de programação orientada à objeto e que está intimamente relacionadas com funções **varargs**, principalmente no sistema S3. -->
-<!-- Perceba que diversas funções R são **varargs**, por exemplos, a função `sum()`. Note, no trecho de código abaixo, que a característica de ***lazy evaluation*** quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema: -->
-<!-- ```{r} -->
-<!--    sum(1:5, NA, narm = TRUE) -->
-<!-- ``` -->
-<!-- Para o código acima, gostaríamos que o equívoco a respeito do nome correto do argumento (`na.rm`) não tivesse ocorrido. Aqui, nosso interesse seria fazer: -->
-<!-- ```{r} -->
-<!--    sum(1:5, NA, na.rm = TRUE) -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Um outro inconveniente de construir funções **varargs** além dos equívocos desarpesebidos quando erramos algum de seus arugmentos é que essas funções normalmente são um pouco mais complicadas de serem documentadas, visto que devemos ter um grande cuidado ao deixar claro como os argumentos serão substituídos e utilizados. -->
-<!-- Esses problemas não são suficientes justificar um desaconselho do uso de funções **varargs**. Na verdade é muito importante a construção de funções **varargs** e você deve utilizar, sempre que puder e na medida da necessidade, uma vez que isto tornará suas funções bastante flexíveis. -->
-<!-- </div> -->
-<!-- ``` -->
+<p>Algo interessante de se observar é que muito embora o R procure em escopos mais externos a primeira referência ao objeto que invocamos em um escopo mais interno, escopo este em que não há nenhuma referência à este objeto, em futuras invocações da função, a partir da segunda chamada, o objeto <code>x</code> já encontra-se definido no interior da função <code>f()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Observe que mesmo que você chame por diversas vezes consecutivas a função <code>f()</code> o retorno sempre será <code>1</code>. Para ser possível obter somas em 1 iterativas, uma solução para esse problema seria fazer uso do operador de atribuição profunda, denotado por <code>&lt;&lt;-</code>. Esse operador permite que as alterações no objeto <code>x</code> ocorra no primeiro escopo mais abrangente que faz referência à um objeto <code>x</code>. Considere o trecho de código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="co"># x encontra-se definido no escopo externo na primeira chamada à</span>
+   <span class="co"># função f.</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Porém, perceba o resultado que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   x =<span class="st"> </span><span class="dv">7</span>
+   x &lt;&lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Operador de atribuição profunda.</span>
+   x
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x</code></pre>
+<pre><code>## [1] 8</code></pre>
+<p>Note no código acima que o valor retornado pela função é <code>7</code> (sempre) e não <code>8</code>, como alguns poderiam esperar. Perceba que isso se deve ao fato de que no interior de <code>f()</code>, sempre teremos que <code>x</code> ao lado direito do operador <code>&lt;&lt;-</code> será <code>7</code>, uma vez que em todas as chamadas, há dentro da função <code>f()</code> a definição de <code>x = 7</code>. Isso também implicará que o valor de <code>x</code> do lado esquerdo do operador <code>&lt;&lt;-</code> sempre será atualizado para <code>8</code>, em todas as chamadas. Veja que <code>x</code> ao lado esquerdo de <code>&lt;&lt;-</code> refere-se ao objeto <code>x</code> no escopo mais extero ao escopo de <code>x</code> no interior da função.</p>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Em R, os operadores <code>&lt;-</code> e <code>&lt;&lt;-</code> também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador <code>=</code>. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores <code>&lt;-</code> e <code>&lt;&lt;-</code>, isto é, quando consideramos as variantes <code>-&gt;</code> e <code>-&gt;&gt;</code>, respectivamente.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+   <span class="dv">2</span> -&gt;<span class="st"> </span>x
+   x <span class="op">*</span><span class="st"> </span><span class="dv">2</span> -&gt;&gt;<span class="st"> </span>x
+   x
+}
+
+<span class="kw">f</span>(); x</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 4</code></pre>
+</div>
+<div id="avaliacao-preguicosa" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Avaliação preguiçosa</h3>
+<p>Tecnicamente, os argumentos de uma função são promessas <a href="https://cran.r-project.org/doc/manuals/R-lang.html#Promise-objects"><strong><em>promises</em></strong></a> e fazem parte do mecanismo de (<strong><em>lazy evaluation</em></strong>). Quando uma função é chamada, cada um de seus argumentos formais são vinculados à uma promessa. Dessa forma, cada promessa, para cada um dos argumentos, armazenam a expressão do argumento e um ponteiro para o ambiente ao qual a função foi chamada. Tais promessas não armazenam nenhum valor, até o momento em que o argumento seja necessário para a função. Sendo assim, (<strong><em>promises</em></strong>) trata-se de uma estrutura de dados. <strong><em>Promisses</em></strong> possuem:</p>
+<ul>
+<li>Um <strong>ambiente</strong>: ambiente em que uma função é avaliada/invocada.</li>
+<li>Uma <strong>expressão</strong>: uma expressão válida passada para um argumento de uma função;</li>
+<li>Um <strong>valor</strong>: resultado da avaliação de uma expressão em um ambiente específico.</li>
+</ul>
+<p>Em R, os argumentos de uma função são avaliados de forma preguiçosa (<strong><em>lazy evaluation</em></strong>), são apenas promessas, ou seja, só serão avaliados na necessidade de uso do parâmetro. Em outras palavras, um parâmetro poderá eventualmente nunca ser avaliado quando uma função é executada. Considere o código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A função f() tem o argumento x que</span>
+<span class="co"># não é utilizado.</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">1</span>
+   y
+}
+<span class="kw">f</span>()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Como é possível observar, a função <code>f()</code> possui <code>x</code> como argumento, argumento este que em nenhum momento é utilizado. Dessa forma, mesmo que <code>x</code> não esteja definido, não teremos como retorno um erro ao executar <code>f()</code>. Isso se deve ao fato de que argumentos de funções, em R, são avaliados de forma preguiçosa.</p>
+<p>Um dos grandes benefícios da avaliação preguiçosa é a possibilidade que temos de atrasar a computação, de modo que um dos argumentos poderá conter cálculos intensivos que só será avaliado se necessário. Dessa forma, devido a possibilidade de uma função matemática poder ser passado como argumento à uma funçãom, que ventualmente pode ser algo custoso do ponto de vista computacional, <a href="https://en.wikipedia.org/wiki/Lazy_evaluation"><strong><em>lazy evaluation</em></strong></a> é o padrão da linguagem.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Como estamos a falar de argumeto de funções, destaco algo importante da linguagem R. Ao se utilizar o operador <code>&lt;-</code> para realizar uma atribuição em uma chamada de função, a variável é ligada fora da função, ou seja, no ambiente em que a função é chamada, como mostra o exemplo que segue:</p>
+<p><strong>Exemplo</strong>:</p>
+</div>
+<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">0</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+   y &lt;-<span class="st"> </span><span class="dv">2</span>
+   x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="kw">f</span>(y &lt;-<span class="st"> </span><span class="dv">7</span>)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Perceba que fazer <code>f(y = 7)</code> retornará um erro, uma vez que R entende que estamos passando o valor <code>7</code> à um argumento <code>y</code> que não existe em <code>f()</code>. Note que <code>f(y &lt;- 7)</code> é equivalente a escrever <code>f(x = y &lt;- 7)</code> ou <code>f(x = (y = 7))</code>. Porém, ao utilizarmos o operador <code>&lt;-</code>, além de passarmos os argumentos à <code>f()</code> estamos também criando os objetos à esquerda do operador fora da função.</p>
+</div>
+</div>
+<div id="varargs-dot-dot-dot" class="section level3">
+<h3><span class="header-section-number">5.2.5</span> varargs: … (dot-dot-dot)</h3>
+<p>Algo bastante útil e que torna flexível uma linguagem de programação é a possibilidade de escrever funções com quantidade variádicas de argumentos, isto é, funções <a href="https://en.wikipedia.org/wiki/Variadic_function"><strong>varargs</strong></a>. Em R isso é possível especificando o argumento especial <code>...</code> (<strong><em>dot-dot-dot</em></strong>), ou <strong>ponto-ponto-ponto</strong>, em português.</p>
+<p>Um uso comum do operador <code>...</code> é a possibilidade de passarmos argumentos adicionais para uma função que utilizamos em nossa implementação. Por exmeplo, considere o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixando uma semente para gerarmos sempre a mesma amostra.</span>
+<span class="kw">set.seed</span>(<span class="dv">0</span>)
+
+<span class="co"># Gerando um conjunto de dados com distribuição normal padrão.</span>
+data &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+myhist &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x =</span> data, ...){
+  <span class="co"># Perceba o uso de ... em hist():</span>
+  result &lt;-<span class="st"> </span><span class="kw">hist</span>(x, ...)
+  <span class="kw">list</span>(<span class="dt">n =</span> <span class="kw">length</span>(result<span class="op">$</span>counts), <span class="dt">counts =</span> result<span class="op">$</span>counts)
+}
+
+<span class="co"># A função myhist() não possuia a definição dos argumentos col,</span>
+<span class="co"># main, ylab e border.</span>
+<span class="kw">myhist</span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">main =</span> <span class="st">&quot;&quot;</span>,
+       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;, border = NA)</span></code></pre>
+<p><img src="r_files/figure-html/unnamed-chunk-47-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre><code>## $n
+## [1] 10
+## 
+## $counts
+##  [1]  1  2  8 15 26 19 14 12  1  2</code></pre>
+<p>A função <code>myhist()</code>, implementada acima, constroi um histograma com base em um vetor de dados passado como argumento à <code>x</code>, retornando uma lista com o número de classes e a quantidade de observações da amostra, em cada uma das classes. Note que <code>myhist()</code> possui apenas dois argumentos, <code>x</code> e <code>...</code>, respectivamente. O argumento especial <code>...</code> permite que <code>myhist()</code> herde todos argumentos da função <code>hist()</code>. Asim, muito embora a função <code>myhist()</code> não possui os argumentos <code>col</code>, <code>main</code>, <code>ylab</code>e <code>border</code> definidos formalmente, poderemos ascessar esses e os demais argumentos de <code>hist()</code> mesmo sem defini-los.</p>
+<p>Nas situações em que desejarmos acessar os elementos passados à <code>...</code> por suas posições, poderemos fazer uso da notação especial <code>..1</code>, <code>..2</code>, etc. Considere o trecho de código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r">f &lt;-<span class="st"> </span><span class="cf">function</span>(...){
+
+   n &lt;-<span class="st"> </span><span class="kw">...length</span>()
+   <span class="cf">if</span> (n <span class="op">!=</span><span class="st"> </span><span class="dv">3</span>)
+      <span class="kw">stop</span>(<span class="st">&quot;A função deve ter exatamente 3 argumentos.&quot;</span>)
+   <span class="cf">else</span>
+      <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">...length</span>()){
+         <span class="kw">cat</span>(<span class="st">&quot;O elemento &quot;</span>, i, <span class="st">&quot; de </span><span class="ch">\&quot;</span><span class="st">...</span><span class="ch">\&quot;</span><span class="st"> é: &quot;</span>, <span class="kw">...elt</span>(i), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+      }
+
+   <span class="kw">return</span>(..<span class="dv">1</span> <span class="op">*</span><span class="st"> </span>..<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>..<span class="dv">3</span>)
+}
+<span class="kw">f</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)</code></pre>
+<pre><code>## O elemento  1  de &quot;...&quot; é:  2 
+## O elemento  2  de &quot;...&quot; é:  3 
+## O elemento  3  de &quot;...&quot; é:  1</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Note que a função <code>f()</code> retorna o produto do primeiro com o segundo argumento e soma com o terceiro. Além disso, foram utilizadas as funções <code>...length()</code> que retorna o tamanho de <code>...</code> e <code>...elt(i)</code> que equivale à <code>..i</code>. A função <code>...elt(i)</code> nada mais é do que fazer <code>eval(paste0("..", n))</code>.</p>
+<p>Como dito, uma das grandes vantagens do uso de <code>...</code> é a possibilidade de passarmos argumento de outras funções que estão sendo utilizadas pela função que estamos a implementar. O uso de funções <strong>varargs</strong> destacam-se também em situações em que fazemos uso de programação orientada à objeto por função genérica, sistema de orientação à objeto conhecido, em R, como sistema S3 de orientação à objeto e que estudaremos mais a frente. Considerando o sistema S3 de orientação à objeto, note que funções como <code>summary()</code> e <code>print()</code> podem ser utilizadas em diversas situações e que muito provavelmente terão argumentos distintos em cada uma dessas circunstâncias. A capacidade de uma função ter várias formas e se adequar a cada uma delas está fortemente relacionada com a definição de funções <a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)"><strong>polimórficas</strong></a>, uma das principais características do paradigma de programação orientada à objeto e que está intimamente relacionadas com funções <strong>varargs</strong>, principalmente no sistema S3.</p>
+<p>Perceba que diversas funções R são <strong>varargs</strong>, por exemplos, a função <code>sum()</code>. Note, no trecho de código abaixo, que a característica de <strong><em>lazy evaluation</em></strong> quando associada à uma função com um número arbitrário de argumentos poderá retornar algo equivocado e nenhum erro é dado para nos alertarmos de um possível problema:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>, <span class="dt">narm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>Para o código acima, gostaríamos que o equívoco a respeito do nome correto do argumento (<code>na.rm</code>) não tivesse ocorrido. Aqui, nosso interesse seria fazer:</p>
+<pre class="sourceCode r"><code class="sourceCode r">   <span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="ot">NA</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
+<pre><code>## [1] 15</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Um outro inconveniente de construir funções <strong>varargs</strong> além dos equívocos desarpesebidos quando erramos algum de seus arugmentos é que essas funções normalmente são um pouco mais complicadas de serem documentadas, visto que devemos ter um grande cuidado ao deixar claro como os argumentos serão substituídos e utilizados.</p>
+<p>Esses problemas não são suficientes justificar um desaconselho do uso de funções <strong>varargs</strong>. Na verdade é muito importante a construção de funções <strong>varargs</strong> e você deve utilizar, sempre que puder e na medida da necessidade, uma vez que isto tornará suas funções bastante flexíveis.</p>
+</div>
+</div>
+
 <!-- ### Funções infixas -->
 <!-- Para começarmos a falar de funções infixas (***infix***), os slogans abaixo, traduzidos para o português, poderão ser úteis para um melhor entendimento: -->
 <!-- > "Para entender a computação em R, dois slogans são úteis: -->
