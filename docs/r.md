@@ -1303,85 +1303,70 @@ com $a > 0$. Perceba que $F$ é uma nova distribuição de probabilidade com um 
 
 <!-- cdf_expwibull <- cdf_expg(G = cdf_weibull) -->
 
-## Funcionais
+<!-- ## Funcionais -->
 
-Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída:
+<!-- Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída: -->
 
+<!-- ```{r} -->
+<!-- # A função f() é um funcional. -->
+<!-- f <- function(x, func) func(x) -->
 
-```r
-# A função f() é um funcional.
-f <- function(x, func) func(x)
+<!-- # Passando uma função à f() por meio do argumento func. -->
+<!-- # Foi passado à func uma função anônima. -->
+<!-- f(x = c(1, 2, 7, 10), func = function(x) x + 1) -->
+<!-- ``` -->
 
-# Passando uma função à f() por meio do argumento func.
-# Foi passado à func uma função anônima.
-f(x = c(1, 2, 7, 10), func = function(x) x + 1)
-```
+<!-- Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue: -->
 
-```
-## [1]  2  3  8 11
-```
+<!-- ```{r} -->
+<!-- f <- function() mean(runif(n = 10, min = 0, max = 1)) -->
+<!-- # A função loop() é um funcional. -->
+<!-- loop <- function(x, func) { -->
+<!--    resultado <- NULL -->
+<!--    for (i in seq_along(x)) -->
+<!--       resultado <- c(resultado, func()) -->
+<!--    resultado -->
+<!-- } -->
 
-Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue:
+<!-- loop(x = 1:3, func = f) -->
+<!-- loop(x = 1:7, func = f) -->
+<!-- ``` -->
 
+<!-- A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição. -->
 
-```r
-f <- function() mean(runif(n = 10, min = 0, max = 1))
-# A função loop() é um funcional.
-loop <- function(x, func) {
-   resultado <- NULL
-   for (i in seq_along(x))
-      resultado <- c(resultado, func())
-   resultado
-}
+<!-- Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes. -->
 
-loop(x = 1:3, func = f)
-```
+<!-- > "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs." -->
 
-```
-## [1] 0.3702804 0.7174270 0.3805153
-```
+<!-- > --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B). -->
 
-```r
-loop(x = 1:7, func = f)
-```
+<!-- ### Funcionais do R Base -->
 
-```
-## [1] 0.5092227 0.4038002 0.5425011 0.5148392 0.2298425 0.3374357 0.3344574
-```
+<!-- O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R. -->
 
-A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição.
+<!-- **Observação**: -->
 
-Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes.
+<!-- ```{block2, type='rmdobservation'} -->
+<!-- <div class=text-justify> -->
+<!-- Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código. -->
+<!-- </div> -->
+<!-- ```    -->
 
-> "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs."
+<!-- #### apply -->
 
-> --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B).
+<!-- Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz. -->
 
-### Funcionais do R Base
+<!-- #### sapply -->
 
-O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R.
+<!-- #### lapply -->
 
-**Observação**:
+<!-- #### vapply -->
 
-\BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
-Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.
-</div></div>\EndKnitrBlock{rmdobservation}
+<!-- #### mapply -->
 
-#### apply
+<!-- #### Map -->
 
-Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz.
-
-#### sapply
-
-#### lapply
-
-#### vapply
-
-#### mapply
-
-#### Map
-
-### Funcionais do pacote purrr
+<!-- ### Funcionais do pacote purrr -->
 
 
-## Sistema S3
+<!-- ## Sistema S3 -->
