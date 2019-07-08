@@ -59,10 +59,9 @@ plot_grid(linux,windows)
 <div class=text-justify>
   
 Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do [**Manjaro Linux**](https://manjaro.org/), a instalação do [**git**](https://git-scm.com/) é bastante fácil. No terminal do Linux, basta fazer: </br></br>
-  
-```{shell}
-sudo pacman -S git 
-```
+
+
+`sudo pacman -S git`
   
 Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção [**Algumas distribuições**][Algumas distribuições], em que sugiro o uso do [**Manjaro Linux**](https://manjaro.org/) ou de distribuições GNU/Linux derivadas do [**Arch**](https://www.archlinux.org/). Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do [**git**](https://git-scm.com/).
 
@@ -84,7 +83,7 @@ Após a instalação do [**git**](https://git-scm.com/), em seu sistema operacio
 
 Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada ***commit*** (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de "carimbar" o autor da modificação. Sendo assim, no terminal, faça:
 
-```{shell}
+```
 git config --global user.name "seu nome ou sigla"
 git config --global user.email seu_email
 ```
@@ -144,7 +143,7 @@ Os comandos `cd`, `cd ..`, `ls`, `cp`, `mkdir`, `rm` e `mv` são comandos úteis
 
   3. `git init`: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome **DocVersionado**:
   
-      ```{shell},
+      ```
       cd /home/usuario/DocVersionado
       git init
       ```

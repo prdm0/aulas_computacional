@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -57,9 +57,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -69,14 +69,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -85,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -167,7 +169,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
 <li class="chapter" data-level="5.2.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>5.2.4</b> Avaliação preguiçosa</a></li>
 <li class="chapter" data-level="5.2.5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#varargs-dot-dot-dot"><i class="fa fa-check"></i><b>5.2.5</b> varargs: … (dot-dot-dot)</a></li>
+<li class="chapter" data-level="5.2.6" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-infixas"><i class="fa fa-check"></i><b>5.2.6</b> Funções infixas</a></li>
+<li class="chapter" data-level="5.2.7" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcao-de-substituicao"><i class="fa fa-check"></i><b>5.2.7</b> Função de substituição</a></li>
+<li class="chapter" data-level="5.2.8" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a></li>
+<li class="chapter" data-level="5.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a></li>
 </ul></li>
 </ul>
 
@@ -190,8 +198,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">4</span> Relatório Markdown em R</h1>
 <p>Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-se à construção de documentos (relatórios, manuais, etc). A construção desses documentos é algo que demanda tempo, uma vez que, por exemplo, temos que escrever a respeito das metodologias estatísticas consideradas e justificar o seu uso, organizar as informações obtidas de um modelo estatístico e interpretá-las, tabular os resultados de algumas simulação, escolher o formato de saída do documento e escrever de forma clara e robusta os resultados obtidos (muitos que irão ler seu documento não são estatísticos). Um pouco dessa rotina encontra-se no diagrama a baixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxo"></span>
-<div id="htmlwidget-ec27db9f24fcf1f54857" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ec27db9f24fcf1f54857">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0353875a01e2c8da012e" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0353875a01e2c8da012e">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
 </p>
@@ -209,8 +217,8 @@ Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologi
 <p>Como mostra o diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
 <p>Note que no diagrama <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatorio-markdown-em-r.html#fig:diagramafluxo">4.1</a> para <a href="relatorio-markdown-em-r.html#fig:diagramafluxor">4.2</a> otimizando assim, as suas análises.</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxor"></span>
-<div id="htmlwidget-12f33b6db810be5afb53" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-12f33b6db810be5afb53">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e3e3837fbbcbc88254e" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e3e3837fbbcbc88254e">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
 </p>
@@ -254,107 +262,107 @@ Figura 4.3: Logo da linguagem de marcação <a href="https://daringfireball.net/
 <p>A linguagem <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> faz com que a tarefa de construir páginas em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a> seja algo bem mais fácil e prazeroso. Sinceramente, você não estaria lendo esse material se eu tivesse que escrever todo esse conteúdo diretamente em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>. Para entender um pouco do que estou falando, logo abaixo você encontrará dois exemplos do mesmo texto escrito utilizando as linguagens de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> e <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>, respectivamente. Ambos nos levarão ao mesmo resultado de uma página em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>. Note como é mais claro e limpo o código em <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> em comparação ao código em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>.</p>
 <p></br></p>
 <p><strong>Texto escrito utilizando Markdown</strong>:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Seção</span>
-
-Escrevendo alguma coisa nessa minha seção.
-
-<span class="fu">## Subseção</span>
-
-Escrevendo alguma coisa nessa minha subseção.
-
-Outra linha.
-
-Colocando texto em itálico _texto em itálico_ ou *texto em itálico*, em negrito 
-**texto em negrito** e destacando um código <span class="bn">`f &lt;- function() ...`</span>.
-
-Criando uma linha horizontal:
-
----
-
-Listando itens:
-
-  * R é Open Source
-  * R é uma ótima linguagem de progrmação
-  * Estatísticos em todo o mundo usam R
-  * R é utilizado por grandes empresas para análise de dados e em aprendizagem de máquina.
-
----
-
-Enumerando itens:
-
-  1. R Agro
-  2. R é Tec
-  3. R é Pop
-  4. R é Tudo
-
----
-
-Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="ot">[**Estatística Computacional**](https://prdm0.github.io/aulas_computacional)</span>.
-
-<span class="al">![Logo da linguagem de programação R.](https://www.r-project.org/logo/Rlogo.png &quot;icon&quot;)</span>
-
-Lembre-se:
-
-&gt;<span class="dt"> Batatinha quando nasce, esparrama pelo chão. </span>
-<span class="dt">&gt; Se você não aprender em R irá sofrer de montão.</span>
-
-&gt;<span class="dt"> --- Autor desconhecido, 2019.</span>
-
-&lt;strong&gt;Se eu desejar, poderei utilizar código HTML&lt;/strong&gt;.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb29-1"><a href="relatorio-markdown-em-r.html#cb29-1"></a><span class="fu"># Seção</span></span>
+<span id="cb29-2"><a href="relatorio-markdown-em-r.html#cb29-2"></a></span>
+<span id="cb29-3"><a href="relatorio-markdown-em-r.html#cb29-3"></a>Escrevendo alguma coisa nessa minha seção.</span>
+<span id="cb29-4"><a href="relatorio-markdown-em-r.html#cb29-4"></a></span>
+<span id="cb29-5"><a href="relatorio-markdown-em-r.html#cb29-5"></a><span class="fu">## Subseção</span></span>
+<span id="cb29-6"><a href="relatorio-markdown-em-r.html#cb29-6"></a></span>
+<span id="cb29-7"><a href="relatorio-markdown-em-r.html#cb29-7"></a>Escrevendo alguma coisa nessa minha subseção.</span>
+<span id="cb29-8"><a href="relatorio-markdown-em-r.html#cb29-8"></a></span>
+<span id="cb29-9"><a href="relatorio-markdown-em-r.html#cb29-9"></a>Outra linha.</span>
+<span id="cb29-10"><a href="relatorio-markdown-em-r.html#cb29-10"></a></span>
+<span id="cb29-11"><a href="relatorio-markdown-em-r.html#cb29-11"></a>Colocando texto em itálico _texto em itálico_ ou *texto em itálico*, em negrito </span>
+<span id="cb29-12"><a href="relatorio-markdown-em-r.html#cb29-12"></a>**texto em negrito** e destacando um código <span class="bn">`f &lt;- function() ...`</span>.</span>
+<span id="cb29-13"><a href="relatorio-markdown-em-r.html#cb29-13"></a></span>
+<span id="cb29-14"><a href="relatorio-markdown-em-r.html#cb29-14"></a>Criando uma linha horizontal:</span>
+<span id="cb29-15"><a href="relatorio-markdown-em-r.html#cb29-15"></a></span>
+<span id="cb29-16"><a href="relatorio-markdown-em-r.html#cb29-16"></a>---</span>
+<span id="cb29-17"><a href="relatorio-markdown-em-r.html#cb29-17"></a></span>
+<span id="cb29-18"><a href="relatorio-markdown-em-r.html#cb29-18"></a>Listando itens:</span>
+<span id="cb29-19"><a href="relatorio-markdown-em-r.html#cb29-19"></a></span>
+<span id="cb29-20"><a href="relatorio-markdown-em-r.html#cb29-20"></a>  * R é Open Source</span>
+<span id="cb29-21"><a href="relatorio-markdown-em-r.html#cb29-21"></a>  * R é uma ótima linguagem de progrmação</span>
+<span id="cb29-22"><a href="relatorio-markdown-em-r.html#cb29-22"></a>  * Estatísticos em todo o mundo usam R</span>
+<span id="cb29-23"><a href="relatorio-markdown-em-r.html#cb29-23"></a>  * R é utilizado por grandes empresas para análise de dados e em aprendizagem de máquina.</span>
+<span id="cb29-24"><a href="relatorio-markdown-em-r.html#cb29-24"></a></span>
+<span id="cb29-25"><a href="relatorio-markdown-em-r.html#cb29-25"></a>---</span>
+<span id="cb29-26"><a href="relatorio-markdown-em-r.html#cb29-26"></a></span>
+<span id="cb29-27"><a href="relatorio-markdown-em-r.html#cb29-27"></a>Enumerando itens:</span>
+<span id="cb29-28"><a href="relatorio-markdown-em-r.html#cb29-28"></a></span>
+<span id="cb29-29"><a href="relatorio-markdown-em-r.html#cb29-29"></a>  1. R Agro</span>
+<span id="cb29-30"><a href="relatorio-markdown-em-r.html#cb29-30"></a>  2. R é Tec</span>
+<span id="cb29-31"><a href="relatorio-markdown-em-r.html#cb29-31"></a>  3. R é Pop</span>
+<span id="cb29-32"><a href="relatorio-markdown-em-r.html#cb29-32"></a>  4. R é Tudo</span>
+<span id="cb29-33"><a href="relatorio-markdown-em-r.html#cb29-33"></a></span>
+<span id="cb29-34"><a href="relatorio-markdown-em-r.html#cb29-34"></a>---</span>
+<span id="cb29-35"><a href="relatorio-markdown-em-r.html#cb29-35"></a></span>
+<span id="cb29-36"><a href="relatorio-markdown-em-r.html#cb29-36"></a>Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="ot">[**Estatística Computacional**](https://prdm0.github.io/aulas_computacional)</span>.</span>
+<span id="cb29-37"><a href="relatorio-markdown-em-r.html#cb29-37"></a></span>
+<span id="cb29-38"><a href="relatorio-markdown-em-r.html#cb29-38"></a><span class="al">![Logo da linguagem de programação R.](https://www.r-project.org/logo/Rlogo.png &quot;icon&quot;)</span></span>
+<span id="cb29-39"><a href="relatorio-markdown-em-r.html#cb29-39"></a></span>
+<span id="cb29-40"><a href="relatorio-markdown-em-r.html#cb29-40"></a>Lembre-se:</span>
+<span id="cb29-41"><a href="relatorio-markdown-em-r.html#cb29-41"></a></span>
+<span id="cb29-42"><a href="relatorio-markdown-em-r.html#cb29-42"></a>&gt;<span class="dt"> Batatinha quando nasce, esparrama pelo chão. </span></span>
+<span id="cb29-43"><a href="relatorio-markdown-em-r.html#cb29-43"></a><span class="dt">&gt; Se você não aprender em R irá sofrer de montão.</span></span>
+<span id="cb29-44"><a href="relatorio-markdown-em-r.html#cb29-44"></a></span>
+<span id="cb29-45"><a href="relatorio-markdown-em-r.html#cb29-45"></a>&gt;<span class="dt"> --- Autor desconhecido, 2019.</span></span>
+<span id="cb29-46"><a href="relatorio-markdown-em-r.html#cb29-46"></a></span>
+<span id="cb29-47"><a href="relatorio-markdown-em-r.html#cb29-47"></a>&lt;strong&gt;Se eu desejar, poderei utilizar código HTML&lt;/strong&gt;.</span></code></pre>
 <p><strong>Texto escrito utilizando HTML</strong>:</p>
-<pre class="sourceCode html"><code class="sourceCode html"><span class="kw">&lt;h1&gt;</span>Seção<span class="kw">&lt;/h1&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Escrevendo alguma coisa nessa minha seção.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;h2&gt;</span>Subseção<span class="kw">&lt;/h2&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Escrevendo alguma coisa nessa minha subseção.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Outra linha.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Colocando texto em itálico <span class="kw">&lt;em&gt;</span>texto em itálico<span class="kw">&lt;/em&gt;</span> ou <span class="kw">&lt;em&gt;</span>texto em itálico<span class="kw">&lt;/em&gt;</span>, em negrito 
-<span class="kw">&lt;strong&gt;</span>texto em negrito<span class="kw">&lt;/strong&gt;</span> e destacando um código <span class="kw">&lt;code&gt;</span>f <span class="dv">&amp;lt;</span>- function() ...<span class="kw">&lt;/code&gt;</span>.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Criando uma linha horizontal:<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;hr</span> <span class="kw">/&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Listando itens:<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;ul&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é Open Source<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é uma ótima linguagem de progrmação<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>Estatísticos em todo o mundo usam R<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é utilizado por grandes empresas para análise de dados e em aprendizagem de máquina.<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;/ul&gt;</span>
-
-<span class="kw">&lt;hr</span> <span class="kw">/&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Enumerando itens:<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;ol&gt;</span>
-<span class="kw">&lt;li&gt;</span>R Agro<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é Tec<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é Pop<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;li&gt;</span>R é Tudo<span class="kw">&lt;/li&gt;</span>
-<span class="kw">&lt;/ol&gt;</span>
-
-<span class="kw">&lt;hr</span> <span class="kw">/&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://prdm0.github.io/aulas_computacional&quot;</span><span class="kw">&gt;&lt;strong&gt;</span>Estatística Computacional<span class="kw">&lt;/strong&gt;&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Logo da linguagem de programação R.&quot;</span><span class="ot"> title=</span><span class="st">&quot;icon&quot;</span> <span class="kw">/&gt;&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>Lembre-se:<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;blockquote&gt;</span>
-  <span class="kw">&lt;p&gt;</span>Batatinha quando nasce, esparrama pelo chão. 
-Se você não aprender em R irá sofrer de montão.<span class="kw">&lt;/p&gt;</span>
-
-<span class="kw">&lt;p&gt;</span>--- Autor desconhecido, 2019.<span class="kw">&lt;/p&gt;</span>
-<span class="kw">&lt;/blockquote&gt;</span>
-
-<span class="kw">&lt;p&gt;&lt;strong&gt;</span>Se eu desejar, poderei utilizar código HTML<span class="kw">&lt;/strong&gt;</span>.<span class="kw">&lt;/p&gt;</span></code></pre>
+<pre class="sourceCode html"><code class="sourceCode html"><span id="cb30-1"><a href="relatorio-markdown-em-r.html#cb30-1"></a><span class="kw">&lt;h1&gt;</span>Seção<span class="kw">&lt;/h1&gt;</span></span>
+<span id="cb30-2"><a href="relatorio-markdown-em-r.html#cb30-2"></a></span>
+<span id="cb30-3"><a href="relatorio-markdown-em-r.html#cb30-3"></a><span class="kw">&lt;p&gt;</span>Escrevendo alguma coisa nessa minha seção.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-4"><a href="relatorio-markdown-em-r.html#cb30-4"></a></span>
+<span id="cb30-5"><a href="relatorio-markdown-em-r.html#cb30-5"></a><span class="kw">&lt;h2&gt;</span>Subseção<span class="kw">&lt;/h2&gt;</span></span>
+<span id="cb30-6"><a href="relatorio-markdown-em-r.html#cb30-6"></a></span>
+<span id="cb30-7"><a href="relatorio-markdown-em-r.html#cb30-7"></a><span class="kw">&lt;p&gt;</span>Escrevendo alguma coisa nessa minha subseção.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-8"><a href="relatorio-markdown-em-r.html#cb30-8"></a></span>
+<span id="cb30-9"><a href="relatorio-markdown-em-r.html#cb30-9"></a><span class="kw">&lt;p&gt;</span>Outra linha.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-10"><a href="relatorio-markdown-em-r.html#cb30-10"></a></span>
+<span id="cb30-11"><a href="relatorio-markdown-em-r.html#cb30-11"></a><span class="kw">&lt;p&gt;</span>Colocando texto em itálico <span class="kw">&lt;em&gt;</span>texto em itálico<span class="kw">&lt;/em&gt;</span> ou <span class="kw">&lt;em&gt;</span>texto em itálico<span class="kw">&lt;/em&gt;</span>, em negrito </span>
+<span id="cb30-12"><a href="relatorio-markdown-em-r.html#cb30-12"></a><span class="kw">&lt;strong&gt;</span>texto em negrito<span class="kw">&lt;/strong&gt;</span> e destacando um código <span class="kw">&lt;code&gt;</span>f <span class="dv">&amp;lt;</span>- function() ...<span class="kw">&lt;/code&gt;</span>.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-13"><a href="relatorio-markdown-em-r.html#cb30-13"></a></span>
+<span id="cb30-14"><a href="relatorio-markdown-em-r.html#cb30-14"></a><span class="kw">&lt;p&gt;</span>Criando uma linha horizontal:<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-15"><a href="relatorio-markdown-em-r.html#cb30-15"></a></span>
+<span id="cb30-16"><a href="relatorio-markdown-em-r.html#cb30-16"></a><span class="kw">&lt;hr</span> <span class="kw">/&gt;</span></span>
+<span id="cb30-17"><a href="relatorio-markdown-em-r.html#cb30-17"></a></span>
+<span id="cb30-18"><a href="relatorio-markdown-em-r.html#cb30-18"></a><span class="kw">&lt;p&gt;</span>Listando itens:<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-19"><a href="relatorio-markdown-em-r.html#cb30-19"></a></span>
+<span id="cb30-20"><a href="relatorio-markdown-em-r.html#cb30-20"></a><span class="kw">&lt;ul&gt;</span></span>
+<span id="cb30-21"><a href="relatorio-markdown-em-r.html#cb30-21"></a><span class="kw">&lt;li&gt;</span>R é Open Source<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-22"><a href="relatorio-markdown-em-r.html#cb30-22"></a><span class="kw">&lt;li&gt;</span>R é uma ótima linguagem de progrmação<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-23"><a href="relatorio-markdown-em-r.html#cb30-23"></a><span class="kw">&lt;li&gt;</span>Estatísticos em todo o mundo usam R<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-24"><a href="relatorio-markdown-em-r.html#cb30-24"></a><span class="kw">&lt;li&gt;</span>R é utilizado por grandes empresas para análise de dados e em aprendizagem de máquina.<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-25"><a href="relatorio-markdown-em-r.html#cb30-25"></a><span class="kw">&lt;/ul&gt;</span></span>
+<span id="cb30-26"><a href="relatorio-markdown-em-r.html#cb30-26"></a></span>
+<span id="cb30-27"><a href="relatorio-markdown-em-r.html#cb30-27"></a><span class="kw">&lt;hr</span> <span class="kw">/&gt;</span></span>
+<span id="cb30-28"><a href="relatorio-markdown-em-r.html#cb30-28"></a></span>
+<span id="cb30-29"><a href="relatorio-markdown-em-r.html#cb30-29"></a><span class="kw">&lt;p&gt;</span>Enumerando itens:<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-30"><a href="relatorio-markdown-em-r.html#cb30-30"></a></span>
+<span id="cb30-31"><a href="relatorio-markdown-em-r.html#cb30-31"></a><span class="kw">&lt;ol&gt;</span></span>
+<span id="cb30-32"><a href="relatorio-markdown-em-r.html#cb30-32"></a><span class="kw">&lt;li&gt;</span>R Agro<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-33"><a href="relatorio-markdown-em-r.html#cb30-33"></a><span class="kw">&lt;li&gt;</span>R é Tec<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-34"><a href="relatorio-markdown-em-r.html#cb30-34"></a><span class="kw">&lt;li&gt;</span>R é Pop<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-35"><a href="relatorio-markdown-em-r.html#cb30-35"></a><span class="kw">&lt;li&gt;</span>R é Tudo<span class="kw">&lt;/li&gt;</span></span>
+<span id="cb30-36"><a href="relatorio-markdown-em-r.html#cb30-36"></a><span class="kw">&lt;/ol&gt;</span></span>
+<span id="cb30-37"><a href="relatorio-markdown-em-r.html#cb30-37"></a></span>
+<span id="cb30-38"><a href="relatorio-markdown-em-r.html#cb30-38"></a><span class="kw">&lt;hr</span> <span class="kw">/&gt;</span></span>
+<span id="cb30-39"><a href="relatorio-markdown-em-r.html#cb30-39"></a></span>
+<span id="cb30-40"><a href="relatorio-markdown-em-r.html#cb30-40"></a><span class="kw">&lt;p&gt;</span>Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://prdm0.github.io/aulas_computacional&quot;</span><span class="kw">&gt;&lt;strong&gt;</span>Estatística Computacional<span class="kw">&lt;/strong&gt;&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-41"><a href="relatorio-markdown-em-r.html#cb30-41"></a></span>
+<span id="cb30-42"><a href="relatorio-markdown-em-r.html#cb30-42"></a><span class="kw">&lt;p&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Logo da linguagem de programação R.&quot;</span><span class="ot"> title=</span><span class="st">&quot;icon&quot;</span> <span class="kw">/&gt;&lt;/p&gt;</span></span>
+<span id="cb30-43"><a href="relatorio-markdown-em-r.html#cb30-43"></a></span>
+<span id="cb30-44"><a href="relatorio-markdown-em-r.html#cb30-44"></a><span class="kw">&lt;p&gt;</span>Lembre-se:<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-45"><a href="relatorio-markdown-em-r.html#cb30-45"></a></span>
+<span id="cb30-46"><a href="relatorio-markdown-em-r.html#cb30-46"></a><span class="kw">&lt;blockquote&gt;</span></span>
+<span id="cb30-47"><a href="relatorio-markdown-em-r.html#cb30-47"></a>  <span class="kw">&lt;p&gt;</span>Batatinha quando nasce, esparrama pelo chão. </span>
+<span id="cb30-48"><a href="relatorio-markdown-em-r.html#cb30-48"></a>Se você não aprender em R irá sofrer de montão.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-49"><a href="relatorio-markdown-em-r.html#cb30-49"></a></span>
+<span id="cb30-50"><a href="relatorio-markdown-em-r.html#cb30-50"></a><span class="kw">&lt;p&gt;</span>--- Autor desconhecido, 2019.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-51"><a href="relatorio-markdown-em-r.html#cb30-51"></a><span class="kw">&lt;/blockquote&gt;</span></span>
+<span id="cb30-52"><a href="relatorio-markdown-em-r.html#cb30-52"></a></span>
+<span id="cb30-53"><a href="relatorio-markdown-em-r.html#cb30-53"></a><span class="kw">&lt;p&gt;&lt;strong&gt;</span>Se eu desejar, poderei utilizar código HTML<span class="kw">&lt;/strong&gt;</span>.<span class="kw">&lt;/p&gt;</span></span></code></pre>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
@@ -388,40 +396,40 @@ Por falar em <a href="https://stackoverflow.com"><strong>Stack Overflow</strong>
 <p>Um parágrafo em Markdown é constrído por uma ou mais linhas de textos separadas por uma ou mais linhas em branco.</p>
 <p></br></p>
 <p><strong>Escrevendo três parágrafos em Markdown</strong>:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu
-possa aprender o markdown e assim venha obter sucesso na minha
-carreira como estatístico. Darei um espaço abaixo:
-
-Aqui é o meu segundo parágrafo. Só passando para lembrar que R
-é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:
-  
-  
-&quot;Qualquer um pode, com algum estudo, escrever códigos que o
-computador enteda. Bons programadores esvrevem códigos que
-os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb31-1"><a href="relatorio-markdown-em-r.html#cb31-1"></a>Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu</span>
+<span id="cb31-2"><a href="relatorio-markdown-em-r.html#cb31-2"></a>possa aprender o markdown e assim venha obter sucesso na minha</span>
+<span id="cb31-3"><a href="relatorio-markdown-em-r.html#cb31-3"></a>carreira como estatístico. Darei um espaço abaixo:</span>
+<span id="cb31-4"><a href="relatorio-markdown-em-r.html#cb31-4"></a></span>
+<span id="cb31-5"><a href="relatorio-markdown-em-r.html#cb31-5"></a>Aqui é o meu segundo parágrafo. Só passando para lembrar que R</span>
+<span id="cb31-6"><a href="relatorio-markdown-em-r.html#cb31-6"></a>é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:</span>
+<span id="cb31-7"><a href="relatorio-markdown-em-r.html#cb31-7"></a>  </span>
+<span id="cb31-8"><a href="relatorio-markdown-em-r.html#cb31-8"></a>  </span>
+<span id="cb31-9"><a href="relatorio-markdown-em-r.html#cb31-9"></a>&quot;Qualquer um pode, com algum estudo, escrever códigos que o</span>
+<span id="cb31-10"><a href="relatorio-markdown-em-r.html#cb31-10"></a>computador enteda. Bons programadores esvrevem códigos que</span>
+<span id="cb31-11"><a href="relatorio-markdown-em-r.html#cb31-11"></a>os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
 <p></br></p>
 <p><strong>Acrescendando um cabeçalho</strong>:</p>
 <p>Você poderá utilizar uma sequencia do caracter <code>=</code> para iniciar uma seção. Analogamente, utilizando o caracter <code>-</code> você poderá criar uma subseção.</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">Um texto com parágrafos soltos
-==============================
-
-Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu
-possa aprender o markdown e assim venha obter sucesso na minha
-carreira como estatístico. Darei um espaço abaixo:
-
-Aqui é o meu segundo parágrafo. Só passando para lembrar que R
-é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:
-  
-
-Um programador que não organiza o seu código deveria morrer mais cedo
----------------------------------------------------------------------
-  
-&quot;Qualquer um pode, com algum estudo, escrever códigos que o
-computador enteda. Bons programadores esvrevem códigos que
-os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb32-1"><a href="relatorio-markdown-em-r.html#cb32-1"></a>Um texto com parágrafos soltos</span>
+<span id="cb32-2"><a href="relatorio-markdown-em-r.html#cb32-2"></a>==============================</span>
+<span id="cb32-3"><a href="relatorio-markdown-em-r.html#cb32-3"></a></span>
+<span id="cb32-4"><a href="relatorio-markdown-em-r.html#cb32-4"></a>Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu</span>
+<span id="cb32-5"><a href="relatorio-markdown-em-r.html#cb32-5"></a>possa aprender o markdown e assim venha obter sucesso na minha</span>
+<span id="cb32-6"><a href="relatorio-markdown-em-r.html#cb32-6"></a>carreira como estatístico. Darei um espaço abaixo:</span>
+<span id="cb32-7"><a href="relatorio-markdown-em-r.html#cb32-7"></a></span>
+<span id="cb32-8"><a href="relatorio-markdown-em-r.html#cb32-8"></a>Aqui é o meu segundo parágrafo. Só passando para lembrar que R</span>
+<span id="cb32-9"><a href="relatorio-markdown-em-r.html#cb32-9"></a>é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:</span>
+<span id="cb32-10"><a href="relatorio-markdown-em-r.html#cb32-10"></a>  </span>
+<span id="cb32-11"><a href="relatorio-markdown-em-r.html#cb32-11"></a></span>
+<span id="cb32-12"><a href="relatorio-markdown-em-r.html#cb32-12"></a>Um programador que não organiza o seu código deveria morrer mais cedo</span>
+<span id="cb32-13"><a href="relatorio-markdown-em-r.html#cb32-13"></a>---------------------------------------------------------------------</span>
+<span id="cb32-14"><a href="relatorio-markdown-em-r.html#cb32-14"></a>  </span>
+<span id="cb32-15"><a href="relatorio-markdown-em-r.html#cb32-15"></a>&quot;Qualquer um pode, com algum estudo, escrever códigos que o</span>
+<span id="cb32-16"><a href="relatorio-markdown-em-r.html#cb32-16"></a>computador enteda. Bons programadores esvrevem códigos que</span>
+<span id="cb32-17"><a href="relatorio-markdown-em-r.html#cb32-17"></a>os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
@@ -438,30 +446,30 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 <div id="secoessubsecoes-aninhadas" class="section level4">
 <h4><span class="header-section-number">4.1.1.2</span> Seções/subseções aninhadas</h4>
 <p>Podemos utilizar sequências do caracter <code>#</code> para criar seções aninhadas. O código acima poderia ser alterador por:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Um texto com parágrafos soltos</span>
-
-Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu
-possa aprender o markdown e assim venha obter sucesso na minha
-carreira como estatístico. Darei um espaço abaixo:
-
-Aqui é o meu segundo parágrafo. Só passando para lembrar que R
-é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:
-  
-
-<span class="fu">## Um programador que não organiza o seu código deveria morrer mais cedo</span>
-
-&quot;Qualquer um pode, com algum estudo, escrever códigos que o
-computador enteda. Bons programadores esvrevem códigos que
-os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb33-1"><a href="relatorio-markdown-em-r.html#cb33-1"></a><span class="fu"># Um texto com parágrafos soltos</span></span>
+<span id="cb33-2"><a href="relatorio-markdown-em-r.html#cb33-2"></a></span>
+<span id="cb33-3"><a href="relatorio-markdown-em-r.html#cb33-3"></a>Aqui estou criando meu primeiro parágrafo em Markdown. Espero que eu</span>
+<span id="cb33-4"><a href="relatorio-markdown-em-r.html#cb33-4"></a>possa aprender o markdown e assim venha obter sucesso na minha</span>
+<span id="cb33-5"><a href="relatorio-markdown-em-r.html#cb33-5"></a>carreira como estatístico. Darei um espaço abaixo:</span>
+<span id="cb33-6"><a href="relatorio-markdown-em-r.html#cb33-6"></a></span>
+<span id="cb33-7"><a href="relatorio-markdown-em-r.html#cb33-7"></a>Aqui é o meu segundo parágrafo. Só passando para lembrar que R</span>
+<span id="cb33-8"><a href="relatorio-markdown-em-r.html#cb33-8"></a>é uma ótima linguagem de programação. Abaixo colocarei 2 espaços:</span>
+<span id="cb33-9"><a href="relatorio-markdown-em-r.html#cb33-9"></a>  </span>
+<span id="cb33-10"><a href="relatorio-markdown-em-r.html#cb33-10"></a></span>
+<span id="cb33-11"><a href="relatorio-markdown-em-r.html#cb33-11"></a><span class="fu">## Um programador que não organiza o seu código deveria morrer mais cedo</span></span>
+<span id="cb33-12"><a href="relatorio-markdown-em-r.html#cb33-12"></a></span>
+<span id="cb33-13"><a href="relatorio-markdown-em-r.html#cb33-13"></a>&quot;Qualquer um pode, com algum estudo, escrever códigos que o</span>
+<span id="cb33-14"><a href="relatorio-markdown-em-r.html#cb33-14"></a>computador enteda. Bons programadores esvrevem códigos que</span>
+<span id="cb33-15"><a href="relatorio-markdown-em-r.html#cb33-15"></a>os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
 <p>De uma forma geral, tem-se:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Seção</span>
-<span class="fu">## Subseção</span>
-<span class="fu">### Subsubseção</span>
-<span class="fu">#### Subsubsubseção</span>
-...</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb34-1"><a href="relatorio-markdown-em-r.html#cb34-1"></a><span class="fu"># Seção</span></span>
+<span id="cb34-2"><a href="relatorio-markdown-em-r.html#cb34-2"></a><span class="fu">## Subseção</span></span>
+<span id="cb34-3"><a href="relatorio-markdown-em-r.html#cb34-3"></a><span class="fu">### Subsubseção</span></span>
+<span id="cb34-4"><a href="relatorio-markdown-em-r.html#cb34-4"></a><span class="fu">#### Subsubsubseção</span></span>
+<span id="cb34-5"><a href="relatorio-markdown-em-r.html#cb34-5"></a>...</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
@@ -485,11 +493,11 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 </blockquote>
 </blockquote>
 </blockquote>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">&gt;<span class="dt"> Primeiro nível de bloco.</span>
-
-&gt;<span class="dt"> &gt; Segundo nível de bloco.</span>
-
-&gt;<span class="dt"> &gt; &gt; Terceiro nível de bloco.</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb35-1"><a href="relatorio-markdown-em-r.html#cb35-1"></a>&gt;<span class="dt"> Primeiro nível de bloco.</span></span>
+<span id="cb35-2"><a href="relatorio-markdown-em-r.html#cb35-2"></a></span>
+<span id="cb35-3"><a href="relatorio-markdown-em-r.html#cb35-3"></a>&gt;<span class="dt"> &gt; Segundo nível de bloco.</span></span>
+<span id="cb35-4"><a href="relatorio-markdown-em-r.html#cb35-4"></a></span>
+<span id="cb35-5"><a href="relatorio-markdown-em-r.html#cb35-5"></a>&gt;<span class="dt"> &gt; &gt; Terceiro nível de bloco.</span></span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
@@ -500,41 +508,41 @@ os humanos  entendam.&quot; - Alguém, 5 mil anos a.C.</code></pre>
 <p>É possível que venhamos dar ênfase à um trecho de um texto. Isso é feito utilizando <code>*</code> (asterisco), <code>_</code> (subilinhado/underscore), <code>**</code> (duplo asterisco) ou <code>__</code> (duplo subilinhado/underscore). Essas combinações de caracteres devem envolver o texto a ser destacado e fazem:</p>
 <ol style="list-style-type: decimal">
 <li><p><code>*</code> (asterisco): Deixa o texto envolvido em <em>itálico</em>. Isso é feito fazendo</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">*texto em itálico*</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb36-1"><a href="relatorio-markdown-em-r.html#cb36-1"></a>*texto em itálico*</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote></li>
 <li><p><code>_</code> (sublinhado/underscore): Faz o mesmo que <code>*</code>, isto é, deixa o texto envolvido em <em>itálico</em>.</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">_texto em itálico_</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb37-1"><a href="relatorio-markdown-em-r.html#cb37-1"></a>_texto em itálico_</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote></li>
 <li><p><code>**</code> (duplo asterisco): Deixa o texto envolvido em <strong>negrito</strong>.</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">**texto em negrito**</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb38-1"><a href="relatorio-markdown-em-r.html#cb38-1"></a>**texto em negrito**</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote></li>
 <li><p><code>__</code>(dublo subilinhado/underscore): Faz o mesmo que envolver o texto por <code>**</code>, isto é, deixa o texto envolvido em <strong>negrito</strong>.</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">__texto em negrito__</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb39-1"><a href="relatorio-markdown-em-r.html#cb39-1"></a>__texto em negrito__</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
 <p>O código abaixo faz uso do que aprendemos até aqui:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu"># Um texto com parágrafos soltos</span>
-
-Aqui estou criando meu primeiro parágrafo em **Markdown**. Espero que eu
-possa aprender o markdown e assim venha obter sucesso na minha
-carreira como estatístico. Darei um espaço abaixo:
-
-_Aqui é o meu segundo parágrafo_. Só passando para lembrar que R
-é uma ótima linguagem de programação. __Abaixo colocarei 2 espaços__:
-
-
-<span class="fu">## Um programador que não organiza o seu código deveria morrer mais cedo</span>
-
-*&quot;Qualquer um pode, com algum estudo, escrever códigos que o
-computador enteda. Bons programadores esvrevem códigos que
-os humanos  entendam.&quot;* - **Alguém**, _5 mil anos a.C_.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb40-1"><a href="relatorio-markdown-em-r.html#cb40-1"></a><span class="fu"># Um texto com parágrafos soltos</span></span>
+<span id="cb40-2"><a href="relatorio-markdown-em-r.html#cb40-2"></a></span>
+<span id="cb40-3"><a href="relatorio-markdown-em-r.html#cb40-3"></a>Aqui estou criando meu primeiro parágrafo em **Markdown**. Espero que eu</span>
+<span id="cb40-4"><a href="relatorio-markdown-em-r.html#cb40-4"></a>possa aprender o markdown e assim venha obter sucesso na minha</span>
+<span id="cb40-5"><a href="relatorio-markdown-em-r.html#cb40-5"></a>carreira como estatístico. Darei um espaço abaixo:</span>
+<span id="cb40-6"><a href="relatorio-markdown-em-r.html#cb40-6"></a></span>
+<span id="cb40-7"><a href="relatorio-markdown-em-r.html#cb40-7"></a>_Aqui é o meu segundo parágrafo_. Só passando para lembrar que R</span>
+<span id="cb40-8"><a href="relatorio-markdown-em-r.html#cb40-8"></a>é uma ótima linguagem de programação. __Abaixo colocarei 2 espaços__:</span>
+<span id="cb40-9"><a href="relatorio-markdown-em-r.html#cb40-9"></a></span>
+<span id="cb40-10"><a href="relatorio-markdown-em-r.html#cb40-10"></a></span>
+<span id="cb40-11"><a href="relatorio-markdown-em-r.html#cb40-11"></a><span class="fu">## Um programador que não organiza o seu código deveria morrer mais cedo</span></span>
+<span id="cb40-12"><a href="relatorio-markdown-em-r.html#cb40-12"></a></span>
+<span id="cb40-13"><a href="relatorio-markdown-em-r.html#cb40-13"></a>*&quot;Qualquer um pode, com algum estudo, escrever códigos que o</span>
+<span id="cb40-14"><a href="relatorio-markdown-em-r.html#cb40-14"></a>computador enteda. Bons programadores esvrevem códigos que</span>
+<span id="cb40-15"><a href="relatorio-markdown-em-r.html#cb40-15"></a>os humanos  entendam.&quot;* - **Alguém**, _5 mil anos a.C_.</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote></li>
@@ -544,30 +552,30 @@ os humanos  entendam.&quot;* - **Alguém**, _5 mil anos a.C_.</code></pre>
 <div id="listando-itens" class="section level4">
 <h4><span class="header-section-number">4.1.1.5</span> Listando Itens</h4>
 <p>Em seu texto, é possível que tenha o intenresse de listar itens de forma não ordenada. Isso é possível utilizando os caracteres <code>*</code>, <code>+</code> ou <code>-</code>. Considere o exemplo:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">   * Meu primeiro item;
-   * Meu segundo item;
-   * Meu terceiro item.
-<span class="bn">        </span>
-   ou
-<span class="bn">        </span>
-   + Meu primeiro item;
-   + Meu segundo item;
-   + Meu terceiro item.
-<span class="bn">        </span>
-   ou ainda
-<span class="bn">        </span>
-   - Meu primeiro item;
-   - Meu segundo item;
-   - Meu teceiro item.</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb41-1"><a href="relatorio-markdown-em-r.html#cb41-1"></a>   * Meu primeiro item;</span>
+<span id="cb41-2"><a href="relatorio-markdown-em-r.html#cb41-2"></a>   * Meu segundo item;</span>
+<span id="cb41-3"><a href="relatorio-markdown-em-r.html#cb41-3"></a>   * Meu terceiro item.</span>
+<span id="cb41-4"><a href="relatorio-markdown-em-r.html#cb41-4"></a><span class="bn">        </span></span>
+<span id="cb41-5"><a href="relatorio-markdown-em-r.html#cb41-5"></a>   ou</span>
+<span id="cb41-6"><a href="relatorio-markdown-em-r.html#cb41-6"></a><span class="bn">        </span></span>
+<span id="cb41-7"><a href="relatorio-markdown-em-r.html#cb41-7"></a>   + Meu primeiro item;</span>
+<span id="cb41-8"><a href="relatorio-markdown-em-r.html#cb41-8"></a>   + Meu segundo item;</span>
+<span id="cb41-9"><a href="relatorio-markdown-em-r.html#cb41-9"></a>   + Meu terceiro item.</span>
+<span id="cb41-10"><a href="relatorio-markdown-em-r.html#cb41-10"></a><span class="bn">        </span></span>
+<span id="cb41-11"><a href="relatorio-markdown-em-r.html#cb41-11"></a>   ou ainda</span>
+<span id="cb41-12"><a href="relatorio-markdown-em-r.html#cb41-12"></a><span class="bn">        </span></span>
+<span id="cb41-13"><a href="relatorio-markdown-em-r.html#cb41-13"></a>   - Meu primeiro item;</span>
+<span id="cb41-14"><a href="relatorio-markdown-em-r.html#cb41-14"></a>   - Meu segundo item;</span>
+<span id="cb41-15"><a href="relatorio-markdown-em-r.html#cb41-15"></a>   - Meu teceiro item.</span></code></pre>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <div class="text-justify">
 Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>-</code>. Ou seja, você poderá fazer:
 </div>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">* <span class="fl">Meu primeiro item;</span>
-<span class="fl">+ Meu segundo item;</span>
-<span class="fl">- Meu terceiro item.</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb42-1"><a href="relatorio-markdown-em-r.html#cb42-1"></a>* <span class="st">Meu primeiro item;</span></span>
+<span id="cb42-2"><a href="relatorio-markdown-em-r.html#cb42-2"></a><span class="st">+ Meu segundo item;</span></span>
+<span id="cb42-3"><a href="relatorio-markdown-em-r.html#cb42-3"></a><span class="st">- Meu terceiro item.</span></span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>..</p>
 </blockquote>
@@ -577,9 +585,9 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <div id="enumerando-itens" class="section level4">
 <h4><span class="header-section-number">4.1.1.6</span> Enumerando Itens</h4>
 <p>As vezes necessitamos de itens dispostos segundo uma ordem. Você poderá ordenar os itens utilizando um número seguido de um ponto. Considere o exemplo abaixo:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">1. <span class="fl">Meu primeiro item enumerado;</span>
-<span class="fl">2. Meu segundo item enumerado;</span>
-<span class="fl">3. Meu terceiro item enumerado.</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb43-1"><a href="relatorio-markdown-em-r.html#cb43-1"></a>1. <span class="st">Meu primeiro item enumerado;</span></span>
+<span id="cb43-2"><a href="relatorio-markdown-em-r.html#cb43-2"></a><span class="st">2. Meu segundo item enumerado;</span></span>
+<span id="cb43-3"><a href="relatorio-markdown-em-r.html#cb43-3"></a><span class="st">3. Meu terceiro item enumerado.</span></span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
@@ -590,29 +598,29 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <p>Os itens enumerados ou não enumerados podem ser formados por parágrafos. Você deverá colocar 4 (quatro) espaços para iniciar um parágrafo de um respectivo item. Considere o código abaixo:</p>
 </br>
 </div>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">1. <span class="fl">   Aqui é o meu primeiro item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu primeiro item.</span>
-
-2. <span class="fl">   Aqui é o meu segundo item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu segundo item.</span>
-
-3. <span class="fl">   Aqui é o meu terceiro item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu terceiro item.</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="relatorio-markdown-em-r.html#cb44-1"></a>1. <span class="st">   Aqui é o meu primeiro item.</span></span>
+<span id="cb44-2"><a href="relatorio-markdown-em-r.html#cb44-2"></a><span class="st">     </span></span>
+<span id="cb44-3"><a href="relatorio-markdown-em-r.html#cb44-3"></a><span class="st">      Aqui é um novo parágrafo do meu primeiro item.</span></span>
+<span id="cb44-4"><a href="relatorio-markdown-em-r.html#cb44-4"></a></span>
+<span id="cb44-5"><a href="relatorio-markdown-em-r.html#cb44-5"></a>2. <span class="st">   Aqui é o meu segundo item.</span></span>
+<span id="cb44-6"><a href="relatorio-markdown-em-r.html#cb44-6"></a><span class="st">     </span></span>
+<span id="cb44-7"><a href="relatorio-markdown-em-r.html#cb44-7"></a><span class="st">      Aqui é um novo parágrafo do meu segundo item.</span></span>
+<span id="cb44-8"><a href="relatorio-markdown-em-r.html#cb44-8"></a></span>
+<span id="cb44-9"><a href="relatorio-markdown-em-r.html#cb44-9"></a>3. <span class="st">   Aqui é o meu terceiro item.</span></span>
+<span id="cb44-10"><a href="relatorio-markdown-em-r.html#cb44-10"></a><span class="st">     </span></span>
+<span id="cb44-11"><a href="relatorio-markdown-em-r.html#cb44-11"></a><span class="st">      Aqui é um novo parágrafo do meu terceiro item.</span></span></code></pre>
 <p>Essa mesma regra vale para os itens não enumerados. Considere o código abaixo:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">* <span class="fl">    Aqui é o meu primeiro item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu primeiro item.</span>
-
-* <span class="fl">    Aqui é o meu segundo item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu segundo item.</span>
-
-* <span class="fl">    Aqui é o meu terceiro item.</span>
-<span class="fl">     </span>
-<span class="fl">      Aqui é um novo parágrafo do meu terceiro item.</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="relatorio-markdown-em-r.html#cb45-1"></a>* <span class="st">    Aqui é o meu primeiro item.</span></span>
+<span id="cb45-2"><a href="relatorio-markdown-em-r.html#cb45-2"></a><span class="st">     </span></span>
+<span id="cb45-3"><a href="relatorio-markdown-em-r.html#cb45-3"></a><span class="st">      Aqui é um novo parágrafo do meu primeiro item.</span></span>
+<span id="cb45-4"><a href="relatorio-markdown-em-r.html#cb45-4"></a></span>
+<span id="cb45-5"><a href="relatorio-markdown-em-r.html#cb45-5"></a>* <span class="st">    Aqui é o meu segundo item.</span></span>
+<span id="cb45-6"><a href="relatorio-markdown-em-r.html#cb45-6"></a><span class="st">     </span></span>
+<span id="cb45-7"><a href="relatorio-markdown-em-r.html#cb45-7"></a><span class="st">      Aqui é um novo parágrafo do meu segundo item.</span></span>
+<span id="cb45-8"><a href="relatorio-markdown-em-r.html#cb45-8"></a></span>
+<span id="cb45-9"><a href="relatorio-markdown-em-r.html#cb45-9"></a>* <span class="st">    Aqui é o meu terceiro item.</span></span>
+<span id="cb45-10"><a href="relatorio-markdown-em-r.html#cb45-10"></a><span class="st">     </span></span>
+<span id="cb45-11"><a href="relatorio-markdown-em-r.html#cb45-11"></a><span class="st">      Aqui é um novo parágrafo do meu terceiro item.</span></span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
@@ -627,11 +635,11 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <li><p><strong>Link não resumido</strong>: As vezes temos o interesse de deixar claro, em nosso texto, qual o endereço completo de um e-mail ou site. Por exemplo, considere o texto do exemplo abaixo:</p>
 <p><strong>Exemplo 1</strong>: Se você precisar, acesse o <a href="http://www.de.ufpb.br/" class="uri">http://www.de.ufpb.br/</a> do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poderá mandar um e-mail para mim. Meu e-mail é <a href="mailto:pedro.rafael.marinho@gmail.com" class="email">pedro.rafael.marinho@gmail.com</a>.</p>
 <p>A forma geral para a construção de links não resumido é <code>&lt;link&gt;</code>. Para obtermos o retorno acima, devemos fazer:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">    Se você precisar, acesse o &lt;http://www.de.ufpb.br/&gt; do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poderá mandar um e-mail para mim. Meu e-mail é &lt;pedro.rafael.marinho@gmail.com&gt;.</span></code></pre></li>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="relatorio-markdown-em-r.html#cb46-1"></a><span class="bn">    Se você precisar, acesse o &lt;http://www.de.ufpb.br/&gt; do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poderá mandar um e-mail para mim. Meu e-mail é &lt;pedro.rafael.marinho@gmail.com&gt;.</span></span></code></pre></li>
 <li><p><strong>Link resumido</strong>: Trata-se do link que é substituido por um texto sugestivo ao seu conteúdo. Trata-se de uma forma de se construir um link sem a necessidade expor todo o caminho/endereço (froma resumida). Por exemplo, considere o texto do exemplo abaixo:</p>
 <p><strong>Exemplo 2</strong>: Se você precisar, acesse o <a href="http://www.de.ufpb.br/"><strong>site</strong></a> do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poerá mandar um <a href="mailto:pedro.rafael.marinho@gmail.com"><strong>e-mail</strong></a> para mim.</p>
 <p>A forma geral para construção de links resumido (sugestivos) é <code>[testo do link](link)</code>. Por exemplo, o exemplo cima poderá ser obtido pelo código abaixo:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">    Se você precisar, acesse o [**site**](http://www.de.ufpb.br/) do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poerá mandar um [**e-mail**](mailto:pedro.rafael.marinho@gmail.com) para mim.</span></code></pre></li>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb47-1"><a href="relatorio-markdown-em-r.html#cb47-1"></a><span class="bn">    Se você precisar, acesse o [**site**](http://www.de.ufpb.br/) do Departamento de Estatística da UFPB. Também, em caso de necessidade, você poerá mandar um [**e-mail**](mailto:pedro.rafael.marinho@gmail.com) para mim.</span></span></code></pre></li>
 </ol>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
@@ -643,33 +651,33 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <div class="text-justify">
 <p>Em se tratando de link resumido, para linkar corretamente um e-mail com o programa de envio e recebimento padrão instalado no computador, você deverá utilizar a expressão <code>mailto:</code> antes da definição do e-mail ao qual deseja linkar com o programa. Por exemplo:</p>
 </div>
-<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="ot">[e-mail](mailto:pedro.rafael.marinho@gmail.com)</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb48-1"><a href="relatorio-markdown-em-r.html#cb48-1"></a><span class="ot">[e-mail](mailto:pedro.rafael.marinho@gmail.com)</span></span></code></pre>
 </div>
 <p></br></p>
 <p>Se você desejar, você poderá ter uma lista enumerada de links ao final do arquivo e invoca-los, por sua numeração, no corpo do seu texto. Considere o texto do exemplo que segue:</p>
 <p><strong>Exemplo</strong>: “<strong>Adoro programar</strong> utilizando a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>. Para uma melhor experiência, considere programar utilizando a IDE <a href="https://www.rstudio.com/products/RStudio/">RStudio</a>. Programar em <a href="https://www.r-project.org">R</a> com o <a href="https://www.rstudio.com/products/RStudio/"><strong>RStudio</strong></a> torna a tarefa de programar ainda mais agradável. Mais agradável ainda é saber que a linguagem <a href="https://www.r-project.org">R</a> possui um grande número de <a href="https://cloud.r-project.org/web/packages/available_packages_by_date.html"><em>pacotes</em></a> para trabalhar com estatística.”</p>
 <p>Um solução, com o que já aprendemos de Markdown, para esse exemplo acima, poderia ser:</p>
 <p><strong>Solução 1</strong>:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">&quot;**Adoro programar** utilizando a linguagem <span class="ot">[**R**](https://www.r-project.org)</span>.
-Para uma melhor experiência, considere programar utilizando a IDE
-<span class="ot">[RStudio](https://www.rstudio.com/products/RStudio/)</span>. Programar em <span class="ot">[R](https://www.r-project.org)</span> com o <span class="ot">[**RStudio**](https://www.rstudio.com/products/RStudio/)</span>
-torna a tarefa de programar ainda mais agradável. Mais agradável
-ainda é saber que a linguagem <span class="ot">[R](https://www.r-project.org)</span> possui
-um grande número de <span class="ot">[*pacotes*](https://cloud.r-project.org/web/packages/available_packages_by_date.html)</span> para trabalhar com estatística.&quot;</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb49-1"><a href="relatorio-markdown-em-r.html#cb49-1"></a>&quot;**Adoro programar** utilizando a linguagem <span class="ot">[**R**](https://www.r-project.org)</span>.</span>
+<span id="cb49-2"><a href="relatorio-markdown-em-r.html#cb49-2"></a>Para uma melhor experiência, considere programar utilizando a IDE</span>
+<span id="cb49-3"><a href="relatorio-markdown-em-r.html#cb49-3"></a><span class="ot">[RStudio](https://www.rstudio.com/products/RStudio/)</span>. Programar em <span class="ot">[R](https://www.r-project.org)</span> com o <span class="ot">[**RStudio**](https://www.rstudio.com/products/RStudio/)</span></span>
+<span id="cb49-4"><a href="relatorio-markdown-em-r.html#cb49-4"></a>torna a tarefa de programar ainda mais agradável. Mais agradável</span>
+<span id="cb49-5"><a href="relatorio-markdown-em-r.html#cb49-5"></a>ainda é saber que a linguagem <span class="ot">[R](https://www.r-project.org)</span> possui</span>
+<span id="cb49-6"><a href="relatorio-markdown-em-r.html#cb49-6"></a>um grande número de <span class="ot">[*pacotes*](https://cloud.r-project.org/web/packages/available_packages_by_date.html)</span> para trabalhar com estatística.&quot;</span></code></pre>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
 </blockquote>
 <p><strong>Solução 2</strong></p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">&quot;**Adoro programar** utilizando a linguagem <span class="ot">[**R**][1]</span>.
-Para uma melhor experiência, considere programar utilizando a IDE
-<span class="ot">[RStudio][2]</span>. Programar em <span class="ot">[R][1] </span>com o <span class="ot">[**RStudio**][2]</span>
-torna a tarefa de programar ainda mais agradável. Mais agradável
-ainda é saber que a linguagem <span class="ot">[R][1] </span>possui
-um grande número de <span class="ot">[*pacotes*][3] </span>para trabalhar com estatística.&quot;
-
-<span class="ot">[1]: https://www.r-project.org                                                &quot;R&quot;</span>
-<span class="ot">[2]: https://www.rstudio.com/products/RStudio/                                &quot;RStudio&quot;</span>
-<span class="ot">[3]: https://cloud.r-project.org/web/packages/available_packages_by_date.html &quot;packages&quot;</span></code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb50-1"><a href="relatorio-markdown-em-r.html#cb50-1"></a>&quot;**Adoro programar** utilizando a linguagem <span class="ot">[**R**][1]</span>.</span>
+<span id="cb50-2"><a href="relatorio-markdown-em-r.html#cb50-2"></a>Para uma melhor experiência, considere programar utilizando a IDE</span>
+<span id="cb50-3"><a href="relatorio-markdown-em-r.html#cb50-3"></a><span class="ot">[RStudio][2]</span>. Programar em <span class="ot">[R][1] </span>com o <span class="ot">[**RStudio**][2]</span></span>
+<span id="cb50-4"><a href="relatorio-markdown-em-r.html#cb50-4"></a>torna a tarefa de programar ainda mais agradável. Mais agradável</span>
+<span id="cb50-5"><a href="relatorio-markdown-em-r.html#cb50-5"></a>ainda é saber que a linguagem <span class="ot">[R][1] </span>possui</span>
+<span id="cb50-6"><a href="relatorio-markdown-em-r.html#cb50-6"></a>um grande número de <span class="ot">[*pacotes*][3] </span>para trabalhar com estatística.&quot;</span>
+<span id="cb50-7"><a href="relatorio-markdown-em-r.html#cb50-7"></a></span>
+<span id="cb50-8"><a href="relatorio-markdown-em-r.html#cb50-8"></a><span class="ot">[1]: https://www.r-project.org                                                &quot;R&quot;</span></span>
+<span id="cb50-9"><a href="relatorio-markdown-em-r.html#cb50-9"></a><span class="ot">[2]: https://www.rstudio.com/products/RStudio/                                &quot;RStudio&quot;</span></span>
+<span id="cb50-10"><a href="relatorio-markdown-em-r.html#cb50-10"></a><span class="ot">[3]: https://cloud.r-project.org/web/packages/available_packages_by_date.html &quot;packages&quot;</span></span></code></pre>
 <p></br></p>
 <blockquote>
 <p>— Teste <a href="https://daringfireball.net/projects/markdown/dingus"><strong>Aqui</strong></a> ou salve o código em um arquivo com extensão <strong>.md</strong> e, no RStudio, faça <strong>Ctrl + Shift + K</strong>.</p>
@@ -695,10 +703,10 @@ Figura: Logo da linguagem de programação <strong>R</strong> obtido em <a href=
 </center>
 <p></br></p>
 <p>A Figura acima poderá ser inserida na forma que segue:</p>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">&lt;center&gt;
-![](https://www.r-project.org/logo/Rlogo.png){height=&quot;100px&quot; width=&quot;100px&quot;} &lt;/br&gt;
-Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**aqui**](https://www.r-project.org/logo/Rlogo.png)</span>.
-&lt;/center&gt;</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb51-1"><a href="relatorio-markdown-em-r.html#cb51-1"></a>&lt;center&gt;</span>
+<span id="cb51-2"><a href="relatorio-markdown-em-r.html#cb51-2"></a>![](https://www.r-project.org/logo/Rlogo.png){height=&quot;100px&quot; width=&quot;100px&quot;} &lt;/br&gt;</span>
+<span id="cb51-3"><a href="relatorio-markdown-em-r.html#cb51-3"></a>Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**aqui**](https://www.r-project.org/logo/Rlogo.png)</span>.</span>
+<span id="cb51-4"><a href="relatorio-markdown-em-r.html#cb51-4"></a>&lt;/center&gt;</span></code></pre>
 <p></br></p>
 <p><strong>Observação</strong>:</p>
 
@@ -715,13 +723,13 @@ Figura: Logo da linguagem de programação **R** obtido em <span class="ot">[**a
 </div>
 <blockquote>
 <blockquote>
-<pre class="sourceCode markdown"><code class="sourceCode markdown">   &lt;center&gt;
-   Envolver algum texto entre <span class="bn">`&lt;center&gt;`</span>e
-   &lt;/center&gt;
-
-   &lt;center&gt;
-   fará com que tudo que esteja envolvido seja centralizado.
-   &lt;/center&gt;</code></pre>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb52-1"><a href="relatorio-markdown-em-r.html#cb52-1"></a>   &lt;center&gt;</span>
+<span id="cb52-2"><a href="relatorio-markdown-em-r.html#cb52-2"></a>   Envolver algum texto entre <span class="bn">`&lt;center&gt;`</span>e</span>
+<span id="cb52-3"><a href="relatorio-markdown-em-r.html#cb52-3"></a>   &lt;/center&gt;</span>
+<span id="cb52-4"><a href="relatorio-markdown-em-r.html#cb52-4"></a></span>
+<span id="cb52-5"><a href="relatorio-markdown-em-r.html#cb52-5"></a>   &lt;center&gt;</span>
+<span id="cb52-6"><a href="relatorio-markdown-em-r.html#cb52-6"></a>   fará com que tudo que esteja envolvido seja centralizado.</span>
+<span id="cb52-7"><a href="relatorio-markdown-em-r.html#cb52-7"></a>   &lt;/center&gt;</span></code></pre>
 </blockquote>
 </blockquote>
 <ul>
@@ -856,8 +864,8 @@ Figura 4.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmar
 
 <p>O funcionamento geral e interações entre o pacote <strong>rmarkdown</strong> com o pacote <strong>knitr</strong> e o <strong>Pandoc</strong> poderão ser resumidos com diagrama abaixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramaRmd"></span>
-<div id="htmlwidget-d3da7c1655e7a547c5ac" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3da7c1655e7a547c5ac">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-290f8c78f8767a380fe0" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-290f8c78f8767a380fe0">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
 </p>

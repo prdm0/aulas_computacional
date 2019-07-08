@@ -755,226 +755,342 @@ Esses problemas não são suficientes justificar um desaconselho do uso de funç
 </div>
 ```
 
-<!-- ### Funções infixas -->
+### Funções infixas
 
-<!-- Para começarmos a falar de funções infixas (***infix***), os slogans abaixo, traduzidos para o português, poderão ser úteis para um melhor entendimento: -->
+Para começarmos a falar de funções infixas (***infix***), os slogans abaixo, traduzidos para o português, poderão ser úteis para um melhor entendimento:
 
-<!-- > "Para entender a computação em R, dois slogans são úteis: -->
+> "Para entender a computação em R, dois slogans são úteis:
 
-<!-- > * Tudo o que existe é um objeto. -->
-<!-- > * Tudo o que acontece é uma chamada de função." -->
+> * Tudo o que existe é um objeto.
+> * Tudo o que acontece é uma chamada de função."
 
-<!-- > --- [**John M. Chambers**](https://en.wikipedia.org/wiki/John_Chambers_(statistician)), no artigo intitulado [***Object-Oriented Programming, Functional Programming and R***](https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569), *Statistical Science*, Vol. 29, 2014, p. 170. -->
+> --- [**John M. Chambers**](https://en.wikipedia.org/wiki/John_Chambers_(statistician)), no artigo intitulado [***Object-Oriented Programming, Functional Programming and R***](https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569), *Statistical Science*, Vol. 29, 2014, p. 170.
 
-<!-- Nas situações de funções que possuem dois argumentos, construir um operador infixo pode ser de grande utilidade. O exemplo abaixo mostra duas formas de somarmos dois termos utilizando a função \`+\` e o operador infixo `+`, respectivamente. Perceba que a segunda forma é mais conveniente que a primeira: -->
+Nas situações de funções que possuem dois argumentos, construir um operador infixo pode ser de grande utilidade. O exemplo abaixo mostra duas formas de somarmos dois termos utilizando a função \`+\` e o operador infixo `+`, respectivamente. Perceba que a segunda forma é mais conveniente que a primeira:
 
-<!-- ```{r} -->
-<!-- x <- y <- 1 -->
+```{r}
+x <- y <- 1
 
-<!-- # Forma 1 (prefix): -->
-<!-- `+`(x, y) -->
+# Forma 1 (prefix):
+`+`(x, y)
 
-<!-- # Forma 2 (infix): -->
-<!-- x + y -->
-<!-- ``` -->
+# Forma 2 (infix):
+x + y
+```
 
-<!-- Além dos operadores matemáticos `+`, `-`, `*` e `/` serem funções infixas, podendo também chamar de operadores infixos ou ***infix***, diversas outras funções são infixas, como por exemplo, `^`, `::`, `&`, `|`, `&&`, `||`, `<=`, `>=`, `<`, `>`, `==`, `!=`, `$`, `%%`, `%*%`, `%in%`, `<-`, `<<-`, entre diversas outras funções. O exemplo abaixo apreseta o uso de algumas dessas funções na forma prefixa: -->
+Além dos operadores matemáticos `+`, `-`, `*` e `/` serem funções infixas, podendo também chamar de operadores infixos ou ***infix***, diversas outras funções são infixas, como por exemplo, `^`, `::`, `&`, `|`, `&&`, `||`, `<=`, `>=`, `<`, `>`, `==`, `!=`, `$`, `%%`, `%*%`, `%in%`, `<-`, `<<-`, entre diversas outras funções. O exemplo abaixo apreseta o uso de algumas dessas funções na forma prefixa:
 
-<!-- ```{r} -->
-<!-- `<=`(1,3) -->
-<!-- `^`(2,3) -->
-<!-- x <- list(a = 1, b = 2) -->
-<!-- `$`(x, a) -->
-<!-- ``` -->
+```{r}
+`<=`(1,3)
+`^`(2,3)
+x <- list(a = 1, b = 2)
+`$`(x, a)
+```
 
-<!-- Assim como existem diversas funções infixas em R previamente implementadas, também poderemos construir nossas funções infixas. Para tanto, basta considerarmos a notação `%nome%`, em que `nome` deverá ser substituído por um nome válido de função. Considere o código abaixo: -->
+Assim como existem diversas funções infixas em R previamente implementadas, também poderemos construir nossas funções infixas. Para tanto, basta considerarmos a notação `%nome%`, em que `nome` deverá ser substituído por um nome válido de função. Considere o código abaixo:
 
-<!-- ```{r} -->
-<!-- `%+%` <- function(x, n){ -->
-<!--    rep(x, times = n) -->
+```{r}
+`%+%` <- function(x, n){
+   rep(x, times = n)
+}
+
+# Forma prefixa:
+`%+%`("infix", 4)
+
+# Forma infixa:
+"infix" %+% 4
+```
+
+### Função de substituição
+
+Você muito provavelmente já deve ter feito uso de funções de substituição, como por exemplo, `names()`, `colnames()`, `rownames()`, entre outras funções. Essas são chamadas de funções de substituição devido ao comportamento que é expresso no código que segue:
+
+```{r}
+vetor <- c(1,2,3)
+names(vetor) <- c("a", "b", "c")
+x
+```
+
+A função `names()`, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue:
+
+```{r}
+vetor <- c(1,2,3)
+`names<-`(x = vetor, value = c("a", "b", "c"))
+```
+
+Pelo código acima podemos perceber que as funções de substituição nada mais são que funções de dois argumentos, a saber `x` e `value`, respectivamente. Dessa forma, os valores passados à `value` modificam o objeto `x` que nesse caso são os nomes do objeto `vetor`.
+
+**Exemplo**: Implementação da função de substituição `samenames()` que atribui o mesmo nome à todos elementos do vetor `x`.
+
+```{r}
+`samenames<-` <- function(x, value){
+   if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.")
+   else{
+      names(x) <- rep(value, times = length(x))
+   }
+   x
+}
+x <- 1L:10L
+samenames(x) <- "a"
+x
+```
+
+Em situações em que a função de substituição necessita de mais argumentos além dos argumentos obrigatórios `x` e `value`, deveremos colocá-los entre os argumentos `x` e `value`. No exemplo do código abaixo introduzimos o argumento `rm.id` em que, se desejarmos, poderemos omitir algumas posições do vetor `x`:
+
+
+```{r}
+`samenames<-` <- function(x, rm.id = NULL, value){
+
+  if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.")
+  else if (!is.null(rm.id) && is.numeric(rm.id)){
+    x <- x[-rm.id]
+    names(x) <- rep(value, times = length(x))
+  }else{
+    names(x) <- rep(value, times = length(x))
+  }
+  x
+}
+x <- 1L:10L
+samenames(x) <- "a"
+# Removendo a primeira e a décima posição de x.
+samenames(x, c(1,10)) <- "a"
+x
+```
+
+**Observação**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+A linguagem R possui diversos outros recursos, escritos em forma especial, que também são funções. Abaixo pontuarei alguns desses recursos, para que você tenha uma ideia, porém, existem mais:
+
+   * `(x)` com representação prefixa dada por `` `(`(x) ``;
+   * `x[i]` com representação prefixa dada por `` `[`(x, i) ``;
+   * `x[[i]]` com representação prefixa dada por `` `[[`(x, i) ``;
+   * `{x}` com representação prefixa dada por  `` `{`(x) ``;
+   * `if(condicao)` com representação prefixa dada por `` `if`(condicao, se_verdade, se_falso) ``;
+   * `for(variável in conjunto) ação` com representação prefixa dada por `` `for`(variável, conjunto, ação) ``;
+   * `while(condição) ação`  com representação prefixa dada por `` `while`(cond, action) ``.
+</div>
+```
+
+### Closures
+
+Como já sabemos, uma utilidade comum de funções anônimas está em criar pequenas funções que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função.
+
+Um outro importante uso de funções anônimas está na necessidade [**closures**](https://en.wikipedia.org/wiki/Closure_(computer_programming)). O conceito de **closures** surgiu na década de 1960 para avaliação de expressões no [**$\lambda$-calculus**](https://en.wikipedia.org/wiki/Lambda_calculus) (um sistema formal na lógica matemática para representar a computação com base na abstração de funções) e teve sua primeira implementação computacional em 1970 como um recurso da linguagem de programação [**PAL**](https://en.wikipedia.org/wiki/PAL_(programming_language)). Com o passar dos anos, diversas linguagens de programação permitiram o uso de **closures**, um recurso de programação muito utilizado quando necessitamos criar funções escritas por outras funções:
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+**Closure** possui esse nome por se tratar de uma função que encerra o seu ambiente, passando seus parâmetros para o ambiente da função mais interna, função esta que será retornada e que executará o trabalho desejado.
+</div>
+```
+
+O trecho de código abaixo exemplifica o uso de **closure**, em que a função `potencia()` (função pai) poderá gerar novas funções de interesse, cujo trabalho será executado pela função anônima interna à função `potencia()`. Por exemplo, poderemos criar os objetos `quadrado` e `cubo` que serão as funções `quadrado()` e `cubo()`, respectivamente, sem a necessidade de implementar cada uma dessas funções.
+
+
+```{r}
+potencia <- function(expoente) {
+   # Função anônima.
+   function(x) {
+      x ^ expoente
+   }
+}
+
+# Criando as funções quandrado() e cubo().
+quadrado <- potencia(2)
+cubo <- potencia(3)
+
+# Utilizando as funções criadas pela função potencia():
+quadrado(2)
+cubo(3)
+```
+
+**Importante**:
+
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+Perceba que as funções `quadrado()` e `cubo()` não foram implementadas diretamente. Além disso, nesse caso, note essas funções retornadas aos objetos `quadrado` e `cubo` são funções que possuem `x` como argumento que era argumento da função anônima.
+</div>
+```
+
+
+### Exercícios {-}
+
+1. Quais são os três componentes de uma função?
+
+2. Contrua o objeto `y` que retorne a saída abaixo:
+
+    ```{r, echo = FALSE}
+      y <- 1:10
+      attr(y, "att_1") <- "Isso é um atributo"
+      y
+    ```
+
+3. Remova o atributo `att_1` do objeto `y` acima.
+
+4. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+    f <- function(x){
+       f <- function(x){
+          f <- function(x){
+             x * 3
+          }
+          f(x) * 2
+       }
+       f(x) + 1
+    }
+    f(7)
+    ```
+
+5. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+       x <- 1
+       f <- function() {
+          x <- 0
+          x <<- x + 1
+          x
+       }
+       f(); x
+    ```
+
+
+6. O que o código abaixo retorna? **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função.
+
+    ```{r, eval = FALSE}
+    f <- function(){
+       y <- 0
+       g <- function(){
+          y <<- y + 1
+       }
+       list(rep(x = g(), times = y), rep(x = g(), times = y), rep(x = g(), times = y))
+    }
+
+    ```
+
+7. Implemente a função `%+%` que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função.
+
+    ```
+    "Estatística" %+% "Computacional"
+
+    ## [1] "Estatística Computacional"
+    ```
+
+8. Implemente a função segundo que trabalhe da seguinte forma:
+
+    ```
+       x <- 1:10
+       segundo(x) <- 5
+       x
+
+       ## [1] 1 5 3 4 5 6 7 8 9 10
+    ```
+
+9. Implemente a função `troca()` que trabalhe da forma abaixo:
+
+    ```
+       x <- 1:10
+       troca(x, 2) <- 7
+       x
+
+       ## [1] 1 7 3 4 5 6 7 8 9 10
+    ```
+
+9. Qual o retorno da função abaixo? Explique.
+
+    ```{r, eval = FALSE}
+    f <- function(y) {
+        function(x) {
+           x + y
+        }
+    }
+    g <- f(1)
+    g(x = 2)
+    ```
+
+10. Utilizando o conceito de **closure** e o operador `...` (**dot-dot-dot**), construa a função `cdf_expg(G)` que recebe como argumento uma função de distribuição (**qualquer**), seja ela denotada por $G$. A função `cdf_expg(G)` deverá retornar a função de distribuição $\mathrm{Exp}-G$ definida por 
+$$F(x) = G^a(x),$$
+com $a > 0$. Perceba que $F$ é uma nova distribuição de probabilidade com um parâmetro a mais ($a > 0$) e que possui a distribuição $G$ como caso particular quando $a = 1$. Por exemplo, se `cdf_weibull` é a implementação da distribuição Weibull, então `cdf_expg(G = cdf_weibull)` deverá retornar uma função que implementa a distribuição $\mathrm{Exp-Weibull}$. 
+
+<!-- cdf_weibull <- function(alpha, beta, x){ -->
+<!--   pweibull(q = x, shape = alpha, scale = beta) -->
 <!-- } -->
 
-<!-- # Forma prefixa: -->
-<!-- `%+%`("infix", 4) -->
-
-<!-- # Forma infixa: -->
-<!-- "infix" %+% 4 -->
-<!-- ``` -->
-
-<!-- ### Função de substituição -->
-
-<!-- Você muito provavelmente já deve ter feito uso de funções de substituição, como por exemplo, `names()`, `colnames()`, `rownames()`, entre outras funções. Essas são chamadas de funções de substituição devido ao comportamento que é expresso no código que segue: -->
-
-<!-- ```{r} -->
-<!-- vetor <- c(1,2,3) -->
-<!-- names(vetor) <- c("a", "b", "c") -->
-<!-- x -->
-<!-- ``` -->
-
-<!-- A função `names()`, para produzir o mesmo resultado do código acima, poderia ser invocada na foma que segue: -->
-
-<!-- ```{r} -->
-<!-- vetor <- c(1,2,3) -->
-<!-- `names<-`(x = vetor, value = c("a", "b", "c")) -->
-<!-- ``` -->
-
-<!-- Pelo código acima podemos perceber que as funções de substituição nada mais são que funções de dois argumentos, a saber `x` e `value`, respectivamente. Dessa forma, os valores passados à `value` modificam o objeto `x` que nesse caso são os nomes do objeto `vetor`. -->
-
-<!-- **Exemplo**: Implementação da função de substituição `samenames()` que atribui o mesmo nome à todos elementos do vetor `x`. -->
-
-<!-- ```{r} -->
-<!-- `samenames<-` <- function(x, value){ -->
-<!--    if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.") -->
-<!--    else{ -->
-<!--       names(x) <- rep(value, times = length(x)) -->
-<!--    } -->
-<!--    x -->
-<!-- } -->
-<!-- x <- 1L:10L -->
-<!-- samenames(x) <- "a" -->
-<!-- x -->
-<!-- ``` -->
-
-<!-- Em situações em que a função de substituição necessita de mais argumentos além dos argumentos obrigatórios `x` e `value`, deveremos colocá-los entre os argumentos `x` e `value`. No exemplo do código abaixo introduzimos o argumento `rm.id` em que, se desejarmos, poderemos omitir algumas posições do vetor `x`: -->
-
-
-<!-- ```{r} -->
-<!-- `samenames<-` <- function(x, rm.id = NULL, value){ -->
-
-<!--   if (length(value) != 1) stop("Um vetor de comprimento 1 deverá ser atribuído.") -->
-<!--   else if (!is.null(rm.id) && is.numeric(rm.id)){ -->
-<!--     x <- x[-rm.id] -->
-<!--     names(x) <- rep(value, times = length(x)) -->
-<!--   }else{ -->
-<!--     names(x) <- rep(value, times = length(x)) -->
+<!-- cdf_expg <- function(G){ -->
+<!--   function(x, a, ...){ -->
+<!--     G(x, ...) ^ a -->
 <!--   } -->
-<!--   x -->
 <!-- } -->
-<!-- x <- 1L:10L -->
-<!-- samenames(x) <- "a" -->
-<!-- # Removendo a primeira e a décima posição de x. -->
-<!-- samenames(x, c(1,10)) <- "a" -->
-<!-- x -->
-<!-- ``` -->
 
-<!-- **Observação**: -->
+<!-- cdf_expwibull <- cdf_expg(G = cdf_weibull) -->
 
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- A linguagem R possui diversos outros recursos, escritos em forma especial, que também são funções. Abaixo pontuarei alguns desses recursos, para que você tenha uma ideia, porém, existem mais: -->
+## Funcionais
 
-<!--    * `(x)` com representação prefixa dada por `` `(`(x) ``; -->
-<!--    * `x[i]` com representação prefixa dada por `` `[`(x, i) ``; -->
-<!--    * `x[[i]]` com representação prefixa dada por `` `[[`(x, i) ``; -->
-<!--    * `{x}` com representação prefixa dada por  `` `{`(x) ``; -->
-<!--    * `if(condicao)` com representação prefixa dada por `` `if`(condicao, se_verdade, se_falso) ``; -->
-<!--    * `for(variável in conjunto) ação` com representação prefixa dada por `` `for`(variável, conjunto, ação) ``; -->
-<!--    * `while(condição) ação`  com representação prefixa dada por `` `while`(cond, action) ``. -->
-<!-- </div> -->
-<!-- ``` -->
+Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída:
 
-<!-- ### Closures -->
+```{r}
+# A função f() é um funcional.
+f <- function(x, func) func(x)
 
-<!-- Como já sabemos, um uso comum de funções anônimas é criar pequenas funções em que não vale a pena nomear. Normalmente são funções pequenas que são passadas como argumento à outras funções, fornecendo assim menos ruídos visuais no código e nos livrando da necessidade de pensarmos em um bom nome para a função. -->
+# Passando uma função à f() por meio do argumento func.
+# Foi passado à func uma função anônima.
+f(x = c(1, 2, 7, 10), func = function(x) x + 1)
+```
 
-<!-- Um outro uso comum e importantes para funções anônimas é quando desejamos criar [**closures**](https://en.wikipedia.org/wiki/Closure_(computer_programming)). -->
+Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue:
 
-<!-- ### Exercícios {-} -->
+```{r}
+f <- function() mean(runif(n = 10, min = 0, max = 1))
+# A função loop() é um funcional.
+loop <- function(x, func) {
+   resultado <- NULL
+   for (i in seq_along(x))
+      resultado <- c(resultado, func())
+   resultado
+}
 
-<!-- 1. Quais são os três componentes de uma função? -->
+loop(x = 1:3, func = f)
+loop(x = 1:7, func = f)
+```
 
-<!-- 2. Contrua o objeto `y` que retorne a saída abaixo: -->
+A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição.
 
-<!--     ```{r, echo = FALSE} -->
-<!--       y <- 1:10 -->
-<!--       attr(y, "att_1") <- "Isso é um atributo" -->
-<!--       y -->
-<!--     ``` -->
+Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes.
 
-<!-- 3. Remova o atributo `att_1` do objeto `y` acima. -->
+> "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs."
 
-<!-- 4. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função. -->
+> --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B).
 
-<!--     ```{r, eval = FALSE} -->
-<!--     f <- function(x){ -->
-<!--        f <- function(x){ -->
-<!--           f <- function(x){ -->
-<!--              x * 3 -->
-<!--           } -->
-<!--           f(x) * 2 -->
-<!--        } -->
-<!--        f(x) + 1 -->
-<!--     } -->
-<!--     f(7) -->
-<!--     ``` -->
+### Funcionais do R Base
 
-<!-- 5. O que o código abaixo retorna? Explique. **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função. -->
+O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R.
 
-<!--     ```{r, eval = FALSE} -->
-<!--        x <- 1 -->
-<!--        f <- function() { -->
-<!--           x <- 0 -->
-<!--           x <<- x + 1 -->
-<!--           x -->
-<!--        } -->
-<!--        f(); x -->
-<!--     ``` -->
+**Observação**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.
+</div>
+```   
+
+#### apply
+
+Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz.
+
+#### sapply
+
+#### lapply
+
+#### vapply
+
+#### mapply
+
+#### Map
+
+### Funcionais do pacote purrr
 
 
-<!-- 6. O que o código abaixo retorna? **Dica**: para certificar-se que esteja entendendo, tente prever sem executar a função. -->
-
-<!--     ```{r, eval = FALSE} -->
-<!--     f <- function(){ -->
-<!--        y <- 0 -->
-<!--        g <- function(){ -->
-<!--           y <<- y + 1 -->
-<!--        } -->
-<!--        list(rep(x = g(), times = y), rep(x = g(), times = y), rep(x = g(), times = y)) -->
-<!--     } -->
-
-<!--     ``` -->
-
-<!-- 7. Implemente a função `%+%` que concatena duas strings. Permita que, por meio do uso prefixo da função, o usuário possa informar o caractere que separa as duas strings. Abaixo encontra-se um exemplo do uso infixo da função. -->
-
-<!--     ``` -->
-<!--     "Estatística" %+% "Computacional" -->
-
-<!--     ## [1] "Estatística Computacional" -->
-<!--     ``` -->
-
-<!-- 8. Implemente a função segundo que trabalhe da seguinte forma: -->
-
-<!--     ``` -->
-<!--        x <- 1:10 -->
-<!--        segundo(x) <- 5 -->
-<!--        x -->
-
-<!--        ## [1] 1 5 3 4 5 6 7 8 9 10 -->
-<!--     ``` -->
-
-<!-- 9. Implemente a função `troca()` que trabalhe da forma abaixo: -->
-
-<!--     ``` -->
-<!--        x <- 1:10 -->
-<!--        troca(x, 2) <- 7 -->
-<!--        x -->
-
-<!--        ## [1] 1 7 3 4 5 6 7 8 9 10 -->
-<!--     ``` -->
-
-<!-- 9. Qual o retorno da função abaixo? Explique. -->
-
-<!--     ```{r, eval = FALSE} -->
-<!--     f <- function(y) { -->
-<!--         function(x) { -->
-<!--            x + y -->
-<!--         } -->
-<!--     } -->
-<!--     g <- f(1) -->
-<!--     g(x = 2) -->
-<!--     ``` -->
-
-
-<!-- ## Funcionais -->
-
-<!-- ## Sistema S3 -->
+## Sistema S3

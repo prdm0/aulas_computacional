@@ -49,11 +49,9 @@ Após a instalação do [**git**](https://git-scm.com/) em seu sistema operacion
 \BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
   
 Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do [**Manjaro Linux**](https://manjaro.org/), a instalação do [**git**](https://git-scm.com/) é bastante fácil. No terminal do Linux, basta fazer: </br></br>
-  </div>\EndKnitrBlock{rmdobservation}
 
-```shell
-sudo pacman -S git 
-```
+
+`sudo pacman -S git`
   
 Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção [**Algumas distribuições**][Algumas distribuições], em que sugiro o uso do [**Manjaro Linux**](https://manjaro.org/) ou de distribuições GNU/Linux derivadas do [**Arch**](https://www.archlinux.org/). Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do [**git**](https://git-scm.com/).
 
@@ -64,7 +62,7 @@ No Linux, o [**terminal bach**](https://pt.wikipedia.org/wiki/Bash), que é inst
 Usuários do sistema operacional Windows poderão instalar facilmente o [**git**](https://git-scm.com/) considerando o executável fornecido [**aqui**](https://gitforwindows.org/index.html). Se o seu sistema for 64 bits, vá ao final da página e faça o download do arquivo **Git-x-64-bit.exe**, em que **x** dá lugar a versão do [**git**](https://git-scm.com/).
 
 Para esses usuários, durante o processo de instalação, no passo ***Adjusting your PATH environment***, é importante selecionar a última opção, conforme a imagem abaixo: 
-
+</div>\EndKnitrBlock{rmdobservation}
 <img src="images/git_windows_opcao.png" width="55%" style="display: block; margin: auto;" />
 
 Após a instalação do [**git**](https://git-scm.com/), em seu sistema operacional, abra o terminal e execute o comando `git --version`. Em caso de retorno da versão instalada do [**git**](https://git-scm.com/), muito provavelmente a instalação ocorreu corretamente.
@@ -73,8 +71,7 @@ Após a instalação do [**git**](https://git-scm.com/), em seu sistema operacio
 
 Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada ***commit*** (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de "carimbar" o autor da modificação. Sendo assim, no terminal, faça:
 
-
-```shell
+```
 git config --global user.name "seu nome ou sigla"
 git config --global user.email seu_email
 ```
@@ -128,7 +125,7 @@ Os comandos `cd`, `cd ..`, `ls`, `cp`, `mkdir`, `rm` e `mv` são comandos úteis
 
   3. `git init`: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome **DocVersionado**:
   
-      ```{shell},
+      ```
       cd /home/usuario/DocVersionado
       git init
       ```

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -57,9 +57,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -69,14 +69,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -85,9 +87,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -167,7 +169,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
 <li class="chapter" data-level="5.2.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>5.2.4</b> Avaliação preguiçosa</a></li>
 <li class="chapter" data-level="5.2.5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#varargs-dot-dot-dot"><i class="fa fa-check"></i><b>5.2.5</b> varargs: … (dot-dot-dot)</a></li>
+<li class="chapter" data-level="5.2.6" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-infixas"><i class="fa fa-check"></i><b>5.2.6</b> Funções infixas</a></li>
+<li class="chapter" data-level="5.2.7" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcao-de-substituicao"><i class="fa fa-check"></i><b>5.2.7</b> Função de substituição</a></li>
+<li class="chapter" data-level="5.2.8" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a></li>
+<li class="chapter" data-level="5.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a></li>
 </ul></li>
 </ul>
 
@@ -229,9 +237,8 @@ Figura 3.1: A imagem mais a esquerda refere-se ao terminal bash no linux e a mai
 
 <div class="rmdobservation">
 <div class="text-justify">
-Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a>, a instalação do <a href="https://git-scm.com/"><strong>git</strong></a> é bastante fácil. No terminal do Linux, basta fazer: </br></br>
-</div>
-<pre class="shell"><code>sudo pacman -S git </code></pre>
+<p>Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a>, a instalação do <a href="https://git-scm.com/"><strong>git</strong></a> é bastante fácil. No terminal do Linux, basta fazer: </br></br></p>
+<p><code>sudo pacman -S git</code></p>
 <p>Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção <a href="o-evangelho-do-gnulinux.html#algumas-distribuicoes"><strong>Algumas distribuições</strong></a>, em que sugiro o uso do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a> ou de distribuições GNU/Linux derivadas do <a href="https://www.archlinux.org/"><strong>Arch</strong></a>. Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
 <blockquote>
 <p><strong>Nota</strong>: Se você está utilizando alguma distribuição GNU/Linux baseada em Debian/Ubuntu, você poderá instalar o <a href="https://git-scm.com/"><strong>git</strong></a> fazendo <code>sud apt-get install git</code>. Outros a respetio da instalação do git poderão ser encontrados <a href="https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git"><strong>aqui</strong></a>.</p>
@@ -239,11 +246,12 @@ Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usu
 <p>No Linux, o <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, que é instalado por padrão, será o terminal que utilizaremos o <a href="https://git-scm.com/"><strong>git</strong></a>. Não há nenhuma necessidade de utilização de termais complementares. No <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, para facilitar, você pode chamar simplesmente de “terminal do linux” é onde configuramos o sistema operacional, instalamos programas, removemos programas, programamos, compilamos, <strong>utilizamos o git</strong>, etc. É incrível a flexibilidade e a quantidade de coisas que podemos fazer no terminal do Linux.</p>
 <p>Usuários do sistema operacional Windows poderão instalar facilmente o <a href="https://git-scm.com/"><strong>git</strong></a> considerando o executável fornecido <a href="https://gitforwindows.org/index.html"><strong>aqui</strong></a>. Se o seu sistema for 64 bits, vá ao final da página e faça o download do arquivo <strong>Git-x-64-bit.exe</strong>, em que <strong>x</strong> dá lugar a versão do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
 <p>Para esses usuários, durante o processo de instalação, no passo <strong><em>Adjusting your PATH environment</em></strong>, é importante selecionar a última opção, conforme a imagem abaixo:</p>
+</div>
 <p><img src="images/git_windows_opcao.png" width="55%" style="display: block; margin: auto;" /></p>
 <p>Após a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>, em seu sistema operacional, abra o terminal e execute o comando <code>git --version</code>. Em caso de retorno da versão instalada do <a href="https://git-scm.com/"><strong>git</strong></a>, muito provavelmente a instalação ocorreu corretamente.</p>
 </div>
 <p>Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada <strong><em>commit</em></strong> (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de “carimbar” o autor da modificação. Sendo assim, no terminal, faça:</p>
-<pre class="shell"><code>git config --global user.name &quot;seu nome ou sigla&quot;
+<pre><code>git config --global user.name &quot;seu nome ou sigla&quot;
 git config --global user.email seu_email</code></pre>
 <p><strong>Nota</strong>:</p>
 
@@ -287,7 +295,7 @@ Normalmente não utilizamos o comando <code>git config --global core.excludesfil
 </div>
 </div></li>
 <li><p><code>git init</code>: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome <strong>DocVersionado</strong>:</p>
-<pre class="{shell},"><code>cd /home/usuario/DocVersionado
+<pre><code>cd /home/usuario/DocVersionado
 git init</code></pre></li>
 <li><p><code>git status</code>: verifica o status das modificações dos arquivos e diretórios no interior de <strong>DocVersionado</strong>. Serão listados os arquivos que foram modificados, deletados e acrescentados no projeto.</p></li>
 <li><p><code>git add .</code>: adiciona todas as modificações que foram realizadas no <strong><em>Working Directory</em></strong> na <strong><em>Staging Area</em></strong>.</p></li>
