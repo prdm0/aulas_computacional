@@ -1301,7 +1301,7 @@ com $a > 0$. Perceba que $F$ é uma nova distribuição de probabilidade com um 
 <!--   } -->
 <!-- } -->
 
-<!-- cdf_expwibull <- cdf_expg(G = cdf_weibull) -->
+<!-- cdf_expweibull <- cdf_expg(G = cdf_weibull) -->
 
 ## Funcionais
 
