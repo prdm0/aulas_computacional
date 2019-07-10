@@ -1027,70 +1027,263 @@ com $a > 0$. Perceba que $F$ é uma nova distribuição de probabilidade com um 
 
 <!-- cdf_expwibull <- cdf_expg(G = cdf_weibull) -->
 
-<!-- ## Funcionais -->
+## Funcionais
 
-<!-- Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída: -->
+Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída:
 
-<!-- ```{r} -->
-<!-- # A função f() é um funcional. -->
-<!-- f <- function(x, func) func(x) -->
+```{r}
+# A função f() é um funcional.
+f <- function(x, func) func(x)
 
-<!-- # Passando uma função à f() por meio do argumento func. -->
-<!-- # Foi passado à func uma função anônima. -->
-<!-- f(x = c(1, 2, 7, 10), func = function(x) x + 1) -->
-<!-- ``` -->
+# Passando uma função à f() por meio do argumento func.
+# Foi passado à func uma função anônima.
+f(x = c(1, 2, 7, 10), func = function(x) x + 1)
+```
 
-<!-- Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue: -->
+Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue:
 
-<!-- ```{r} -->
-<!-- f <- function() mean(runif(n = 10, min = 0, max = 1)) -->
-<!-- # A função loop() é um funcional. -->
-<!-- loop <- function(x, func) { -->
-<!--    resultado <- NULL -->
-<!--    for (i in seq_along(x)) -->
-<!--       resultado <- c(resultado, func()) -->
-<!--    resultado -->
-<!-- } -->
+```{r}
+f <- function() mean(runif(n = 10, min = 0, max = 1))
+# A função loop() é um funcional.
+loop <- function(x, func) {
+   resultado <- NULL
+   for (i in seq_along(x))
+      resultado <- c(resultado, func())
+   resultado
+}
 
-<!-- loop(x = 1:3, func = f) -->
-<!-- loop(x = 1:7, func = f) -->
-<!-- ``` -->
+loop(x = 1:3, func = f)
+loop(x = 1:7, func = f)
+```
 
-<!-- A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição. -->
+A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição.
 
-<!-- Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes. -->
+Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes.
 
-<!-- > "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs." -->
+> "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs."
 
-<!-- > --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B). -->
+> --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B).
 
-<!-- ### Funcionais do R Base -->
+### Funcionais do R Base
 
-<!-- O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R. -->
+O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R.
 
-<!-- **Observação**: -->
+**Observação**:
 
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código. -->
-<!-- </div> -->
-<!-- ```    -->
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.
+</div>
+```
 
-<!-- #### apply -->
+#### apply
 
-<!-- Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz. -->
+Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote [**tibble**](https://tibble.tidyverse.org/). A estrutura tibble trata-se de uma releitura moderna de um data frame com um método `print()` aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe **tbl**. A forma geral do funcional `apply()` é dada por:
 
-<!-- #### sapply -->
+```{r, eval = FALSE}
+apply(X, MARGIN, FUN, ...)
+```
+em que: 
 
-<!-- #### lapply -->
+   * `X`: é a matriz/data frame ou tibble em que será aplicada uma função sobre seus elementos;
+   
+   * `MARGIN`: indica a dimensão em que a função irá ser aplicada. Se `MARGIN = 1` (padrão), temos que uma dada função será aplicada sobre as linhas de do objeto `X`. Fazendo `MARGIN = 1`, temos que uma dada função será aplicada sobre todas as colunas do objeto `X`;
+   
+   * `FUN`: função que iremos aplicar em uma das dimensões do objeto `X`. Dessa forma, o funcional `apply()` tomará cada linha ou coluna (a depender de `MARGIN`) como sendo o primeiro arugmento da função passada à `FUN`;
+   
+   * `...`: operador [**dot-dot-dot**][varargs: ... (dot-dot-dot)] discutido em tópicos anteriores. Isso permitirá que possamos acessar os argumentos da função passada à `FUN` passando estes argmento ao funcional `apply()`.
+   
+**Exemplo**: Aplicando a função `mean()` sobre linhas e colunas do objeto `M` (uma matriz). O uso do funcional `apply()` seria equivalente se `M` fosse um data frame ou uma tibble.
 
-<!-- #### vapply -->
+```{r}
+# Construindo a matriz m de orden 5x5.
+M <- matrix(data = 1:25, nrow = 5, ncol = 5)
+# Aplicando a função mean() sobre cada linha de m.
+apply(X = M, MARGIN = 1, mean)
+# Aplicando a função mean() sobre cada coluna de m.
+apply(X = M, MARGIN = 2, mean)
+```
 
-<!-- #### mapply -->
+#### lapply, sapply e vapply
 
-<!-- #### Map -->
+Os funcionais `lapply()`, `sapply()` e `vapply()` foi introduzido o mesmo tópico, visto que eles tem muito em comum. Tais funcionais permitem que venhamos aplicar uma função à elementos de um vetor ou elementos de uma lista. 
+
+**Uso**:
+
+```{r, eval = FALSE}
+lapply(X, FUN, ...)
+
+sapply(X, FUN, ..., simplify = TRUE)
+
+vapply(X, FUN, FUN.VALUE, ...)
+```
+
+O funcional `lapply()` retorna uma lista do mesmo tamanho que `X`, em que cada elemento é o resultado da aplicação de `FUN` no elemento correspondente de `X`. Já o funcional `sapply()` é bastante semelhante ao funcional `lapply()`, sendo o retorno a diferença mais notável, visto que `lapply()` sempre retornará uma lista e `sapply()` retorna uma estrutura que melhor poderá comportar as informações, havendo uma espécie de simplificação da estrutura a ser retornada. Considere o trecho de código que segue
+
+```{r}
+# Criando um vetor double.
+x <- list(c(1,7,4,3), c(1,2,3,6))
+# A função f() retorna uma matrix de caracter.
+f <- function(x){
+   as.character(round(sin(x), digits = 2))
+}
+
+lapply(X = x, FUN = f)
+sapply(X = x, FUN = f)
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Perceba que para o exemplo acima, `lapply(X = x, FUN = f)` equivale a fazer `sapply(X = x, FUN = f, simplify = FALSE)`.
+</div>
+```
+
+Por sua vez, o funcional `vapply()` é bastante similar ao funcional `sapply()`, porém, podemos especificar os tipos de valor de retorno. Considere o trecho de código abaixo que mostra o uso da função `vapply()`. Perceba, no código de segue, que `FUN.VALUE` recebe como argumento o tipo esperado de retorno da função `f()` e o tamanho do vetor retornado ao aplicar a função `f()` à cada elemento da lista passada à `X`.
+
+```{r}
+# Criando um vetor double.
+x <- list(c(1,7,4,3), c(1,2,3,6))
+# A função f() retorna uma matrix de caracter.
+f <- function(x){
+  as.character(trunc(sum(x)))
+}
+
+# O retorno será uma matriz.
+resultado <- vapply(X = x, FUN = f, FUN.VALUE = character(1))
+resultado
+```
+
+**Nota**: 
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+O funcional `vapply()` poderá dar um pouco mais de segurança quando comparado ao funcional `sapply()`, visto que poderemos especiticar o tipo de retorno esperado. Dessa forma, é de se esperar que a função `vapply()` poderá "reclamar" um pouco mais que a função `sapply()`. 
+</div>
+```
+
+#### Map, mapply
+
+Considere a função `mp()` que recebe como argumento dois vetores de mesmo comprimento e que calcula a média ponderada do vetor passado ao argumento `x` considerando um vetor de pesos passado à `y`.
+
+```{r}
+mp <- function(x, y){
+   # x é o vetor que desejamos calcular a média ponderada.
+   # y é o vetor de pesos.
+   if (length(x) != length(y)) 
+      stop("O vetor x deve ter o mesmo comprimento do vetor de pesos y.")
+   sum(x*y)/sum(y)
+}
+mp(x = c(4, 6.5), y = c(6, 4))
+```
+
+Considerando algum dos funcionais apresentados anteriormente, poderemos facilmente aplicar `mp()` à todos elementos de uma lista de vetores com vetor de pesos fixos, como mostra o código abaixo:
+
+```{r}
+mp <- function(x, y){
+   # x é o vetor que desejamos calcular a média ponderada.
+   # y é o vetor de pesos.
+   if (length(x) != length(y)) 
+      stop("O vetor x deve ter o mesmo comprimento do vetor de pesos y.")
+   # Média ponderada.
+   sum(x*y)/sum(y)
+}
+
+valores <- list(c(7.3, 3.2, 1.5), c(8.4, 4.7, 5.1), c(10, 9.7, 9.6), c(8.5, 7.2, 7.7))
+pesos <- c(5, 3, 2) # Pesos fixos.
+
+# Usando lapply():
+lapply(X = valores, FUN = mp, y = pesos)
+# Usando sapply():
+sapply(X = valores, FUN = mp, y = pesos, simplify = TRUE)
+# Usando vapply():
+vapply(X = valores, FUN = mp, y = pesos, FUN.VALUE = double(1))
+```
+
+Ao contrário dos funcionais anteriores, em que apenas um dos argumentos da função varia, os funcionais `Map()` e `mapply()` permitirão que outros argumentos da função possa também variar. Por exemplo, considere uma pequena modificação do caso anterior, com a diferença de que o objeto `pesos` será uma lista de pesos. Esse problema poderá ser resolvido utilizando o funcional `Map()` e `mapply()`, como mostra o exemplo abaixo:
+
+```{r}
+mp <- function(x, y){
+   # x é o vetor que desejamos calcular a média ponderada.
+   # y é o vetor de pesos.
+   if (length(x) != length(y)) 
+      stop("O vetor x deve ter o mesmo comprimento do vetor de pesos y.")
+   # Média ponderada.
+   sum(x*y)/sum(y)
+}
+
+valores <- list(c(7.3, 3.2, 1.5), c(8.4, 4.7, 5.1), c(10, 9.7, 9.6), c(8.5, 7.2, 7.7))
+pesos <- list(c(5, 3, 2), c(3, 6, 1), c(4, 4, 2), c(7, 1, 2)) # Pesos fixos.
+# Utilizando o funcional Map().
+Map(f = mp, x = valores, y = pesos)
+# Utilizando o funcional mapply().
+mapply(FUN = mp, x = valores, y = pesos)
+```
+
+**Importante**: 
+
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+   * O funcional `mapply()` funciona de forma bastante semelhante à `Map()`, retornando um vetor ao invés de uma lista.
+   
+   * A linguagem R possui um função para o cálculo de média ponderanda. Veja a documentação da função `weighted.mean()`. Implementamos a função `mp()` apenas para deixar claro que os funcionais se aplicam à qualquer função de R, incluindo as funções que implementamos.
+</div>
+```
 
 <!-- ### Funcionais do pacote purrr -->
 
+### Exercícios {-}
+
+1. Considerando o data frame **iris** (150 observações e 5 variáveis), obtenha a média das variáveis quantitativas por meio do uso de um funcional.
+
+2. O que o código abaixo faz? Reescreva o código abaixo, substitundo o loop `for()` pelo uso de um funcional. **Dica**: Utilize a função `sapply()`.
+
+    ```{r}
+    vetor <- 1L:10L
+    f <- function(x){
+       v <- c()
+       for(i in seq_along(x)){
+          v[i] <- x[i] + x[i+1] 
+       }
+    
+       # A função na.omit() remove ocorrências de NA 
+       # no vetor passado como argumento.
+       v <- na.omit(v) 
+       attributes(v) <- NULL; v
+    }
+    ```      
+<!-- vetor <- 1L:5e6L -->
+<!-- f <- function(x){ -->
+<!--     v <- c() -->
+<!--     for(i in seq_along(x)){ -->
+<!--       v[i] <- x[i] + x[i+1] -->
+<!--     } -->
+
+<!--     # A função na.omit() remove ocorrências de NA -->
+<!--     # no vetor passado como argumento. -->
+<!--     v <- na.omit(v) -->
+<!--     attributes(v) <- NULL; v -->
+<!-- } -->
+
+<!-- system.time(f(vetor)) -->
+
+<!-- mydiff <- function(i, x){ -->
+<!--    x[i] + x[i+1] -->
+<!-- } -->
+
+<!-- loop <- function() sapply(X = 1L:(5e6L-1), FUN = mydiff, x = 1L:5e6L) -->
+
+3. Refaça o exercício anterior utilizando a função `vapply()`.
+
+4. Implemente a função `isnumeric(x)` que deverá recebe um data frame e retornar um vetor lógico informando `TRUE`, se a coluna é numerica ou `FALSE`, caso contrário. Implemente de três formas, tal que:
+
+   * **Forma 1**: Implementar utilizando a estrutura de repetição `for()`;
+   
+   * **Forma 2**: Implementar utilizando o funcional `sapply()`;
+   
+   * **Forma 3**: Implementar utilizando o functional `vapply()`.
+
+5. A função `unique()` quando aplicada à um vetor, retornará um outro vetor com os elementos não repetidos do vetor passado como argumento à `unique()`. Implemente a função `countdiff(x)` que recebe como argumento um vetor, matriz ou tabela (data frame), de forma que retorne a quantidade de elementos distintos no vetor ou nas colunas da matriz/tabala.
 
 <!-- ## Sistema S3 -->

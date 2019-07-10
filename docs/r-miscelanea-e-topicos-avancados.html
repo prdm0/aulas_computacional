@@ -174,6 +174,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.8" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-3"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -991,48 +995,260 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <!--   } -->
 <!-- } -->
 <!-- cdf_expwibull <- cdf_expg(G = cdf_weibull) -->
-<!-- ## Funcionais -->
-<!-- Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional `f()`, retornando um vetor como saída: -->
-<!-- ```{r} -->
-<!-- # A função f() é um funcional. -->
-<!-- f <- function(x, func) func(x) -->
-<!-- # Passando uma função à f() por meio do argumento func. -->
-<!-- # Foi passado à func uma função anônima. -->
-<!-- f(x = c(1, 2, 7, 10), func = function(x) x + 1) -->
-<!-- ``` -->
-<!-- Perceba que a função `f()` é um funcional, visto que `f()` recebe uma função por meio do argumento `func` e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento `x` de `f()` acrescido de um. Considere agora o trecho que segue: -->
-<!-- ```{r} -->
-<!-- f <- function() mean(runif(n = 10, min = 0, max = 1)) -->
-<!-- # A função loop() é um funcional. -->
-<!-- loop <- function(x, func) { -->
-<!--    resultado <- NULL -->
-<!--    for (i in seq_along(x)) -->
-<!--       resultado <- c(resultado, func()) -->
-<!--    resultado -->
-<!-- } -->
-<!-- loop(x = 1:3, func = f) -->
-<!-- loop(x = 1:7, func = f) -->
-<!-- ``` -->
-<!-- A função `loop()` é um funcional que reproduz a função passada ao argumento `func` um quantidade qualquer de vezes. No exemplo acima, `loop(x = 1:3, func = f)` e `loop(x = 1:7, func = f)` reproduz `f()` 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir `f()` 10 (dez) vezes, bastaria fazer `loop(x = 1:10, func = f)` ao invés de escrever novamente um laço com alguma estrutura de repetição. -->
-<!-- Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional `loop()`. Nesse exemplo, toda vez que chamamos `loop()`, o que internamente está sendo feito é um loop utilizando a estrutura de repetição `for`. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no **R base** ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes. -->
-<!-- > "Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs." -->
-<!-- > --- [**Bjarne Stroustrup**](https://pt.wikipedia.org/wiki/Bjarne_Stroustrup), criador da linguagem de programação [**C++**](https://pt.wikipedia.org/wiki/C%2B%2B). -->
-<!-- ### Funcionais do R Base -->
-<!-- O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com [**paradigma funcional**](https://en.wikipedia.org/wiki/Functional_programming) e em linguagens multiparadigmas, como é o caso da linguagem R. -->
-<!-- **Observação**: -->
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código. -->
-<!-- </div> -->
-<!-- ```    -->
-<!-- #### apply -->
-<!-- Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz. -->
-<!-- #### sapply -->
-<!-- #### lapply -->
-<!-- #### vapply -->
-<!-- #### mapply -->
-<!-- #### Map -->
+</div>
+</div>
+<div id="funcionais" class="section level2">
+<h2><span class="header-section-number">5.3</span> Funcionais</h2>
+<p>Funcionais não são nada a mais que funções que recebe como argumento uma outra função como argumento e retorna um vetor como saída. O trecho de código que segue implementa o funcional <code>f()</code>, retornando um vetor como saída:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="r-miscelanea-e-topicos-avancados.html#cb176-1"></a><span class="co"># A função f() é um funcional.</span></span>
+<span id="cb176-2"><a href="r-miscelanea-e-topicos-avancados.html#cb176-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, func) <span class="kw">func</span>(x)</span>
+<span id="cb176-3"><a href="r-miscelanea-e-topicos-avancados.html#cb176-3"></a></span>
+<span id="cb176-4"><a href="r-miscelanea-e-topicos-avancados.html#cb176-4"></a><span class="co"># Passando uma função à f() por meio do argumento func.</span></span>
+<span id="cb176-5"><a href="r-miscelanea-e-topicos-avancados.html#cb176-5"></a><span class="co"># Foi passado à func uma função anônima.</span></span>
+<span id="cb176-6"><a href="r-miscelanea-e-topicos-avancados.html#cb176-6"></a><span class="kw">f</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">10</span>), <span class="dt">func =</span> <span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span></code></pre>
+<pre><code>## [1]  2  3  8 11</code></pre>
+<p>Perceba que a função <code>f()</code> é um funcional, visto que <code>f()</code> recebe uma função por meio do argumento <code>func</code> e retorna um vetor como saída, que nesse caso é o vetor passado ao argumento <code>x</code> de <code>f()</code> acrescido de um. Considere agora o trecho que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="r-miscelanea-e-topicos-avancados.html#cb178-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>() <span class="kw">mean</span>(<span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>))</span>
+<span id="cb178-2"><a href="r-miscelanea-e-topicos-avancados.html#cb178-2"></a><span class="co"># A função loop() é um funcional.</span></span>
+<span id="cb178-3"><a href="r-miscelanea-e-topicos-avancados.html#cb178-3"></a>loop &lt;-<span class="st"> </span><span class="cf">function</span>(x, func) {</span>
+<span id="cb178-4"><a href="r-miscelanea-e-topicos-avancados.html#cb178-4"></a>   resultado &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb178-5"><a href="r-miscelanea-e-topicos-avancados.html#cb178-5"></a>   <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(x))</span>
+<span id="cb178-6"><a href="r-miscelanea-e-topicos-avancados.html#cb178-6"></a>      resultado &lt;-<span class="st"> </span><span class="kw">c</span>(resultado, <span class="kw">func</span>())</span>
+<span id="cb178-7"><a href="r-miscelanea-e-topicos-avancados.html#cb178-7"></a>   resultado</span>
+<span id="cb178-8"><a href="r-miscelanea-e-topicos-avancados.html#cb178-8"></a>}</span>
+<span id="cb178-9"><a href="r-miscelanea-e-topicos-avancados.html#cb178-9"></a></span>
+<span id="cb178-10"><a href="r-miscelanea-e-topicos-avancados.html#cb178-10"></a><span class="kw">loop</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">func =</span> f)</span></code></pre>
+<pre><code>## [1] 0.3702804 0.7174270 0.3805153</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="r-miscelanea-e-topicos-avancados.html#cb180-1"></a><span class="kw">loop</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">func =</span> f)</span></code></pre>
+<pre><code>## [1] 0.5092227 0.4038002 0.5425011 0.5148392 0.2298425 0.3374357 0.3344574</code></pre>
+<p>A função <code>loop()</code> é um funcional que reproduz a função passada ao argumento <code>func</code> um quantidade qualquer de vezes. No exemplo acima, <code>loop(x = 1:3, func = f)</code> e <code>loop(x = 1:7, func = f)</code> reproduz <code>f()</code> 3 (três) e 7 (sete) vezes, respectivamente. Em situações em que você deseja reproduzir uma função ou aplicá-la à cada posição de um vetor ou lista e isso se repete por diversas partes do seu código, o uso de um funcional poderá deixar seu código mais limpo, sem a necessidade de escrever muitas estruturas de repetições. No exemplo acima, se em outra parte do código houvesse a necessidade de reproduzir <code>f()</code> 10 (dez) vezes, bastaria fazer <code>loop(x = 1:10, func = f)</code> ao invés de escrever novamente um laço com alguma estrutura de repetição.</p>
+<p>Escrever estruturas de repetições, na forma acima, não é muito útil do ponto de vista de desempenho computacional, uma vez que não há melhoria no desempenho do código que seria obtido ao se implementar os loops sem o uso do funcional <code>loop()</code>. Nesse exemplo, toda vez que chamamos <code>loop()</code>, o que internamente está sendo feito é um loop utilizando a estrutura de repetição <code>for</code>. A melhor forma, em R, de se fazer uso de funcionais é considerar os que já estão implementados de forma consistente, utilizando linguagens mais eficientes, como, por exemplo, os funcionais de R escritos em C/C++ ou Fortran (códigos mais antigos) e que estão disponíveis no <strong>R base</strong> ou em pacotes suplementares. Fazer uso desses funcionais nos trará o benefício de escrever estruturas de repetições sem a necessidade de implementar essa estrutura toda vez que necessitarmos, além do benefício de substituir uma estrutura de repetição de R, que naturalmente são lentas, por funcionais que são muito mais eficientes.</p>
+<blockquote>
+<p>“Para se tornar significativamente mais confiável, o código deve se tornar mais transparente. Em particular, condições aninhadas e loops devem ser vistos com grande suspeita. Fluxos de controle complicados confundem os programadores. O código bagunçado geralmente esconde bugs.”</p>
+</blockquote>
+<blockquote>
+<p>— <a href="https://pt.wikipedia.org/wiki/Bjarne_Stroustrup"><strong>Bjarne Stroustrup</strong></a>, criador da linguagem de programação <a href="https://pt.wikipedia.org/wiki/C%2B%2B"><strong>C++</strong></a>.</p>
+</blockquote>
+<div id="funcionais-do-r-base" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Funcionais do R Base</h3>
+<p>O pacote <strong>base</strong> da linguagem R (algumas vezes chamo de <strong>R Base</strong>) possui alguns funcionais que podem ser bastante úteis em diversas situações. Tentar evitar escrever estruturas de repetições por meio do uso de funcionais é uma prática útil e algo bastante comum em linguagens de programação com <a href="https://en.wikipedia.org/wiki/Functional_programming"><strong>paradigma funcional</strong></a> e em linguagens multiparadigmas, como é o caso da linguagem R.</p>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas <code>for</code>, <code>while</code> e <code>repeat</code>. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.</p>
+</div>
+</div>
+
+<div id="apply" class="section level4">
+<h4><span class="header-section-number">5.3.1.1</span> apply</h4>
+<p>Trata-se de um funcional bastante conhecido em R, implementado no <strong>R Base</strong>. O funcional <code>apply()</code> é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote <a href="https://tibble.tidyverse.org/"><strong>tibble</strong></a>. A estrutura tibble trata-se de uma releitura moderna de um data frame com um método <code>print()</code> aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe <strong>tbl</strong>. A forma geral do funcional <code>apply()</code> é dada por:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="r-miscelanea-e-topicos-avancados.html#cb182-1"></a><span class="kw">apply</span>(X, MARGIN, FUN, ...)</span></code></pre>
+<p>em que:</p>
+<ul>
+<li><p><code>X</code>: é a matriz/data frame ou tibble em que será aplicada uma função sobre seus elementos;</p></li>
+<li><p><code>MARGIN</code>: indica a dimensão em que a função irá ser aplicada. Se <code>MARGIN = 1</code> (padrão), temos que uma dada função será aplicada sobre as linhas de do objeto <code>X</code>. Fazendo <code>MARGIN = 1</code>, temos que uma dada função será aplicada sobre todas as colunas do objeto <code>X</code>;</p></li>
+<li><p><code>FUN</code>: função que iremos aplicar em uma das dimensões do objeto <code>X</code>. Dessa forma, o funcional <code>apply()</code> tomará cada linha ou coluna (a depender de <code>MARGIN</code>) como sendo o primeiro arugmento da função passada à <code>FUN</code>;</p></li>
+<li><p><code>...</code>: operador <a href="r-miscelanea-e-topicos-avancados.html#varargs-dot-dot-dot"><strong>dot-dot-dot</strong></a> discutido em tópicos anteriores. Isso permitirá que possamos acessar os argumentos da função passada à <code>FUN</code> passando estes argmento ao funcional <code>apply()</code>.</p></li>
+</ul>
+<p><strong>Exemplo</strong>: Aplicando a função <code>mean()</code> sobre linhas e colunas do objeto <code>M</code> (uma matriz). O uso do funcional <code>apply()</code> seria equivalente se <code>M</code> fosse um data frame ou uma tibble.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="r-miscelanea-e-topicos-avancados.html#cb183-1"></a><span class="co"># Construindo a matriz m de orden 5x5.</span></span>
+<span id="cb183-2"><a href="r-miscelanea-e-topicos-avancados.html#cb183-2"></a>M &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">25</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb183-3"><a href="r-miscelanea-e-topicos-avancados.html#cb183-3"></a><span class="co"># Aplicando a função mean() sobre cada linha de m.</span></span>
+<span id="cb183-4"><a href="r-miscelanea-e-topicos-avancados.html#cb183-4"></a><span class="kw">apply</span>(<span class="dt">X =</span> M, <span class="dt">MARGIN =</span> <span class="dv">1</span>, mean)</span></code></pre>
+<pre><code>## [1] 11 12 13 14 15</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="r-miscelanea-e-topicos-avancados.html#cb185-1"></a><span class="co"># Aplicando a função mean() sobre cada coluna de m.</span></span>
+<span id="cb185-2"><a href="r-miscelanea-e-topicos-avancados.html#cb185-2"></a><span class="kw">apply</span>(<span class="dt">X =</span> M, <span class="dt">MARGIN =</span> <span class="dv">2</span>, mean)</span></code></pre>
+<pre><code>## [1]  3  8 13 18 23</code></pre>
+</div>
+<div id="lapply-sapply-e-vapply" class="section level4">
+<h4><span class="header-section-number">5.3.1.2</span> lapply, sapply e vapply</h4>
+<p>Os funcionais <code>lapply()</code>, <code>sapply()</code> e <code>vapply()</code> foi introduzido o mesmo tópico, visto que eles tem muito em comum. Tais funcionais permitem que venhamos aplicar uma função à elementos de um vetor ou elementos de uma lista.</p>
+<p><strong>Uso</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="r-miscelanea-e-topicos-avancados.html#cb187-1"></a><span class="kw">lapply</span>(X, FUN, ...)</span>
+<span id="cb187-2"><a href="r-miscelanea-e-topicos-avancados.html#cb187-2"></a></span>
+<span id="cb187-3"><a href="r-miscelanea-e-topicos-avancados.html#cb187-3"></a><span class="kw">sapply</span>(X, FUN, ..., <span class="dt">simplify =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb187-4"><a href="r-miscelanea-e-topicos-avancados.html#cb187-4"></a></span>
+<span id="cb187-5"><a href="r-miscelanea-e-topicos-avancados.html#cb187-5"></a><span class="kw">vapply</span>(X, FUN, FUN.VALUE, ...)</span></code></pre>
+<p>O funcional <code>lapply()</code> retorna uma lista do mesmo tamanho que <code>X</code>, em que cada elemento é o resultado da aplicação de <code>FUN</code> no elemento correspondente de <code>X</code>. Já o funcional <code>sapply()</code> é bastante semelhante ao funcional <code>lapply()</code>, sendo o retorno a diferença mais notável, visto que <code>lapply()</code> sempre retornará uma lista e <code>sapply()</code> retorna uma estrutura que melhor poderá comportar as informações, havendo uma espécie de simplificação da estrutura a ser retornada. Considere o trecho de código que segue</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="r-miscelanea-e-topicos-avancados.html#cb188-1"></a><span class="co"># Criando um vetor double.</span></span>
+<span id="cb188-2"><a href="r-miscelanea-e-topicos-avancados.html#cb188-2"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>))</span>
+<span id="cb188-3"><a href="r-miscelanea-e-topicos-avancados.html#cb188-3"></a><span class="co"># A função f() retorna uma matrix de caracter.</span></span>
+<span id="cb188-4"><a href="r-miscelanea-e-topicos-avancados.html#cb188-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb188-5"><a href="r-miscelanea-e-topicos-avancados.html#cb188-5"></a>   <span class="kw">as.character</span>(<span class="kw">round</span>(<span class="kw">sin</span>(x), <span class="dt">digits =</span> <span class="dv">2</span>))</span>
+<span id="cb188-6"><a href="r-miscelanea-e-topicos-avancados.html#cb188-6"></a>}</span>
+<span id="cb188-7"><a href="r-miscelanea-e-topicos-avancados.html#cb188-7"></a></span>
+<span id="cb188-8"><a href="r-miscelanea-e-topicos-avancados.html#cb188-8"></a><span class="kw">lapply</span>(<span class="dt">X =</span> x, <span class="dt">FUN =</span> f)</span></code></pre>
+<pre><code>## [[1]]
+## [1] &quot;0.84&quot;  &quot;0.66&quot;  &quot;-0.76&quot; &quot;0.14&quot; 
+## 
+## [[2]]
+## [1] &quot;0.84&quot;  &quot;0.91&quot;  &quot;0.14&quot;  &quot;-0.28&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="r-miscelanea-e-topicos-avancados.html#cb190-1"></a><span class="kw">sapply</span>(<span class="dt">X =</span> x, <span class="dt">FUN =</span> f)</span></code></pre>
+<pre><code>##      [,1]    [,2]   
+## [1,] &quot;0.84&quot;  &quot;0.84&quot; 
+## [2,] &quot;0.66&quot;  &quot;0.91&quot; 
+## [3,] &quot;-0.76&quot; &quot;0.14&quot; 
+## [4,] &quot;0.14&quot;  &quot;-0.28&quot;</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Perceba que para o exemplo acima, <code>lapply(X = x, FUN = f)</code> equivale a fazer <code>sapply(X = x, FUN = f, simplify = FALSE)</code>.</p>
+</div>
+</div>
+
+<p>Por sua vez, o funcional <code>vapply()</code> é bastante similar ao funcional <code>sapply()</code>, porém, podemos especificar os tipos de valor de retorno. Considere o trecho de código abaixo que mostra o uso da função <code>vapply()</code>. Perceba, no código de segue, que <code>FUN.VALUE</code> recebe como argumento o tipo esperado de retorno da função <code>f()</code> e o tamanho do vetor retornado ao aplicar a função <code>f()</code> à cada elemento da lista passada à <code>X</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="r-miscelanea-e-topicos-avancados.html#cb192-1"></a><span class="co"># Criando um vetor double.</span></span>
+<span id="cb192-2"><a href="r-miscelanea-e-topicos-avancados.html#cb192-2"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>))</span>
+<span id="cb192-3"><a href="r-miscelanea-e-topicos-avancados.html#cb192-3"></a><span class="co"># A função f() retorna uma matrix de caracter.</span></span>
+<span id="cb192-4"><a href="r-miscelanea-e-topicos-avancados.html#cb192-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb192-5"><a href="r-miscelanea-e-topicos-avancados.html#cb192-5"></a>  <span class="kw">as.character</span>(<span class="kw">trunc</span>(<span class="kw">sum</span>(x)))</span>
+<span id="cb192-6"><a href="r-miscelanea-e-topicos-avancados.html#cb192-6"></a>}</span>
+<span id="cb192-7"><a href="r-miscelanea-e-topicos-avancados.html#cb192-7"></a></span>
+<span id="cb192-8"><a href="r-miscelanea-e-topicos-avancados.html#cb192-8"></a><span class="co"># O retorno será uma matriz.</span></span>
+<span id="cb192-9"><a href="r-miscelanea-e-topicos-avancados.html#cb192-9"></a>resultado &lt;-<span class="st"> </span><span class="kw">vapply</span>(<span class="dt">X =</span> x, <span class="dt">FUN =</span> f, <span class="dt">FUN.VALUE =</span> <span class="kw">character</span>(<span class="dv">1</span>))</span>
+<span id="cb192-10"><a href="r-miscelanea-e-topicos-avancados.html#cb192-10"></a>resultado</span></code></pre>
+<pre><code>## [1] &quot;15&quot; &quot;12&quot;</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>O funcional <code>vapply()</code> poderá dar um pouco mais de segurança quando comparado ao funcional <code>sapply()</code>, visto que poderemos especiticar o tipo de retorno esperado. Dessa forma, é de se esperar que a função <code>vapply()</code> poderá “reclamar” um pouco mais que a função <code>sapply()</code>.</p>
+</div>
+</div>
+
+</div>
+<div id="map-mapply" class="section level4">
+<h4><span class="header-section-number">5.3.1.3</span> Map, mapply</h4>
+<p>Considere a função <code>mp()</code> que recebe como argumento dois vetores de mesmo comprimento e que calcula a média ponderada do vetor passado ao argumento <code>x</code> considerando um vetor de pesos passado à <code>y</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="r-miscelanea-e-topicos-avancados.html#cb194-1"></a>mp &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
+<span id="cb194-2"><a href="r-miscelanea-e-topicos-avancados.html#cb194-2"></a>   <span class="co"># x é o vetor que desejamos calcular a média ponderada.</span></span>
+<span id="cb194-3"><a href="r-miscelanea-e-topicos-avancados.html#cb194-3"></a>   <span class="co"># y é o vetor de pesos.</span></span>
+<span id="cb194-4"><a href="r-miscelanea-e-topicos-avancados.html#cb194-4"></a>   <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(y)) </span>
+<span id="cb194-5"><a href="r-miscelanea-e-topicos-avancados.html#cb194-5"></a>      <span class="kw">stop</span>(<span class="st">&quot;O vetor x deve ter o mesmo comprimento do vetor de pesos y.&quot;</span>)</span>
+<span id="cb194-6"><a href="r-miscelanea-e-topicos-avancados.html#cb194-6"></a>   <span class="kw">sum</span>(x<span class="op">*</span>y)<span class="op">/</span><span class="kw">sum</span>(y)</span>
+<span id="cb194-7"><a href="r-miscelanea-e-topicos-avancados.html#cb194-7"></a>}</span>
+<span id="cb194-8"><a href="r-miscelanea-e-topicos-avancados.html#cb194-8"></a><span class="kw">mp</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="fl">6.5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span></code></pre>
+<pre><code>## [1] 5</code></pre>
+<p>Considerando algum dos funcionais apresentados anteriormente, poderemos facilmente aplicar <code>mp()</code> à todos elementos de uma lista de vetores com vetor de pesos fixos, como mostra o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="r-miscelanea-e-topicos-avancados.html#cb196-1"></a>mp &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
+<span id="cb196-2"><a href="r-miscelanea-e-topicos-avancados.html#cb196-2"></a>   <span class="co"># x é o vetor que desejamos calcular a média ponderada.</span></span>
+<span id="cb196-3"><a href="r-miscelanea-e-topicos-avancados.html#cb196-3"></a>   <span class="co"># y é o vetor de pesos.</span></span>
+<span id="cb196-4"><a href="r-miscelanea-e-topicos-avancados.html#cb196-4"></a>   <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(y)) </span>
+<span id="cb196-5"><a href="r-miscelanea-e-topicos-avancados.html#cb196-5"></a>      <span class="kw">stop</span>(<span class="st">&quot;O vetor x deve ter o mesmo comprimento do vetor de pesos y.&quot;</span>)</span>
+<span id="cb196-6"><a href="r-miscelanea-e-topicos-avancados.html#cb196-6"></a>   <span class="co"># Média ponderada.</span></span>
+<span id="cb196-7"><a href="r-miscelanea-e-topicos-avancados.html#cb196-7"></a>   <span class="kw">sum</span>(x<span class="op">*</span>y)<span class="op">/</span><span class="kw">sum</span>(y)</span>
+<span id="cb196-8"><a href="r-miscelanea-e-topicos-avancados.html#cb196-8"></a>}</span>
+<span id="cb196-9"><a href="r-miscelanea-e-topicos-avancados.html#cb196-9"></a></span>
+<span id="cb196-10"><a href="r-miscelanea-e-topicos-avancados.html#cb196-10"></a>valores &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="fl">7.3</span>, <span class="fl">3.2</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">8.4</span>, <span class="fl">4.7</span>, <span class="fl">5.1</span>), <span class="kw">c</span>(<span class="dv">10</span>, <span class="fl">9.7</span>, <span class="fl">9.6</span>), <span class="kw">c</span>(<span class="fl">8.5</span>, <span class="fl">7.2</span>, <span class="fl">7.7</span>))</span>
+<span id="cb196-11"><a href="r-miscelanea-e-topicos-avancados.html#cb196-11"></a>pesos &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>) <span class="co"># Pesos fixos.</span></span>
+<span id="cb196-12"><a href="r-miscelanea-e-topicos-avancados.html#cb196-12"></a></span>
+<span id="cb196-13"><a href="r-miscelanea-e-topicos-avancados.html#cb196-13"></a><span class="co"># Usando lapply():</span></span>
+<span id="cb196-14"><a href="r-miscelanea-e-topicos-avancados.html#cb196-14"></a><span class="kw">lapply</span>(<span class="dt">X =</span> valores, <span class="dt">FUN =</span> mp, <span class="dt">y =</span> pesos)</span></code></pre>
+<pre><code>## [[1]]
+## [1] 4.91
+## 
+## [[2]]
+## [1] 6.63
+## 
+## [[3]]
+## [1] 9.83
+## 
+## [[4]]
+## [1] 7.95</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="r-miscelanea-e-topicos-avancados.html#cb198-1"></a><span class="co"># Usando sapply():</span></span>
+<span id="cb198-2"><a href="r-miscelanea-e-topicos-avancados.html#cb198-2"></a><span class="kw">sapply</span>(<span class="dt">X =</span> valores, <span class="dt">FUN =</span> mp, <span class="dt">y =</span> pesos, <span class="dt">simplify =</span> <span class="ot">TRUE</span>)</span></code></pre>
+<pre><code>## [1] 4.91 6.63 9.83 7.95</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="r-miscelanea-e-topicos-avancados.html#cb200-1"></a><span class="co"># Usando vapply():</span></span>
+<span id="cb200-2"><a href="r-miscelanea-e-topicos-avancados.html#cb200-2"></a><span class="kw">vapply</span>(<span class="dt">X =</span> valores, <span class="dt">FUN =</span> mp, <span class="dt">y =</span> pesos, <span class="dt">FUN.VALUE =</span> <span class="kw">double</span>(<span class="dv">1</span>))</span></code></pre>
+<pre><code>## [1] 4.91 6.63 9.83 7.95</code></pre>
+<p>Ao contrário dos funcionais anteriores, em que apenas um dos argumentos da função varia, os funcionais <code>Map()</code> e <code>mapply()</code> permitirão que outros argumentos da função possa também variar. Por exemplo, considere uma pequena modificação do caso anterior, com a diferença de que o objeto <code>pesos</code> será uma lista de pesos. Esse problema poderá ser resolvido utilizando o funcional <code>Map()</code> e <code>mapply()</code>, como mostra o exemplo abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="r-miscelanea-e-topicos-avancados.html#cb202-1"></a>mp &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
+<span id="cb202-2"><a href="r-miscelanea-e-topicos-avancados.html#cb202-2"></a>   <span class="co"># x é o vetor que desejamos calcular a média ponderada.</span></span>
+<span id="cb202-3"><a href="r-miscelanea-e-topicos-avancados.html#cb202-3"></a>   <span class="co"># y é o vetor de pesos.</span></span>
+<span id="cb202-4"><a href="r-miscelanea-e-topicos-avancados.html#cb202-4"></a>   <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(y)) </span>
+<span id="cb202-5"><a href="r-miscelanea-e-topicos-avancados.html#cb202-5"></a>      <span class="kw">stop</span>(<span class="st">&quot;O vetor x deve ter o mesmo comprimento do vetor de pesos y.&quot;</span>)</span>
+<span id="cb202-6"><a href="r-miscelanea-e-topicos-avancados.html#cb202-6"></a>   <span class="co"># Média ponderada.</span></span>
+<span id="cb202-7"><a href="r-miscelanea-e-topicos-avancados.html#cb202-7"></a>   <span class="kw">sum</span>(x<span class="op">*</span>y)<span class="op">/</span><span class="kw">sum</span>(y)</span>
+<span id="cb202-8"><a href="r-miscelanea-e-topicos-avancados.html#cb202-8"></a>}</span>
+<span id="cb202-9"><a href="r-miscelanea-e-topicos-avancados.html#cb202-9"></a></span>
+<span id="cb202-10"><a href="r-miscelanea-e-topicos-avancados.html#cb202-10"></a>valores &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="fl">7.3</span>, <span class="fl">3.2</span>, <span class="fl">1.5</span>), <span class="kw">c</span>(<span class="fl">8.4</span>, <span class="fl">4.7</span>, <span class="fl">5.1</span>), <span class="kw">c</span>(<span class="dv">10</span>, <span class="fl">9.7</span>, <span class="fl">9.6</span>), <span class="kw">c</span>(<span class="fl">8.5</span>, <span class="fl">7.2</span>, <span class="fl">7.7</span>))</span>
+<span id="cb202-11"><a href="r-miscelanea-e-topicos-avancados.html#cb202-11"></a>pesos &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Pesos fixos.</span></span>
+<span id="cb202-12"><a href="r-miscelanea-e-topicos-avancados.html#cb202-12"></a><span class="co"># Utilizando o funcional Map().</span></span>
+<span id="cb202-13"><a href="r-miscelanea-e-topicos-avancados.html#cb202-13"></a><span class="kw">Map</span>(<span class="dt">f =</span> mp, <span class="dt">x =</span> valores, <span class="dt">y =</span> pesos)</span></code></pre>
+<pre><code>## [[1]]
+## [1] 4.91
+## 
+## [[2]]
+## [1] 5.85
+## 
+## [[3]]
+## [1] 9.8
+## 
+## [[4]]
+## [1] 8.21</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="r-miscelanea-e-topicos-avancados.html#cb204-1"></a><span class="co"># Utilizando o funcional mapply().</span></span>
+<span id="cb204-2"><a href="r-miscelanea-e-topicos-avancados.html#cb204-2"></a><span class="kw">mapply</span>(<span class="dt">FUN =</span> mp, <span class="dt">x =</span> valores, <span class="dt">y =</span> pesos)</span></code></pre>
+<pre><code>## [1] 4.91 5.85 9.80 8.21</code></pre>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<ul>
+<li><p>O funcional <code>mapply()</code> funciona de forma bastante semelhante à <code>Map()</code>, retornando um vetor ao invés de uma lista.</p></li>
+<li><p>A linguagem R possui um função para o cálculo de média ponderanda. Veja a documentação da função <code>weighted.mean()</code>. Implementamos a função <code>mp()</code> apenas para deixar claro que os funcionais se aplicam à qualquer função de R, incluindo as funções que implementamos.</p></li>
+</ul>
+</div>
+</div>
+
 <!-- ### Funcionais do pacote purrr -->
+</div>
+</div>
+<div id="exercicios-3" class="section level3 unnumbered">
+<h3>Exercícios</h3>
+<ol style="list-style-type: decimal">
+<li><p>Considerando o data frame <strong>iris</strong> (150 observações e 5 variáveis), obtenha a média das variáveis quantitativas por meio do uso de um funcional.</p></li>
+<li><p>O que o código abaixo faz? Reescreva o código abaixo, substitundo o loop <code>for()</code> pelo uso de um funcional. <strong>Dica</strong>: Utilize a função <code>sapply()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="r-miscelanea-e-topicos-avancados.html#cb206-1"></a>vetor &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
+<span id="cb206-2"><a href="r-miscelanea-e-topicos-avancados.html#cb206-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb206-3"><a href="r-miscelanea-e-topicos-avancados.html#cb206-3"></a>   v &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb206-4"><a href="r-miscelanea-e-topicos-avancados.html#cb206-4"></a>   <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(x)){</span>
+<span id="cb206-5"><a href="r-miscelanea-e-topicos-avancados.html#cb206-5"></a>      v[i] &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>x[i<span class="op">+</span><span class="dv">1</span>] </span>
+<span id="cb206-6"><a href="r-miscelanea-e-topicos-avancados.html#cb206-6"></a>   }</span>
+<span id="cb206-7"><a href="r-miscelanea-e-topicos-avancados.html#cb206-7"></a></span>
+<span id="cb206-8"><a href="r-miscelanea-e-topicos-avancados.html#cb206-8"></a>   <span class="co"># A função na.omit() remove ocorrências de NA </span></span>
+<span id="cb206-9"><a href="r-miscelanea-e-topicos-avancados.html#cb206-9"></a>   <span class="co"># no vetor passado como argumento.</span></span>
+<span id="cb206-10"><a href="r-miscelanea-e-topicos-avancados.html#cb206-10"></a>   v &lt;-<span class="st"> </span><span class="kw">na.omit</span>(v) </span>
+<span id="cb206-11"><a href="r-miscelanea-e-topicos-avancados.html#cb206-11"></a>   <span class="kw">attributes</span>(v) &lt;-<span class="st"> </span><span class="ot">NULL</span>; v</span>
+<span id="cb206-12"><a href="r-miscelanea-e-topicos-avancados.html#cb206-12"></a>}</span></code></pre>
+<!-- vetor <- 1L:5e6L -->
+<!-- f <- function(x){ -->
+<!--     v <- c() -->
+<!--     for(i in seq_along(x)){ -->
+<!--       v[i] <- x[i] + x[i+1] -->
+<!--     } --></li>
+</ol>
+<!--     # A função na.omit() remove ocorrências de NA -->
+<!--     # no vetor passado como argumento. -->
+<!--     v <- na.omit(v) -->
+<!--     attributes(v) <- NULL; v -->
+<!-- } -->
+<!-- system.time(f(vetor)) -->
+<!-- mydiff <- function(i, x){ -->
+<!--    x[i] + x[i+1] -->
+<!-- } -->
+<!-- loop <- function() sapply(X = 1L:(5e6L-1), FUN = mydiff, x = 1L:5e6L) -->
+<ol start="3" style="list-style-type: decimal">
+<li><p>Refaça o exercício anterior utilizando a função <code>vapply()</code>.</p></li>
+<li><p>Implemente a função <code>isnumeric(x)</code> que deverá recebe um data frame e retornar um vetor lógico informando <code>TRUE</code>, se a coluna é numerica ou <code>FALSE</code>, caso contrário. Implemente de três formas, tal que:</p>
+<ul>
+<li><p><strong>Forma 1</strong>: Implementar utilizando a estrutura de repetição <code>for()</code>;</p></li>
+<li><p><strong>Forma 2</strong>: Implementar utilizando o funcional <code>sapply()</code>;</p></li>
+<li><p><strong>Forma 3</strong>: Implementar utilizando o functional <code>vapply()</code>.</p></li>
+</ul></li>
+<li><p>A função <code>unique()</code> quando aplicada à um vetor, retornará um outro vetor com os elementos não repetidos do vetor passado como argumento à <code>unique()</code>. Implemente a função <code>countdiff(x)</code> que recebe como argumento um vetor, matriz ou tabela (data frame), de forma que retorne a quantidade de elementos distintos no vetor ou nas colunas da matriz/tabala.</p></li>
+</ol>
 <!-- ## Sistema S3 -->
 
 </div>
