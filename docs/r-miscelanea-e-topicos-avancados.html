@@ -1041,7 +1041,7 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 </div>
 
 <div id="apply" class="section level4">
-<h4><span class="header-section-number">5.3.1.1</span> apply</h4>
+<h4><span class="header-section-number">5.3.1.1</span> apply()</h4>
 <p>Trata-se de um funcional bastante conhecido em R, implementado no <strong>R Base</strong>. O funcional <code>apply()</code> é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote <a href="https://tibble.tidyverse.org/"><strong>tibble</strong></a>. A estrutura tibble trata-se de uma releitura moderna de um data frame com um método <code>print()</code> aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe <strong>tbl</strong>. A forma geral do funcional <code>apply()</code> é dada por:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="r-miscelanea-e-topicos-avancados.html#cb182-1"></a><span class="kw">apply</span>(X, MARGIN, FUN, ...)</span></code></pre>
 <p>em que:</p>
@@ -1062,7 +1062,7 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <pre><code>## [1]  3  8 13 18 23</code></pre>
 </div>
 <div id="lapply-sapply-e-vapply" class="section level4">
-<h4><span class="header-section-number">5.3.1.2</span> lapply, sapply e vapply</h4>
+<h4><span class="header-section-number">5.3.1.2</span> lapply(), sapply() e vapply()</h4>
 <p>Os funcionais <code>lapply()</code>, <code>sapply()</code> e <code>vapply()</code> foi introduzido o mesmo tópico, visto que eles tem muito em comum. Tais funcionais permitem que venhamos aplicar uma função à elementos de um vetor ou elementos de uma lista.</p>
 <p><strong>Uso</strong>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="r-miscelanea-e-topicos-avancados.html#cb187-1"></a><span class="kw">lapply</span>(X, FUN, ...)</span>
@@ -1120,7 +1120,7 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 
 </div>
 <div id="map-mapply" class="section level4">
-<h4><span class="header-section-number">5.3.1.3</span> Map, mapply</h4>
+<h4><span class="header-section-number">5.3.1.3</span> Map(), mapply()</h4>
 <p>Considere a função <code>mp()</code> que recebe como argumento dois vetores de mesmo comprimento e que calcula a média ponderada do vetor passado ao argumento <code>x</code> considerando um vetor de pesos passado à <code>y</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="r-miscelanea-e-topicos-avancados.html#cb194-1"></a>mp &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
 <span id="cb194-2"><a href="r-miscelanea-e-topicos-avancados.html#cb194-2"></a>   <span class="co"># x é o vetor que desejamos calcular a média ponderada.</span></span>
@@ -1203,6 +1203,17 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 </div>
 
 <!-- ### Funcionais do pacote purrr -->
+<!-- O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores.  -->
+<!-- ```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."} -->
+<!-- knitr::include_graphics("images/logo_purrr.png") -->
+<!-- ``` -->
+<!-- **Nota**:  -->
+<!-- ```{block2, type='rmdnote'} -->
+<!-- <div class=text-justify> -->
+<!-- As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas. -->
+<!-- </div> -->
+<!-- ``` -->
+<!-- #### map() -->
 </div>
 </div>
 <div id="exercicios-3" class="section level3 unnumbered">

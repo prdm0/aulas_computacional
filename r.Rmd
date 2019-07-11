@@ -1076,7 +1076,7 @@ Poderá existir diversas situações que não poderemos escapar do uso de estrut
 </div>
 ```
 
-#### apply
+#### apply()
 
 Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote [**tibble**](https://tibble.tidyverse.org/). A estrutura tibble trata-se de uma releitura moderna de um data frame com um método `print()` aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe **tbl**. A forma geral do funcional `apply()` é dada por:
 
@@ -1104,7 +1104,7 @@ apply(X = M, MARGIN = 1, mean)
 apply(X = M, MARGIN = 2, mean)
 ```
 
-#### lapply, sapply e vapply
+#### lapply(), sapply() e vapply()
 
 Os funcionais `lapply()`, `sapply()` e `vapply()` foi introduzido o mesmo tópico, visto que eles tem muito em comum. Tais funcionais permitem que venhamos aplicar uma função à elementos de um vetor ou elementos de uma lista. 
 
@@ -1163,7 +1163,7 @@ O funcional `vapply()` poderá dar um pouco mais de segurança quando comparado 
 </div>
 ```
 
-#### Map, mapply
+#### Map(), mapply()
 
 Considere a função `mp()` que recebe como argumento dois vetores de mesmo comprimento e que calcula a média ponderada do vetor passado ao argumento `x` considerando um vetor de pesos passado à `y`.
 
@@ -1232,6 +1232,23 @@ mapply(FUN = mp, x = valores, y = pesos)
 ```
 
 <!-- ### Funcionais do pacote purrr -->
+
+<!-- O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores.  -->
+
+
+<!-- ```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."} -->
+<!-- knitr::include_graphics("images/logo_purrr.png") -->
+<!-- ``` -->
+
+<!-- **Nota**:  -->
+
+<!-- ```{block2, type='rmdnote'} -->
+<!-- <div class=text-justify> -->
+<!-- As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas. -->
+<!-- </div> -->
+<!-- ``` -->
+
+<!-- #### map() -->
 
 ### Exercícios {-}
 

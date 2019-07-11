@@ -1367,7 +1367,7 @@ O pacote **base** da linguagem R (algumas vezes chamo de **R Base**) possui algu
 Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas `for`, `while` e `repeat`. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.
 </div></div>\EndKnitrBlock{rmdobservation}
 
-#### apply
+#### apply()
 
 Trata-se de um funcional bastante conhecido em R, implementado no **R Base**. O funcional `apply()` é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote [**tibble**](https://tibble.tidyverse.org/). A estrutura tibble trata-se de uma releitura moderna de um data frame com um método `print()` aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe **tbl**. A forma geral do funcional `apply()` é dada por:
 
@@ -1408,7 +1408,7 @@ apply(X = M, MARGIN = 2, mean)
 ## [1]  3  8 13 18 23
 ```
 
-#### lapply, sapply e vapply
+#### lapply(), sapply() e vapply()
 
 Os funcionais `lapply()`, `sapply()` e `vapply()` foi introduzido o mesmo tópico, visto que eles tem muito em comum. Tais funcionais permitem que venhamos aplicar uma função à elementos de um vetor ou elementos de uma lista. 
 
@@ -1489,7 +1489,7 @@ resultado
 O funcional `vapply()` poderá dar um pouco mais de segurança quando comparado ao funcional `sapply()`, visto que poderemos especiticar o tipo de retorno esperado. Dessa forma, é de se esperar que a função `vapply()` poderá "reclamar" um pouco mais que a função `sapply()`. 
 </div></div>\EndKnitrBlock{rmdnote}
 
-#### Map, mapply
+#### Map(), mapply()
 
 Considere a função `mp()` que recebe como argumento dois vetores de mesmo comprimento e que calcula a média ponderada do vetor passado ao argumento `x` considerando um vetor de pesos passado à `y`.
 
@@ -1612,6 +1612,23 @@ mapply(FUN = mp, x = valores, y = pesos)
 </div></div>\EndKnitrBlock{rmdimportant}
 
 <!-- ### Funcionais do pacote purrr -->
+
+<!-- O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores.  -->
+
+
+<!-- ```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."} -->
+<!-- knitr::include_graphics("images/logo_purrr.png") -->
+<!-- ``` -->
+
+<!-- **Nota**:  -->
+
+<!-- ```{block2, type='rmdnote'} -->
+<!-- <div class=text-justify> -->
+<!-- As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas. -->
+<!-- </div> -->
+<!-- ``` -->
+
+<!-- #### map() -->
 
 ### Exercícios {-}
 
