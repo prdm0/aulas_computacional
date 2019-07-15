@@ -1231,231 +1231,267 @@ mapply(FUN = mp, x = valores, y = pesos)
 </div>
 ```
 
-<!-- ### Funcionais do pacote purrr -->
+### Funcionais do pacote purrr
 
-<!-- O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores. O pacote **purrr** encontra-se no CRAN (***Comprehensive R Archive Network***) do R e você poderá instalar facilmente fazendo `install.packages("purrr")`. Se desejar, você poderá instalar a versão do pacote mantida no GitHub fazendo `devtools::install_github("tidyverse/purrr")`, nesse caso, será preciso ter instalado o pacote [**devtools**](https://github.com/r-lib/devtools). -->
-
-
-<!-- ```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."} -->
-<!-- knitr::include_graphics("images/logo_purrr.png") -->
-<!-- ``` -->
-
-<!-- **Nota**: -->
-
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas. -->
-<!-- </div> -->
-<!-- ``` -->
-
-<!-- #### map() e variantes -->
-
-<!-- O funcional `map()` é a função principal do pacote **purrr**, em que recebe como primeiro argumento um vetor/lista,  uma função como segundo argumento e necessário, um conjunto de argumentos passado da função atribuida. -->
-
-<!-- **Forma geral de uso**: -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- map(.x, .f, ...) -->
-<!-- map_int(.x, .f, ...) -->
-<!-- map_dbl(.x, .f, ...) -->
-<!-- map_lgl(.x, .f, ...) -->
-<!-- map_chr(.x, .f, ...) -->
-<!-- ``` -->
-<!-- em que, -->
-
-<!--    * `.x`: é uma lista ou vetor atômico; -->
-
-<!--    * `.f`: uma função, fórmula (por exemplo `~ .x + 2`) ou um vetor/lista.  -->
-
-<!--    * `...`: um conjunto adicional de argumentos que são mapeados para o objeto passada para o argumento `.f`; -->
-
-<!-- **Exemplo**: Utilizando o funcional `map()` que aplica a função `sinal()` à cada elemento de um vetor atômico. A função irá retornar `"-"`, `"0"` ou `"+"`, a depender do valor passado à `x` em `f()`. -->
-
-<!-- ```{r, cache = TRUE} -->
-<!-- sinal <- function(x){ -->
-<!--    # Varificando a classe de x e parando a execução da função -->
-<!--    # se x não for um objeto da classe numeric. -->
-<!--    if (!is.numeric(x)) stop ("x deve ter a classe numérica.") -->
-
-<!--    if (x == 0) "0" -->
-<!--    else if (x > 0) "+" -->
-<!--    else "-" -->
-<!-- } -->
-
-<!-- x <- c(1.7, -2.01, 0, 12) -->
-<!-- purrr::map(.x = x, .f = sinal) -->
-<!-- ``` -->
-
-<!-- Perceba que o retorno de `map()` é uma lista assim como obteriamos ao utilizarmos o funcional `lapply()`. O exemplo acima poderia ser resolvido, com `lapply()`, fazendo `lapply(X = x, FUN = sinal)`. A grande vantagem do uso do funcional `map()` do pacote **purrr** é que podemos fazer uso de sufixos que nos ajudam na tarefa de converter o resultado para um vetor atômico do tipo desejado, utilizando alguma de suas variantes: `map_lgl()` (retorno de um vetor com elementos do tipo logical), `map_int()` (retorno de um vetor com elementos do tipo integer), `map_dbl()` (retorno de um vetor com elementos do tipo double) e `map_chr()` (retorno de um vetor com elementos do tipo character). -->
-
-<!-- **Exemplo**: Utilizando `map_chr()` para obtenção de um vetor de caracteres como saída. Isso evito termos que efetuar `unlist()` para transformarmos uma lista em um vetor atômico. -->
-
-<!-- ```{r, eval = TRUE} -->
-<!-- purrr::map_chr(.x = x, .f = sinal) -->
-<!-- ``` -->
-
-<!-- Para o argumento `.f` do funcional `map()` bem como de seus variantes (`map_lgl()`, `map_int()`, `map_dbl()` e `map_chr()`), poderemos passar uma função anônima ou uma fórmula. Os três exemplos que seguem apresentam o uso do funcinal `map()` ou alguma de suas variantes, considerando funções com 1 (um), 2 (dois) ou 3 (três) argumentos. Independentemente de qual(is) varantiante(s) de `map()` for/forem utilizada(s) nos exemplos, o uso de todas as variântes são equivalentes. -->
-
-<!-- **Exemplo (um argumento)**: Uso do funcional `map_int()` para uma função com um único argumento. Nesse exemplo, desejamos somar 1 à cada elemento do vetor atômico (vetor homogêneo) `x <- 1L:10L`. Note que, nesse exemplo, resolvemos o problema de somar o valor 1 (do tipo inteiro) aos valores de `x`, de 4 (quatro) formas distintas. Na primeira forma, definimos a função `soma1()` e passamos a função como argumento à `.f` do funcional `map_int()`. Na segunda forma, optou-se em passar uma função anônima para o argumento `.f`, uma vez que a função é curta e não necessitaríamos nos preocupar em atribuir um nome à ela. Nessa segunda forma, não haveria a necessidade da definição da função `soma1()`, uma vez que definimos a função diretamente no funcional, sem a necessidade de atribuição de um nome. Já na terceira e quarta forma, note que optamos em passar um objeto da classe **formula** (note o til, `~`). Como trata-se de uma função com um único argumento, podemos definir esse argumento por `.x` ou `.`.  -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- 1L:10L -->
-<!-- soma1 <- function(x) x + 1L -->
-<!-- # Foma 1: Passando à .f uma função soma1(). -->
-<!-- purrr::map_int(.x = x, .f = soma1) -->
-<!-- # Forma 2: Passando à .f uma função anônima. -->
-<!-- purrr::map_int(.x = x, .f = function(x) x + 1L) -->
-<!-- # Forma 3: Passando à .f uma formula. -->
-<!-- purrr::map_int(.x = x, .f = ~ .x + 1L) -->
-<!-- # Forma 4: Para funções com um único argumento, você poderá substituir -->
-<!-- # .x na fórmula passada ao argumento .f por um "." (ponto). -->
-<!-- purrr::map_int(.x = x, .f = ~ . + 1L) -->
-<!-- ``` -->
-
-<!-- **Nota**:  -->
-
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- É claro que poderiamos resolver o exemplo acima sem uso de funcional algum, uma vez que a linguagem R é vetorizada e poderiamos simplesmente fazer `x + 1L` para assim obtermos um vetor de interio. Porém, isso é um exemplo didático, em que o objetifo aqui é entender os funcionais do pacote **purrr** e não perdermos mais tempo com o entendimento da função passada ao funcional. Sempre tenha em mente que a função passada à `.f`, na maioria das vezes, não será tão simples a ponto de justificar resolver o problema sem o uso de um funcional. -->
-<!-- </div> -->
-<!-- ``` -->
-
-<!-- **Exemplo (dois argumentos)**: Uso do funcional `map()`, em que é aplicado a função `f()` sobre todos os elementos da lista `x`. O exemplo mostra que a função `map()` varia sobre os elementos do primeiro argumento `.x` e fixa o segundo argumento. Além disso, note que é possível passar uma função anônima ou uma fórmula ao argumento `.f` do funcional `map()`, assim como no exemplo anterior. Para o caso de passagem de uma fórmula, podemos utilizar `.` ou `.x` para se referir ao primeiro argumento de `f()` e `.y` para fazer referência ao segundo argumento.  -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- list(c(1.1,4.07,3.76), c(7.1,2.2), 1:10) -->
-<!-- y <- c(1,2,7,4,2) -->
-<!-- f <- function(x, y) 2 * x + sum(sqrt(y)) -->
-<!-- # Forma 1: Passando a função f() para o argumento .f  -->
-<!-- # de map_dbl(). -->
-<!-- purrr::map(.x = x, .f = f, y = y) -->
-<!-- # Forma 2: Passando uma função anônima de dois argumentos. -->
-<!-- purrr::map(.x = x, .f = function(x, y) 2 * x + sum(sqrt(y)) , y = y) -->
-<!-- # Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos. -->
-<!-- purrr::map(.x = x, .f = ~ 2 * .x + sum(sqrt(.y)), .y = y) -->
-<!-- # Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto). -->
-<!-- purrr::map(.x = x, .f = ~ 2 * . + sum(sqrt(.y)), .y = y) -->
-<!-- ``` -->
-
-<!-- **Nota**:  -->
-
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Note que nesse exemplo não poderemos fazer uso das variantes do funcional `map()`. Isso se deve ao fato de `x` ser uma lista, o que implica que a função `f()` será aplicada à cada elemento da lista `x`. Sendo assim, esperamos que o retorno de `map()` será uma lista com a mesma quantidade de elementos de `x`. -->
-<!-- </div> -->
-<!-- ``` -->
+O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores. O pacote **purrr** encontra-se no CRAN (***Comprehensive R Archive Network***) do R e você poderá instalar facilmente fazendo `install.packages("purrr")`. Se desejar, você poderá instalar a versão do pacote mantida no GitHub fazendo `devtools::install_github("tidyverse/purrr")`, nesse caso, será preciso ter instalado o pacote [**devtools**](https://github.com/r-lib/devtools).
 
 
-<!-- **Exemplo (três ou mais argumentos)**: Esse exemplo é muito parecido com o exemplo antrior (função `f()` com 2 (dois) argumentos). Aqui, temos que a função `f()` possui 3 (três) argumentos. Perceba porém, que ao se passar uma fórmula ao argumento `.f` do funcional `map()`, poderemos nos referir ao terceiro argumento com a notação `..3`.  -->
+```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."}
+knitr::include_graphics("images/logo_purrr.png")
+```
 
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- list(1:3, 2:7, 8:10) -->
-<!-- y <- 1:3 -->
-<!-- z <- c(2,3,5) -->
-<!-- f <- function(x, y, z) x * y + 2 * z -->
-<!-- # Forma 1: Passando a função f() para o argumento .f  -->
-<!-- # de map_dbl(). -->
-<!-- purrr::map(.x = x, .f = f, y = y, z = z) -->
-<!-- # Forma 2: Passando uma função anônima de dois argumentos. -->
-<!-- purrr::map(.x = x, .f = function(x, y, z) x * y + 2 * z , y = y, z = z) -->
-<!-- # Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos. -->
-<!-- purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, ..3 = z) -->
-<!-- # Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto). -->
-<!-- purrr::map(.x = x, .f = ~ . * .y + 2 * ..3, y = y, ..3 = z) -->
-<!-- ``` -->
+**Nota**:
 
-<!-- **Nota**: -->
+```{block2, type='rmdnote'}
+<div class=text-justify>
+As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas.
+</div>
+```
 
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Nas formas 3 e 4 do exercício acima, você poderá substituir `..3` por `z`, ou seja, considerar, por exemplo, `purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, z = z)` irá funcionar. Isso se deve ao fato do funcional `map()` ser uma função **vararg**, em que os argumentos adicionais (não pertencentes à `map()`) serão acrescentados na função passada ao argumento `.f` de `map()`. -->
+#### map() e variantes
 
-<!-- **Se `f()` é uma função com `n` argumentos, você poderá referenciar os seus argumentos por `..1` (primeiro argumetno), `..2` (segundo argumento), `..3` (terceiro argumento), ..., `..n`, com `n` um número inteiro qualquer.** -->
-<!-- </div> -->
-<!-- ``` -->
+O funcional `map()` é a função principal do pacote **purrr**, em que recebe como primeiro argumento um vetor/lista,  uma função como segundo argumento e necessário, um conjunto de argumentos passado da função atribuida.
 
-<!-- **Observação**: -->
+**Forma geral de uso**:
 
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- O uso de `.` para especificar o primeiro elemento de uma função passada como argumento à `.f` em um dos funcionais do pacote **purrr** poderá gerar conflitos em situações em que você esteja utilizando o pacote **magrittr** em que `.` tem um outro significado. -->
-<!-- </div> -->
-<!-- ``` -->
+```{r, eval = FALSE}
+map(.x, .f, ...)
+map_int(.x, .f, ...)
+map_dbl(.x, .f, ...)
+map_lgl(.x, .f, ...)
+map_chr(.x, .f, ...)
+```
+em que,
 
-<!-- #### map2() e variantes -->
+   * `.x`: é uma lista ou vetor atômico;
 
-<!-- O funcional `map2()` tem grande utilidade em situações em que desejamos percorrer simultaneamente dois argumentos, isto é, quando temos que a função passada como argumento à `.f` possui dois argumentos e desejamos aplicar a função, par a par, sobre os elementos passados aos argumentos `.x` e `.y`, respectivamente. Em outras palavras, o uso do funcional `map2()` é útil em situações em que temos interesse de não deixar fixo o segundo argumento da função passada à `.f`. Assim como nas variantes do funcional `map()`, temos que as variantes do funcional `map2()` (`map2_int()`, `map2_dbl()` `map2_lgl()` e `map2_chr()`) ireão retornar um vetor com elementos do tipo referente ao sufixo utilizado. -->
+   * `.f`: uma função, fórmula (por exemplo `~ .x + 2`) ou um vetor/lista.
+
+   * `...`: um conjunto adicional de argumentos que são mapeados para o objeto passada para o argumento `.f`;
+
+**Exemplo**: Utilizando o funcional `map()` que aplica a função `sinal()` à cada elemento de um vetor atômico. A função irá retornar `"-"`, `"0"` ou `"+"`, a depender do valor passado à `x` em `f()`.
+
+```{r, cache = TRUE}
+sinal <- function(x){
+   # Varificando a classe de x e parando a execução da função
+   # se x não for um objeto da classe numeric.
+   if (!is.numeric(x)) stop ("x deve ter a classe numérica.")
+
+   if (x == 0) "0"
+   else if (x > 0) "+"
+   else "-"
+}
+
+x <- c(1.7, -2.01, 0, 12)
+purrr::map(.x = x, .f = sinal)
+```
+
+Perceba que o retorno de `map()` é uma lista assim como obteriamos ao utilizarmos o funcional `lapply()`. O exemplo acima poderia ser resolvido, com `lapply()`, fazendo `lapply(X = x, FUN = sinal)`. A grande vantagem do uso do funcional `map()` do pacote **purrr** é que podemos fazer uso de sufixos que nos ajudam na tarefa de converter o resultado para um vetor atômico do tipo desejado, utilizando alguma de suas variantes: `map_lgl()` (retorno de um vetor com elementos do tipo logical), `map_int()` (retorno de um vetor com elementos do tipo integer), `map_dbl()` (retorno de um vetor com elementos do tipo double) e `map_chr()` (retorno de um vetor com elementos do tipo character).
+
+**Exemplo**: Utilizando `map_chr()` para obtenção de um vetor de caracteres como saída. Isso evito termos que efetuar `unlist()` para transformarmos uma lista em um vetor atômico.
+
+```{r, eval = TRUE}
+purrr::map_chr(.x = x, .f = sinal)
+```
+
+Para o argumento `.f` do funcional `map()` bem como de seus variantes (`map_lgl()`, `map_int()`, `map_dbl()` e `map_chr()`), poderemos passar uma função anônima ou uma fórmula. Os três exemplos que seguem apresentam o uso do funcinal `map()` ou alguma de suas variantes, considerando funções com 1 (um), 2 (dois) ou 3 (três) argumentos. Independentemente de qual(is) varantiante(s) de `map()` for/forem utilizada(s) nos exemplos, o uso de todas as variântes são equivalentes.
+
+**Exemplo (um argumento)**: Uso do funcional `map_int()` para uma função com um único argumento. Nesse exemplo, desejamos somar 1 à cada elemento do vetor atômico (vetor homogêneo) `x <- 1L:10L`. Note que, nesse exemplo, resolvemos o problema de somar o valor 1 (do tipo inteiro) aos valores de `x`, de 4 (quatro) formas distintas. Na primeira forma, definimos a função `soma1()` e passamos a função como argumento à `.f` do funcional `map_int()`. Na segunda forma, optou-se em passar uma função anônima para o argumento `.f`, uma vez que a função é curta e não necessitaríamos nos preocupar em atribuir um nome à ela. Nessa segunda forma, não haveria a necessidade da definição da função `soma1()`, uma vez que definimos a função diretamente no funcional, sem a necessidade de atribuição de um nome. Já na terceira e quarta forma, note que optamos em passar um objeto da classe **formula** (note o til, `~`). Como trata-se de uma função com um único argumento, podemos definir esse argumento por `.x` ou `.`.
+
+```{r, eval = FALSE}
+x <- 1L:10L
+soma1 <- function(x) x + 1L
+# Foma 1: Passando à .f uma função soma1().
+purrr::map_int(.x = x, .f = soma1)
+# Forma 2: Passando à .f uma função anônima.
+purrr::map_int(.x = x, .f = function(x) x + 1L)
+# Forma 3: Passando à .f uma formula.
+purrr::map_int(.x = x, .f = ~ .x + 1L)
+# Forma 4: Para funções com um único argumento, você poderá substituir
+# .x na fórmula passada ao argumento .f por um "." (ponto).
+purrr::map_int(.x = x, .f = ~ . + 1L)
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+É claro que poderiamos resolver o exemplo acima sem uso de funcional algum, uma vez que a linguagem R é vetorizada e poderiamos simplesmente fazer `x + 1L` para assim obtermos um vetor de interio. Porém, isso é um exemplo didático, em que o objetifo aqui é entender os funcionais do pacote **purrr** e não perdermos mais tempo com o entendimento da função passada ao funcional. Sempre tenha em mente que a função passada à `.f`, na maioria das vezes, não será tão simples a ponto de justificar resolver o problema sem o uso de um funcional.
+</div>
+```
+
+**Exemplo (dois argumentos)**: Uso do funcional `map()`, em que é aplicado a função `f()` sobre todos os elementos da lista `x`. O exemplo mostra que a função `map()` varia sobre os elementos do primeiro argumento `.x` e fixa o segundo argumento. Além disso, note que é possível passar uma função anônima ou uma fórmula ao argumento `.f` do funcional `map()`, assim como no exemplo anterior. Para o caso de passagem de uma fórmula, podemos utilizar `.` ou `.x` para se referir ao primeiro argumento de `f()` e `.y` para fazer referência ao segundo argumento.
+
+```{r, eval = FALSE}
+x <- list(c(1.1,4.07,3.76), c(7.1,2.2), 1:10)
+y <- c(1,2,7,4,2)
+f <- function(x, y) 2 * x + sum(sqrt(y))
+# Forma 1: Passando a função f() para o argumento .f
+# de map_dbl().
+purrr::map(.x = x, .f = f, y = y)
+# Forma 2: Passando uma função anônima de dois argumentos.
+purrr::map(.x = x, .f = function(x, y) 2 * x + sum(sqrt(y)) , y = y)
+# Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos.
+purrr::map(.x = x, .f = ~ 2 * .x + sum(sqrt(.y)), .y = y)
+# Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto).
+purrr::map(.x = x, .f = ~ 2 * . + sum(sqrt(.y)), .y = y)
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Note que nesse exemplo não poderemos fazer uso das variantes do funcional `map()`. Isso se deve ao fato de `x` ser uma lista, o que implica que a função `f()` será aplicada à cada elemento da lista `x`. Sendo assim, esperamos que o retorno de `map()` será uma lista com a mesma quantidade de elementos de `x`.
+</div>
+```
 
 
-<!-- **Forma geral de uso**: -->
+**Exemplo (três ou mais argumentos)**: Esse exemplo é muito parecido com o exemplo antrior (função `f()` com 2 (dois) argumentos). Aqui, temos que a função `f()` possui 3 (três) argumentos. Perceba porém, que ao se passar uma fórmula ao argumento `.f` do funcional `map()`, poderemos nos referir ao terceiro argumento com a notação `..3`.
+
+```{r, eval = FALSE}
+x <- list(1:3, 2:7, 8:10)
+y <- 1:3
+z <- c(2,3,5)
+f <- function(x, y, z) x * y + 2 * z
+# Forma 1: Passando a função f() para o argumento .f
+# de map_dbl().
+purrr::map(.x = x, .f = f, y = y, z = z)
+# Forma 2: Passando uma função anônima de dois argumentos.
+purrr::map(.x = x, .f = function(x, y, z) x * y + 2 * z , y = y, z = z)
+# Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos.
+purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, ..3 = z)
+# Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto).
+purrr::map(.x = x, .f = ~ . * .y + 2 * ..3, y = y, ..3 = z)
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Nas formas 3 e 4 do exercício acima, você poderá substituir `..3` por `z`, ou seja, considerar, por exemplo, `purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, z = z)` irá funcionar. Isso se deve ao fato do funcional `map()` ser uma função **vararg**, em que os argumentos adicionais (não pertencentes à `map()`) serão acrescentados na função passada ao argumento `.f` de `map()`.
+
+**Se `f()` é uma função com `n` argumentos, você poderá referenciar os seus argumentos por `..1` (primeiro argumetno), `..2` (segundo argumento), `..3` (terceiro argumento), ..., `..n`, com `n` um número inteiro qualquer.**
+</div>
+```
+
+**Observação**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+O uso de `.` para especificar o primeiro elemento de uma função passada como argumento à `.f` em um dos funcionais do pacote **purrr** poderá gerar conflitos em situações em que você esteja utilizando o pacote **magrittr** em que `.` tem um outro significado.
+</div>
+```
+
+#### map2() e variantes
+
+O funcional `map2()` tem grande utilidade em situações em que desejamos percorrer simultaneamente dois argumentos, isto é, quando temos que a função passada como argumento à `.f` possui dois argumentos e desejamos aplicar a função, par a par, sobre os elementos passados aos argumentos `.x` e `.y`, respectivamente. Em outras palavras, o uso do funcional `map2()` é útil em situações em que temos interesse de não deixar fixo o segundo argumento da função passada à `.f`. Assim como nas variantes do funcional `map()`, temos que as variantes do funcional `map2()` (`map2_int()`, `map2_dbl()` `map2_lgl()` e `map2_chr()`) ireão retornar um vetor com elementos do tipo referente ao sufixo utilizado.
 
 
-<!-- ```{r, eval = FALSE} -->
-<!-- map2(.x, .y, .f, ...) -->
-<!-- map2_int(.x, .y, .f, ...) -->
-<!-- map2_dbl(.x, .y, .f, ...) -->
-<!-- map2_lgl(.x, .y, .f, ...) -->
-<!-- map2_chr(.x, .y, .f, ...) -->
-<!-- ``` -->
+**Forma geral de uso**:
 
-<!-- **Nota**: -->
 
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- O uso do funcional `map2()` é análago ao uso de `map()` e suas variantes, com a diferença que o segundo argumento não estará fixo. -->
-<!-- </div> -->
-<!-- ``` -->
+```{r, eval = FALSE}
+map2(.x, .y, .f, ...)
+map2_int(.x, .y, .f, ...)
+map2_dbl(.x, .y, .f, ...)
+map2_lgl(.x, .y, .f, ...)
+map2_chr(.x, .y, .f, ...)
+```
 
-<!-- **Exemplo**: Uso da função `map2()` em que estão sendo somados, par a par, os elementos dos objetos `x` e `y`. -->
+**Nota**:
 
-<!-- ```{r} -->
-<!-- x <- list(1:3, 1:2, 3:10) -->
-<!-- y <- list(1:3, c(4,3), 5:12) -->
-<!-- purrr::map2(.x = x, .y = y, .f = ~ .x + .y) -->
-<!-- ``` -->
+```{block2, type='rmdnote'}
+<div class=text-justify>
+O uso do funcional `map2()` é análago ao uso de `map()` e suas variantes, com a diferença que o segundo argumento não estará fixo.
+</div>
+```
 
-<!-- #### pmap() e variantes -->
+**Exemplo**: Uso da função `map2()` em que estão sendo somados, par a par, os elementos dos objetos `x` e `y`.
 
-<!-- Algo muito parecido com o funcional `Map()` e `mapply()`do **R Base** é o que podemos fazer com o funcional `pmap()` do pacote **purrr**. Analogamente ao que temos com `Map()` e `mapply()`, ao utilizar o funcional `pmap()` poderemos variar mais de um argumeto.  -->
+```{r}
+x <- list(1:3, 1:2, 3:10)
+y <- list(1:3, c(4,3), 5:12)
+purrr::map2(.x = x, .y = y, .f = ~ .x + .y)
+```
 
-<!-- **Forma geral de uso**: -->
+#### pmap() e variantes
 
-<!-- ```{r, eval = FALSE} -->
-<!-- pmap(.l, .f, ...) -->
-<!-- pmap_int(.l, .f, ...) -->
-<!-- pmap_dbl(.l, .f, ...) -->
-<!-- pmap_lgl(.l, .f, ...) -->
-<!-- pmap_chr(.l, .f, ...) -->
-<!-- ``` -->
+Algo muito parecido com o funcional `Map()` e `mapply()`do **R Base** é o que podemos fazer com o funcional `pmap()` do pacote **purrr**. Analogamente ao que temos com `Map()` e `mapply()`, ao utilizar o funcional `pmap()` poderemos variar mais de um argumeto.
 
-<!-- **Exemplo**: Uso do funcional `pmap()` variando, par a par, sobre elementos de duas listas (`x` e `y`) e um vetor (`z`).   -->
+**Forma geral de uso**:
 
-<!-- ```{r} -->
-<!-- x <- list(1:3, 1:2, 3:10) -->
-<!-- y <- list(1:3, c(4,3), 5:12) -->
-<!-- z <- c(1, 2, 3) -->
-<!-- purrr::pmap(.l = list(x, y, z), .f = ~ .x + .y + ..3) -->
-<!-- ``` -->
+```{r, eval = FALSE}
+pmap(.l, .f, ...)
+pmap_int(.l, .f, ...)
+pmap_dbl(.l, .f, ...)
+pmap_lgl(.l, .f, ...)
+pmap_chr(.l, .f, ...)
+```
 
-<!-- **Importante**: -->
+**Exemplo**: Uso do funcional `pmap()` variando, par a par, sobre elementos de duas listas (`x` e `y`) e um vetor (`z`).
 
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- O funcional `pmap()` poderá ser utilizado, de forma análoga ao exemplo acima, em situações em que a função passada ao argumento `.f` possa ter mais de três variáveis não fixadas. Porém, perceba que ao utilizar o funcional `pmap()`, nada impedirá que você tenha algumas dessas variáveis fixadas, se isso for de interesse. Esse fato também é válido para os funcionais `Map()` e `mapply()` do **R Base** e para o funcional `map2()` do pacote **purrr**. -->
-<!-- </div> -->
-<!-- ``` -->
+```{r}
+x <- list(1:3, 1:2, 3:10)
+y <- list(1:3, c(4,3), 5:12)
+z <- c(1, 2, 3)
+purrr::pmap(.l = list(x, y, z), .f = ~ .x + .y + ..3)
+```
 
-<!-- **Exemplo**: Uso do funcional `pmap()` variando em duas listas (`x`, `y`) e um vetor `z`. Perceba que a quantidade de elementos nos objetos `x`, `y` e `z` é a mesma, ou seja, os objetos `x` e `y` são duas listas com dois vetores, respectivamente e `z` é um vetor com dois elementos. -->
+**Importante**:
 
-<!-- ```{r} -->
-<!-- f <- function(x, y, z) x + y - z -->
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+O funcional `pmap()` poderá ser utilizado, de forma análoga ao exemplo acima, em situações em que a função passada ao argumento `.f` possa ter mais de três variáveis não fixadas. Porém, perceba que ao utilizar o funcional `pmap()`, nada impedirá que você tenha algumas dessas variáveis fixadas, se isso for de interesse. Esse fato também é válido para os funcionais `Map()` e `mapply()` do **R Base** e para o funcional `map2()` do pacote **purrr**.
+</div>
+```
 
-<!-- x <- list(c(2,1,4), c(4,3,6,7,1)) -->
-<!-- y <- list(1:3, 1:5) -->
-<!-- z <- c(1,1) # Vetor fixo. -->
+**Exemplo**: Uso do funcional `pmap()` variando em duas listas (`x`, `y`) e um vetor `z`. Perceba que a quantidade de elementos nos objetos `x`, `y` e `z` é a mesma, ou seja, os objetos `x` e `y` são duas listas com dois vetores, respectivamente e `z` é um vetor com dois elementos.
 
-<!-- purrr::pmap(.l = list(x, y, z), .f = f) -->
-<!-- ``` -->
+```{r}
+f <- function(x, y, z) x + y - z
+
+x <- list(c(2,1,4), c(4,3,6,7,1))
+y <- list(1:3, 1:5)
+z <- c(1,1) # Vetor fixo.
+
+purrr::pmap(.l = list(x, y, z), .f = f)
+```
+
+#### invoke() e invoke_map()
+
+A funcional `invoke()` é bastante semelhante ao funcional `do.call()` do **R Base**. Ambos os funcionais são úteis quando temos os argumentos de uma função em uma lista e posteriormente desejamos invocar uma função passando a lista de argumentos.
+
+**Exemplo**: Passando a lista `runif_args` para a função `runif()` usando os funcionais do.call() (do **R Base**) e invoke (pacote **purrr**).
+
+```{r}
+set.seed(0) # Fixando uma semente.
+# Lista de argumentos para passar à função runif().
+runif_args <- list(n = 3, min = 0, max = 10)
+# Usando do.call() do R Base.
+do.call(what = runif, args = runif_args)
+# Usando invoke() do pacote purrr.
+purrr::invoke(.f = runif, .x = runif_args)
+```
+
+Nas situações em que desejamos aplicar uma função à uma **lista de listas** de argumentos ou aplicar uma lista de argumentos à uma lista de funções, o funcional `invoke_map()` poderá ser de grande utilidade. O exemplo que segue mostra essas duas situações mencionadas.
+
+**Exemplo**: 
+
+```{r}
+f1 <- function(valor, por) valor + por
+f2 <- function(valor, por) valor - por
+f3 <- function(valor, por) valor * por
+f4 <- function(valor, por) valor / por
+
+# Passando uma lista de listas de argumentos para a função f1.
+purrr::invoke_map(.f = f1, .x = list(list(valor = 1, por = 1),
+                                     list(valor = 2, por = 2), 
+                                     list(valor = 7.1, por = 10)))
+
+# Passando uma lista de funções para a lista de argumentos passada 
+# à .x do funcional invoke_map().
+purrr::invoke_map(.f = list(f1, f2, f3, f4), .x = list(list(valor = 2, por = 2)))
+```
 
 
 ### Exercícios {-}
@@ -1469,7 +1505,7 @@ mapply(FUN = mp, x = valores, y = pesos)
     f <- function(x){
        v <- c()
        for(i in seq_along(x)){
-          v[i] <- x[i] + x[i+1] 
+          v[i] <- x[i] + x[i + 1] 
        }
     
        # A função na.omit() remove ocorrências de NA 
@@ -1478,30 +1514,42 @@ mapply(FUN = mp, x = valores, y = pesos)
        attributes(v) <- NULL; v
     }
     ```      
-<!-- vetor <- 1L:5e6L -->
-<!-- f <- function(x){ -->
-<!--     v <- c() -->
-<!--     for(i in seq_along(x)){ -->
-<!--       v[i] <- x[i] + x[i+1] -->
-<!--     } -->
-
-<!--     # A função na.omit() remove ocorrências de NA -->
-<!--     # no vetor passado como argumento. -->
-<!--     v <- na.omit(v) -->
-<!--     attributes(v) <- NULL; v -->
-<!-- } -->
-
-<!-- system.time(f(vetor)) -->
 
 <!-- mydiff <- function(i, x){ -->
 <!--    x[i] + x[i+1] -->
 <!-- } -->
 
-<!-- loop <- function() sapply(X = 1L:(5e6L-1), FUN = mydiff, x = 1L:5e6L) -->
+<!-- loop <- function() sapply(X = 1L:9L, FUN = mydiff, x = vetor) -->
 
 3. Refaça o exercício anterior utilizando a função `vapply()`.
 
-4. Implemente a função `isnumeric(x)` que deverá recebe um data frame e retornar um vetor lógico informando `TRUE`, se a coluna é numerica ou `FALSE`, caso contrário. Implemente de três formas, tal que:
+<!-- vetor <- 1L:10L -->
+<!-- mysum <- function(i, x)  x[i] + x[i+1] -->
+<!-- result <- vapply(X = 1:length(vetor), FUN = mysum, FUN.VALUE = double(1), x = vetor) %>%  -->
+<!--                  na.omit  -->
+<!-- attributes(result) <- NULL -->
+
+4. Leia a descrição do funcional `accumulate()` do pacote **purrr** e entenda o código abaixo:
+
+    ```{r, eval = FALSE}
+      x <- list(c(3, 2, 4), c(5, 3), c(4, 2, 3))
+      purrr::accumulate(.x = x, .f = ~ sum(.x) + .y)
+    ```
+
+5. Reescreva o código abaixo utilizando o funcional `accumulate()` do pacote **purrr**.
+
+    ```{r}
+    acumular <- function(x){
+       vetor <- x[1]
+       for(i in 2:length(x)){
+          vetor[i] <- sum(vetor[i - 1]) + x[i]
+       }
+       vetor
+    }
+    ```
+<!-- purrr::accumulate(.x = c(1, 2, 3), .f = ~ .x + .y) -->
+
+6. Implemente a função `isnumeric(x)` que deverá recebe um data frame e retornar um vetor lógico informando `TRUE`, se a coluna é numerica ou `FALSE`, caso contrário. Implemente de três formas, tal que:
 
    * **Forma 1**: Implementar utilizando a estrutura de repetição `for()`;
    
@@ -1509,6 +1557,62 @@ mapply(FUN = mp, x = valores, y = pesos)
    
    * **Forma 3**: Implementar utilizando o functional `vapply()`.
 
-5. A função `unique()` quando aplicada à um vetor, retornará um outro vetor com os elementos não repetidos do vetor passado como argumento à `unique()`. Implemente a função `countdiff(x)` que recebe como argumento um vetor, matriz ou tabela (data frame), de forma que retorne a quantidade de elementos distintos no vetor ou nas colunas da matriz/tabala.
+7. A função `unique()` quando aplicada à um vetor, retornará um outro vetor com os elementos não repetidos do vetor passado como argumento à `unique()`. Implemente a função `countdiff(x)` que recebe como argumento um vetor, matriz ou tabela (data frame), de forma que retorne a quantidade de elementos distintos no vetor ou nas colunas da matriz/tabala.
+
+8. Considere o objeto `lista <- list(1:2, list(c(8, 7), c(1, 4)))`. Utilizando o funcional `map()`, obtenha a saída abaixo. **Dica**: 1 - Use `map()` dentro de `map()`. 2 - Ao final, utilize o comando `flatten()` do pacote **purrr**. A saída a baixo é nada mais que somar 1 em cada elemento da lista.
+
+    ```{r, eval = FALSE}
+      [[1]]
+      [1] 2
+
+      [[2]]
+      [1] 3
+
+      [[3]]
+      [1] 9 8
+
+      [[4]]
+      [1] 2 5
+    ```
+
+<!-- lista <- list(1:2, list(c(8, 7), c(1, 4))) -->
+<!-- map(.x = lista, ~ map(., .f = ~ .x + 1)) %>%  flatten -->
+
+9. Por meio da documentação do funcional `map_if()` do pacote **purrr**, entenda o que o código abaixo faz:
+
+    ```{r, eval = FALSE}
+       x <- 1:10
+       purrr::map_if(.x = x, .p = ~ .x %% 2 == 0, 
+                     .f = ~ 2 * .x, .else = ~ .x + 1) %>% flatten_dbl()
+    ```
+
+10. Considere o objeto `lista` definido por `lista <- list(a = c(1, 3, 2), b = c(2, 3))`. Utilizando o funcional `map_if()`, multiplique os elementos pares por 2 de forma a obter a saída abaixo:
+
+    ```{r, eval = FALSE}
+    $a
+    $a[[1]]
+    [1] 1
+
+    $a[[2]]
+    [1] 3
+
+    $a[[3]]
+    [1] 4
+
+    $b
+    $b[[1]]
+    [1] 4
+
+    $b[[2]]
+    [1] 3
+    ```
+   **Dica**: Tente construir algo como `map(.x = lista, .f = ~ map_if())`.
+
+<!-- purrr::map(.x = lista, .f = ~ map_if(.x, .p = ~ .x %% 2 == 0 , .f = ~ .x * 2)) -->
+
+11. A função `split()` divide um data frame em grupos de um fator. Por exemplo, faça `iris %$% split(., Species)`. Dado isso, considere o conjunto de dados **starwars** do pacote [**dplyr**](https://dplyr.tidyverse.org/) (`install.packages("dplyr")`) que possui várias descrições dos personagens de Star Wars. Obtenha a quantidade de personagens por espécies utilizando o funcional `map()`.
+
+<!-- purrr::map(.x = split(starwars, starwars$species), .f = ~dim(.x)[1]) -->
+
 
 <!-- ## Sistema S3 -->

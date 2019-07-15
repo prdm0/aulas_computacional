@@ -176,6 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
+<li class="chapter" data-level="5.3.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-3"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
 </ul></li>
@@ -1202,173 +1203,262 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 </div>
 </div>
 
-<!-- ### Funcionais do pacote purrr -->
-<!-- O pacote [**purrr**](https://purrr.tidyverse.org/) aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores. O pacote **purrr** encontra-se no CRAN (***Comprehensive R Archive Network***) do R e você poderá instalar facilmente fazendo `install.packages("purrr")`. Se desejar, você poderá instalar a versão do pacote mantida no GitHub fazendo `devtools::install_github("tidyverse/purrr")`, nesse caso, será preciso ter instalado o pacote [**devtools**](https://github.com/r-lib/devtools). -->
-<!-- ```{r echo=FALSE, out.width='25%', fig.align = "center", fig.cap = "Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)."} -->
-<!-- knitr::include_graphics("images/logo_purrr.png") -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- As funções do pacote **purrr** são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- #### map() e variantes -->
-<!-- O funcional `map()` é a função principal do pacote **purrr**, em que recebe como primeiro argumento um vetor/lista,  uma função como segundo argumento e necessário, um conjunto de argumentos passado da função atribuida. -->
-<!-- **Forma geral de uso**: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- map(.x, .f, ...) -->
-<!-- map_int(.x, .f, ...) -->
-<!-- map_dbl(.x, .f, ...) -->
-<!-- map_lgl(.x, .f, ...) -->
-<!-- map_chr(.x, .f, ...) -->
-<!-- ``` -->
-<!-- em que, -->
-<!--    * `.x`: é uma lista ou vetor atômico; -->
-<!--    * `.f`: uma função, fórmula (por exemplo `~ .x + 2`) ou um vetor/lista.  -->
-<!--    * `...`: um conjunto adicional de argumentos que são mapeados para o objeto passada para o argumento `.f`; -->
-<!-- **Exemplo**: Utilizando o funcional `map()` que aplica a função `sinal()` à cada elemento de um vetor atômico. A função irá retornar `"-"`, `"0"` ou `"+"`, a depender do valor passado à `x` em `f()`. -->
-<!-- ```{r, cache = TRUE} -->
-<!-- sinal <- function(x){ -->
-<!--    # Varificando a classe de x e parando a execução da função -->
-<!--    # se x não for um objeto da classe numeric. -->
-<!--    if (!is.numeric(x)) stop ("x deve ter a classe numérica.") -->
-<!--    if (x == 0) "0" -->
-<!--    else if (x > 0) "+" -->
-<!--    else "-" -->
-<!-- } -->
-<!-- x <- c(1.7, -2.01, 0, 12) -->
-<!-- purrr::map(.x = x, .f = sinal) -->
-<!-- ``` -->
-<!-- Perceba que o retorno de `map()` é uma lista assim como obteriamos ao utilizarmos o funcional `lapply()`. O exemplo acima poderia ser resolvido, com `lapply()`, fazendo `lapply(X = x, FUN = sinal)`. A grande vantagem do uso do funcional `map()` do pacote **purrr** é que podemos fazer uso de sufixos que nos ajudam na tarefa de converter o resultado para um vetor atômico do tipo desejado, utilizando alguma de suas variantes: `map_lgl()` (retorno de um vetor com elementos do tipo logical), `map_int()` (retorno de um vetor com elementos do tipo integer), `map_dbl()` (retorno de um vetor com elementos do tipo double) e `map_chr()` (retorno de um vetor com elementos do tipo character). -->
-<!-- **Exemplo**: Utilizando `map_chr()` para obtenção de um vetor de caracteres como saída. Isso evito termos que efetuar `unlist()` para transformarmos uma lista em um vetor atômico. -->
-<!-- ```{r, eval = TRUE} -->
-<!-- purrr::map_chr(.x = x, .f = sinal) -->
-<!-- ``` -->
-<!-- Para o argumento `.f` do funcional `map()` bem como de seus variantes (`map_lgl()`, `map_int()`, `map_dbl()` e `map_chr()`), poderemos passar uma função anônima ou uma fórmula. Os três exemplos que seguem apresentam o uso do funcinal `map()` ou alguma de suas variantes, considerando funções com 1 (um), 2 (dois) ou 3 (três) argumentos. Independentemente de qual(is) varantiante(s) de `map()` for/forem utilizada(s) nos exemplos, o uso de todas as variântes são equivalentes. -->
-<!-- **Exemplo (um argumento)**: Uso do funcional `map_int()` para uma função com um único argumento. Nesse exemplo, desejamos somar 1 à cada elemento do vetor atômico (vetor homogêneo) `x <- 1L:10L`. Note que, nesse exemplo, resolvemos o problema de somar o valor 1 (do tipo inteiro) aos valores de `x`, de 4 (quatro) formas distintas. Na primeira forma, definimos a função `soma1()` e passamos a função como argumento à `.f` do funcional `map_int()`. Na segunda forma, optou-se em passar uma função anônima para o argumento `.f`, uma vez que a função é curta e não necessitaríamos nos preocupar em atribuir um nome à ela. Nessa segunda forma, não haveria a necessidade da definição da função `soma1()`, uma vez que definimos a função diretamente no funcional, sem a necessidade de atribuição de um nome. Já na terceira e quarta forma, note que optamos em passar um objeto da classe **formula** (note o til, `~`). Como trata-se de uma função com um único argumento, podemos definir esse argumento por `.x` ou `.`.  -->
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- 1L:10L -->
-<!-- soma1 <- function(x) x + 1L -->
-<!-- # Foma 1: Passando à .f uma função soma1(). -->
-<!-- purrr::map_int(.x = x, .f = soma1) -->
-<!-- # Forma 2: Passando à .f uma função anônima. -->
-<!-- purrr::map_int(.x = x, .f = function(x) x + 1L) -->
-<!-- # Forma 3: Passando à .f uma formula. -->
-<!-- purrr::map_int(.x = x, .f = ~ .x + 1L) -->
-<!-- # Forma 4: Para funções com um único argumento, você poderá substituir -->
-<!-- # .x na fórmula passada ao argumento .f por um "." (ponto). -->
-<!-- purrr::map_int(.x = x, .f = ~ . + 1L) -->
-<!-- ``` -->
-<!-- **Nota**:  -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- É claro que poderiamos resolver o exemplo acima sem uso de funcional algum, uma vez que a linguagem R é vetorizada e poderiamos simplesmente fazer `x + 1L` para assim obtermos um vetor de interio. Porém, isso é um exemplo didático, em que o objetifo aqui é entender os funcionais do pacote **purrr** e não perdermos mais tempo com o entendimento da função passada ao funcional. Sempre tenha em mente que a função passada à `.f`, na maioria das vezes, não será tão simples a ponto de justificar resolver o problema sem o uso de um funcional. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo (dois argumentos)**: Uso do funcional `map()`, em que é aplicado a função `f()` sobre todos os elementos da lista `x`. O exemplo mostra que a função `map()` varia sobre os elementos do primeiro argumento `.x` e fixa o segundo argumento. Além disso, note que é possível passar uma função anônima ou uma fórmula ao argumento `.f` do funcional `map()`, assim como no exemplo anterior. Para o caso de passagem de uma fórmula, podemos utilizar `.` ou `.x` para se referir ao primeiro argumento de `f()` e `.y` para fazer referência ao segundo argumento.  -->
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- list(c(1.1,4.07,3.76), c(7.1,2.2), 1:10) -->
-<!-- y <- c(1,2,7,4,2) -->
-<!-- f <- function(x, y) 2 * x + sum(sqrt(y)) -->
-<!-- # Forma 1: Passando a função f() para o argumento .f  -->
-<!-- # de map_dbl(). -->
-<!-- purrr::map(.x = x, .f = f, y = y) -->
-<!-- # Forma 2: Passando uma função anônima de dois argumentos. -->
-<!-- purrr::map(.x = x, .f = function(x, y) 2 * x + sum(sqrt(y)) , y = y) -->
-<!-- # Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos. -->
-<!-- purrr::map(.x = x, .f = ~ 2 * .x + sum(sqrt(.y)), .y = y) -->
-<!-- # Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto). -->
-<!-- purrr::map(.x = x, .f = ~ 2 * . + sum(sqrt(.y)), .y = y) -->
-<!-- ``` -->
-<!-- **Nota**:  -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Note que nesse exemplo não poderemos fazer uso das variantes do funcional `map()`. Isso se deve ao fato de `x` ser uma lista, o que implica que a função `f()` será aplicada à cada elemento da lista `x`. Sendo assim, esperamos que o retorno de `map()` será uma lista com a mesma quantidade de elementos de `x`. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo (três ou mais argumentos)**: Esse exemplo é muito parecido com o exemplo antrior (função `f()` com 2 (dois) argumentos). Aqui, temos que a função `f()` possui 3 (três) argumentos. Perceba porém, que ao se passar uma fórmula ao argumento `.f` do funcional `map()`, poderemos nos referir ao terceiro argumento com a notação `..3`.  -->
-<!-- ```{r, eval = FALSE} -->
-<!-- x <- list(1:3, 2:7, 8:10) -->
-<!-- y <- 1:3 -->
-<!-- z <- c(2,3,5) -->
-<!-- f <- function(x, y, z) x * y + 2 * z -->
-<!-- # Forma 1: Passando a função f() para o argumento .f  -->
-<!-- # de map_dbl(). -->
-<!-- purrr::map(.x = x, .f = f, y = y, z = z) -->
-<!-- # Forma 2: Passando uma função anônima de dois argumentos. -->
-<!-- purrr::map(.x = x, .f = function(x, y, z) x * y + 2 * z , y = y, z = z) -->
-<!-- # Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos. -->
-<!-- purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, ..3 = z) -->
-<!-- # Forma 4: Aqui o x .x será substituido na ocorrência de "." (ponto). -->
-<!-- purrr::map(.x = x, .f = ~ . * .y + 2 * ..3, y = y, ..3 = z) -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Nas formas 3 e 4 do exercício acima, você poderá substituir `..3` por `z`, ou seja, considerar, por exemplo, `purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, z = z)` irá funcionar. Isso se deve ao fato do funcional `map()` ser uma função **vararg**, em que os argumentos adicionais (não pertencentes à `map()`) serão acrescentados na função passada ao argumento `.f` de `map()`. -->
-<!-- **Se `f()` é uma função com `n` argumentos, você poderá referenciar os seus argumentos por `..1` (primeiro argumetno), `..2` (segundo argumento), `..3` (terceiro argumento), ..., `..n`, com `n` um número inteiro qualquer.** -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Observação**: -->
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- O uso de `.` para especificar o primeiro elemento de uma função passada como argumento à `.f` em um dos funcionais do pacote **purrr** poderá gerar conflitos em situações em que você esteja utilizando o pacote **magrittr** em que `.` tem um outro significado. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- #### map2() e variantes -->
-<!-- O funcional `map2()` tem grande utilidade em situações em que desejamos percorrer simultaneamente dois argumentos, isto é, quando temos que a função passada como argumento à `.f` possui dois argumentos e desejamos aplicar a função, par a par, sobre os elementos passados aos argumentos `.x` e `.y`, respectivamente. Em outras palavras, o uso do funcional `map2()` é útil em situações em que temos interesse de não deixar fixo o segundo argumento da função passada à `.f`. Assim como nas variantes do funcional `map()`, temos que as variantes do funcional `map2()` (`map2_int()`, `map2_dbl()` `map2_lgl()` e `map2_chr()`) ireão retornar um vetor com elementos do tipo referente ao sufixo utilizado. -->
-<!-- **Forma geral de uso**: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- map2(.x, .y, .f, ...) -->
-<!-- map2_int(.x, .y, .f, ...) -->
-<!-- map2_dbl(.x, .y, .f, ...) -->
-<!-- map2_lgl(.x, .y, .f, ...) -->
-<!-- map2_chr(.x, .y, .f, ...) -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- O uso do funcional `map2()` é análago ao uso de `map()` e suas variantes, com a diferença que o segundo argumento não estará fixo. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo**: Uso da função `map2()` em que estão sendo somados, par a par, os elementos dos objetos `x` e `y`. -->
-<!-- ```{r} -->
-<!-- x <- list(1:3, 1:2, 3:10) -->
-<!-- y <- list(1:3, c(4,3), 5:12) -->
-<!-- purrr::map2(.x = x, .y = y, .f = ~ .x + .y) -->
-<!-- ``` -->
-<!-- #### pmap() e variantes -->
-<!-- Algo muito parecido com o funcional `Map()` e `mapply()`do **R Base** é o que podemos fazer com o funcional `pmap()` do pacote **purrr**. Analogamente ao que temos com `Map()` e `mapply()`, ao utilizar o funcional `pmap()` poderemos variar mais de um argumeto.  -->
-<!-- **Forma geral de uso**: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- pmap(.l, .f, ...) -->
-<!-- pmap_int(.l, .f, ...) -->
-<!-- pmap_dbl(.l, .f, ...) -->
-<!-- pmap_lgl(.l, .f, ...) -->
-<!-- pmap_chr(.l, .f, ...) -->
-<!-- ``` -->
-<!-- **Exemplo**: Uso do funcional `pmap()` variando, par a par, sobre elementos de duas listas (`x` e `y`) e um vetor (`z`).   -->
-<!-- ```{r} -->
-<!-- x <- list(1:3, 1:2, 3:10) -->
-<!-- y <- list(1:3, c(4,3), 5:12) -->
-<!-- z <- c(1, 2, 3) -->
-<!-- purrr::pmap(.l = list(x, y, z), .f = ~ .x + .y + ..3) -->
-<!-- ``` -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- O funcional `pmap()` poderá ser utilizado, de forma análoga ao exemplo acima, em situações em que a função passada ao argumento `.f` possa ter mais de três variáveis não fixadas. Porém, perceba que ao utilizar o funcional `pmap()`, nada impedirá que você tenha algumas dessas variáveis fixadas, se isso for de interesse. Esse fato também é válido para os funcionais `Map()` e `mapply()` do **R Base** e para o funcional `map2()` do pacote **purrr**. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo**: Uso do funcional `pmap()` variando em duas listas (`x`, `y`) e um vetor `z`. Perceba que a quantidade de elementos nos objetos `x`, `y` e `z` é a mesma, ou seja, os objetos `x` e `y` são duas listas com dois vetores, respectivamente e `z` é um vetor com dois elementos. -->
-<!-- ```{r} -->
-<!-- f <- function(x, y, z) x + y - z -->
-<!-- x <- list(c(2,1,4), c(4,3,6,7,1)) -->
-<!-- y <- list(1:3, 1:5) -->
-<!-- z <- c(1,1) # Vetor fixo. -->
-<!-- purrr::pmap(.l = list(x, y, z), .f = f) -->
-<!-- ``` -->
+</div>
+</div>
+<div id="funcionais-do-pacote-purrr" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Funcionais do pacote purrr</h3>
+<p>O pacote <a href="https://purrr.tidyverse.org/"><strong>purrr</strong></a> aprimora o conjunto de ferramentas de programação funcional da linguagem R. Este pacote fornece um conjunto completo, consistente e eficiente de ferramentas para trabalhar com funções e vetores. O pacote <strong>purrr</strong> encontra-se no CRAN (<strong><em>Comprehensive R Archive Network</em></strong>) do R e você poderá instalar facilmente fazendo <code>install.packages("purrr")</code>. Se desejar, você poderá instalar a versão do pacote mantida no GitHub fazendo <code>devtools::install_github("tidyverse/purrr")</code>, nesse caso, será preciso ter instalado o pacote <a href="https://github.com/r-lib/devtools"><strong>devtools</strong></a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-82"></span>
+<img src="images/logo_purrr.png" alt="Logo do pacote [**purrr**](https://purrr.tidyverse.org/) de autoria de [**Hadley Wickham**](https://github.com/hadley) (autor) e e [**Lionel Henry**](https://github.com/lionel-) (autor e mantenedor)." width="25%" />
+<p class="caption">
+Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr</strong></a> de autoria de <a href="https://github.com/hadley"><strong>Hadley Wickham</strong></a> (autor) e e <a href="https://github.com/lionel-"><strong>Lionel Henry</strong></a> (autor e mantenedor).
+</p>
+</div>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>As funções do pacote <strong>purrr</strong> são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas.</p>
+</div>
+</div>
+
+<div id="map-e-variantes" class="section level4">
+<h4><span class="header-section-number">5.3.2.1</span> map() e variantes</h4>
+<p>O funcional <code>map()</code> é a função principal do pacote <strong>purrr</strong>, em que recebe como primeiro argumento um vetor/lista, uma função como segundo argumento e necessário, um conjunto de argumentos passado da função atribuida.</p>
+<p><strong>Forma geral de uso</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="r-miscelanea-e-topicos-avancados.html#cb206-1"></a><span class="kw">map</span>(.x, .f, ...)</span>
+<span id="cb206-2"><a href="r-miscelanea-e-topicos-avancados.html#cb206-2"></a><span class="kw">map_int</span>(.x, .f, ...)</span>
+<span id="cb206-3"><a href="r-miscelanea-e-topicos-avancados.html#cb206-3"></a><span class="kw">map_dbl</span>(.x, .f, ...)</span>
+<span id="cb206-4"><a href="r-miscelanea-e-topicos-avancados.html#cb206-4"></a><span class="kw">map_lgl</span>(.x, .f, ...)</span>
+<span id="cb206-5"><a href="r-miscelanea-e-topicos-avancados.html#cb206-5"></a><span class="kw">map_chr</span>(.x, .f, ...)</span></code></pre>
+<p>em que,</p>
+<ul>
+<li><p><code>.x</code>: é uma lista ou vetor atômico;</p></li>
+<li><p><code>.f</code>: uma função, fórmula (por exemplo <code>~ .x + 2</code>) ou um vetor/lista.</p></li>
+<li><p><code>...</code>: um conjunto adicional de argumentos que são mapeados para o objeto passada para o argumento <code>.f</code>;</p></li>
+</ul>
+<p><strong>Exemplo</strong>: Utilizando o funcional <code>map()</code> que aplica a função <code>sinal()</code> à cada elemento de um vetor atômico. A função irá retornar <code>"-"</code>, <code>"0"</code> ou <code>"+"</code>, a depender do valor passado à <code>x</code> em <code>f()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="r-miscelanea-e-topicos-avancados.html#cb207-1"></a>sinal &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb207-2"><a href="r-miscelanea-e-topicos-avancados.html#cb207-2"></a>   <span class="co"># Varificando a classe de x e parando a execução da função</span></span>
+<span id="cb207-3"><a href="r-miscelanea-e-topicos-avancados.html#cb207-3"></a>   <span class="co"># se x não for um objeto da classe numeric.</span></span>
+<span id="cb207-4"><a href="r-miscelanea-e-topicos-avancados.html#cb207-4"></a>   <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(x)) <span class="kw">stop</span> (<span class="st">&quot;x deve ter a classe numérica.&quot;</span>)</span>
+<span id="cb207-5"><a href="r-miscelanea-e-topicos-avancados.html#cb207-5"></a></span>
+<span id="cb207-6"><a href="r-miscelanea-e-topicos-avancados.html#cb207-6"></a>   <span class="cf">if</span> (x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="st">&quot;0&quot;</span></span>
+<span id="cb207-7"><a href="r-miscelanea-e-topicos-avancados.html#cb207-7"></a>   <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="st">&quot;+&quot;</span></span>
+<span id="cb207-8"><a href="r-miscelanea-e-topicos-avancados.html#cb207-8"></a>   <span class="cf">else</span> <span class="st">&quot;-&quot;</span></span>
+<span id="cb207-9"><a href="r-miscelanea-e-topicos-avancados.html#cb207-9"></a>}</span>
+<span id="cb207-10"><a href="r-miscelanea-e-topicos-avancados.html#cb207-10"></a></span>
+<span id="cb207-11"><a href="r-miscelanea-e-topicos-avancados.html#cb207-11"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.7</span>, <span class="fl">-2.01</span>, <span class="dv">0</span>, <span class="dv">12</span>)</span>
+<span id="cb207-12"><a href="r-miscelanea-e-topicos-avancados.html#cb207-12"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> sinal)</span></code></pre>
+<pre><code>## [[1]]
+## [1] &quot;+&quot;
+## 
+## [[2]]
+## [1] &quot;-&quot;
+## 
+## [[3]]
+## [1] &quot;0&quot;
+## 
+## [[4]]
+## [1] &quot;+&quot;</code></pre>
+<p>Perceba que o retorno de <code>map()</code> é uma lista assim como obteriamos ao utilizarmos o funcional <code>lapply()</code>. O exemplo acima poderia ser resolvido, com <code>lapply()</code>, fazendo <code>lapply(X = x, FUN = sinal)</code>. A grande vantagem do uso do funcional <code>map()</code> do pacote <strong>purrr</strong> é que podemos fazer uso de sufixos que nos ajudam na tarefa de converter o resultado para um vetor atômico do tipo desejado, utilizando alguma de suas variantes: <code>map_lgl()</code> (retorno de um vetor com elementos do tipo logical), <code>map_int()</code> (retorno de um vetor com elementos do tipo integer), <code>map_dbl()</code> (retorno de um vetor com elementos do tipo double) e <code>map_chr()</code> (retorno de um vetor com elementos do tipo character).</p>
+<p><strong>Exemplo</strong>: Utilizando <code>map_chr()</code> para obtenção de um vetor de caracteres como saída. Isso evito termos que efetuar <code>unlist()</code> para transformarmos uma lista em um vetor atômico.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="r-miscelanea-e-topicos-avancados.html#cb209-1"></a>purrr<span class="op">::</span><span class="kw">map_chr</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> sinal)</span></code></pre>
+<pre><code>## [1] &quot;+&quot; &quot;-&quot; &quot;0&quot; &quot;+&quot;</code></pre>
+<p>Para o argumento <code>.f</code> do funcional <code>map()</code> bem como de seus variantes (<code>map_lgl()</code>, <code>map_int()</code>, <code>map_dbl()</code> e <code>map_chr()</code>), poderemos passar uma função anônima ou uma fórmula. Os três exemplos que seguem apresentam o uso do funcinal <code>map()</code> ou alguma de suas variantes, considerando funções com 1 (um), 2 (dois) ou 3 (três) argumentos. Independentemente de qual(is) varantiante(s) de <code>map()</code> for/forem utilizada(s) nos exemplos, o uso de todas as variântes são equivalentes.</p>
+<p><strong>Exemplo (um argumento)</strong>: Uso do funcional <code>map_int()</code> para uma função com um único argumento. Nesse exemplo, desejamos somar 1 à cada elemento do vetor atômico (vetor homogêneo) <code>x &lt;- 1L:10L</code>. Note que, nesse exemplo, resolvemos o problema de somar o valor 1 (do tipo inteiro) aos valores de <code>x</code>, de 4 (quatro) formas distintas. Na primeira forma, definimos a função <code>soma1()</code> e passamos a função como argumento à <code>.f</code> do funcional <code>map_int()</code>. Na segunda forma, optou-se em passar uma função anônima para o argumento <code>.f</code>, uma vez que a função é curta e não necessitaríamos nos preocupar em atribuir um nome à ela. Nessa segunda forma, não haveria a necessidade da definição da função <code>soma1()</code>, uma vez que definimos a função diretamente no funcional, sem a necessidade de atribuição de um nome. Já na terceira e quarta forma, note que optamos em passar um objeto da classe <strong>formula</strong> (note o til, <code>~</code>). Como trata-se de uma função com um único argumento, podemos definir esse argumento por <code>.x</code> ou <code>.</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="r-miscelanea-e-topicos-avancados.html#cb211-1"></a>x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
+<span id="cb211-2"><a href="r-miscelanea-e-topicos-avancados.html#cb211-2"></a>soma1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span>1L</span>
+<span id="cb211-3"><a href="r-miscelanea-e-topicos-avancados.html#cb211-3"></a><span class="co"># Foma 1: Passando à .f uma função soma1().</span></span>
+<span id="cb211-4"><a href="r-miscelanea-e-topicos-avancados.html#cb211-4"></a>purrr<span class="op">::</span><span class="kw">map_int</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> soma1)</span>
+<span id="cb211-5"><a href="r-miscelanea-e-topicos-avancados.html#cb211-5"></a><span class="co"># Forma 2: Passando à .f uma função anônima.</span></span>
+<span id="cb211-6"><a href="r-miscelanea-e-topicos-avancados.html#cb211-6"></a>purrr<span class="op">::</span><span class="kw">map_int</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="cf">function</span>(x) x <span class="op">+</span><span class="st"> </span>1L)</span>
+<span id="cb211-7"><a href="r-miscelanea-e-topicos-avancados.html#cb211-7"></a><span class="co"># Forma 3: Passando à .f uma formula.</span></span>
+<span id="cb211-8"><a href="r-miscelanea-e-topicos-avancados.html#cb211-8"></a>purrr<span class="op">::</span><span class="kw">map_int</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">+</span><span class="st"> </span>1L)</span>
+<span id="cb211-9"><a href="r-miscelanea-e-topicos-avancados.html#cb211-9"></a><span class="co"># Forma 4: Para funções com um único argumento, você poderá substituir</span></span>
+<span id="cb211-10"><a href="r-miscelanea-e-topicos-avancados.html#cb211-10"></a><span class="co"># .x na fórmula passada ao argumento .f por um &quot;.&quot; (ponto).</span></span>
+<span id="cb211-11"><a href="r-miscelanea-e-topicos-avancados.html#cb211-11"></a>purrr<span class="op">::</span><span class="kw">map_int</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>. <span class="op">+</span><span class="st"> </span>1L)</span></code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>É claro que poderiamos resolver o exemplo acima sem uso de funcional algum, uma vez que a linguagem R é vetorizada e poderiamos simplesmente fazer <code>x + 1L</code> para assim obtermos um vetor de interio. Porém, isso é um exemplo didático, em que o objetifo aqui é entender os funcionais do pacote <strong>purrr</strong> e não perdermos mais tempo com o entendimento da função passada ao funcional. Sempre tenha em mente que a função passada à <code>.f</code>, na maioria das vezes, não será tão simples a ponto de justificar resolver o problema sem o uso de um funcional.</p>
+</div>
+</div>
+
+<p><strong>Exemplo (dois argumentos)</strong>: Uso do funcional <code>map()</code>, em que é aplicado a função <code>f()</code> sobre todos os elementos da lista <code>x</code>. O exemplo mostra que a função <code>map()</code> varia sobre os elementos do primeiro argumento <code>.x</code> e fixa o segundo argumento. Além disso, note que é possível passar uma função anônima ou uma fórmula ao argumento <code>.f</code> do funcional <code>map()</code>, assim como no exemplo anterior. Para o caso de passagem de uma fórmula, podemos utilizar <code>.</code> ou <code>.x</code> para se referir ao primeiro argumento de <code>f()</code> e <code>.y</code> para fazer referência ao segundo argumento.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="r-miscelanea-e-topicos-avancados.html#cb212-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="fl">1.1</span>,<span class="fl">4.07</span>,<span class="fl">3.76</span>), <span class="kw">c</span>(<span class="fl">7.1</span>,<span class="fl">2.2</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb212-2"><a href="r-miscelanea-e-topicos-avancados.html#cb212-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>)</span>
+<span id="cb212-3"><a href="r-miscelanea-e-topicos-avancados.html#cb212-3"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">sqrt</span>(y))</span>
+<span id="cb212-4"><a href="r-miscelanea-e-topicos-avancados.html#cb212-4"></a><span class="co"># Forma 1: Passando a função f() para o argumento .f</span></span>
+<span id="cb212-5"><a href="r-miscelanea-e-topicos-avancados.html#cb212-5"></a><span class="co"># de map_dbl().</span></span>
+<span id="cb212-6"><a href="r-miscelanea-e-topicos-avancados.html#cb212-6"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> f, <span class="dt">y =</span> y)</span>
+<span id="cb212-7"><a href="r-miscelanea-e-topicos-avancados.html#cb212-7"></a><span class="co"># Forma 2: Passando uma função anônima de dois argumentos.</span></span>
+<span id="cb212-8"><a href="r-miscelanea-e-topicos-avancados.html#cb212-8"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="cf">function</span>(x, y) <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">sqrt</span>(y)) , <span class="dt">y =</span> y)</span>
+<span id="cb212-9"><a href="r-miscelanea-e-topicos-avancados.html#cb212-9"></a><span class="co"># Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos.</span></span>
+<span id="cb212-10"><a href="r-miscelanea-e-topicos-avancados.html#cb212-10"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>.x <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">sqrt</span>(.y)), <span class="dt">.y =</span> y)</span>
+<span id="cb212-11"><a href="r-miscelanea-e-topicos-avancados.html#cb212-11"></a><span class="co"># Forma 4: Aqui o x .x será substituido na ocorrência de &quot;.&quot; (ponto).</span></span>
+<span id="cb212-12"><a href="r-miscelanea-e-topicos-avancados.html#cb212-12"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>. <span class="op">+</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">sqrt</span>(.y)), <span class="dt">.y =</span> y)</span></code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Note que nesse exemplo não poderemos fazer uso das variantes do funcional <code>map()</code>. Isso se deve ao fato de <code>x</code> ser uma lista, o que implica que a função <code>f()</code> será aplicada à cada elemento da lista <code>x</code>. Sendo assim, esperamos que o retorno de <code>map()</code> será uma lista com a mesma quantidade de elementos de <code>x</code>.</p>
+</div>
+</div>
+
+<p><strong>Exemplo (três ou mais argumentos)</strong>: Esse exemplo é muito parecido com o exemplo antrior (função <code>f()</code> com 2 (dois) argumentos). Aqui, temos que a função <code>f()</code> possui 3 (três) argumentos. Perceba porém, que ao se passar uma fórmula ao argumento <code>.f</code> do funcional <code>map()</code>, poderemos nos referir ao terceiro argumento com a notação <code>..3</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="r-miscelanea-e-topicos-avancados.html#cb213-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">7</span>, <span class="dv">8</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb213-2"><a href="r-miscelanea-e-topicos-avancados.html#cb213-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb213-3"><a href="r-miscelanea-e-topicos-avancados.html#cb213-3"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>)</span>
+<span id="cb213-4"><a href="r-miscelanea-e-topicos-avancados.html#cb213-4"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) x <span class="op">*</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>z</span>
+<span id="cb213-5"><a href="r-miscelanea-e-topicos-avancados.html#cb213-5"></a><span class="co"># Forma 1: Passando a função f() para o argumento .f</span></span>
+<span id="cb213-6"><a href="r-miscelanea-e-topicos-avancados.html#cb213-6"></a><span class="co"># de map_dbl().</span></span>
+<span id="cb213-7"><a href="r-miscelanea-e-topicos-avancados.html#cb213-7"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> f, <span class="dt">y =</span> y, <span class="dt">z =</span> z)</span>
+<span id="cb213-8"><a href="r-miscelanea-e-topicos-avancados.html#cb213-8"></a><span class="co"># Forma 2: Passando uma função anônima de dois argumentos.</span></span>
+<span id="cb213-9"><a href="r-miscelanea-e-topicos-avancados.html#cb213-9"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="cf">function</span>(x, y, z) x <span class="op">*</span><span class="st"> </span>y <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>z , <span class="dt">y =</span> y, <span class="dt">z =</span> z)</span>
+<span id="cb213-10"><a href="r-miscelanea-e-topicos-avancados.html#cb213-10"></a><span class="co"># Forma 3: Utilizamos .x e .y em situações de funções com 2 argumentos.</span></span>
+<span id="cb213-11"><a href="r-miscelanea-e-topicos-avancados.html#cb213-11"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">*</span><span class="st"> </span>.y <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>..<span class="dv">3</span>, <span class="dt">y =</span> y, <span class="dt">..3 =</span> z)</span>
+<span id="cb213-12"><a href="r-miscelanea-e-topicos-avancados.html#cb213-12"></a><span class="co"># Forma 4: Aqui o x .x será substituido na ocorrência de &quot;.&quot; (ponto).</span></span>
+<span id="cb213-13"><a href="r-miscelanea-e-topicos-avancados.html#cb213-13"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>. <span class="op">*</span><span class="st"> </span>.y <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>..<span class="dv">3</span>, <span class="dt">y =</span> y, <span class="dt">..3 =</span> z)</span></code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Nas formas 3 e 4 do exercício acima, você poderá substituir <code>..3</code> por <code>z</code>, ou seja, considerar, por exemplo, <code>purrr::map(.x = x, .f = ~ .x * .y + 2 * ..3, y = y, z = z)</code> irá funcionar. Isso se deve ao fato do funcional <code>map()</code> ser uma função <strong>vararg</strong>, em que os argumentos adicionais (não pertencentes à <code>map()</code>) serão acrescentados na função passada ao argumento <code>.f</code> de <code>map()</code>.</p>
+<p><strong>Se <code>f()</code> é uma função com <code>n</code> argumentos, você poderá referenciar os seus argumentos por <code>..1</code> (primeiro argumetno), <code>..2</code> (segundo argumento), <code>..3</code> (terceiro argumento), …, <code>..n</code>, com <code>n</code> um número inteiro qualquer.</strong></p>
+</div>
+</div>
+
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>O uso de <code>.</code> para especificar o primeiro elemento de uma função passada como argumento à <code>.f</code> em um dos funcionais do pacote <strong>purrr</strong> poderá gerar conflitos em situações em que você esteja utilizando o pacote <strong>magrittr</strong> em que <code>.</code> tem um outro significado.</p>
+</div>
+</div>
+
+</div>
+<div id="map2-e-variantes" class="section level4">
+<h4><span class="header-section-number">5.3.2.2</span> map2() e variantes</h4>
+<p>O funcional <code>map2()</code> tem grande utilidade em situações em que desejamos percorrer simultaneamente dois argumentos, isto é, quando temos que a função passada como argumento à <code>.f</code> possui dois argumentos e desejamos aplicar a função, par a par, sobre os elementos passados aos argumentos <code>.x</code> e <code>.y</code>, respectivamente. Em outras palavras, o uso do funcional <code>map2()</code> é útil em situações em que temos interesse de não deixar fixo o segundo argumento da função passada à <code>.f</code>. Assim como nas variantes do funcional <code>map()</code>, temos que as variantes do funcional <code>map2()</code> (<code>map2_int()</code>, <code>map2_dbl()</code> <code>map2_lgl()</code> e <code>map2_chr()</code>) ireão retornar um vetor com elementos do tipo referente ao sufixo utilizado.</p>
+<p><strong>Forma geral de uso</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="r-miscelanea-e-topicos-avancados.html#cb214-1"></a><span class="kw">map2</span>(.x, .y, .f, ...)</span>
+<span id="cb214-2"><a href="r-miscelanea-e-topicos-avancados.html#cb214-2"></a><span class="kw">map2_int</span>(.x, .y, .f, ...)</span>
+<span id="cb214-3"><a href="r-miscelanea-e-topicos-avancados.html#cb214-3"></a><span class="kw">map2_dbl</span>(.x, .y, .f, ...)</span>
+<span id="cb214-4"><a href="r-miscelanea-e-topicos-avancados.html#cb214-4"></a><span class="kw">map2_lgl</span>(.x, .y, .f, ...)</span>
+<span id="cb214-5"><a href="r-miscelanea-e-topicos-avancados.html#cb214-5"></a><span class="kw">map2_chr</span>(.x, .y, .f, ...)</span></code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>O uso do funcional <code>map2()</code> é análago ao uso de <code>map()</code> e suas variantes, com a diferença que o segundo argumento não estará fixo.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>: Uso da função <code>map2()</code> em que estão sendo somados, par a par, os elementos dos objetos <code>x</code> e <code>y</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="r-miscelanea-e-topicos-avancados.html#cb215-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb215-2"><a href="r-miscelanea-e-topicos-avancados.html#cb215-2"></a>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="dv">5</span><span class="op">:</span><span class="dv">12</span>)</span>
+<span id="cb215-3"><a href="r-miscelanea-e-topicos-avancados.html#cb215-3"></a>purrr<span class="op">::</span><span class="kw">map2</span>(<span class="dt">.x =</span> x, <span class="dt">.y =</span> y, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">+</span><span class="st"> </span>.y)</span></code></pre>
+<pre><code>## [[1]]
+## [1] 2 4 6
+## 
+## [[2]]
+## [1] 5 5
+## 
+## [[3]]
+## [1]  8 10 12 14 16 18 20 22</code></pre>
+</div>
+<div id="pmap-e-variantes" class="section level4">
+<h4><span class="header-section-number">5.3.2.3</span> pmap() e variantes</h4>
+<p>Algo muito parecido com o funcional <code>Map()</code> e <code>mapply()</code>do <strong>R Base</strong> é o que podemos fazer com o funcional <code>pmap()</code> do pacote <strong>purrr</strong>. Analogamente ao que temos com <code>Map()</code> e <code>mapply()</code>, ao utilizar o funcional <code>pmap()</code> poderemos variar mais de um argumeto.</p>
+<p><strong>Forma geral de uso</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="r-miscelanea-e-topicos-avancados.html#cb217-1"></a><span class="kw">pmap</span>(.l, .f, ...)</span>
+<span id="cb217-2"><a href="r-miscelanea-e-topicos-avancados.html#cb217-2"></a><span class="kw">pmap_int</span>(.l, .f, ...)</span>
+<span id="cb217-3"><a href="r-miscelanea-e-topicos-avancados.html#cb217-3"></a><span class="kw">pmap_dbl</span>(.l, .f, ...)</span>
+<span id="cb217-4"><a href="r-miscelanea-e-topicos-avancados.html#cb217-4"></a><span class="kw">pmap_lgl</span>(.l, .f, ...)</span>
+<span id="cb217-5"><a href="r-miscelanea-e-topicos-avancados.html#cb217-5"></a><span class="kw">pmap_chr</span>(.l, .f, ...)</span></code></pre>
+<p><strong>Exemplo</strong>: Uso do funcional <code>pmap()</code> variando, par a par, sobre elementos de duas listas (<code>x</code> e <code>y</code>) e um vetor (<code>z</code>).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="r-miscelanea-e-topicos-avancados.html#cb218-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb218-2"><a href="r-miscelanea-e-topicos-avancados.html#cb218-2"></a>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="dv">5</span><span class="op">:</span><span class="dv">12</span>)</span>
+<span id="cb218-3"><a href="r-miscelanea-e-topicos-avancados.html#cb218-3"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb218-4"><a href="r-miscelanea-e-topicos-avancados.html#cb218-4"></a>purrr<span class="op">::</span><span class="kw">pmap</span>(<span class="dt">.l =</span> <span class="kw">list</span>(x, y, z), <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">+</span><span class="st"> </span>.y <span class="op">+</span><span class="st"> </span>..<span class="dv">3</span>)</span></code></pre>
+<pre><code>## [[1]]
+## [1] 3 5 7
+## 
+## [[2]]
+## [1] 7 7
+## 
+## [[3]]
+## [1] 11 13 15 17 19 21 23 25</code></pre>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>O funcional <code>pmap()</code> poderá ser utilizado, de forma análoga ao exemplo acima, em situações em que a função passada ao argumento <code>.f</code> possa ter mais de três variáveis não fixadas. Porém, perceba que ao utilizar o funcional <code>pmap()</code>, nada impedirá que você tenha algumas dessas variáveis fixadas, se isso for de interesse. Esse fato também é válido para os funcionais <code>Map()</code> e <code>mapply()</code> do <strong>R Base</strong> e para o funcional <code>map2()</code> do pacote <strong>purrr</strong>.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>: Uso do funcional <code>pmap()</code> variando em duas listas (<code>x</code>, <code>y</code>) e um vetor <code>z</code>. Perceba que a quantidade de elementos nos objetos <code>x</code>, <code>y</code> e <code>z</code> é a mesma, ou seja, os objetos <code>x</code> e <code>y</code> são duas listas com dois vetores, respectivamente e <code>z</code> é um vetor com dois elementos.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="r-miscelanea-e-topicos-avancados.html#cb220-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) x <span class="op">+</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span>z</span>
+<span id="cb220-2"><a href="r-miscelanea-e-topicos-avancados.html#cb220-2"></a></span>
+<span id="cb220-3"><a href="r-miscelanea-e-topicos-avancados.html#cb220-3"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">1</span>))</span>
+<span id="cb220-4"><a href="r-miscelanea-e-topicos-avancados.html#cb220-4"></a>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb220-5"><a href="r-miscelanea-e-topicos-avancados.html#cb220-5"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>) <span class="co"># Vetor fixo.</span></span>
+<span id="cb220-6"><a href="r-miscelanea-e-topicos-avancados.html#cb220-6"></a></span>
+<span id="cb220-7"><a href="r-miscelanea-e-topicos-avancados.html#cb220-7"></a>purrr<span class="op">::</span><span class="kw">pmap</span>(<span class="dt">.l =</span> <span class="kw">list</span>(x, y, z), <span class="dt">.f =</span> f)</span></code></pre>
+<pre><code>## [[1]]
+## [1] 2 2 6
+## 
+## [[2]]
+## [1]  4  4  8 10  5</code></pre>
+</div>
+<div id="invoke-e-invoke_map" class="section level4">
+<h4><span class="header-section-number">5.3.2.4</span> invoke() e invoke_map()</h4>
+<p>A funcional <code>invoke()</code> é bastante semelhante ao funcional <code>do.call()</code> do <strong>R Base</strong>. Ambos os funcionais são úteis quando temos os argumentos de uma função em uma lista e posteriormente desejamos invocar uma função passando a lista de argumentos.</p>
+<p><strong>Exemplo</strong>: Passando a lista <code>runif_args</code> para a função <code>runif()</code> usando os funcionais do.call() (do <strong>R Base</strong>) e invoke (pacote <strong>purrr</strong>).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="r-miscelanea-e-topicos-avancados.html#cb222-1"></a><span class="kw">set.seed</span>(<span class="dv">0</span>) <span class="co"># Fixando uma semente.</span></span>
+<span id="cb222-2"><a href="r-miscelanea-e-topicos-avancados.html#cb222-2"></a><span class="co"># Lista de argumentos para passar à função runif().</span></span>
+<span id="cb222-3"><a href="r-miscelanea-e-topicos-avancados.html#cb222-3"></a>runif_args &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">10</span>)</span>
+<span id="cb222-4"><a href="r-miscelanea-e-topicos-avancados.html#cb222-4"></a><span class="co"># Usando do.call() do R Base.</span></span>
+<span id="cb222-5"><a href="r-miscelanea-e-topicos-avancados.html#cb222-5"></a><span class="kw">do.call</span>(<span class="dt">what =</span> runif, <span class="dt">args =</span> runif_args)</span></code></pre>
+<pre><code>## [1] 8.966972 2.655087 3.721239</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="r-miscelanea-e-topicos-avancados.html#cb224-1"></a><span class="co"># Usando invoke() do pacote purrr.</span></span>
+<span id="cb224-2"><a href="r-miscelanea-e-topicos-avancados.html#cb224-2"></a>purrr<span class="op">::</span><span class="kw">invoke</span>(<span class="dt">.f =</span> runif, <span class="dt">.x =</span> runif_args)</span></code></pre>
+<pre><code>## [1] 5.728534 9.082078 2.016819</code></pre>
+<p>Nas situações em que desejamos aplicar uma função à uma <strong>lista de listas</strong> de argumentos ou aplicar uma lista de argumentos à uma lista de funções, o funcional <code>invoke_map()</code> poderá ser de grande utilidade. O exemplo que segue mostra essas duas situações mencionadas.</p>
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="r-miscelanea-e-topicos-avancados.html#cb226-1"></a>f1 &lt;-<span class="st"> </span><span class="cf">function</span>(valor, por) valor <span class="op">+</span><span class="st"> </span>por</span>
+<span id="cb226-2"><a href="r-miscelanea-e-topicos-avancados.html#cb226-2"></a>f2 &lt;-<span class="st"> </span><span class="cf">function</span>(valor, por) valor <span class="op">-</span><span class="st"> </span>por</span>
+<span id="cb226-3"><a href="r-miscelanea-e-topicos-avancados.html#cb226-3"></a>f3 &lt;-<span class="st"> </span><span class="cf">function</span>(valor, por) valor <span class="op">*</span><span class="st"> </span>por</span>
+<span id="cb226-4"><a href="r-miscelanea-e-topicos-avancados.html#cb226-4"></a>f4 &lt;-<span class="st"> </span><span class="cf">function</span>(valor, por) valor <span class="op">/</span><span class="st"> </span>por</span>
+<span id="cb226-5"><a href="r-miscelanea-e-topicos-avancados.html#cb226-5"></a></span>
+<span id="cb226-6"><a href="r-miscelanea-e-topicos-avancados.html#cb226-6"></a><span class="co"># Passando uma lista de listas de argumentos para a função f1.</span></span>
+<span id="cb226-7"><a href="r-miscelanea-e-topicos-avancados.html#cb226-7"></a>purrr<span class="op">::</span><span class="kw">invoke_map</span>(<span class="dt">.f =</span> f1, <span class="dt">.x =</span> <span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">valor =</span> <span class="dv">1</span>, <span class="dt">por =</span> <span class="dv">1</span>),</span>
+<span id="cb226-8"><a href="r-miscelanea-e-topicos-avancados.html#cb226-8"></a>                                     <span class="kw">list</span>(<span class="dt">valor =</span> <span class="dv">2</span>, <span class="dt">por =</span> <span class="dv">2</span>), </span>
+<span id="cb226-9"><a href="r-miscelanea-e-topicos-avancados.html#cb226-9"></a>                                     <span class="kw">list</span>(<span class="dt">valor =</span> <span class="fl">7.1</span>, <span class="dt">por =</span> <span class="dv">10</span>)))</span></code></pre>
+<pre><code>## [[1]]
+## [1] 2
+## 
+## [[2]]
+## [1] 4
+## 
+## [[3]]
+## [1] 17.1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="r-miscelanea-e-topicos-avancados.html#cb228-1"></a><span class="co"># Passando uma lista de funções para a lista de argumentos passada </span></span>
+<span id="cb228-2"><a href="r-miscelanea-e-topicos-avancados.html#cb228-2"></a><span class="co"># à .x do funcional invoke_map().</span></span>
+<span id="cb228-3"><a href="r-miscelanea-e-topicos-avancados.html#cb228-3"></a>purrr<span class="op">::</span><span class="kw">invoke_map</span>(<span class="dt">.f =</span> <span class="kw">list</span>(f1, f2, f3, f4), <span class="dt">.x =</span> <span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">valor =</span> <span class="dv">2</span>, <span class="dt">por =</span> <span class="dv">2</span>)))</span></code></pre>
+<pre><code>## [[1]]
+## [1] 4
+## 
+## [[2]]
+## [1] 0
+## 
+## [[3]]
+## [1] 4
+## 
+## [[4]]
+## [1] 1</code></pre>
 </div>
 </div>
 <div id="exercicios-3" class="section level3 unnumbered">
@@ -1376,37 +1466,44 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <ol style="list-style-type: decimal">
 <li><p>Considerando o data frame <strong>iris</strong> (150 observações e 5 variáveis), obtenha a média das variáveis quantitativas por meio do uso de um funcional.</p></li>
 <li><p>O que o código abaixo faz? Reescreva o código abaixo, substitundo o loop <code>for()</code> pelo uso de um funcional. <strong>Dica</strong>: Utilize a função <code>sapply()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="r-miscelanea-e-topicos-avancados.html#cb206-1"></a>vetor &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
-<span id="cb206-2"><a href="r-miscelanea-e-topicos-avancados.html#cb206-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb206-3"><a href="r-miscelanea-e-topicos-avancados.html#cb206-3"></a>   v &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
-<span id="cb206-4"><a href="r-miscelanea-e-topicos-avancados.html#cb206-4"></a>   <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(x)){</span>
-<span id="cb206-5"><a href="r-miscelanea-e-topicos-avancados.html#cb206-5"></a>      v[i] &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>x[i<span class="op">+</span><span class="dv">1</span>] </span>
-<span id="cb206-6"><a href="r-miscelanea-e-topicos-avancados.html#cb206-6"></a>   }</span>
-<span id="cb206-7"><a href="r-miscelanea-e-topicos-avancados.html#cb206-7"></a></span>
-<span id="cb206-8"><a href="r-miscelanea-e-topicos-avancados.html#cb206-8"></a>   <span class="co"># A função na.omit() remove ocorrências de NA </span></span>
-<span id="cb206-9"><a href="r-miscelanea-e-topicos-avancados.html#cb206-9"></a>   <span class="co"># no vetor passado como argumento.</span></span>
-<span id="cb206-10"><a href="r-miscelanea-e-topicos-avancados.html#cb206-10"></a>   v &lt;-<span class="st"> </span><span class="kw">na.omit</span>(v) </span>
-<span id="cb206-11"><a href="r-miscelanea-e-topicos-avancados.html#cb206-11"></a>   <span class="kw">attributes</span>(v) &lt;-<span class="st"> </span><span class="ot">NULL</span>; v</span>
-<span id="cb206-12"><a href="r-miscelanea-e-topicos-avancados.html#cb206-12"></a>}</span></code></pre>
-<!-- vetor <- 1L:5e6L -->
-<!-- f <- function(x){ -->
-<!--     v <- c() -->
-<!--     for(i in seq_along(x)){ -->
-<!--       v[i] <- x[i] + x[i+1] -->
-<!--     } --></li>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="r-miscelanea-e-topicos-avancados.html#cb230-1"></a>vetor &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
+<span id="cb230-2"><a href="r-miscelanea-e-topicos-avancados.html#cb230-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb230-3"><a href="r-miscelanea-e-topicos-avancados.html#cb230-3"></a>   v &lt;-<span class="st"> </span><span class="kw">c</span>()</span>
+<span id="cb230-4"><a href="r-miscelanea-e-topicos-avancados.html#cb230-4"></a>   <span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(x)){</span>
+<span id="cb230-5"><a href="r-miscelanea-e-topicos-avancados.html#cb230-5"></a>      v[i] &lt;-<span class="st"> </span>x[i] <span class="op">+</span><span class="st"> </span>x[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] </span>
+<span id="cb230-6"><a href="r-miscelanea-e-topicos-avancados.html#cb230-6"></a>   }</span>
+<span id="cb230-7"><a href="r-miscelanea-e-topicos-avancados.html#cb230-7"></a></span>
+<span id="cb230-8"><a href="r-miscelanea-e-topicos-avancados.html#cb230-8"></a>   <span class="co"># A função na.omit() remove ocorrências de NA </span></span>
+<span id="cb230-9"><a href="r-miscelanea-e-topicos-avancados.html#cb230-9"></a>   <span class="co"># no vetor passado como argumento.</span></span>
+<span id="cb230-10"><a href="r-miscelanea-e-topicos-avancados.html#cb230-10"></a>   v &lt;-<span class="st"> </span><span class="kw">na.omit</span>(v) </span>
+<span id="cb230-11"><a href="r-miscelanea-e-topicos-avancados.html#cb230-11"></a>   <span class="kw">attributes</span>(v) &lt;-<span class="st"> </span><span class="ot">NULL</span>; v</span>
+<span id="cb230-12"><a href="r-miscelanea-e-topicos-avancados.html#cb230-12"></a>}</span></code></pre></li>
 </ol>
-<!--     # A função na.omit() remove ocorrências de NA -->
-<!--     # no vetor passado como argumento. -->
-<!--     v <- na.omit(v) -->
-<!--     attributes(v) <- NULL; v -->
-<!-- } -->
-<!-- system.time(f(vetor)) -->
 <!-- mydiff <- function(i, x){ -->
 <!--    x[i] + x[i+1] -->
 <!-- } -->
-<!-- loop <- function() sapply(X = 1L:(5e6L-1), FUN = mydiff, x = 1L:5e6L) -->
+<!-- loop <- function() sapply(X = 1L:9L, FUN = mydiff, x = vetor) -->
 <ol start="3" style="list-style-type: decimal">
-<li><p>Refaça o exercício anterior utilizando a função <code>vapply()</code>.</p></li>
+<li>Refaça o exercício anterior utilizando a função <code>vapply()</code>.</li>
+</ol>
+<!-- vetor <- 1L:10L -->
+<!-- mysum <- function(i, x)  x[i] + x[i+1] -->
+<!-- result <- vapply(X = 1:length(vetor), FUN = mysum, FUN.VALUE = double(1), x = vetor) %>%  -->
+<!--                  na.omit  -->
+<!-- attributes(result) <- NULL -->
+<ol start="4" style="list-style-type: decimal">
+<li><p>Leia a descrição do funcional <code>accumulate()</code> do pacote <strong>purrr</strong> e entenda o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="r-miscelanea-e-topicos-avancados.html#cb231-1"></a>  x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb231-2"><a href="r-miscelanea-e-topicos-avancados.html#cb231-2"></a>  purrr<span class="op">::</span><span class="kw">accumulate</span>(<span class="dt">.x =</span> x, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="kw">sum</span>(.x) <span class="op">+</span><span class="st"> </span>.y)</span></code></pre></li>
+<li><p>Reescreva o código abaixo utilizando o funcional <code>accumulate()</code> do pacote <strong>purrr</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="r-miscelanea-e-topicos-avancados.html#cb232-1"></a>acumular &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb232-2"><a href="r-miscelanea-e-topicos-avancados.html#cb232-2"></a>   vetor &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</span>
+<span id="cb232-3"><a href="r-miscelanea-e-topicos-avancados.html#cb232-3"></a>   <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(x)){</span>
+<span id="cb232-4"><a href="r-miscelanea-e-topicos-avancados.html#cb232-4"></a>      vetor[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(vetor[i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span>x[i]</span>
+<span id="cb232-5"><a href="r-miscelanea-e-topicos-avancados.html#cb232-5"></a>   }</span>
+<span id="cb232-6"><a href="r-miscelanea-e-topicos-avancados.html#cb232-6"></a>   vetor</span>
+<span id="cb232-7"><a href="r-miscelanea-e-topicos-avancados.html#cb232-7"></a>}</span></code></pre>
+<!-- purrr::accumulate(.x = c(1, 2, 3), .f = ~ .x + .y) --></li>
 <li><p>Implemente a função <code>isnumeric(x)</code> que deverá recebe um data frame e retornar um vetor lógico informando <code>TRUE</code>, se a coluna é numerica ou <code>FALSE</code>, caso contrário. Implemente de três formas, tal que:</p>
 <ul>
 <li><p><strong>Forma 1</strong>: Implementar utilizando a estrutura de repetição <code>for()</code>;</p></li>
@@ -1414,7 +1511,50 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <li><p><strong>Forma 3</strong>: Implementar utilizando o functional <code>vapply()</code>.</p></li>
 </ul></li>
 <li><p>A função <code>unique()</code> quando aplicada à um vetor, retornará um outro vetor com os elementos não repetidos do vetor passado como argumento à <code>unique()</code>. Implemente a função <code>countdiff(x)</code> que recebe como argumento um vetor, matriz ou tabela (data frame), de forma que retorne a quantidade de elementos distintos no vetor ou nas colunas da matriz/tabala.</p></li>
+<li><p>Considere o objeto <code>lista &lt;- list(1:2, list(c(8, 7), c(1, 4)))</code>. Utilizando o funcional <code>map()</code>, obtenha a saída abaixo. <strong>Dica</strong>: 1 - Use <code>map()</code> dentro de <code>map()</code>. 2 - Ao final, utilize o comando <code>flatten()</code> do pacote <strong>purrr</strong>. A saída a baixo é nada mais que somar 1 em cada elemento da lista.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="r-miscelanea-e-topicos-avancados.html#cb233-1"></a>  [[<span class="dv">1</span>]]</span>
+<span id="cb233-2"><a href="r-miscelanea-e-topicos-avancados.html#cb233-2"></a>  [<span class="dv">1</span>] <span class="dv">2</span></span>
+<span id="cb233-3"><a href="r-miscelanea-e-topicos-avancados.html#cb233-3"></a></span>
+<span id="cb233-4"><a href="r-miscelanea-e-topicos-avancados.html#cb233-4"></a>  [[<span class="dv">2</span>]]</span>
+<span id="cb233-5"><a href="r-miscelanea-e-topicos-avancados.html#cb233-5"></a>  [<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb233-6"><a href="r-miscelanea-e-topicos-avancados.html#cb233-6"></a></span>
+<span id="cb233-7"><a href="r-miscelanea-e-topicos-avancados.html#cb233-7"></a>  [[<span class="dv">3</span>]]</span>
+<span id="cb233-8"><a href="r-miscelanea-e-topicos-avancados.html#cb233-8"></a>  [<span class="dv">1</span>] <span class="dv">9</span> <span class="dv">8</span></span>
+<span id="cb233-9"><a href="r-miscelanea-e-topicos-avancados.html#cb233-9"></a></span>
+<span id="cb233-10"><a href="r-miscelanea-e-topicos-avancados.html#cb233-10"></a>  [[<span class="dv">4</span>]]</span>
+<span id="cb233-11"><a href="r-miscelanea-e-topicos-avancados.html#cb233-11"></a>  [<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">5</span></span></code></pre></li>
 </ol>
+<!-- lista <- list(1:2, list(c(8, 7), c(1, 4))) -->
+<!-- map(.x = lista, ~ map(., .f = ~ .x + 1)) %>%  flatten -->
+<ol start="9" style="list-style-type: decimal">
+<li><p>Por meio da documentação do funcional <code>map_if()</code> do pacote <strong>purrr</strong>, entenda o que o código abaixo faz:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="r-miscelanea-e-topicos-avancados.html#cb234-1"></a>   x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb234-2"><a href="r-miscelanea-e-topicos-avancados.html#cb234-2"></a>   purrr<span class="op">::</span><span class="kw">map_if</span>(<span class="dt">.x =</span> x, <span class="dt">.p =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, </span>
+<span id="cb234-3"><a href="r-miscelanea-e-topicos-avancados.html#cb234-3"></a>                 <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>.x, <span class="dt">.else =</span> <span class="op">~</span><span class="st"> </span>.x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">flatten_dbl</span>()</span></code></pre></li>
+<li><p>Considere o objeto <code>lista</code> definido por <code>lista &lt;- list(a = c(1, 3, 2), b = c(2, 3))</code>. Utilizando o funcional <code>map_if()</code>, multiplique os elementos pares por 2 de forma a obter a saída abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="r-miscelanea-e-topicos-avancados.html#cb235-1"></a><span class="op">$</span>a</span>
+<span id="cb235-2"><a href="r-miscelanea-e-topicos-avancados.html#cb235-2"></a><span class="op">$</span>a[[<span class="dv">1</span>]]</span>
+<span id="cb235-3"><a href="r-miscelanea-e-topicos-avancados.html#cb235-3"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb235-4"><a href="r-miscelanea-e-topicos-avancados.html#cb235-4"></a></span>
+<span id="cb235-5"><a href="r-miscelanea-e-topicos-avancados.html#cb235-5"></a><span class="op">$</span>a[[<span class="dv">2</span>]]</span>
+<span id="cb235-6"><a href="r-miscelanea-e-topicos-avancados.html#cb235-6"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb235-7"><a href="r-miscelanea-e-topicos-avancados.html#cb235-7"></a></span>
+<span id="cb235-8"><a href="r-miscelanea-e-topicos-avancados.html#cb235-8"></a><span class="op">$</span>a[[<span class="dv">3</span>]]</span>
+<span id="cb235-9"><a href="r-miscelanea-e-topicos-avancados.html#cb235-9"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb235-10"><a href="r-miscelanea-e-topicos-avancados.html#cb235-10"></a></span>
+<span id="cb235-11"><a href="r-miscelanea-e-topicos-avancados.html#cb235-11"></a><span class="op">$</span>b</span>
+<span id="cb235-12"><a href="r-miscelanea-e-topicos-avancados.html#cb235-12"></a><span class="op">$</span>b[[<span class="dv">1</span>]]</span>
+<span id="cb235-13"><a href="r-miscelanea-e-topicos-avancados.html#cb235-13"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb235-14"><a href="r-miscelanea-e-topicos-avancados.html#cb235-14"></a></span>
+<span id="cb235-15"><a href="r-miscelanea-e-topicos-avancados.html#cb235-15"></a><span class="op">$</span>b[[<span class="dv">2</span>]]</span>
+<span id="cb235-16"><a href="r-miscelanea-e-topicos-avancados.html#cb235-16"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre>
+<p><strong>Dica</strong>: Tente construir algo como <code>map(.x = lista, .f = ~ map_if())</code>.</p></li>
+</ol>
+<!-- purrr::map(.x = lista, .f = ~ map_if(.x, .p = ~ .x %% 2 == 0 , .f = ~ .x * 2)) -->
+<ol start="11" style="list-style-type: decimal">
+<li>A função <code>split()</code> divide um data frame em grupos de um fator. Por exemplo, faça <code>iris %$% split(., Species)</code>. Dado isso, considere o conjunto de dados <strong>starwars</strong> do pacote <a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a> (<code>install.packages("dplyr")</code>) que possui várias descrições dos personagens de Star Wars. Obtenha a quantidade de personagens por espécies utilizando o funcional <code>map()</code>.</li>
+</ol>
+<!-- purrr::map(.x = split(starwars, starwars$species), .f = ~dim(.x)[1]) -->
 <!-- ## Sistema S3 -->
 
 </div>
