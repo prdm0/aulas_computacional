@@ -1802,7 +1802,7 @@ print(x = str1, y = str2, sep = " ")
 y <- 1
 f <- function(x) {
    y <- 2
-   UseMethod("g")
+   UseMethod("f")
 }
 f.numeric <- function(x) y
 f(10); f.numeric(7)
