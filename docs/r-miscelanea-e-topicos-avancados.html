@@ -179,6 +179,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
 <li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-3"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
+<li class="chapter" data-level="5.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#classes"><i class="fa fa-check"></i><b>5.4.1</b> Classes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#criando-funcoes-genericas"><i class="fa fa-check"></i><b>5.4.2</b> Criando funções genéricas</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicio"><i class="fa fa-check"></i>Exercício</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -1555,7 +1560,264 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <li>A função <code>split()</code> divide um data frame em grupos de um fator. Por exemplo, faça <code>iris %$% split(., Species)</code>. Dado isso, considere o conjunto de dados <strong>starwars</strong> do pacote <a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a> (<code>install.packages("dplyr")</code>) que possui várias descrições dos personagens de Star Wars. Obtenha a quantidade de personagens por espécies utilizando o funcional <code>map()</code>.</li>
 </ol>
 <!-- purrr::map(.x = split(starwars, starwars$species), .f = ~dim(.x)[1]) -->
-<!-- ## Sistema S3 -->
+</div>
+</div>
+<div id="sistema-s3" class="section level2">
+<h2><span class="header-section-number">5.4</span> Sistema S3</h2>
+<p>S3 é o primeiro e mais simples sistema de <a href="https://pt.wikipedia.org/wiki/Orienta%C3%A7%C3%A3o_a_objetos"><strong>Orientação à Objeto (OO)</strong></a> da linguagem R. Por ser o primeiro sistema de OO da linguagem R, S3 é o sistema mais utilizado nos pacotes disponíveis no <a href="https://cran.r-project.org/"><strong>Comprehensive R Archive Network - CRAN</strong></a>, além de ser o sistema de OO utilizado na implementação dos pacotes <strong>base</strong> (<strong>R Base</strong>) e no pacote <strong>stats</strong>, ambos pacotes disponíveis por padrão em qualquer instalação de R. Aliás, o <strong>base</strong> é o principal pacote de R, sendo este o pacote de define a linguagem R com suas funções básicas. A linguagem R permite o uso de outros sistemas de OO como o S4, RC e R6, sendo o sistema R6 disponível pelo pacote <a href="https://r6.r-lib.org/"><strong>R6</strong></a> o mais formal e disponível em forma de um pacote desenvolvido por <a href="https://github.com/wch"><strong>Winston Chang</strong></a>.</p>
+<p>O S3 implementa um estilo de OO chamado OO de função genérica. Esse sistema é diferente da maioria das linguagens de programação com paradigma de OO, como, por exemplo, Java, C++, Ruby, Python e C#, que implementam o sistema de OO por transmissão de mensagens. Com a passagem de mensagens para um objeto, este determina qual método (função) irá chamar. Nessas linguagens, invocamos um método para um objeto fazendo algo como <code>objeto.metodo()</code>, em que <code>objeto</code> é um objeto qualquer pertencente à uma classe e <code>metodo()</code> é uma função qualquer disponível à objetos dessa classe. Por exemplo, você poderia ter algo como <code>M.inverse()</code> que calcularia a inversa do objeto <code>M</code> da classe <code>matrix</code>. Dessa forma, se o objeto <code>M</code> é assinado com uma classe, os métodos (funções) disponíveis para esse objeto estão encapsulados no interior do objeto. OO, em R, de forma mais próxima aos sistemas de linguagens OO tracionais é possível com o sistema R6 do pacote <a href="https://r6.r-lib.org/"><strong>R6</strong></a>. Esse sistema é utilizado no pacote <a href="https://github.com/tidyverse/ggplot2"><strong>ggplot2</strong></a>.</p>
+<p>Ao contrário dos sistemas tradicionais de OO, no sistema de OO S3, os métodos não estão dentro (encapsulados) dos objetos. Esses são invocados por uma função genérica que é responsável por invocar o método correto. Considere o exemplo abaixo:</p>
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="r-miscelanea-e-topicos-avancados.html#cb236-1"></a>vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="fl">1.2</span>, <span class="fl">4.4</span>)</span>
+<span id="cb236-2"><a href="r-miscelanea-e-topicos-avancados.html#cb236-2"></a>modelo &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> mtcars, <span class="dt">formula =</span> mpg <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt)</span>
+<span id="cb236-3"><a href="r-miscelanea-e-topicos-avancados.html#cb236-3"></a><span class="co"># Calculando o sumário de um vetor.</span></span>
+<span id="cb236-4"><a href="r-miscelanea-e-topicos-avancados.html#cb236-4"></a><span class="kw">summary</span>(vetor)</span></code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    1.40    2.50    3.10    4.05    7.00</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="r-miscelanea-e-topicos-avancados.html#cb238-1"></a><span class="co"># Obtendo o sumário de um modelo de regressão.</span></span>
+<span id="cb238-2"><a href="r-miscelanea-e-topicos-avancados.html#cb238-2"></a><span class="kw">summary</span>(modelo)</span></code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ cyl + disp + wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4020 -1.4067 -0.4948  1.3471  6.0717 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 41.072990   2.839375  14.466 1.61e-14 ***
+## cyl         -1.778054   0.606451  -2.932  0.00664 ** 
+## disp         0.007275   0.011797   0.617  0.54243    
+## wt          -3.623447   1.037898  -3.491  0.00161 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.595 on 28 degrees of freedom
+## Multiple R-squared:  0.8325, Adjusted R-squared:  0.8146 
+## F-statistic: 46.39 on 3 and 28 DF,  p-value: 5.446e-11</code></pre>
+<p>Perceba que a função <code>summary()</code> atuou de formas distintas sobre os objetos <code>vetor</code> e <code>modelo</code> que pertencem às classes <strong>numeric</strong> e <strong>lm</strong>, respectivamente. A função <code>summary()</code> invocou o método para realizar o trabalho correto sobre o objeto em questão. Trata-se de uma função genérica (uma interface) responsável por invocar o método correto. Essa função estará associada à diversas outras funções. É a função genérica que irá despachar o método (função) correta para trabalhar com objeto em questão. Note que a função <code>summary()</code> (função genérica) é uma implementação muito simples. Veja o seu conteúdo abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="r-miscelanea-e-topicos-avancados.html#cb240-1"></a><span class="kw">body</span>(<span class="dt">fun =</span> summary)</span></code></pre>
+<pre><code>## UseMethod(&quot;summary&quot;)</code></pre>
+<p>Para o exemplo acima, a função genérica <code>summary()</code> invocou os métodos <code>default()</code> e <code>lm</code> para trabalharem sobre os objetos <code>vetor</code> e <code>modelo</code>, respectivamente. Por exemplo, você poderia ter feito o papel da função genérica <code>summary()</code>, fazendo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="r-miscelanea-e-topicos-avancados.html#cb242-1"></a>vetor &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="fl">1.2</span>, <span class="fl">4.4</span>)</span>
+<span id="cb242-2"><a href="r-miscelanea-e-topicos-avancados.html#cb242-2"></a>modelo &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> mtcars, <span class="dt">formula =</span> mpg <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt)</span>
+<span id="cb242-3"><a href="r-miscelanea-e-topicos-avancados.html#cb242-3"></a><span class="co"># Calculando o sumário de um vetor.</span></span>
+<span id="cb242-4"><a href="r-miscelanea-e-topicos-avancados.html#cb242-4"></a><span class="kw">summary.default</span>(vetor)</span>
+<span id="cb242-5"><a href="r-miscelanea-e-topicos-avancados.html#cb242-5"></a><span class="co"># Obtendo o sumário de um modelo de regressão.</span></span>
+<span id="cb242-6"><a href="r-miscelanea-e-topicos-avancados.html#cb242-6"></a><span class="kw">summary.lm</span>(modelo)</span></code></pre>
+<p>Além dos métodos <code>default()</code> e <code>lm()</code> associados à função genérica <code>summary()</code>, diversos outros métodos podem ser despachado por <code>summary()</code>. Faça em um prompt de comando da linguagem R, por exemplo, <code>summary</code> + <strong>Tab</strong> para obter uma lista dos métodos disponíveis para a função genérica <code>summary()</code>. Uma outra forma mais eficiente de fazer isso é utilizando a função <code>methods()</code>, como mostra o código abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="r-miscelanea-e-topicos-avancados.html#cb243-1"></a><span class="co"># Listando todos os métodos associados </span></span>
+<span id="cb243-2"><a href="r-miscelanea-e-topicos-avancados.html#cb243-2"></a><span class="co"># à função genérica summary().</span></span>
+<span id="cb243-3"><a href="r-miscelanea-e-topicos-avancados.html#cb243-3"></a><span class="kw">methods</span>(<span class="dt">generic.function =</span> summary) <span class="co"># or methods(generic.function = &quot;summary&quot;)</span></span></code></pre>
+<pre><code>##  [1] summary.aov                    summary.aovlist*              
+##  [3] summary.aspell*                summary.check_packages_in_dir*
+##  [5] summary.cohesiveBlocks*        summary.connection            
+##  [7] summary.data.frame             summary.Date                  
+##  [9] summary.default                summary.ecdf*                 
+## [11] summary.factor                 summary.gexf*                 
+## [13] summary.ggplot*                summary.glm                   
+## [15] summary.hcl_palettes*          summary.igraph*               
+## [17] summary.infl*                  summary.lm                    
+## [19] summary.loess*                 summary.manova                
+## [21] summary.matrix                 summary.mlm*                  
+## [23] summary.nls*                   summary.packageStatus*        
+## [25] summary.POSIXct                summary.POSIXlt               
+## [27] summary.ppr*                   summary.prcomp*               
+## [29] summary.princomp*              summary.proc_time             
+## [31] summary.rlang_error*           summary.rlang_trace*          
+## [33] summary.srcfile                summary.srcref                
+## [35] summary.stepfun                summary.stl*                  
+## [37] summary.table                  summary.tukeysmooth*          
+## [39] summary.warnings               summary.XMLInternalDocument*  
+## see &#39;?methods&#39; for accessing help and source code</code></pre>
+<p>Para saber se uma determinada função é genérica e em caso afirmavo saber qual método foi despachado, o uso do pacote <a href="https://github.com/r-lib/sloop"><strong>sloop</strong></a> poderá ser útil. O pacote encontra-se no CRAN e poderá ser instalado fazendo <code>install.packages("devtools")</code>. Considere o exemplo que segue:</p>
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="r-miscelanea-e-topicos-avancados.html#cb245-1"></a>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(1L<span class="op">:</span>4L, <span class="dt">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb245-2"><a href="r-miscelanea-e-topicos-avancados.html#cb245-2"></a></span>
+<span id="cb245-3"><a href="r-miscelanea-e-topicos-avancados.html#cb245-3"></a><span class="co"># Indica que print() é um objeto do sistema S3</span></span>
+<span id="cb245-4"><a href="r-miscelanea-e-topicos-avancados.html#cb245-4"></a><span class="co"># de OO e além disso, informa que trata-se de</span></span>
+<span id="cb245-5"><a href="r-miscelanea-e-topicos-avancados.html#cb245-5"></a><span class="co"># uma função genérica.</span></span>
+<span id="cb245-6"><a href="r-miscelanea-e-topicos-avancados.html#cb245-6"></a>sloop<span class="op">::</span><span class="kw">ftype</span>(<span class="dt">f =</span> print)</span></code></pre>
+<pre><code>## [1] &quot;S3&quot;      &quot;generic&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="r-miscelanea-e-topicos-avancados.html#cb247-1"></a><span class="co"># A seta indica qual método está sendo utilizado para </span></span>
+<span id="cb247-2"><a href="r-miscelanea-e-topicos-avancados.html#cb247-2"></a><span class="co"># imprimir o objeto x. Nesse caso, print(x) despacha</span></span>
+<span id="cb247-3"><a href="r-miscelanea-e-topicos-avancados.html#cb247-3"></a><span class="co"># o método default() associado à função genérica print().</span></span>
+<span id="cb247-4"><a href="r-miscelanea-e-topicos-avancados.html#cb247-4"></a>sloop<span class="op">::</span><span class="kw">s3_dispatch</span>(<span class="kw">print</span>(x))</span></code></pre>
+<pre><code>##    print.matrix
+##    print.integer
+##    print.numeric
+## =&gt; print.default</code></pre>
+<div id="classes" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Classes</h3>
+<p>No sistema S3 não há uma definição formal de classe. Para definir um objeto como pertencente à uma determinada classe, bastará definir um atributo de classe ao objeto utilizando as funções <code>structure()</code> ou <code>class&lt;-</code>(). O exempo que deixará claro como isso poderá ser feito:</p>
+<p><strong>Exemplo</strong>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="r-miscelanea-e-topicos-avancados.html#cb249-1"></a><span class="co"># Fazendo list() tpertencer à uma classe qualquer</span></span>
+<span id="cb249-2"><a href="r-miscelanea-e-topicos-avancados.html#cb249-2"></a><span class="co"># de nome &quot;any_class&quot;.</span></span>
+<span id="cb249-3"><a href="r-miscelanea-e-topicos-avancados.html#cb249-3"></a>x &lt;-<span class="st"> </span><span class="kw">structure</span>(<span class="kw">list</span>(), <span class="dt">class =</span> <span class="st">&quot;any_class&quot;</span>)</span>
+<span id="cb249-4"><a href="r-miscelanea-e-topicos-avancados.html#cb249-4"></a><span class="kw">class</span>(x)</span></code></pre>
+<pre><code>## [1] &quot;any_class&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="r-miscelanea-e-topicos-avancados.html#cb251-1"></a><span class="co"># ou</span></span>
+<span id="cb251-2"><a href="r-miscelanea-e-topicos-avancados.html#cb251-2"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb251-3"><a href="r-miscelanea-e-topicos-avancados.html#cb251-3"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;any_class&quot;</span></span>
+<span id="cb251-4"><a href="r-miscelanea-e-topicos-avancados.html#cb251-4"></a><span class="kw">class</span>(x)</span></code></pre>
+<pre><code>## [1] &quot;any_class&quot;</code></pre>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Perceba que a classe de um objeto não é nada mais que um atributo do objeto, em que esse atributo tem o nome <strong>class</strong>. Faça, por exemplo <code>attributes(x)</code> para obter uma lista de atributos associados à um objeto. Você poderá incluir qualquer outro atributo ao objeto <code>x</code>, se for de seu interesse, porém, deverá existir apenas um atributo de nome <strong>class</strong> que controla a classe do objeto.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>: Você poderá determinar qual a classe de um objeto fazendo e perguntar se um objeto pertence à uma instância de classe, como mostra o código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="r-miscelanea-e-topicos-avancados.html#cb253-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
+<span id="cb253-2"><a href="r-miscelanea-e-topicos-avancados.html#cb253-2"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;any_class&quot;</span></span>
+<span id="cb253-3"><a href="r-miscelanea-e-topicos-avancados.html#cb253-3"></a><span class="co"># Perguntando a classe do objeto x.</span></span>
+<span id="cb253-4"><a href="r-miscelanea-e-topicos-avancados.html#cb253-4"></a><span class="kw">class</span>(x)</span></code></pre>
+<pre><code>## [1] &quot;any_class&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="r-miscelanea-e-topicos-avancados.html#cb255-1"></a><span class="co"># Perguntando e o objeto x pertência à instância de </span></span>
+<span id="cb255-2"><a href="r-miscelanea-e-topicos-avancados.html#cb255-2"></a><span class="co"># classe de nome any_class.</span></span>
+<span id="cb255-3"><a href="r-miscelanea-e-topicos-avancados.html#cb255-3"></a><span class="kw">inherits</span>(x, <span class="dt">what =</span> <span class="st">&quot;any_class&quot;</span>)</span></code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="criando-funcoes-genericas" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Criando funções genéricas</h3>
+<p>O trabalho de um S3 genérico é executar o envio do método, ou seja, encontrar a implementação específica para uma classe. O envio do método é realizado por <code>UseMethod()</code>.</p>
+<p><strong>Exemplo</strong>: Veja que <code>print()</code> e <code>summary()</code> são funções genéricas, cuja a implementação faz uso da função <code>UseMethod()</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="r-miscelanea-e-topicos-avancados.html#cb257-1"></a>sloop<span class="op">::</span><span class="kw">ftype</span>(summary)</span></code></pre>
+<pre><code>## [1] &quot;S3&quot;      &quot;generic&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="r-miscelanea-e-topicos-avancados.html#cb259-1"></a>sloop<span class="op">::</span><span class="kw">ftype</span>(print)</span></code></pre>
+<pre><code>## [1] &quot;S3&quot;      &quot;generic&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="r-miscelanea-e-topicos-avancados.html#cb261-1"></a><span class="co"># Corpo da função genérica summary().</span></span>
+<span id="cb261-2"><a href="r-miscelanea-e-topicos-avancados.html#cb261-2"></a><span class="kw">body</span>(summary)</span></code></pre>
+<pre><code>## UseMethod(&quot;summary&quot;)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="r-miscelanea-e-topicos-avancados.html#cb263-1"></a><span class="co"># Corpo da função genérica print().</span></span>
+<span id="cb263-2"><a href="r-miscelanea-e-topicos-avancados.html#cb263-2"></a><span class="kw">body</span>(print)</span></code></pre>
+<pre><code>## UseMethod(&quot;print&quot;)</code></pre>
+<p>A função <code>UseMethod()</code> usa dois argumentos: o nome da função genérica (obrigatório) e o argumento a ser usado para o método de envio (opcional). Se você omitir o segundo argumento, ele será despachado com base no primeiro argumento, que é quase sempre o que é desejado.</p>
+<p><strong>Exemplo</strong>: Criando a função genérica <code>f()</code>. O método <code>default()</code> é um método auxiliar que será utilizado caso a classe o argumento passado à função <code>f()</code> pertença à uma classe que não há um método associado á função genérica <code>f()</code>. Perceba que <code>f(x)</code> fará uso do método <code>myclass()</code> e <code>f(y)</code> fará uso do método <code>default()</code>, uma vez que <code>y</code> não foi assinado com um objeto pertencente à classe <strong>myclass</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="r-miscelanea-e-topicos-avancados.html#cb265-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">UseMethod</span>(<span class="st">&quot;f&quot;</span>)</span>
+<span id="cb265-2"><a href="r-miscelanea-e-topicos-avancados.html#cb265-2"></a><span class="co"># Função que trabalha com objeto da classe myclass.</span></span>
+<span id="cb265-3"><a href="r-miscelanea-e-topicos-avancados.html#cb265-3"></a>f.myclass &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb265-4"><a href="r-miscelanea-e-topicos-avancados.html#cb265-4"></a>   <span class="kw">warning</span>(<span class="st">&quot;Foi executado o método myclass: mesmo que f.myclass(x)&quot;</span>)</span>
+<span id="cb265-5"><a href="r-miscelanea-e-topicos-avancados.html#cb265-5"></a>   <span class="kw">print</span>(x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb265-6"><a href="r-miscelanea-e-topicos-avancados.html#cb265-6"></a>}</span>
+<span id="cb265-7"><a href="r-miscelanea-e-topicos-avancados.html#cb265-7"></a>f.default &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb265-8"><a href="r-miscelanea-e-topicos-avancados.html#cb265-8"></a>   <span class="kw">warning</span>(<span class="st">&quot;Foi executado o método default: mesmo que f.default(x)&quot;</span>)</span>
+<span id="cb265-9"><a href="r-miscelanea-e-topicos-avancados.html#cb265-9"></a>   <span class="kw">print</span>(x)</span>
+<span id="cb265-10"><a href="r-miscelanea-e-topicos-avancados.html#cb265-10"></a>} </span>
+<span id="cb265-11"><a href="r-miscelanea-e-topicos-avancados.html#cb265-11"></a>x &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
+<span id="cb265-12"><a href="r-miscelanea-e-topicos-avancados.html#cb265-12"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;myclass&quot;</span></span>
+<span id="cb265-13"><a href="r-miscelanea-e-topicos-avancados.html#cb265-13"></a><span class="kw">f</span>(x)</span></code></pre>
+<pre><code>## Warning in f.myclass(x): Foi executado o método myclass: mesmo que
+## f.myclass(x)</code></pre>
+<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11
+## attr(,&quot;class&quot;)
+## [1] &quot;myclass&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="r-miscelanea-e-topicos-avancados.html#cb268-1"></a><span class="co"># Será executado o método default, uma vez que o objeto</span></span>
+<span id="cb268-2"><a href="r-miscelanea-e-topicos-avancados.html#cb268-2"></a><span class="co"># y não foi assinado com a classe myclass.</span></span>
+<span id="cb268-3"><a href="r-miscelanea-e-topicos-avancados.html#cb268-3"></a><span class="kw">f</span>(y)</span></code></pre>
+<pre><code>## Warning in f.default(y): Foi executado o método default: mesmo que
+## f.default(x)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="r-miscelanea-e-topicos-avancados.html#cb271-1"></a><span class="co"># Checando se f é um objeto da classe S3 e se trata-se </span></span>
+<span id="cb271-2"><a href="r-miscelanea-e-topicos-avancados.html#cb271-2"></a><span class="co"># de uma função genérica.</span></span>
+<span id="cb271-3"><a href="r-miscelanea-e-topicos-avancados.html#cb271-3"></a>sloop<span class="op">::</span><span class="kw">ftype</span>(f)</span></code></pre>
+<pre><code>## [1] &quot;S3&quot;      &quot;generic&quot;</code></pre>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Perceba que utiliza <code>.</code> no nome de uma função não ocasionará problemas de conflito, mas poderá nos deixar com dúvidas, uma vez que não sabemos se o que está antes do ponto é uma função genérica e logo após o seu método ou se apenas trata-se de uma função que usa <code>.</code> no seu nome. Por exemplo, se olharmos apenas para <code>f.a()</code> não ficará claro se <code>f()</code> é uma função genérica e <code>a()</code> um método de <code>f()</code> ou se temos uma função comum de nome <code>f.a</code>.</p>
+</div>
+</div>
+
+</div>
+<div id="exercicio" class="section level3 unnumbered">
+<h3>Exercício</h3>
+<p>1 - A função função <code>dim()</code> é uma função genérica? Explique. Em caso afirmativo, quantos métodos possui essa função?</p>
+<p>2 - Explique o por quê da saída do código que segue:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="r-miscelanea-e-topicos-avancados.html#cb273-1"></a>x &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
+<span id="cb273-2"><a href="r-miscelanea-e-topicos-avancados.html#cb273-2"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;test&quot;</span></span>
+<span id="cb273-3"><a href="r-miscelanea-e-topicos-avancados.html#cb273-3"></a><span class="kw">t</span>(x)</span></code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  x
+## t = 5.7446, df = 9, p-value = 0.0002782
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  3.334149 7.665851
+## sample estimates:
+## mean of x 
+##       5.5</code></pre>
+<p>3 - Crie o método <code>print.conc(x, y, sep = "", ...)</code> para a função genérica <code>print()</code>. O método deverá concatenar dois objetos da classe <strong>conc</strong>. O método deverá funcionar da forma abaixo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="r-miscelanea-e-topicos-avancados.html#cb275-1"></a>str1 &lt;-<span class="st"> &quot;Estudando&quot;</span> </span>
+<span id="cb275-2"><a href="r-miscelanea-e-topicos-avancados.html#cb275-2"></a><span class="kw">class</span>(str1) &lt;-<span class="st"> &quot;conc&quot;</span></span>
+<span id="cb275-3"><a href="r-miscelanea-e-topicos-avancados.html#cb275-3"></a>str2 &lt;-<span class="st"> &quot;R&quot;</span></span>
+<span id="cb275-4"><a href="r-miscelanea-e-topicos-avancados.html#cb275-4"></a><span class="kw">print</span>(<span class="dt">x =</span> str1, <span class="dt">y =</span> str2, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</span></code></pre>
+<pre><code>## [1] &quot;Estudando&quot;
+## attr(,&quot;class&quot;)
+## [1] &quot;conc&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="r-miscelanea-e-topicos-avancados.html#cb277-1"></a><span class="co"># [1] &quot;Estudando R&quot;</span></span></code></pre>
+<!-- print.paste <- function(x, y, sep = "", ...){ -->
+<!--   if (is.character(x) == FALSE || is.character(x) == FALSE) -->
+<!--     stop("Os argumentos devem ser strings.") -->
+<!--   paste(x, y, sep = sep, ...) -->
+<!-- } -->
+<!-- str1 <- "Pedro" -->
+<!-- class(str1) <- "paste" -->
+<!-- str2 <- "Rafael" -->
+<!-- print(x = str1, y = str2)     -->
+<p>4 - Informe a saída do código abaixo. Explique!</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="r-miscelanea-e-topicos-avancados.html#cb278-1"></a>y &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb278-2"><a href="r-miscelanea-e-topicos-avancados.html#cb278-2"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb278-3"><a href="r-miscelanea-e-topicos-avancados.html#cb278-3"></a>   y &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb278-4"><a href="r-miscelanea-e-topicos-avancados.html#cb278-4"></a>   <span class="kw">UseMethod</span>(<span class="st">&quot;g&quot;</span>)</span>
+<span id="cb278-5"><a href="r-miscelanea-e-topicos-avancados.html#cb278-5"></a>}</span>
+<span id="cb278-6"><a href="r-miscelanea-e-topicos-avancados.html#cb278-6"></a>f.numeric &lt;-<span class="st"> </span><span class="cf">function</span>(x) y</span>
+<span id="cb278-7"><a href="r-miscelanea-e-topicos-avancados.html#cb278-7"></a><span class="kw">f</span>(<span class="dv">10</span>); <span class="kw">f.numeric</span>(<span class="dv">7</span>)</span></code></pre>
+<p>5 - Informe a saída do código abaixo. Explique!</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="r-miscelanea-e-topicos-avancados.html#cb279-1"></a>g &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">UseMethod</span>(<span class="st">&quot;g&quot;</span>)</span>
+<span id="cb279-2"><a href="r-miscelanea-e-topicos-avancados.html#cb279-2"></a></span>
+<span id="cb279-3"><a href="r-miscelanea-e-topicos-avancados.html#cb279-3"></a>g.character &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">paste</span>(<span class="st">&quot;char&quot;</span>, x)</span>
+<span id="cb279-4"><a href="r-miscelanea-e-topicos-avancados.html#cb279-4"></a>g.numeric &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">paste</span>(<span class="st">&quot;num&quot;</span>, x)</span>
+<span id="cb279-5"><a href="r-miscelanea-e-topicos-avancados.html#cb279-5"></a>g.default &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="st">&quot;?&quot;</span></span>
+<span id="cb279-6"><a href="r-miscelanea-e-topicos-avancados.html#cb279-6"></a></span>
+<span id="cb279-7"><a href="r-miscelanea-e-topicos-avancados.html#cb279-7"></a><span class="kw">g</span>(<span class="st">&quot;1&quot;</span>)</span>
+<span id="cb279-8"><a href="r-miscelanea-e-topicos-avancados.html#cb279-8"></a><span class="kw">g</span>(<span class="dv">1</span>)</span>
+<span id="cb279-9"><a href="r-miscelanea-e-topicos-avancados.html#cb279-9"></a><span class="kw">g</span>(<span class="ot">TRUE</span>)</span></code></pre>
+<p>6 - A função abaixo implementa o método <code>summary.character()</code>. O que esse método faz? Por que não foi preciso assinar o objeto <code>x</code>? Entenda o código:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="r-miscelanea-e-topicos-avancados.html#cb280-1"></a>summary.character &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb280-2"><a href="r-miscelanea-e-topicos-avancados.html#cb280-2"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw">inherits</span>(x, <span class="dt">what =</span> <span class="st">&quot;character&quot;</span>)) <span class="kw">stop</span>(<span class="st">&quot;x must be of character type&quot;</span>)  </span>
+<span id="cb280-3"><a href="r-miscelanea-e-topicos-avancados.html#cb280-3"></a>  n_char &lt;-<span class="st"> </span><span class="kw">nchar</span>(x)</span>
+<span id="cb280-4"><a href="r-miscelanea-e-topicos-avancados.html#cb280-4"></a>  vetor_chr &lt;-<span class="st"> </span><span class="kw">strsplit</span>(<span class="dt">x =</span> x, <span class="dt">split =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb280-5"><a href="r-miscelanea-e-topicos-avancados.html#cb280-5"></a>  <span class="cf">if</span> (<span class="kw">is.list</span>(vetor_chr) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>){</span>
+<span id="cb280-6"><a href="r-miscelanea-e-topicos-avancados.html#cb280-6"></a>    list_factor &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> vetor_chr, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="kw">as.factor</span>(.x))</span>
+<span id="cb280-7"><a href="r-miscelanea-e-topicos-avancados.html#cb280-7"></a>    n_diff &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dt">.x =</span> list_factor, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(.x)))</span>
+<span id="cb280-8"><a href="r-miscelanea-e-topicos-avancados.html#cb280-8"></a>  } <span class="cf">else</span> </span>
+<span id="cb280-9"><a href="r-miscelanea-e-topicos-avancados.html#cb280-9"></a>    n_diff &lt;-<span class="st"> </span><span class="kw">length</span>(<span class="kw">levels</span>(<span class="kw">as.factor</span>(vetor_chr)))</span>
+<span id="cb280-10"><a href="r-miscelanea-e-topicos-avancados.html#cb280-10"></a>  </span>
+<span id="cb280-11"><a href="r-miscelanea-e-topicos-avancados.html#cb280-11"></a>  <span class="kw">list</span>(<span class="dt">nchr =</span> n_char, <span class="dt">ndiff =</span> n_diff)</span>
+<span id="cb280-12"><a href="r-miscelanea-e-topicos-avancados.html#cb280-12"></a>}</span>
+<span id="cb280-13"><a href="r-miscelanea-e-topicos-avancados.html#cb280-13"></a><span class="kw">summary</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;aabb&quot;</span>, <span class="st">&quot;aaa&quot;</span>))</span></code></pre>
+<pre><code>## $nchr
+## [1] 4 3
+## 
+## $ndiff
+## $ndiff[[1]]
+## [1] 2
+## 
+## $ndiff[[2]]
+## [1] 1</code></pre>
+<p>7 - Construa a função genérica <code>mydiag(x)</code> que recebe como argumento uma matriz ou tabela (data frame) que podem conter valores numéricos ou caracters, com o número de linhas é igual ao número de colunas. Depois, defina dois métodos, <code>mydiag.numeric()</code> e <code>mydiag.character()</code> que retorna a soma da diagonal principal do objeto passado à <code>x</code>. Para a matriz/tabela de caracteres, considere A/a como 1, B/b como 2, …, Z/z como 26, respectivamente. <strong>Dicas</strong>: 1 - As função <code>tolower()</code> poderá ajudar a converter um caracter em letra maiúscila para minúscula. 2 - Para o caso de matriz/tabela com strings, considere apenas o primeiro caracter da string. Por exemplo:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="r-miscelanea-e-topicos-avancados.html#cb282-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb282-2"><a href="r-miscelanea-e-topicos-avancados.html#cb282-2"></a><span class="kw">mydiag</span>(m1)</span>
+<span id="cb282-3"><a href="r-miscelanea-e-topicos-avancados.html#cb282-3"></a><span class="co"># [1] 5</span></span>
+<span id="cb282-4"><a href="r-miscelanea-e-topicos-avancados.html#cb282-4"></a>m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="st">&quot;casa&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;barco&quot;</span>, <span class="st">&quot;terra&quot;</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb282-5"><a href="r-miscelanea-e-topicos-avancados.html#cb282-5"></a><span class="kw">mydiag</span>(m2)</span>
+<span id="cb282-6"><a href="r-miscelanea-e-topicos-avancados.html#cb282-6"></a><span class="co"># [1] 23</span></span></code></pre>
 
 </div>
 </div>

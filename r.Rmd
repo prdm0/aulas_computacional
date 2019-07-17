@@ -1615,4 +1615,242 @@ purrr::invoke_map(.f = list(f1, f2, f3, f4), .x = list(list(valor = 2, por = 2))
 <!-- purrr::map(.x = split(starwars, starwars$species), .f = ~dim(.x)[1]) -->
 
 
-<!-- ## Sistema S3 -->
+## Sistema S3
+
+S3 é o primeiro e mais simples sistema de [**Orientação à Objeto (OO)**](https://pt.wikipedia.org/wiki/Orienta%C3%A7%C3%A3o_a_objetos) da linguagem R. Por ser o primeiro sistema de OO da linguagem R, S3 é o sistema mais utilizado nos pacotes disponíveis no [**Comprehensive R Archive Network - CRAN**](https://cran.r-project.org/), além de ser o sistema de OO utilizado na implementação dos pacotes **base** (**R Base**) e no pacote **stats**, ambos pacotes disponíveis por padrão em qualquer instalação de R. Aliás, o **base** é o principal pacote de R, sendo este o pacote de define a linguagem R com suas funções básicas. A linguagem R permite o uso de outros sistemas de OO como o S4, RC e R6, sendo o sistema R6 disponível pelo pacote [**R6**](https://r6.r-lib.org/) o mais formal e disponível em forma de um pacote desenvolvido por [**Winston Chang**](https://github.com/wch). 
+
+O S3 implementa um estilo de OO chamado OO de função genérica. Esse sistema é diferente da maioria das linguagens de programação com paradigma de OO, como, por exemplo, Java, C++, Ruby, Python e C#, que implementam o sistema de OO por transmissão de mensagens. Com a passagem de mensagens para um objeto, este determina qual método (função) irá chamar. Nessas linguagens, invocamos um método para um objeto fazendo algo como `objeto.metodo()`, em que `objeto` é um objeto qualquer pertencente à uma classe e `metodo()` é uma função qualquer disponível à objetos dessa classe. Por exemplo, você poderia ter algo como `M.inverse()` que calcularia a inversa do objeto `M` da classe `matrix`. Dessa forma, se o objeto `M` é assinado com uma classe, os métodos (funções) disponíveis para esse objeto estão encapsulados no interior do objeto. OO, em R, de forma mais próxima aos sistemas de linguagens OO tracionais é possível com o sistema R6 do pacote [**R6**](https://r6.r-lib.org/). Esse sistema é utilizado no pacote [**ggplot2**](https://github.com/tidyverse/ggplot2).
+
+Ao contrário dos sistemas tradicionais de OO, no sistema de OO S3, os métodos não estão dentro (encapsulados) dos objetos. Esses são invocados por uma função genérica que é responsável por invocar o método correto. Considere o exemplo abaixo:
+
+**Exemplo**: 
+
+```{r}
+vetor <- c(7, 1, 2, 3, 1.2, 4.4)
+modelo <- lm(data = mtcars, formula = mpg ~ cyl + disp + wt)
+# Calculando o sumário de um vetor.
+summary(vetor)
+# Obtendo o sumário de um modelo de regressão.
+summary(modelo)
+```
+
+Perceba que a função `summary()` atuou de formas distintas sobre os objetos `vetor` e `modelo` que pertencem às classes **numeric** e **lm**, respectivamente. A função `summary()` invocou o método para realizar o trabalho correto sobre o objeto em questão. Trata-se de uma função genérica (uma interface) responsável por invocar o método correto. Essa função estará associada à diversas outras funções. É a função genérica que irá despachar o método (função) correta para trabalhar com objeto em questão. Note que a função `summary()` (função genérica) é uma implementação muito simples. Veja o seu conteúdo abaixo:
+
+```{r}
+body(fun = summary)
+```
+
+Para o exemplo acima, a função genérica `summary()` invocou os métodos `default()` e `lm` para trabalharem sobre os objetos `vetor` e `modelo`, respectivamente. Por exemplo, você poderia ter feito o papel da função genérica `summary()`, fazendo:
+
+```{r, eval = FALSE}
+vetor <- c(7, 1, 2, 3, 1.2, 4.4)
+modelo <- lm(data = mtcars, formula = mpg ~ cyl + disp + wt)
+# Calculando o sumário de um vetor.
+summary.default(vetor)
+# Obtendo o sumário de um modelo de regressão.
+summary.lm(modelo)
+```
+
+Além dos métodos `default()` e `lm()` associados à função genérica `summary()`, diversos outros métodos podem ser despachado por `summary()`. Faça em um prompt de comando da linguagem R, por exemplo, `summary` + **Tab** para obter uma lista dos métodos disponíveis para a função genérica `summary()`. Uma outra forma mais eficiente de fazer isso é utilizando a função `methods()`, como mostra o código abaixo:
+
+```{r}
+# Listando todos os métodos associados 
+# à função genérica summary().
+methods(generic.function = summary) # or methods(generic.function = "summary")
+```
+
+Para saber se uma determinada função é genérica e em caso afirmavo saber qual método foi despachado, o uso do pacote [**sloop**](https://github.com/r-lib/sloop) poderá ser útil. O pacote encontra-se no CRAN e poderá ser instalado fazendo `install.packages("devtools")`. Considere o exemplo que segue:
+
+**Exemplo**:
+
+```{r}
+x <- matrix(1L:4L, nrow = 2)
+
+# Indica que print() é um objeto do sistema S3
+# de OO e além disso, informa que trata-se de
+# uma função genérica.
+sloop::ftype(f = print)
+# A seta indica qual método está sendo utilizado para 
+# imprimir o objeto x. Nesse caso, print(x) despacha
+# o método default() associado à função genérica print().
+sloop::s3_dispatch(print(x))
+```
+
+### Classes
+
+No sistema S3 não há uma definição formal de classe. Para definir um objeto como pertencente à uma determinada classe, bastará definir um atributo de classe ao objeto utilizando as funções `structure()` ou `class<-`(). O exempo que deixará claro como isso poderá ser feito:
+
+**Exemplo**:
+
+```{r}
+# Fazendo list() tpertencer à uma classe qualquer
+# de nome "any_class".
+x <- structure(list(), class = "any_class")
+class(x)
+
+# ou
+x <- list()
+class(x) <- "any_class"
+class(x)
+```
+
+**Importante**:
+
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+Perceba que a classe de um objeto não é nada mais que um atributo do objeto, em que esse atributo tem o nome **class**. Faça, por exemplo `attributes(x)` para obter uma lista de atributos associados à um objeto. Você poderá incluir qualquer outro atributo ao objeto `x`, se for de seu interesse, porém, deverá existir apenas um atributo de nome **class** que controla a classe do objeto.
+</div>
+```
+
+**Exemplo**: Você poderá determinar qual a classe de um objeto fazendo e perguntar se um objeto pertence à uma instância de classe, como mostra o código que segue:
+
+```{r}
+x <- list()
+class(x) <- "any_class"
+# Perguntando a classe do objeto x.
+class(x)
+# Perguntando e o objeto x pertência à instância de 
+# classe de nome any_class.
+inherits(x, what = "any_class")
+```
+
+### Criando funções genéricas
+
+O trabalho de um S3 genérico é executar o envio do método, ou seja, encontrar a implementação específica para uma classe. O envio do método é realizado por `UseMethod()`. 
+
+**Exemplo**: Veja que `print()` e `summary()` são funções genéricas, cuja a implementação faz uso da função `UseMethod()`.
+
+```{r}
+sloop::ftype(summary)
+sloop::ftype(print)
+# Corpo da função genérica summary().
+body(summary)
+# Corpo da função genérica print().
+body(print)
+```
+
+A função `UseMethod()` usa dois argumentos: o nome da função genérica (obrigatório) e o argumento a ser usado para o método de envio (opcional). Se você omitir o segundo argumento, ele será despachado com base no primeiro argumento, que é quase sempre o que é desejado. 
+
+
+**Exemplo**: Criando a função genérica `f()`. O método `default()` é um método auxiliar que será utilizado caso a classe o argumento passado à função `f()` pertença à uma classe que não há um método associado á função genérica `f()`. Perceba que `f(x)` fará uso do método `myclass()` e `f(y)` fará uso do método `default()`, uma vez que `y` não foi assinado com um objeto pertencente à classe **myclass**.
+
+```{r}
+f <- function(x) UseMethod("f")
+# Função que trabalha com objeto da classe myclass.
+f.myclass <- function(x) {
+   warning("Foi executado o método myclass: mesmo que f.myclass(x)")
+   print(x + 1)
+}
+f.default <- function(x){
+   warning("Foi executado o método default: mesmo que f.default(x)")
+   print(x)
+} 
+x <- y <- 1L:10L
+class(x) <- "myclass"
+f(x)
+# Será executado o método default, uma vez que o objeto
+# y não foi assinado com a classe myclass.
+f(y)
+# Checando se f é um objeto da classe S3 e se trata-se 
+# de uma função genérica.
+sloop::ftype(f)
+```
+
+**Observação**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+Perceba que utiliza `.` no nome de uma função não ocasionará problemas de conflito, mas poderá nos deixar com dúvidas, uma vez que não sabemos se o que está antes do ponto é uma função genérica e logo após o seu método ou se apenas trata-se de uma função que usa `.` no seu nome. Por exemplo, se olharmos apenas para `f.a()` não ficará claro se `f()` é uma função genérica e `a()` um método de `f()` ou se temos uma função comum de nome `f.a`. 
+</div>
+```
+
+### Exercício {-}
+
+1 - A função função `dim()` é uma função genérica? Explique. Em caso afirmativo, quantos métodos possui essa função?
+
+2 - Explique o por quê da saída do código que segue:
+
+```{r}
+x <- 1L:10L
+class(x) <- "test"
+t(x)
+```
+    
+3 - Crie o método `print.conc(x, y, sep = "", ...)` para a função genérica `print()`. O método deverá concatenar dois objetos da classe **conc**. O método deverá funcionar da forma abaixo:
+
+```{r}
+str1 <- "Estudando" 
+class(str1) <- "conc"
+str2 <- "R"
+print(x = str1, y = str2, sep = " ")
+# [1] "Estudando R"
+```
+
+<!-- print.paste <- function(x, y, sep = "", ...){ -->
+<!--   if (is.character(x) == FALSE || is.character(x) == FALSE) -->
+<!--     stop("Os argumentos devem ser strings.") -->
+<!--   paste(x, y, sep = sep, ...) -->
+<!-- } -->
+<!-- str1 <- "Pedro" -->
+<!-- class(str1) <- "paste" -->
+<!-- str2 <- "Rafael" -->
+<!-- print(x = str1, y = str2)     -->
+
+4 - Informe a saída do código abaixo. Explique!
+
+```{r, eval = FALSE}
+y <- 1
+f <- function(x) {
+   y <- 2
+   UseMethod("g")
+}
+f.numeric <- function(x) y
+f(10); f.numeric(7)
+```
+
+5 - Informe a saída do código abaixo. Explique!
+
+```{r, eval = FALSE}
+g <- function(x) UseMethod("g")
+
+g.character <- function(x) paste("char", x)
+g.numeric <- function(x) paste("num", x)
+g.default <- function(x) "?"
+
+g("1")
+g(1)
+g(TRUE)
+```
+
+6 - A função abaixo implementa o método `summary.character()`. O que esse método faz? Por que não foi preciso assinar o objeto `x`? Entenda o código:
+
+```{r}
+summary.character <- function(x){
+  if (!inherits(x, what = "character")) stop("x must be of character type")  
+  n_char <- nchar(x)
+  vetor_chr <- strsplit(x = x, split = "")
+  if (is.list(vetor_chr) == TRUE){
+    list_factor <- purrr::map(.x = vetor_chr, .f = ~ as.factor(.x))
+    n_diff <- purrr::map(.x = list_factor, .f = ~ length(levels(.x)))
+  } else 
+    n_diff <- length(levels(as.factor(vetor_chr)))
+  
+  list(nchr = n_char, ndiff = n_diff)
+}
+summary(x = c("aabb", "aaa"))
+```
+
+7 - Construa a função genérica `mydiag(x)` que recebe como argumento uma matriz ou tabela (data frame) que podem conter valores numéricos ou caracters, com o número de linhas é igual ao número de colunas. Depois, defina dois métodos, `mydiag.numeric()` e `mydiag.character()` que retorna a soma da diagonal principal do objeto passado à `x`. Para a matriz/tabela de caracteres, considere A/a como 1, B/b como 2, ..., Z/z como 26, respectivamente. **Dicas**: 1 - As função `tolower()` poderá ajudar a converter um caracter em letra maiúscila para minúscula. 2 - Para o caso de matriz/tabela com strings, considere apenas o primeiro caracter da string. Por exemplo:
+
+```{r, eval = FALSE}
+m1 <- matrix(1:4, 2, 2)
+mydiag(m1)
+# [1] 5
+m2 <- matrix(c("casa", "a", "barco", "terra"), 2, 2)
+mydiag(m2)
+# [1] 23
+```
+
+
+
+    
