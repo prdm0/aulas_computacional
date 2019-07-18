@@ -2517,7 +2517,3 @@ m2 <- matrix(c("casa", "a", "barco", "terra"), 2, 2)
 mydiag(m2)
 # [1] 23
 ```
-
-
-
-    
