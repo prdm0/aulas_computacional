@@ -2517,3 +2517,5 @@ m2 <- matrix(c("casa", "a", "barco", "terra"), 2, 2)
 mydiag(m2)
 # [1] 23
 ```
+
+8. Leia o artigo [**Object-Oriented Programming, Functional Programming and R**](https://projecteuclid.org/download/pdfview_1/euclid.ss/1408368569) de John M. Chambers. Nesse artigo, o autor disserta sobre os paradigmas de programação disponíveis em R e trás um pouco da evolução da linguagem.
