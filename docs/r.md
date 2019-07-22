@@ -2190,7 +2190,8 @@ methods(generic.function = summary) # or methods(generic.function = "summary")
 ## [33] summary.srcfile                summary.srcref                
 ## [35] summary.stepfun                summary.stl*                  
 ## [37] summary.table                  summary.tukeysmooth*          
-## [39] summary.warnings               summary.XMLInternalDocument*  
+## [39] summary.vctrs_sclr*            summary.vctrs_vctr*           
+## [41] summary.warnings               summary.XMLInternalDocument*  
 ## see '?methods' for accessing help and source code
 ```
 
