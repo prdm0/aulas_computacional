@@ -30,7 +30,7 @@ O conteúdo para esse tópico entra-se em PDF e poderá ser acessado [**aqui**](
 
 <!-- 3 - Se $u < \frac{f(y)}{cg(y)}$ aceite $x = y$; caso contrário rejeite $y$ como observação da v.a. $X$ e volte para o passo anterior. -->
 
-<!-- **Prova**: Consideremos o caso discreto, ou seja, que $X$ e $Y$ são v.a.s com fp's $f$ e $g$, respectivamente. Pelo passo 3 do algoritmo acima, temos que $\{aceitar\} =  \{x = y\} = u < \frac{f(y)}{cg(y)}$. Isto é,  -->
+<!-- **Prova**: Consideremos o caso discreto, ou seja, que $X$ e $Y$ são v.a.s com fp's $f$ e $g$, respectivamente. Pelo passo 3 do algoritmo acima, temos que $\{aceitar\} =  \{x = y\} = u < \frac{f(y)}{cg(y)}$. Isto é, -->
 
 <!-- $$P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.$$ -->
 <!-- Daí, pelo [**Teorema da Probabilidade Total**](https://pt.wikipedia.org/wiki/Lei_da_probabilidade_total), temos que: -->
@@ -55,17 +55,17 @@ O conteúdo para esse tópico entra-se em PDF e poderá ser acessado [**aqui**](
 <!-- <div class=text-justify> -->
 <!-- Computacionalmente, é conveniente considerar $Y$ como sendo uma v.a. com distribuição uniforme no suporte de $f$, uma vez que gerar observações de uma distribuição uniforme é algo simples em qualquer computador. Para o caso discreto, considerar $Y$ com distribuição uniforme discreta poderá ser uma boa alternativa. -->
 <!-- </div> -->
-<!-- ```  -->
+<!-- ``` -->
 
 <!-- ## Exercício {-} -->
 
 <!-- 1. Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas. -->
 
-<!-- 2. Implemente o gerador **Midsquare** idealizado pelo matemático John Von Neumann. Por que o gerador **Midsquare** não é um bom gerador? Explique.   -->
+<!-- 2. Implemente o gerador **Midsquare** idealizado pelo matemático John Von Neumann. Por que o gerador **Midsquare** não é um bom gerador? Explique. -->
 
 <!-- 3. Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador. -->
 
-<!-- 4. O gerador **Randu** é definido por $x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31$. O **Randu** é um gerador congruencial misto ou multiplicativo?  -->
+<!-- 4. O gerador **Randu** é definido por $x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31$. O **Randu** é um gerador congruencial misto ou multiplicativo? -->
 
 <!-- 5. Por que o gerador **Randu** é um dos peiores geradores de números pseudo-aleatório já criado? Explique. -->
 
@@ -87,7 +87,7 @@ O conteúdo para esse tópico entra-se em PDF e poderá ser acessado [**aqui**](
 
 <!--     * $X \sim \mathrm{Exp}(\lambda)$, com $x \geq 0$ e $\lambda>0$ e $Y = \mu - \beta\log(\lambda X) \sim \mathrm{Gumbel}(\mu,\beta)$, com $\mu \in \Bbb{R}$ e $\beta>0$; -->
 
-<!--     * $X \sim \mathcal{U}(0,1)$ (contínua) e $Y = m + s[-\log(X)]^{-1/\alpha} \sim$ Fréchet$(\alpha,s,m)$, com $x, \alpha,s > 0$ e $m \in  \Bbb{R}$.  -->
+<!--     * $X \sim \mathcal{U}(0,1)$ (contínua) e $Y = m + s[-\log(X)]^{-1/\alpha} \sim$ Fréchet$(\alpha,s,m)$, com $x, \alpha,s > 0$ e $m \in  \Bbb{R}$. -->
 
 <!-- 13. Cite algumas das propriedades do gerador **Mersenne Twister**. Qual o seu período de ocorrência? -->
 
@@ -103,7 +103,7 @@ O conteúdo para esse tópico entra-se em PDF e poderá ser acessado [**aqui**](
 <!-- P(X = 0) &=& 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\ -->
 <!-- P(X = 3) &=& 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\ -->
 <!-- P(X = 6) &=& 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\ -->
-<!-- P(X = 9) &=& 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\  -->
+<!-- P(X = 9) &=& 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\ -->
 <!-- P(X = 12) &=& 1.\nonumber -->
 <!-- \end{eqnarray} -->
 
