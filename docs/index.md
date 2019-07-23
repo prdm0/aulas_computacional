@@ -6,6 +6,8 @@ author: "**Docente**: Prof. Dr. Pedro Rafael Diniz Marinho <br/> **E-mail**: <pe
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
+header-includes:
+   - \usepackage{dsfont}
 always_allow_html: yes
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -20,7 +22,7 @@ description: "Disciplina de Estatística Computacional - Departamento de Estatí
 
 # Início {-}
 
-**Última atualização**: 22/07/2019 <br/>
+**Última atualização**: 23/07/2019 <br/>
 **Departamento de Estatística (UFPB)**: <http://www.de.ufpb.br/> 
 
 ---

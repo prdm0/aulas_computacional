@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ESTATÍSTICA COMPUTACIONAL</title>
+  <title>7 Método da Aceitação e Rejeição | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:title" content="7 Método da Aceitação e Rejeição | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="prdm0/aulas_computacional" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta name="twitter:title" content="7 Método da Aceitação e Rejeição | ESTATÍSTICA COMPUTACIONAL" />
   
   <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="topicos-em-estatistica-computacional.html">
 
-<link rel="next" href="prefacio.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -56,70 +56,6 @@
 <script src="libs/DiagrammeR-binding-1.0.1/DiagrammeR.js"></script>
 
 
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -186,7 +122,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
 <li class="chapter" data-level="6.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#geracao-de-numeros-pseudo-aleatorios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a></li>
-<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-1"><i class="fa fa-check"></i>Exercício</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="metodo-da-aceitacao-e-rejeicao.html"><a href="metodo-da-aceitacao-e-rejeicao.html"><i class="fa fa-check"></i><b>7</b> Método da Aceitação e Rejeição</a><ul>
+<li class="chapter" data-level="" data-path="metodo-da-aceitacao-e-rejeicao.html"><a href="metodo-da-aceitacao-e-rejeicao.html#exercicio-1"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -205,65 +143,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">ESTATÍSTICA COMPUTACIONAL</h1>
-<h2 class="subtitle"><em>Disciplina ministrada à alunos do bacharelado em estatística da UFPB</em></h2>
-<p class="author"><em><strong>Docente</strong>: Prof. Dr. Pedro Rafael Diniz Marinho <br/> <strong>E-mail</strong>: <a href="mailto:pedro.rafael.marinho@gmail.com" class="email">pedro.rafael.marinho@gmail.com</a> / <a href="mailto:pedro@de.ufpb.br" class="email">pedro@de.ufpb.br</a></em></p>
-</div>
-<div id="inicio" class="section level1 unnumbered">
-<h1>Início</h1>
-<p><strong>Última atualização</strong>: 23/07/2019 <br/>
-<strong>Departamento de Estatística (UFPB)</strong>: <a href="http://www.de.ufpb.br/" class="uri">http://www.de.ufpb.br/</a></p>
-<hr />
-<p align="center">
-<img src="images/logo_livro.png" width="220" height="350"/>
-</p>
-<hr />
-<p><strong>Licença</strong></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />O material <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Estatística Computacional</span> do <a xmlns:cc="http://creativecommons.org/ns#" href="https://prdm0.github.io/aulas_computacional/" property="cc:attributionName" rel="cc:attributionURL">Prof. Pedro Rafael. D. Marinho</a> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons - Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>. Isso quer dizer:</p>
-<ol style="list-style-type: decimal">
-<li><p>Você tem o dirieto de copiar e redistribuir o material em qualquer suporte ou formato;</p></li>
-<li><p>Você tem o direito de remixar, transformar e criar a partir deste material;</p></li>
-<li><p>Você deve dar crédito apropriado, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas de nenhuma maneira que sugira que o licenciador endossa você ou seu uso;</p></li>
-<li><p>Você não poderá utilizar o material para fins comerciais;</p></li>
-<li><p>Se você remixar, transformar, ou criar a partir do material, tem de distribuir as suas contribuições sob a mesma licença que o original. Sendo assim, não poderá aplicar termos jurídicos ou medidas de caráter tecnológico que restrinjam legalmente outros de fazerem algo que a licença permita.</p></li>
-</ol>
-<p><strong>Maiores detalhes a respeito da licença em</strong>: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="uri">https://creativecommons.org/licenses/by-nc-sa/4.0/</a>.</p>
-<p><strong>Observação</strong>:</p>
-
-<div class="rmdobservation">
-<div class="text-justify">
-<p>Os códigos que estão presentes nesse material estão sobre os termos <a href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><strong>GNU General Public License</strong></a> (<span class="math inline">\(\geq 3\)</span>, versão três ou superior). Assim, o leitor poderá fazer uso de qualquer código desse material em seus projetos, pacotes, desde que cite a fonte. Além disso, todas as imagens utilizadas nesse material são de uso livre e não comercial.</p>
-<p><strong>Na barra superior desse material você poderá encontrar um ícone para download das minhas aulas de R. Trata-se de um Portable Document Format (PDF) que contém minhas aulas de R. O material das aulas está sujeito a mesma licença desse material. Você é livre para utilizar e remixar, desde que referencie o autor e o <a href="http://www.de.ufpb.br/"><strong>Departamento de Estatística</strong></a> da <a href="https://www.ufpb.br/"><strong>UFPB</strong></a>. Além disso, você deverá deixar claro quais foram as modificações realizadas.</strong></p>
-</div>
-</div>
-
+<div id="metodo-da-aceitacao-e-rejeicao" class="section level1">
+<h1><span class="header-section-number">7</span> Método da Aceitação e Rejeição</h1>
+<p>Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do <strong>método a aceitação e rejeição</strong>.</p>
+<p>Suponha que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Além disso, suponha que existe uma constante <span class="math inline">\(c\)</span> de tal forma que</p>
+<p><span class="math display">\[\frac{f(t)}{g(t)} \leq c,\]</span>
+para todo valor de <span class="math inline">\(t\)</span>, com <span class="math inline">\(f(t) &gt; 0\)</span>. Para utilizar o método a aceitação e rejeição para gerar observações da v.a. <span class="math inline">\(X\)</span>, utilizando o algoritmo mais abaixo, antes, encontre uma v.a. <span class="math inline">\(Y\)</span> com pdf ou fp <span class="math inline">\(g\)</span>, tal que satisfaça a condição acima.</p>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
 <div class="text-justify">
-<p>Esse material está sob constante aprimoramento e sugestões poderão ser enviadas para o repositório do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> que hospeda este conteúdo.</p>
-<p>Uma vez que o material está sendo mantido e versionado no <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>, as alterações podem ser realizadas diretamente no arquivo fonte do projeto, bastando clicar no ícone em formato de um lápis, no canto superior esquerdo desta página, ou das páginas em que se desejam sugerir alterações, como correções de palavras, mudanças de parágrafos, alteração de códigos, melhoramento de exemplos, inclusão de novos exemplos, etc. As alterações serão bem vindas e serão acatadas (incorporadas ao arquivo orignal) na medida que forem julgadas como sendo convenientes.</p>
+<p>É importante que a v.a. <span class="math inline">\(Y\)</span> escolhida seja de tal forma que você consiga gerar facilmente suas observações. Isso se deve ao fato do método da aceitação e rejeição ser computacionalmente mais intensivo que métodos mais diretos como o método da transformação ou o método da inversão que exige apenas a regração de números pseudo-aleatórios com distribuição uniforme.</p>
 </div>
 </div>
 
-<p><strong>Nota</strong>:</p>
+<p><strong>Algoritmo do Método da Aceitação e Rejeição</strong></p>
+<p>1 - Encontre uma</p>
+<p>2 -</p>
+<div id="exercicio-1" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<ol style="list-style-type: decimal">
+<li><p>Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas.</p></li>
+<li><p>Implemente o gerador <strong>Midsquare</strong> idealizado pelo matemático John Von Neumann. Por que o gerador <strong>Midsquare</strong> não é um bom gerador? Explique.</p></li>
+<li><p>Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador.</p></li>
+<li><p>O gerador <strong>Randu</strong> é definido por <span class="math inline">\(x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31\)</span>. O <strong>Randu</strong> é um gerador congruencial misto ou multiplicativo?</p></li>
+<li><p>Por que o gerador <strong>Randu</strong> é um dos peiores geradores de números pseudo-aleatório já criado? Explique.</p></li>
+<li><p>Defina um gerador congruencial de período completo para geração de números pseudo-aleatórios com distribuição uniforme no intervalo <span class="math inline">\((0,1)\)</span></p></li>
+<li><p>Explique o método da transformação para geração de números pseudo aleatório. Apresente um exemplo.</p></li>
+<li><p>Defina o método da inversão para geração de números pseudo-aleatórios. Sempre será possível utilizar esse método? Explique.</p></li>
+<li><p>Implemente uma função para geração de números pseudo-aleatórios com distribuição normal padrão. A função deverá implementar o método de Box-Müller e o método polar. Ao final obtenha um histograma com os números gerados (mil valores) e realize um teste de normalidade. Realize um teste de normalidade.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma variável aleatória em um espaço de probabilidade <span class="math inline">\((\Omega, \mathcal{A},\mathcal{P})\)</span> e suponha que <span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span>. Obtenha a distribuição de <span class="math inline">\(Y = -\log(X)\)</span>.</p></li>
+<li><p>Com base na distribuição da variável aleatória (v.a.) <span class="math inline">\(Y\)</span> do exercício acima, implemente uma função em R que gere observações de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Conhecendo a distribuição da v.a. <span class="math inline">\(X\)</span>, implemente para cada um dos itens que seguem, uma função para geração de observações da v.a. <span class="math inline">\(Y\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda),\)</span> com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda &gt; 0\)</span> e <span class="math inline">\(Y = \sum_{i = 1}^n X_i \sim \Gamma(n, \lambda)\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda)\)</span>, com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda&gt;0\)</span> e <span class="math inline">\(Y = \mu - \beta\log(\lambda X) \sim \mathrm{Gumbel}(\mu,\beta)\)</span>, com <span class="math inline">\(\mu \in \Bbb{R}\)</span> e <span class="math inline">\(\beta&gt;0\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span> (contínua) e <span class="math inline">\(Y = m + s[-\log(X)]^{-1/\alpha} \sim\)</span> Fréchet<span class="math inline">\((\alpha,s,m)\)</span>, com <span class="math inline">\(x, \alpha,s &gt; 0\)</span> e <span class="math inline">\(m \in \Bbb{R}\)</span>.</p></li>
+</ul></li>
+<li><p>Cite algumas das propriedades do gerador <strong>Mersenne Twister</strong>. Qual o seu período de ocorrência?</p></li>
+<li><p>Apresente o algoritmo do método da aceitação e rejeição.</p></li>
+<li><p>Implemente uma função para o método da aceitação e rejeição.</p></li>
+</ol>
 
-<div class="rmdnote">
-<div class="text-justify">
-<p>Para que seja possível propor alterações é necessário que você saiba utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> e tenha realizado um fork do trabalho em sua conta do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>. Apreder a utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> poderá ser muito útil (dentro da academia ou fora dela), uma vez que você saberá versionar seus códigos, artigos e trabalhos em geral.</p>
 </div>
-</div>
-
-
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="topicos-em-estatistica-computacional.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="prefacio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -293,7 +223,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/prdm0/aulas_computacional/edit/master/index.Rmd",
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/topicos_estatistica_computacional.Rmd",
 "text": "Editar"
 },
 "history": {
