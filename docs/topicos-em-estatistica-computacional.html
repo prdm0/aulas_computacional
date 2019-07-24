@@ -185,7 +185,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
-<li class="chapter" data-level="6.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#geracao-de-numeros-pseudo-aleatorios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a></li>
+<li class="chapter" data-level="6.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#geracao-de-numeros-pseudo-aleatorios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodo-da-aceitacao-e-rejeicao"><i class="fa fa-check"></i><b>6.1.1</b> Método da Aceitação e Rejeição</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-1"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -209,71 +212,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="geracao-de-numeros-pseudo-aleatorios" class="section level2">
 <h2><span class="header-section-number">6.1</span> Geração de Números Pseudo-Aleatórios</h2>
 <p>O conteúdo para esse tópico entra-se em PDF e poderá ser acessado <a href="files/computacional.pdf"><strong>aqui</strong></a>. Em um futuro próximo, essa seção será reescrita e fará parte do corpo deste HTML.</p>
-<!-- ### Método da Aceitação e Rejeição -->
-<!-- Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do **método a aceitação e rejeição**. -->
-<!-- Suponha que $X$ e $Y$ são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) $f$ e $g$, respectivamente. Além disso, suponha que existe uma constante $c$ de tal forma que -->
-<!-- $$\frac{f(t)}{g(t)} \leq c,$$ -->
-<!-- para todo valor de $t$, com $f(t) > 0$. Para utilizar o método a aceitação e rejeição para gerar observações da v.a. $X$, utilizando o algoritmo mais abaixo, antes, encontre uma v.a. $Y$ com pdf ou fp $g$, tal que satisfaça a condição acima. -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- É importante que a v.a. $Y$ escolhida seja de tal forma que você consiga gerar facilmente suas observações. Isso se deve ao fato do método da aceitação e rejeição ser computacionalmente mais intensivo que métodos mais diretos como o método da transformação ou o método da inversão que exige apenas a regração de números pseudo-aleatórios com distribuição uniforme. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Algoritmo do Método da Aceitação e Rejeição**: -->
-<!-- 1 - Gere uma observação $y$ proveniente de uma v.a. $Y$ com fdp/fp $g$; -->
-<!-- 2 - Gere uma observação $u$ de uma v.a. $\mathcal{U} \sim U(0, 1)$; -->
-<!-- 3 - Se $u < \frac{f(y)}{cg(y)}$ aceite $x = y$; caso contrário rejeite $y$ como observação da v.a. $X$ e volte para o passo anterior. -->
-<!-- **Prova**: Consideremos o caso discreto, ou seja, que $X$ e $Y$ são v.a.s com fp's $f$ e $g$, respectivamente. Pelo passo 3 do algoritmo acima, temos que $\{aceitar\} =  \{x = y\} = u < \frac{f(y)}{cg(y)}$. Isto é, -->
-<!-- $$P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.$$ -->
-<!-- Daí, pelo [**Teorema da Probabilidade Total**](https://pt.wikipedia.org/wiki/Lei_da_probabilidade_total), temos que: -->
-<!-- $$P(aceitar) = \sum_y P(aceitar|Y=y)\times P(Y=y) = \sum_y \frac{f(y)}{cg(y)}\times g(y) = \frac{1}{c}.$$ -->
-<!-- Portanto, pelo método da aceitação e rejeição aceitamos ocorrência de $Y$ como sendo uma ocorrência de $X$ com probabilidade $1/c$. Além disso, pelo Teorema de Bayes, temos que -->
-<!-- $$P(Y = y | aceitar) = \frac{P(aceitar|Y = y)\times g(y)}{P(aceitar)} = \frac{[f(y)/cg(y)] \times g(y)}{1/c} = f(y).$$ -->
-<!-- O resultado logo acima, mostra que aceitar $x = y$ pelo procedimento do algoritmo equivale a aceitar um valor proveniente de $X$ que tem fp $f$. Para o caso contínuo, a demonstração é similar. -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Perceba que para reduzir o custo computacional do método, deveremos escolher $c$ de tal forma que possamos maximizar $P(aceitar)$. Sendo assim, escolher um valor exageradamente grande da constante $c$ irá reduzir a probabilidade de aceitar uma observação de $Y$ como sendo observação da v.a. $X$. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Computacionalmente, é conveniente considerar $Y$ como sendo uma v.a. com distribuição uniforme no suporte de $f$, uma vez que gerar observações de uma distribuição uniforme é algo simples em qualquer computador. Para o caso discreto, considerar $Y$ com distribuição uniforme discreta poderá ser uma boa alternativa. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- ## Exercício {-} -->
-<!-- 1. Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas. -->
-<!-- 2. Implemente o gerador **Midsquare** idealizado pelo matemático John Von Neumann. Por que o gerador **Midsquare** não é um bom gerador? Explique. -->
-<!-- 3. Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador. -->
-<!-- 4. O gerador **Randu** é definido por $x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31$. O **Randu** é um gerador congruencial misto ou multiplicativo? -->
-<!-- 5. Por que o gerador **Randu** é um dos peiores geradores de números pseudo-aleatório já criado? Explique. -->
-<!-- 6. Defina um gerador congruencial de período completo para geração de números pseudo-aleatórios com distribuição uniforme no intervalo $(0,1)$ -->
-<!-- 7. Explique o método da transformação para geração de números pseudo aleatório. Apresente um exemplo. -->
-<!-- 8. Defina o método da inversão para geração de números pseudo-aleatórios. Sempre será possível utilizar esse método? Explique. -->
-<!-- 9. Implemente uma função para geração de números pseudo-aleatórios com distribuição normal padrão. A função deverá implementar o método de Box-Müller e o método polar. Ao final obtenha um histograma com os números gerados (mil valores) e realize um teste de normalidade. Realize um teste de normalidade. -->
-<!-- 10. Seja $X$ uma variável aleatória em um espaço de probabilidade $(\Omega, \mathcal{A},\mathcal{P})$ e suponha que $X \sim \mathcal{U}(0,1)$. Obtenha a distribuição de $Y = -\log(X)$. -->
-<!-- 11. Com base na distribuição da variável aleatória (v.a.) $Y$ do exercício acima, implemente uma função em R que gere observações de $Y$. -->
-<!-- 12. Conhecendo a distribuição da v.a. $X$, implemente para cada um dos itens que seguem, uma função para geração de observações da v.a. $Y$: -->
-<!--     * $X \sim \mathrm{Exp}(\lambda),$ com $x \geq 0$ e $\lambda > 0$ e  $Y = \sum_{i = 1}^n X_i \sim \Gamma(n, \lambda)$; -->
-<!--     * $X \sim \mathrm{Exp}(\lambda)$, com $x \geq 0$ e $\lambda>0$ e $Y = \mu - \beta\log(\lambda X) \sim \mathrm{Gumbel}(\mu,\beta)$, com $\mu \in \Bbb{R}$ e $\beta>0$; -->
-<!--     * $X \sim \mathcal{U}(0,1)$ (contínua) e $Y = m + s[-\log(X)]^{-1/\alpha} \sim$ Fréchet$(\alpha,s,m)$, com $x, \alpha,s > 0$ e $m \in  \Bbb{R}$. -->
-<!-- 13. Cite algumas das propriedades do gerador **Mersenne Twister**. Qual o seu período de ocorrência? -->
-<!-- 14. Explique o algoritmo do método da aceitação e rejeição. -->
-<!-- 15. Utilizando o método da aceitação e rejeição, implemente uma função que gere valores aleatório provenientes da distribuição da v.a. $X$ tal que -->
-<!-- $$P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.$$ -->
-<!-- 16. Implemente uma função que gera observações da v.a. $X$, tal que: -->
-<!-- \begin{eqnarray} -->
-<!-- P(X = 0) &=& 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\ -->
-<!-- P(X = 3) &=& 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\ -->
-<!-- P(X = 6) &=& 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\ -->
-<!-- P(X = 9) &=& 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\ -->
-<!-- P(X = 12) &=& 1.\nonumber -->
-<!-- \end{eqnarray} -->
-<!-- 17. Implemente uma função para o método da aceitação e rejeição (`ar_fp(n, x, prob)`), para o caso em que deseja-se gerar observações de uma v.a. $X$ discreta. O argumento `n` refere-se à quantidade de observações a serem geradas, `x` é um vetor de valores assumidos por $X$ e `prob` é um vetor de probabilidades de cada observação de $X$. A função `ar_fp(n, x, prob)` deverá escolher um valor adequado para $c$. -->
-<!-- 18. Seja $X$ uma v.a. contínua com fdp $f(x) = 6x(x-1)$, com $0 < x < 1$. Implemente a função `rf(n, c = 0.5)` que gera números pseudo-aleatórios como observações de $X$, pelo método da aceitação e rejeição, em que `n` é a quantidade de números a serem gerados e `c` é o valor da constante (0.5 por padrão) no algoritmo do método da aceitação e rejeição. **Dica**: considere $Y \sim U(0,1)$. -->
-<!-- 19. Considerando a função `rf(n, c)` implementada no exercício anterior, quantos passos serão necessários para que possamos gerar 10 mil observações proveniente da distribuição de $X$, considerando `c = 6`? Respectivamente, quantos passos serão necessários para serem gerados a mesma quantidade de observações de $X$ considerando `c = 0.5`? **Dica**: antes de chamar a função implementada, fixe a semente fazendo `set.seed(0)`. -->
+<div id="metodo-da-aceitacao-e-rejeicao" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Método da Aceitação e Rejeição</h3>
+<p>Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do <strong>método a aceitação e rejeição</strong>.</p>
+<p>Suponha que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Além disso, suponha que existe uma constante <span class="math inline">\(c\)</span> de tal forma que</p>
+<p><span class="math display">\[\frac{f(t)}{g(t)} \leq c,\]</span>
+para todo valor de <span class="math inline">\(t\)</span>, com <span class="math inline">\(f(t) &gt; 0\)</span>. Para utilizar o método a aceitação e rejeição para gerar observações da v.a. <span class="math inline">\(X\)</span>, utilizando o algoritmo mais abaixo, antes, encontre uma v.a. <span class="math inline">\(Y\)</span> com pdf ou fp <span class="math inline">\(g\)</span>, tal que satisfaça a condição acima.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>É importante que a v.a. <span class="math inline">\(Y\)</span> escolhida seja de tal forma que você consiga gerar facilmente suas observações. Isso se deve ao fato do método da aceitação e rejeição ser computacionalmente mais intensivo que métodos mais diretos como o método da transformação ou o método da inversão que exige apenas a regração de números pseudo-aleatórios com distribuição uniforme.</p>
+</div>
+</div>
+
+<p><strong>Algoritmo do Método da Aceitação e Rejeição</strong>:</p>
+<p>1 - Gere uma observação <span class="math inline">\(y\)</span> proveniente de uma v.a. <span class="math inline">\(Y\)</span> com fdp/fp <span class="math inline">\(g\)</span>;</p>
+<p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(\mathcal{U} \sim U(0, 1)\)</span>;</p>
+<p>3 - Se <span class="math inline">\(u &lt; \frac{f(y)}{cg(y)}\)</span> aceite <span class="math inline">\(x = y\)</span>; caso contrário rejeite <span class="math inline">\(y\)</span> como observação da v.a. <span class="math inline">\(X\)</span> e volte para o passo anterior.</p>
+<p><strong>Prova</strong>: Consideremos o caso discreto, ou seja, que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são v.a.s com fp’s <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Pelo passo 3 do algoritmo acima, temos que <span class="math inline">\(\{aceitar\} = \{x = y\} = u &lt; \frac{f(y)}{cg(y)}\)</span>. Isto é,</p>
+<p><span class="math display">\[P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.\]</span>
+Daí, pelo <a href="https://pt.wikipedia.org/wiki/Lei_da_probabilidade_total"><strong>Teorema da Probabilidade Total</strong></a>, temos que:</p>
+<p><span class="math display">\[P(aceitar) = \sum_y P(aceitar|Y=y)\times P(Y=y) = \sum_y \frac{f(y)}{cg(y)}\times g(y) = \frac{1}{c}.\]</span>
+Portanto, pelo método da aceitação e rejeição aceitamos ocorrência de <span class="math inline">\(Y\)</span> como sendo uma ocorrência de <span class="math inline">\(X\)</span> com probabilidade <span class="math inline">\(1/c\)</span>. Além disso, pelo Teorema de Bayes, temos que</p>
+<p><span class="math display">\[P(Y = y | aceitar) = \frac{P(aceitar|Y = y)\times g(y)}{P(aceitar)} = \frac{[f(y)/cg(y)] \times g(y)}{1/c} = f(y).\]</span>
+O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</span> pelo procedimento do algoritmo equivale a aceitar um valor proveniente de <span class="math inline">\(X\)</span> que tem fp <span class="math inline">\(f\)</span>. Para o caso contínuo, a demonstração é similar.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Perceba que para reduzir o custo computacional do método, deveremos escolher <span class="math inline">\(c\)</span> de tal forma que possamos maximizar <span class="math inline">\(P(aceitar)\)</span>. Sendo assim, escolher um valor exageradamente grande da constante <span class="math inline">\(c\)</span> irá reduzir a probabilidade de aceitar uma observação de <span class="math inline">\(Y\)</span> como sendo observação da v.a. <span class="math inline">\(X\)</span>.</p>
+</div>
+</div>
+
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Computacionalmente, é conveniente considerar <span class="math inline">\(Y\)</span> como sendo uma v.a. com distribuição uniforme no suporte de <span class="math inline">\(f\)</span>, uma vez que gerar observações de uma distribuição uniforme é algo simples em qualquer computador. Para o caso discreto, considerar <span class="math inline">\(Y\)</span> com distribuição uniforme discreta poderá ser uma boa alternativa.</p>
+</div>
+</div>
+
+</div>
+</div>
+<div id="exercicio-1" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<ol style="list-style-type: decimal">
+<li><p>Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas.</p></li>
+<li><p>Implemente o gerador <strong>Midsquare</strong> idealizado pelo matemático John Von Neumann. Por que o gerador <strong>Midsquare</strong> não é um bom gerador? Explique.</p></li>
+<li><p>Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador.</p></li>
+<li><p>O gerador <strong>Randu</strong> é definido por <span class="math inline">\(x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31\)</span>. O <strong>Randu</strong> é um gerador congruencial misto ou multiplicativo?</p></li>
+<li><p>Por que o gerador <strong>Randu</strong> é um dos peiores geradores de números pseudo-aleatório já criado? Explique.</p></li>
+<li><p>Defina um gerador congruencial de período completo para geração de números pseudo-aleatórios com distribuição uniforme no intervalo <span class="math inline">\((0,1)\)</span></p></li>
+<li><p>Explique o método da transformação para geração de números pseudo aleatório. Apresente um exemplo.</p></li>
+<li><p>Defina o método da inversão para geração de números pseudo-aleatórios. Sempre será possível utilizar esse método? Explique.</p></li>
+<li><p>Implemente uma função para geração de números pseudo-aleatórios com distribuição normal padrão. A função deverá implementar o método de Box-Müller e o método polar. Ao final obtenha um histograma com os números gerados (mil valores) e realize um teste de normalidade. Realize um teste de normalidade.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma variável aleatória em um espaço de probabilidade <span class="math inline">\((\Omega, \mathcal{A},\mathcal{P})\)</span> e suponha que <span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span>. Obtenha a distribuição de <span class="math inline">\(Y = -\log(X)\)</span>.</p></li>
+<li><p>Com base na distribuição da variável aleatória (v.a.) <span class="math inline">\(Y\)</span> do exercício acima, implemente uma função em R que gere observações de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Conhecendo a distribuição da v.a. <span class="math inline">\(X\)</span>, implemente para cada um dos itens que seguem, uma função para geração de observações da v.a. <span class="math inline">\(Y\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda),\)</span> com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda &gt; 0\)</span> e <span class="math inline">\(Y = \sum_{i = 1}^n X_i \sim \Gamma(n, \lambda)\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda)\)</span>, com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda&gt;0\)</span> e <span class="math inline">\(Y = \mu - \beta\log(\lambda X) \sim \mathrm{Gumbel}(\mu,\beta)\)</span>, com <span class="math inline">\(\mu \in \Bbb{R}\)</span> e <span class="math inline">\(\beta&gt;0\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span> (contínua) e <span class="math inline">\(Y = m + s[-\log(X)]^{-1/\alpha} \sim\)</span> Fréchet<span class="math inline">\((\alpha,s,m)\)</span>, com <span class="math inline">\(x, \alpha,s &gt; 0\)</span> e <span class="math inline">\(m \in \Bbb{R}\)</span>.</p></li>
+</ul></li>
+<li><p>Cite algumas das propriedades do gerador <strong>Mersenne Twister</strong>. Qual o seu período de ocorrência?</p></li>
+<li><p>Explique o algoritmo do método da aceitação e rejeição.</p></li>
+<li><p>Utilizando o método da aceitação e rejeição, implemente uma função que gere valores aleatório provenientes da distribuição da v.a. <span class="math inline">\(X\)</span> tal que</p></li>
+</ol>
+<p><span class="math display">\[P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.\]</span></p>
+<ol start="16" style="list-style-type: decimal">
+<li>Implemente uma função que gera observações da v.a. <span class="math inline">\(X\)</span>, tal que:</li>
+</ol>
+<p><span class="math display">\[\begin{eqnarray}
+P(X = 0) &amp;=&amp; 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\
+P(X = 3) &amp;=&amp; 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\
+P(X = 6) &amp;=&amp; 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\
+P(X = 9) &amp;=&amp; 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\
+P(X = 12) &amp;=&amp; 1.\nonumber
+\end{eqnarray}\]</span></p>
+<ol start="17" style="list-style-type: decimal">
+<li><p>Implemente uma função para o método da aceitação e rejeição (<code>ar_fp(n, x, prob)</code>), para o caso em que deseja-se gerar observações de uma v.a. <span class="math inline">\(X\)</span> discreta. O argumento <code>n</code> refere-se à quantidade de observações a serem geradas, <code>x</code> é um vetor de valores assumidos por <span class="math inline">\(X\)</span> e <code>prob</code> é um vetor de probabilidades de cada observação de <span class="math inline">\(X\)</span>. A função <code>ar_fp(n, x, prob)</code> deverá escolher um valor adequado para <span class="math inline">\(c\)</span>.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma v.a. contínua com fdp <span class="math inline">\(f(x) = 6x(x-1)\)</span>, com <span class="math inline">\(0 &lt; x &lt; 1\)</span>. Implemente a função <code>rf(n, c = 0.5)</code> que gera números pseudo-aleatórios como observações de <span class="math inline">\(X\)</span>, pelo método da aceitação e rejeição, em que <code>n</code> é a quantidade de números a serem gerados e <code>c</code> é o valor da constante (0.5 por padrão) no algoritmo do método da aceitação e rejeição. <strong>Dica</strong>: considere <span class="math inline">\(Y \sim U(0,1)\)</span>.</p></li>
+</ol>
+<!-- rf <- function(n = 1L, c = 6){ -->
+<!--   f <- function(x) 6 * x * (1 - x) -->
+<!--   i <- 1L -->
+<!--   n_rejeicao <- 0L -->
+<!--   vetor <- numeric(n) -->
+<!--   while (i < n){ -->
+<!--     u <- runif(n = 1L, min = 0, max = 1) -->
+<!--     y <- runif(n = 1L, min = 0, max = 1) -->
+<!--     if (u <= f(y)/c){ -->
+<!--       vetor[i] <- y -->
+<!--       i <- i + 1L -->
+<!--     }  -->
+<!--     else{ -->
+<!--       n_rejeicao <- n_rejeicao + 1L -->
+<!--     } -->
+<!--   } -->
+<!--   list(valores = vetor, rejeicao = n_rejeicao) -->
+<!-- } -->
+<!-- set.seed(0) -->
+<!-- n <- 2e4 -->
+<!-- c <- 20 -->
+<!-- result <- rf(n = n, c = c) -->
+<!-- # Probabilidade de aceitar: -->
+<!-- 1/c -->
+<!-- # Aproximacao da probabilidade de aceitar: -->
+<!-- 1 - result$rejeicao/(n + result$rejeicao) -->
+<ol start="19" style="list-style-type: decimal">
+<li>Considerando a função <code>rf(n, c)</code> implementada no exercício anterior, quantos passos serão necessários para que possamos gerar 10 mil observações proveniente da distribuição de <span class="math inline">\(X\)</span>, considerando <code>c = 6</code>? Respectivamente, quantos passos serão necessários para serem gerados a mesma quantidade de observações de <span class="math inline">\(X\)</span> considerando <code>c = 0.5</code>? <strong>Dica</strong>: antes de chamar a função implementada, fixe a semente fazendo <code>set.seed(0)</code>.</li>
+</ol>
 
 </div>
 </div>
