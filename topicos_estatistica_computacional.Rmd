@@ -426,7 +426,7 @@ O termo quasi-Newton é empregado para se referir ao fato de que esses métodos 
 
 ## Exercício {-}
 
-1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\Theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$.
+1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$.
 
 2. Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?
 
