@@ -186,9 +186,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
 <li class="chapter" data-level="6.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#geracao-de-numeros-pseudo-aleatorios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
-<li class="chapter" data-level="6.1.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodo-da-aceitacao-e-rejeicao"><i class="fa fa-check"></i><b>6.1.1</b> Método da Aceitação e Rejeição</a></li>
+<li class="chapter" data-level="6.1.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodo-da-transformacao-inversa-caso-discreto"><i class="fa fa-check"></i><b>6.1.1</b> Método da Transformação Inversa (Caso Discreto)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodo-da-aceitacao-e-rejeicao"><i class="fa fa-check"></i><b>6.1.2</b> Método da aceitação e rejeição</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-1"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#otimizacao-nao-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-2"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -212,8 +217,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="geracao-de-numeros-pseudo-aleatorios" class="section level2">
 <h2><span class="header-section-number">6.1</span> Geração de Números Pseudo-Aleatórios</h2>
 <p>O conteúdo para esse tópico entra-se em PDF e poderá ser acessado <a href="files/computacional.pdf"><strong>aqui</strong></a>. Em um futuro próximo, essa seção será reescrita e fará parte do corpo deste HTML.</p>
+<div id="metodo-da-transformacao-inversa-caso-discreto" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Método da Transformação Inversa (Caso Discreto)</h3>
+<p>O método da transformação inversa também poderá ser aplicado também para gerar observações de v.a.’s discretas. Seja <span class="math inline">\(X\)</span> uma v.a. discreta, tal que</p>
+<p><span class="math display">\[... &lt; x_{i-1} &lt; x_i &lt; x_{i+1} &lt;\, ...\,.\]</span>
+As observações acima são pontos de descontinuidade de <span class="math inline">\(F_X(x)\)</span>. Então, a transformação inversa é <span class="math inline">\(F_X^{-1} = x_i\)</span>, quando <span class="math inline">\(F_X(x_{i-1}) &lt; u \leq F_X(x_i)\)</span>. O algoritmo que segue poderá ser utilizado para gerar observações de <span class="math inline">\(X\)</span>.</p>
+<p><strong>Algoritmo</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Gere um número pseudo-leatório <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U \sim \mathcal{U}(0,1)\)</span>;</li>
+<li>Retorne <span class="math inline">\(x_i\)</span> como observação de <span class="math inline">\(X\)</span>, tal que <span class="math inline">\(F(x_{i-1}) &lt; u \leq F(x_i)\)</span>.</li>
+</ol>
+<p>Em outras palavras, gere <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U \sim \mathcal{U}(0,1)\)</span> e compare na sequência:</p>
+<ol style="list-style-type: decimal">
+<li>Se <span class="math inline">\(u &lt; p_0\)</span>, faça <span class="math inline">\(X = x_0\)</span> e pare;</li>
+<li>Se <span class="math inline">\(u &lt; p_0 + p_1\)</span>, faça <span class="math inline">\(X = x_1\)</span> e pare;</li>
+<li>Se <span class="math inline">\(u &lt; p_0 + p_1 + p_2\)</span>, faça <span class="math inline">\(X = x_2\)</span> e pare;</li>
+<li>etc;</li>
+</ol>
+<p>em que <span class="math inline">\(p_j = P(X = j)\)</span>.</p>
+<p><strong>Exemplo</strong>: Implemente, em R, uma função que retorna a quantidade de observações de uma v.a. <span class="math inline">\(X\)</span> com função de probabilidade:</p>
+<p><span class="math display">\[P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="topicos-em-estatistica-computacional.html#cb1-1"></a>random &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> 1L){</span>
+<span id="cb1-2"><a href="topicos-em-estatistica-computacional.html#cb1-2"></a>  x &lt;-<span class="st"> </span>1L<span class="op">:</span>4L</span>
+<span id="cb1-3"><a href="topicos-em-estatistica-computacional.html#cb1-3"></a>  probs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.35</span>, <span class="fl">0.15</span>)</span>
+<span id="cb1-4"><a href="topicos-em-estatistica-computacional.html#cb1-4"></a>  </span>
+<span id="cb1-5"><a href="topicos-em-estatistica-computacional.html#cb1-5"></a>  u &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> n, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)</span>
+<span id="cb1-6"><a href="topicos-em-estatistica-computacional.html#cb1-6"></a>  </span>
+<span id="cb1-7"><a href="topicos-em-estatistica-computacional.html#cb1-7"></a>  <span class="co"># Criando uma função para ser passada à um funcional.</span></span>
+<span id="cb1-8"><a href="topicos-em-estatistica-computacional.html#cb1-8"></a>  comp &lt;-<span class="st"> </span><span class="cf">function</span>(u){</span>
+<span id="cb1-9"><a href="topicos-em-estatistica-computacional.html#cb1-9"></a>    <span class="co"># Retorna a primeira ocorrência de TRUE</span></span>
+<span id="cb1-10"><a href="topicos-em-estatistica-computacional.html#cb1-10"></a>    <span class="kw">match</span>(<span class="ot">TRUE</span>, u <span class="op">&lt;</span><span class="st"> </span><span class="kw">cumsum</span>(probs))</span>
+<span id="cb1-11"><a href="topicos-em-estatistica-computacional.html#cb1-11"></a>  }</span>
+<span id="cb1-12"><a href="topicos-em-estatistica-computacional.html#cb1-12"></a>  </span>
+<span id="cb1-13"><a href="topicos-em-estatistica-computacional.html#cb1-13"></a>  purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dt">.x =</span> u, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="kw">comp</span>(.x))</span>
+<span id="cb1-14"><a href="topicos-em-estatistica-computacional.html#cb1-14"></a>  </span>
+<span id="cb1-15"><a href="topicos-em-estatistica-computacional.html#cb1-15"></a>}</span>
+<span id="cb1-16"><a href="topicos-em-estatistica-computacional.html#cb1-16"></a><span class="kw">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb1-17"><a href="topicos-em-estatistica-computacional.html#cb1-17"></a><span class="kw">random</span>(<span class="dt">n =</span> 10L)</span></code></pre></div>
+<pre><code>##  [1] 4 1 2 3 4 1 4 4 3 3</code></pre>
+<p>Em um estudo de simulação, poderemos ter interesse em gerar observações equiprováveis, em que a v.a. <span class="math inline">\(X\)</span> assume um número finito de observações, tal forma que:</p>
+<p><span class="math display">\[P(X = j) = \frac{1}{n}, \,\, j = 1, 2, \ldots, n.\]</span>
+Porém, note que para esse caso, não precisaremos fazer muitas comparações, uma vez que sabemos que <span class="math inline">\(x = j\)</span> quando <span class="math inline">\(u \leq \frac{j-1}{n}\)</span>. Sendo assim, tomamos <span class="math inline">\(x = j\)</span> quando <span class="math inline">\(nu \leq j - 1\)</span>.</p>
+<p>Note que fazer <span class="math inline">\(x = j\)</span> quando <span class="math inline">\(nu \leq j - 1\)</span> equivale a fazer <span class="math inline">\(x = \mathrm{Int}(nu) + 1\)</span>, em que <span class="math inline">\(\mathrm{Int}(\cdot)\)</span> retorna a parte inteira de um número.</p>
+<p><strong>Exemplo</strong>: Seja <span class="math inline">\(X \sim Bernoulli(p)\)</span>, em que <span class="math inline">\(P(X = 0) = 1 - p\)</span> e <span class="math inline">\(P(X = 1) = p\)</span>, com <span class="math inline">\(0\leq p \leq 1\)</span>. A função <code>rbernoulli(n = 1L, p)</code> retorna possíveis observações de <span class="math inline">\(X\)</span>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="topicos-em-estatistica-computacional.html#cb3-1"></a>rbernoulli &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> 1L, p){</span>
+<span id="cb3-2"><a href="topicos-em-estatistica-computacional.html#cb3-2"></a>  u &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> n, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="topicos-em-estatistica-computacional.html#cb3-3"></a>  cond &lt;-<span class="st"> </span>(u <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p)</span>
+<span id="cb3-4"><a href="topicos-em-estatistica-computacional.html#cb3-4"></a>  comp &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb3-5"><a href="topicos-em-estatistica-computacional.html#cb3-5"></a>    <span class="kw">ifelse</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p, 0L, 1L)</span>
+<span id="cb3-6"><a href="topicos-em-estatistica-computacional.html#cb3-6"></a>  }</span>
+<span id="cb3-7"><a href="topicos-em-estatistica-computacional.html#cb3-7"></a>  purrr<span class="op">::</span><span class="kw">map_int</span>(<span class="dt">.x =</span> u, <span class="dt">.f =</span> <span class="op">~</span><span class="st"> </span><span class="kw">comp</span>(.x))</span>
+<span id="cb3-8"><a href="topicos-em-estatistica-computacional.html#cb3-8"></a>}</span>
+<span id="cb3-9"><a href="topicos-em-estatistica-computacional.html#cb3-9"></a><span class="kw">set.seed</span>(<span class="dv">0</span>) <span class="co"># Fixando uma semente.</span></span>
+<span id="cb3-10"><a href="topicos-em-estatistica-computacional.html#cb3-10"></a>n &lt;-<span class="st"> </span><span class="fl">1e4</span> <span class="co"># Número de observações.</span></span>
+<span id="cb3-11"><a href="topicos-em-estatistica-computacional.html#cb3-11"></a>result &lt;-<span class="st"> </span><span class="kw">rbernoulli</span>(<span class="dt">n =</span> n, <span class="dt">p =</span> <span class="fl">0.6</span>) <span class="co"># prob.  de sucesso = 0.6.</span></span>
+<span id="cb3-12"><a href="topicos-em-estatistica-computacional.html#cb3-12"></a><span class="co"># Probabilidade de sucesso aproximada.</span></span>
+<span id="cb3-13"><a href="topicos-em-estatistica-computacional.html#cb3-13"></a><span class="kw">sum</span>(result <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>n</span></code></pre></div>
+<pre><code>## [1] 0.5973</code></pre>
+</div>
 <div id="metodo-da-aceitacao-e-rejeicao" class="section level3">
-<h3><span class="header-section-number">6.1.1</span> Método da Aceitação e Rejeição</h3>
+<h3><span class="header-section-number">6.1.2</span> Método da aceitação e rejeição</h3>
 <p>Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do <strong>método a aceitação e rejeição</strong>.</p>
 <p>Suponha que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Além disso, suponha que existe uma constante <span class="math inline">\(c\)</span> de tal forma que</p>
 <p><span class="math display">\[\frac{f(t)}{g(t)} \leq c,\]</span>
@@ -228,7 +291,7 @@ para todo valor de <span class="math inline">\(t\)</span>, com <span class="math
 
 <p><strong>Algoritmo do Método da Aceitação e Rejeição</strong>:</p>
 <p>1 - Gere uma observação <span class="math inline">\(y\)</span> proveniente de uma v.a. <span class="math inline">\(Y\)</span> com fdp/fp <span class="math inline">\(g\)</span>;</p>
-<p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(\mathcal{U} \sim U(0, 1)\)</span>;</p>
+<p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U\sim \mathcal{U} (0, 1)\)</span>;</p>
 <p>3 - Se <span class="math inline">\(u &lt; \frac{f(y)}{cg(y)}\)</span> aceite <span class="math inline">\(x = y\)</span>; caso contrário rejeite <span class="math inline">\(y\)</span> como observação da v.a. <span class="math inline">\(X\)</span> e volte para o passo anterior.</p>
 <p><strong>Prova</strong>: Consideremos o caso discreto, ou seja, que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são v.a.s com fp’s <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Pelo passo 3 do algoritmo acima, temos que <span class="math inline">\(\{aceitar\} = \{x = y\} = u &lt; \frac{f(y)}{cg(y)}\)</span>. Isto é,</p>
 <p><span class="math display">\[P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.\]</span>
@@ -259,7 +322,7 @@ O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</
 <h2>Exercício</h2>
 <ol style="list-style-type: decimal">
 <li><p>Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas.</p></li>
-<li><p>Implemente o gerador <strong>Midsquare</strong> idealizado pelo matemático John Von Neumann. Por que o gerador <strong>Midsquare</strong> não é um bom gerador? Explique.</p></li>
+<li><p>Implemente o gerador <strong>Midsquare</strong> idealizado pelo matemático John von Neumann. Por que o gerador <strong>Midsquare</strong> não é um bom gerador? Explique.</p></li>
 <li><p>Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador.</p></li>
 <li><p>O gerador <strong>Randu</strong> é definido por <span class="math inline">\(x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31\)</span>. O <strong>Randu</strong> é um gerador congruencial misto ou multiplicativo?</p></li>
 <li><p>Por que o gerador <strong>Randu</strong> é um dos peiores geradores de números pseudo-aleatório já criado? Explique.</p></li>
@@ -281,7 +344,7 @@ O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</
 </ol>
 <p><span class="math display">\[P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.\]</span></p>
 <ol start="16" style="list-style-type: decimal">
-<li>Implemente uma função que gera observações da v.a. <span class="math inline">\(X\)</span>, tal que:</li>
+<li>Implemente duas funções que geram observações da v.a. <span class="math inline">\(X\)</span> utilizando o método da transformação para v.a. discretas e pelo método da aceitação e rejeição. Qual método é mais eficiente computacionalmente? Por que?</li>
 </ol>
 <p><span class="math display">\[\begin{eqnarray}
 P(X = 0) &amp;=&amp; 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\
@@ -291,8 +354,14 @@ P(X = 9) &amp;=&amp; 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\
 P(X = 12) &amp;=&amp; 1.\nonumber
 \end{eqnarray}\]</span></p>
 <ol start="17" style="list-style-type: decimal">
+<li><p>Implemente a função <code>rdisc(n = 1L, x, probs)</code> que retorna números pseudo-aleatórios de uma v.a. discreta <span class="math inline">\(X\)</span> que assume uma quantidade finita de observações. Os argumentos de <code>rdisc</code> estão especificados abaixo:</p>
+<ul>
+<li><p><code>n</code>: número de observações a serem geradas;</p></li>
+<li><p><code>x</code>: vetor com as possíveis observações da v.a. <span class="math inline">\(X\)</span>;</p></li>
+<li><p><code>probs</code>: vetor com as probabilidades das observações passadas à <code>x</code>.</p></li>
+</ul></li>
 <li><p>Implemente uma função para o método da aceitação e rejeição (<code>ar_fp(n, x, prob)</code>), para o caso em que deseja-se gerar observações de uma v.a. <span class="math inline">\(X\)</span> discreta. O argumento <code>n</code> refere-se à quantidade de observações a serem geradas, <code>x</code> é um vetor de valores assumidos por <span class="math inline">\(X\)</span> e <code>prob</code> é um vetor de probabilidades de cada observação de <span class="math inline">\(X\)</span>. A função <code>ar_fp(n, x, prob)</code> deverá escolher um valor adequado para <span class="math inline">\(c\)</span>.</p></li>
-<li><p>Seja <span class="math inline">\(X\)</span> uma v.a. contínua com fdp <span class="math inline">\(f(x) = 6x(x-1)\)</span>, com <span class="math inline">\(0 &lt; x &lt; 1\)</span>. Implemente a função <code>rf(n, c = 0.5)</code> que gera números pseudo-aleatórios como observações de <span class="math inline">\(X\)</span>, pelo método da aceitação e rejeição, em que <code>n</code> é a quantidade de números a serem gerados e <code>c</code> é o valor da constante (0.5 por padrão) no algoritmo do método da aceitação e rejeição. <strong>Dica</strong>: considere <span class="math inline">\(Y \sim U(0,1)\)</span>.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma v.a. contínua com fdp <span class="math inline">\(f(x) = 6x(x-1)\)</span>, com <span class="math inline">\(0 &lt; x &lt; 1\)</span>. Implemente a função <code>rf(n, c = 1.5)</code> que gera números pseudo-aleatórios como observações de <span class="math inline">\(X\)</span>, pelo método da aceitação e rejeição, em que <code>n</code> é a quantidade de números a serem gerados e <code>c</code> é o valor da constante (0.5 por padrão) no algoritmo do método da aceitação e rejeição. <strong>Dica</strong>: considere <span class="math inline">\(Y \sim \mathcal{U}(0,1)\)</span>.</p></li>
 </ol>
 <!-- rf <- function(n = 1L, c = 6){ -->
 <!--   f <- function(x) 6 * x * (1 - x) -->
@@ -320,8 +389,165 @@ P(X = 12) &amp;=&amp; 1.\nonumber
 <!-- 1/c -->
 <!-- # Aproximacao da probabilidade de aceitar: -->
 <!-- 1 - result$rejeicao/(n + result$rejeicao) -->
-<ol start="19" style="list-style-type: decimal">
+<ol start="20" style="list-style-type: decimal">
 <li>Considerando a função <code>rf(n, c)</code> implementada no exercício anterior, quantos passos serão necessários para que possamos gerar 10 mil observações proveniente da distribuição de <span class="math inline">\(X\)</span>, considerando <code>c = 6</code>? Respectivamente, quantos passos serão necessários para serem gerados a mesma quantidade de observações de <span class="math inline">\(X\)</span> considerando <code>c = 0.5</code>? <strong>Dica</strong>: antes de chamar a função implementada, fixe a semente fazendo <code>set.seed(0)</code>.</li>
+</ol>
+</div>
+<div id="otimizacao-nao-linear" class="section level2">
+<h2><span class="header-section-number">6.2</span> Otimização Não-Linear</h2>
+<p>Na estatísticas, em muitas simtuações práticas, temos o interesse de maximizar ou minimizar uma função objetivo. Por exemplo, na inferência esatística, é comum o nosso interesse na obtenção dos estimadores de máxima verossimilhança de parâmetros que indexam modelos ou distribuições de probabilidade. Um outro problema comum na estatística, mais precisamente na área de regressão é o de minimizar a soma dos quadrados de um conjunto de erros, em um modelo de regressão não-linear, por meio de mínimos quadrados não-lineares.</p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Aqui, o termo <strong>otimizar</strong> estará se referindo à <strong>minimiar</strong> ou <strong>maximizar</strong> uma função objetivo. Dessa forma, por meio do contexto em que o termo esteja sendo utilizado, a ideia estará implícita. Além disso, por uma simples modificação na função objetivo, um algoritmo utilizado para maximizar uma função poderá ser convertido em um algoritmo para minimização de uma função.</p>
+</div>
+</div>
+
+<p>Suponha que temos interesse em maximizar uma função objetivo, seja ela <span class="math inline">\(\psi(\pmb{\Theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subspaço do <span class="math inline">\(\mathbb{R}^p\)</span>. Dessa forma, queremos encontrar o vetor <span class="math inline">\(\pmb{\theta}\)</span> (<span class="math inline">\(p \times 1\)</span>) que maximiza a função objetivo <span class="math inline">\(\psi(\cdot)\)</span>. Ou seja, queremos encontar</p>
+<p><span class="math display">\[ \underset{\pmb{\theta}\, \in\, \pmb{\Theta}}{\mathrm{arg\,max}}\,\psi(\pmb{\theta}).\]</span></p>
+<p>A maioria das situações práticas nos levam à problemas com a condição de primeira ordem,</p>
+<p><span class="math display">\[\frac{\partial\,\psi(\pmb{\theta})}{\partial\,\pmb{\theta}} = \pmb{0},\]</span></p>
+<p>resulta em um sistema de equações não-lineares que não apresenta solução em forma fechada. Nesses casos, a solução do problema de minimizar <span class="math inline">\(\psi(\pmb{\theta})\)</span> é obtida utilizando-se de métodos/algoritmos iterativos.</p>
+<div id="metodos-gradiente" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Metódos Gradiente</h3>
+<p>A classe de métodos mais utilizadas em situações em que a condição de primeira ordem resulta em um sistema não-lineare que não possue forma fechada é denominada de <strong>classe de métodos gradiente</strong>. Nessa classe de métodos, a atualização de <span class="math inline">\(\pmb{\theta}\)</span> para um vetor que mais se aproxima do ponto que minimiza <span class="math inline">\(\pmb\psi(\cdot)\)</span> (função objetivo) é dada de forma iterativa. Dessa forma, seja <span class="math inline">\(\pmb{\theta}_0\)</span> o ponto inicial (chute inicial) na <span class="math inline">\(t\)</span>-ésima iteração. Se o valor de <span class="math inline">\(\pmb{\theta}\)</span> que maximiza globalmente a função <span class="math inline">\(\psi(\cdot)\)</span> não tiver sido alcançado, calcula-se o vetor direcional (vetor gradiente) de <span class="math inline">\(\psi(\cdot)\)</span>, denotado aqui por <span class="math inline">\(\pmb\Delta_t\)</span> (<span class="math inline">\(p \times 1\)</span>) e o “tamanho do passo” <span class="math inline">\(\lambda_t\)</span>. Assim, o próximo valor de <span class="math inline">\(\pmb\theta\)</span> será atualizado para:</p>
+<p><span class="math display">\[\pmb\theta_{t+1} = \pmb\theta_t + \lambda_t \pmb \Delta_t.\]</span></p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>O vetor gradiente fornece a direção e o sentido de deslocamento, apartir de um ponto especificado, de subida que fornece um incremento em uma grandeza. No nosso caso, <span class="math inline">\(\pmb\Delta_t\)</span> (<span class="math inline">\(p \times 1\)</span>) irá indicar o sentido de subida, em que poderemos atualizar o valor de <span class="math inline">\(\pmb \theta\)</span> para um ponto que maximiza <span class="math inline">\(\psi(\cdot)\)</span>. Dessa forma, <span class="math inline">\(-\pmb\Delta_t\)</span> fornecerá a direção e o sentido de atualização de <span class="math inline">\(\pmb\theta\)</span> que nos levam à pontos que minimizam <span class="math inline">\(\psi(\cdot)\)</span>.</p>
+</div>
+</div>
+
+<p>Note também que, em cada iteração do algoritmo, temos <span class="math inline">\(\pmb \theta_t\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> são conhecidos, uma vez que <span class="math inline">\(\pmb \theta_t\)</span> é o ponto <span class="math inline">\(\pmb \theta\)</span> atualizado na iteração <span class="math inline">\(t-1\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> é o vetor gradiente da função objetivo avaliado em <span class="math inline">\(\pmb \theta_t\)</span>.</p>
+<p>Dado o conhecimento dessas quantidade, perceba que precisamos obter o “tamanho do passo” <span class="math inline">\(\lambda_t\)</span>. Assim, iremos recair em um problema de otimização secundário, denominado de <strong>procura em linha</strong>. Sendo assim, busca-se <span class="math inline">\(\lambda_t\)</span> de tal forma que</p>
+<p><span class="math display">\[\frac{\partial \pmb\,\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t)}{\partial \lambda_t} = \delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\pmb \Delta_t = 0,\]</span>
+em que <span class="math inline">\(\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\)</span> é o vetor gradiente tansposto (<span class="math inline">\(1 \times p\)</span>) da função objetivo avaliado no ponto <span class="math inline">\(\pmb \theta_t + \lambda_t\pmb\Delta_t.\)</span></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-8-1.png" alt="Poblema de **procura em linha**, em que a função objetivo é função penas do tamanho do passo." width="672" />
+<p class="caption">
+Figura 6.1: Poblema de <strong>procura em linha</strong>, em que a função objetivo é função penas do tamanho do passo.
+</p>
+</div>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras <em>ad hoc</em> que são computacionalmente menos custosas. Essa classe de algoritmos é o que demominamos de <strong>classe de métodos gradiente</strong>.</p>
+</div>
+</div>
+
+<p>Na classe de métodos gradiente, fazemos</p>
+<p><span class="math display">\[\pmb \Delta_t = M_t\delta_t,\]</span>
+em que <span class="math inline">\(M_t\)</span> (<span class="math inline">\(p \times p\)</span>) é uma matriz positiva-definida e <span class="math inline">\(\delta_t\)</span> (<span class="math inline">\(p \times 1\)</span>) é o gradiente de <span class="math inline">\(\pmb\psi\)</span>, ambos na <span class="math inline">\(t\)</span>-ésima iteração. Para deixar claro, temos que <span class="math inline">\(\delta_t\)</span> = <span class="math inline">\(\delta_t(\pmb \theta_t) = \partial \, \psi(\pmb \theta_t)/\partial\, \pmb \theta_t\)</span>.</p>
+<p>A motivação por trás dos métodos gradientes, ao em tomar <span class="math inline">\(\pmb \Delta_t = M_t\delta_t\)</span>, poderá ser entendida ao considerar uma aproximação para <span class="math inline">\(\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t)\)</span> por uma <a href="https://pt.wikipedia.org/wiki/S%C3%A9rie_de_Taylor"><strong>série de Taylor</strong></a> de primeira ordem, em torno do ponto <span class="math inline">\(\lambda_t = 0\)</span>. Assim, temos que,</p>
+<p><span class="math display">\[\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t) \approx \psi(\pmb \theta_t) + \lambda_t \delta_t^{&#39;}\pmb \Delta_t,\]</span>
+em que <span class="math inline">\(\delta_t^{&#39;}\)</span> é o vetor gradiente transposto (<span class="math inline">\(1 \times p\)</span>). Para reduzir a notação, tome <span class="math inline">\(\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t) = \psi_{t+1}\)</span>. Assim, temos que</p>
+<p><span class="math display">\[\psi_{t+1} - \psi_{t} \approx \lambda_t \delta_t^{&#39;}\pmb \Delta_t.\]</span></p>
+<p>Assim, considerando <span class="math inline">\(\pmb \Delta_t = M_t\delta_t\)</span>, temos que</p>
+<p><span class="math display">\[\psi_{t+1} - \psi_{t} \approx \lambda_t \delta_t^{&#39;}M_t\delta_t.\]</span></p>
+<p>Para <span class="math inline">\(\delta_t\)</span> diferente de zero e <span class="math inline">\(\lambda_t\)</span> suficientemente pequeno, se <span class="math inline">\(\psi(\pmb\theta)\)</span> não assume o valor máximo da função, podemos sempre encontrar um tamanho de passo tal que uma iteração adicional no algoritmo irá incrementar o valor da função, ou seja, se aproximará um pouco mais do máximo global da função objetivo.</p>
+<p>Perceba que sempre temos que <span class="math inline">\(\psi_{t+1} - \psi_{t} \geq 0\)</span>. Isso sempre será verdade, uma vez que <span class="math inline">\(M_t\)</span> é uma matriz positiva-definida, o que implica que <span class="math inline">\(\delta_t^{&#39;}M_t\delta_t &gt; 0\)</span>. Além disso, na situação de <span class="math inline">\(\psi(\pmb\theta)\)</span> não encontar-se no ponto máximo, como mencionado no parágrafo anterior, sempre haverá um tamanho de passo <span class="math inline">\(\lambda_t\)</span>, por menor que ele seja.</p>
+<div id="steepest-ascent" class="section level4">
+<h4><span class="header-section-number">6.2.1.1</span> Steepest Ascent</h4>
+<p>O algoritmo <strong>steepest ascent</strong> (“subida mais inclinada”) é o mais simples dos métodos gradientes. A ideia do algoritmo <strong>steepest ascent</strong> é considerar</p>
+<p><span class="math display">\[M_t = I,\]</span>
+em que <span class="math inline">\(I\)</span> é a matriz identidade (<span class="math inline">\(p \times p\)</span>). Dessa forma, temos que <span class="math inline">\(\pmb \Delta_t = \delta_t\)</span>, em todos os passos iterativos. Daí, a atualização de <span class="math inline">\(\pmb \theta\)</span> é dada por:</p>
+<p><span class="math display">\[\pmb \theta_{t+1} = \theta + \lambda_t\delta_t.\]</span></p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Esse algoritmo tende a ser pouco utilizado na prática, uma vez que apresenta convergência lenta. Esse método é muito semelhante ao algoritmo gradiente descendente <a href="https://en.wikipedia.org/wiki/Gradient_descent"><strong>steepest descent</strong></a>, utilizado para minimização. Não confunda <strong>steepest descent</strong> citado aqui com um método de aproximação de integrais que leva o mesmo nome.</p>
+</div>
+</div>
+
+</div>
+<div id="newton-raphson" class="section level4">
+<h4><span class="header-section-number">6.2.1.2</span> Newton-Raphson</h4>
+<p>O método de <strong>Newton-Raphson</strong>, muitas vezes apenas chamado de método de <strong>Newton</strong>, considera a atualização de <span class="math inline">\(\pmb \theta\)</span> na forma</p>
+<p><span class="math display">\[\pmb \theta_{t+1} = \pmb \theta_t -H_t^{-1}\delta_t,\]</span>
+em que</p>
+<p><span class="math display">\[H = H(\theta) = \frac{\partial^2 \psi(\pmb \theta)}{\partial \pmb \theta \partial \pmb \theta^{&#39;}},\]</span>
+ou seja, temos que <span class="math inline">\(H\)</span> é a matriz <a href="https://pt.wikipedia.org/wiki/Hessiano"><strong>hessiana</strong></a>. No método de <strong>Newton-Rapshon</strong>, temos que <span class="math inline">\(\lambda_t = 1\)</span> e <span class="math inline">\(M_t = -H_t^{-1}\)</span>, em todas iterações.</p>
+<p><strong>Observação</strong>:</p>
+
+<div class="rmdobservation">
+<div class="text-justify">
+<p>A matriz hessiana nos permite identificar a concavidade de uma função multiparamétrica, desde que estas sejam duplamente diferenciável. Em um problema de maximização de uma função objetivo, temos que a matriz hessiana é negativa definida em uma região muito próxima ao ponto que maximiza a função. Dessa forma, <span class="math inline">\(-H^{-1}\)</span> é uma matriz positiva definida na mesma região, isto é, se <span class="math inline">\(\pmb a\)</span> é um vetor qualquer (<span class="math inline">\(p \times 1\)</span>) e <span class="math inline">\(H^{-1}\)</span> é uma matriz (<span class="math inline">\(p \times p\)</span>), então <span class="math inline">\(-\pmb a^{&#39;} H^{-1} \pmb a &lt; 0\)</span>.</p>
+<p>Seja <span class="math inline">\(H\)</span> uma matriz hessiana como apresentada acima. Abaixo estão listadas algumas propriedades da de <span class="math inline">\(H\)</span>. Dessa forma, Então</p>
+<ul>
+<li><p><span class="math inline">\(\pmb a^{&#39;} H \pmb a &gt; 0\)</span> (positiva-definida): A função é estritamente convexa;</p></li>
+<li><p><span class="math inline">\(\pmb a^{&#39;} H \pmb a &lt; 0\)</span> (negativa-definida): A função é estritiamente concava. Essa é a propriedade que estamos considerando, visto que estamos em um problema de maximização de uma função objetivo;</p></li>
+<li><p><span class="math inline">\(\pmb a^{&#39;} H \pmb a \geq 0\)</span> (positiva-definida): A função é parcialmente convexa;</p></li>
+<li><p><span class="math inline">\(\pmb a^{&#39;} H \pmb a \leq 0\)</span> (positiva-definida): A função é parcialmente concava;</p></li>
+<li><p><span class="math inline">\(H\)</span> é uma matriz simétrica;</p></li>
+<li><p>A inversa de uma matriz positiva-definida é também uma matriz positiva-definida;</p></li>
+<li><p>Você poderá entender a matriz hessiana como a primeira derivada do vetor gradiente da função objetivo.</p></li>
+</ul>
+</div>
+</div>
+
+<p>O método de <strong>Newton-Raphson</strong> normalmente é utilizado para encontar os zeros de uma função. Quando aplicado sobre a condição de primeira ordem, o método de <strong>Newton-Raphson</strong> nos conduzirá aos pontos críticos da função. Como fazemos uso do vetor gradiente, estaremos sempre a caminhar para os pontos de máximo de <span class="math inline">\(\psi(\cdot)\)</span>. Dessa forma, os pontos críticos são os pontos de máximo da função objetivo.</p>
+<p>Para que possamos entender melhor a ideia do método, considere uma <a href="https://pt.wikipedia.org/wiki/S%C3%A9rie_de_Taylor"><strong>expansão de Taylor</strong></a> da condição de primeira ordem em torno de um ponto qualquer <span class="math inline">\(\pmb \theta_0\)</span>. Assim, temos que</p>
+<p><span class="math display">\[\frac{\partial\,\psi(\pmb \theta)}{\partial\, \pmb \theta} \approx f(\pmb \theta_0) + H(\pmb \theta_0) (\pmb \theta - \pmb\theta_0).\]</span></p>
+<p>Resolvendo o sistema para <span class="math inline">\(\pmb\theta\)</span> e fazendo <span class="math inline">\(\pmb \theta = \pmb \theta_{t+1}\)</span> e <span class="math inline">\(\pmb \theta_0 = \pmb \theta_t\)</span>, obteremos o esquema iterativo do algoritmo apresentado ascima.</p>
+<p>A forma mais usual do algoritmo de <strong>Newton-Rapshon</strong> introduz o mecanismo de “procura em linha”. Dessa forma, o esquema iterativo é dada por</p>
+<p><span class="math display">\[\pmb \theta_{t+1} = \pmb \theta_t -\lambda_tH_t^{-1}\delta_t.\]</span>
+<strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>O método de <strong>Newton-Raphson</strong> apesar de funcionar bem em diversas situações, poderá fornecer estimativas ruins em alguns casos. Por exemplo, um problema comum é quando <span class="math inline">\(\pmb \theta_t\)</span> é um ponto distante do ponto que maximiza <span class="math inline">\(\psi(\cdot)\)</span>, uma vez que nesses pontos, a matriz <span class="math inline">\(M_t = -H^{-1}\)</span> pode não ser positiva-definida.</p>
+</div>
+</div>
+
+</div>
+<div id="bhhh" class="section level4">
+<h4><span class="header-section-number">6.2.1.3</span> BHHH</h4>
+<p>O método <strong>BHHH</strong> (<strong>B</strong>erndt-<strong>H</strong>all-<strong>H</strong>all-<strong>H</strong>ausman), foi proposto no artigo Berndt, E. R., Hall, B. H., Hall, R. E., &amp; Hausman, J. A. (1974). <strong>Estimation and inference in nonlinear structural models</strong>. In Annals of Economic and Social Measurement, Volume 3, p. 653-665. O método é muito semelhante ao método de Newton-Raphson, com a diferença que trocamos a matriz <span class="math inline">\(H_t\)</span> pelo auto produto dos vetores gradientes <span class="math inline">\(\delta_t\delta_t^{&#39;}\)</span></p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>A vantagem do método <strong>BHHH</strong> está no fato de não necessitarmos calcular segundas derivadas. Trata-se de um método muito utilizado em aplicações ecnonométricas. O método <strong>BHHH</strong> poderá enfrentar o mesmo problema de convergência que o método de <strong>Newton-Raphson</strong>.</p>
+</div>
+</div>
+
+</div>
+<div id="metodos-quasi-newton" class="section level4">
+<h4><span class="header-section-number">6.2.1.4</span> Métodos quasi-Newton</h4>
+<p>A classe de algoritmos quasi-Newton é composta por algoritmos que são bastante eficientes do ponto de vista de convergência e também do ponto de vista computacional, visto que esses algoritmos não requerem o cálculo de segundas derivadas. Nessa classe de algoritmos, é utilizado uma sequência de matrizes tal que</p>
+<p><span class="math display">\[M_{t+1} = M_{t} + N_t,\]</span>
+sendo <span class="math inline">\(N_t\)</span> uma matriz positiva-definida. Assim, se <span class="math inline">\(M_0\)</span> é positiva-definida, <span class="math inline">\(M_t\)</span> na <span class="math inline">\(t\)</span>-ésima iteração sempre será positiva-definida. A ideia básica desses métodos é construir uma aproximação para <span class="math inline">\(-H(\pmb \theta)^{-1}\)</span>, de tal forma que</p>
+<p><span class="math display">\[\lim_{t \to \infty} M_t = -H^{-1}.\]</span></p>
+<p>Há diversos algoritmos que pertencem à classe de métodos quasi-Newton. Por exemplo, o método <strong>DFP</strong> (<strong>D</strong>avidon, <strong>F</strong>letcher e <strong>P</strong>owell) atualiza <span class="math inline">\(M_{t+1}\)</span> fazendo</p>
+<p><span class="math display">\[M_{t+1} = M_{t} + \frac{\pmb \gamma_t \pmb \gamma_t^{&#39;}}{\pmb \gamma_t^{&#39;}\kappa_t} + \frac{M_t\kappa_t\kappa_t^{&#39;}M_t}{\kappa_t^{&#39;}M_t\pmb \gamma_t},\]</span></p>
+<p>em que <span class="math inline">\(\pmb \gamma_t = \pmb \theta_{t+1} - \pmb \theta_t\)</span> (diferença de pontos) e <span class="math inline">\(\kappa_t = \delta(\pmb \theta_{t+1}) - \delta(\pmb \theta_t)\)</span> (diferenças de gradientes avaliados em pontos).</p>
+<p>O algoritmo quasi-Newton mais utilizado é o <strong>BFGS</strong> (<strong>B</strong>royden-<strong>F</strong>letcher-<strong>G</strong>oldfarb-<strong>S</strong>hanno). O algoritmo <strong>BFGS</strong> tem a atualização semelhante ao <strong>DFP</strong>, com a diferença que é subtraído o termo <span class="math inline">\(a_tb_tb_t^{&#39;}\)</span>, em que <span class="math inline">\(a_t = \kappa_t^{&#39;}M_t\kappa_t\)</span> e</p>
+<p><span class="math display">\[b_t = \frac{\pmb\gamma_t}{\pmb\gamma_t^{&#39;}\kappa_t} - \frac{M_t\kappa_t}{\kappa_t^{&#39;}M_t \kappa_t}.\]</span></p>
+<p>Sendo assim, temos que no método <strong>BFGS</strong>, a atualização de <span class="math inline">\(M_t\)</span> de dará por:</p>
+<p><span class="math display">\[M_{t+1} = M_{t} + \frac{\pmb \gamma_t \pmb \gamma_t^{&#39;}}{\pmb \gamma_t^{&#39;}\kappa_t} + \frac{M_t\kappa_t\kappa_t^{&#39;}M_t}{\kappa_t^{&#39;}M_t\pmb \gamma_t} - a_tb_tb_t^{&#39;}.\]</span></p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>O termo quasi-Newton é empregado para se referir ao fato de que esses métodos não fazem uso da matriz hessiana. Porém, esses métodos utilizam uma apriximação iterativa de uma matriz <span class="math inline">\(M_t\)</span> que converge para a matriz de segundas derivadas. Dessa forma, não entenda o termo quasi-Newton como se esses métodos fossem inferiores aos métodos de <strong>Newton-Raphson</strong>. Na verdade, os métodos quasi-Newton normalmente apresentam desempenho superior.</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div id="exercicio-2" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<ol style="list-style-type: decimal">
+<li><p>Defina matematicamente o método gradiente para maximização de uma função <span class="math inline">\(\psi(\pmb{\Theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subespaço do <span class="math inline">\(\mathbb{R}^p\)</span>.</p></li>
+<li><p>Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?</p></li>
+<li><p>Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton?</p></li>
+<li><p>Enuncie os métodos <strong>Steepest Ascent</strong>, <strong>Newton-Raphson</strong> e <strong>BHHH</strong>. Esses são métodos de Newton ou quasi-Newton? Explique.</p></li>
 </ol>
 
 </div>

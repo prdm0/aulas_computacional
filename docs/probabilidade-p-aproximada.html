@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Probabilidade p aproximada | ESTATÍSTICA COMPUTACIONAL</title>
+  <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Probabilidade p aproximada | ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
+  
+  <meta property="og:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  <meta name="github-repo" content="prdm0/aulas_computacional" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Probabilidade p aproximada | ESTATÍSTICA COMPUTACIONAL" />
+  
+  <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
+  
+
+<meta name="author" content="Docente: Prof. Dr. Pedro Rafael Diniz Marinho   E-mail: pedro.rafael.marinho@gmail.com / pedro@de.ufpb.br" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="topicos-em-estatistica-computacional.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.1/DiagrammeR.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Início</a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
+<li class="chapter" data-level="" data-path="prefacio.html"><a href="prefacio.html#sugestoes-de-passos-para-revisao-da-linguagem-r"><i class="fa fa-check"></i>Sugestões de passos para revisão da linguagem R</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="revisao-basica-da-linguagem-r.html"><a href="revisao-basica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a><ul>
+<li class="chapter" data-level="" data-path="revisao-basica-da-linguagem-r.html"><a href="revisao-basica-da-linguagem-r.html#exercicios-propostos"><i class="fa fa-check"></i>Exercícios propostos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a><ul>
+<li class="chapter" data-level="2.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-historico"><i class="fa fa-check"></i><b>2.1</b> Um breve histórico</a></li>
+<li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
+<li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuicoes"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a><ul>
+<li class="chapter" data-level="3.1" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html#git"><i class="fa fa-check"></i><b>3.1</b> Git</a></li>
+<li class="chapter" data-level="3.2" data-path="versionamento-de-codigo.html"><a href="versionamento-de-codigo.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
+<li class="chapter" data-level="4.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="relatorio-markdown-em-r.html"><a href="relatorio-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-1"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes"><i class="fa fa-check"></i><b>5.2</b> Funções</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
+<li class="chapter" data-level="5.2.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-anonimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções anônimas</a></li>
+<li class="chapter" data-level="5.2.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#escopo-lexico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
+<li class="chapter" data-level="5.2.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#avaliacao-preguicosa"><i class="fa fa-check"></i><b>5.2.4</b> Avaliação preguiçosa</a></li>
+<li class="chapter" data-level="5.2.5" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#varargs-dot-dot-dot"><i class="fa fa-check"></i><b>5.2.5</b> varargs: … (dot-dot-dot)</a></li>
+<li class="chapter" data-level="5.2.6" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcoes-infixas"><i class="fa fa-check"></i><b>5.2.6</b> Funções infixas</a></li>
+<li class="chapter" data-level="5.2.7" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcao-de-substituicao"><i class="fa fa-check"></i><b>5.2.7</b> Função de substituição</a></li>
+<li class="chapter" data-level="5.2.8" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-2"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
+<li class="chapter" data-level="5.3.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicios-3"><i class="fa fa-check"></i>Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#classes"><i class="fa fa-check"></i><b>5.4.1</b> Classes</a></li>
+<li class="chapter" data-level="5.4.2" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#criando-funcoes-genericas"><i class="fa fa-check"></i><b>5.4.2</b> Criando funções genéricas</a></li>
+<li class="chapter" data-level="" data-path="r-miscelanea-e-topicos-avancados.html"><a href="r-miscelanea-e-topicos-avancados.html#exercicio"><i class="fa fa-check"></i>Exercício</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
+<li class="chapter" data-level="6.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#geracao-de-numeros-pseudo-aleatorios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodo-da-transformacao-inversa-caso-discreto"><i class="fa fa-check"></i><b>6.1.1</b> Método da Transformação Inversa (Caso Discreto)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probabilidade-p-aproximada.html"><a href="probabilidade-p-aproximada.html"><i class="fa fa-check"></i><b>7</b> Probabilidade p aproximada</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="probabilidade-p-aproximada.html"><a href="probabilidade-p-aproximada.html#metodo-da-aceitacao-e-rejeicao"><i class="fa fa-check"></i><b>7.0.1</b> Método da aceitação e rejeição</a></li>
+<li class="chapter" data-level="" data-path="probabilidade-p-aproximada.html"><a href="probabilidade-p-aproximada.html#exercicio-1"><i class="fa fa-check"></i>Exercício</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">ESTATÍSTICA COMPUTACIONAL</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probabilidade-p-aproximada" class="section level1">
+<h1><span class="header-section-number">7</span> Probabilidade p aproximada</h1>
+<div id="metodo-da-aceitacao-e-rejeicao" class="section level3">
+<h3><span class="header-section-number">7.0.1</span> Método da aceitação e rejeição</h3>
+<p>Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do <strong>método a aceitação e rejeição</strong>.</p>
+<p>Suponha que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Além disso, suponha que existe uma constante <span class="math inline">\(c\)</span> de tal forma que</p>
+<p><span class="math display">\[\frac{f(t)}{g(t)} \leq c,\]</span>
+para todo valor de <span class="math inline">\(t\)</span>, com <span class="math inline">\(f(t) &gt; 0\)</span>. Para utilizar o método a aceitação e rejeição para gerar observações da v.a. <span class="math inline">\(X\)</span>, utilizando o algoritmo mais abaixo, antes, encontre uma v.a. <span class="math inline">\(Y\)</span> com pdf ou fp <span class="math inline">\(g\)</span>, tal que satisfaça a condição acima.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>É importante que a v.a. <span class="math inline">\(Y\)</span> escolhida seja de tal forma que você consiga gerar facilmente suas observações. Isso se deve ao fato do método da aceitação e rejeição ser computacionalmente mais intensivo que métodos mais diretos como o método da transformação ou o método da inversão que exige apenas a regração de números pseudo-aleatórios com distribuição uniforme.</p>
+</div>
+</div>
+
+<p><strong>Algoritmo do Método da Aceitação e Rejeição</strong>:</p>
+<p>1 - Gere uma observação <span class="math inline">\(y\)</span> proveniente de uma v.a. <span class="math inline">\(Y\)</span> com fdp/fp <span class="math inline">\(g\)</span>;</p>
+<p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(\mathcal{U} \sim U(0, 1)\)</span>;</p>
+<p>3 - Se <span class="math inline">\(u &lt; \frac{f(y)}{cg(y)}\)</span> aceite <span class="math inline">\(x = y\)</span>; caso contrário rejeite <span class="math inline">\(y\)</span> como observação da v.a. <span class="math inline">\(X\)</span> e volte para o passo anterior.</p>
+<p><strong>Prova</strong>: Consideremos o caso discreto, ou seja, que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são v.a.s com fp’s <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Pelo passo 3 do algoritmo acima, temos que <span class="math inline">\(\{aceitar\} = \{x = y\} = u &lt; \frac{f(y)}{cg(y)}\)</span>. Isto é,</p>
+<p><span class="math display">\[P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.\]</span>
+Daí, pelo <a href="https://pt.wikipedia.org/wiki/Lei_da_probabilidade_total"><strong>Teorema da Probabilidade Total</strong></a>, temos que:</p>
+<p><span class="math display">\[P(aceitar) = \sum_y P(aceitar|Y=y)\times P(Y=y) = \sum_y \frac{f(y)}{cg(y)}\times g(y) = \frac{1}{c}.\]</span>
+Portanto, pelo método da aceitação e rejeição aceitamos ocorrência de <span class="math inline">\(Y\)</span> como sendo uma ocorrência de <span class="math inline">\(X\)</span> com probabilidade <span class="math inline">\(1/c\)</span>. Além disso, pelo Teorema de Bayes, temos que</p>
+<p><span class="math display">\[P(Y = y | aceitar) = \frac{P(aceitar|Y = y)\times g(y)}{P(aceitar)} = \frac{[f(y)/cg(y)] \times g(y)}{1/c} = f(y).\]</span>
+O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</span> pelo procedimento do algoritmo equivale a aceitar um valor proveniente de <span class="math inline">\(X\)</span> que tem fp <span class="math inline">\(f\)</span>. Para o caso contínuo, a demonstração é similar.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Perceba que para reduzir o custo computacional do método, deveremos escolher <span class="math inline">\(c\)</span> de tal forma que possamos maximizar <span class="math inline">\(P(aceitar)\)</span>. Sendo assim, escolher um valor exageradamente grande da constante <span class="math inline">\(c\)</span> irá reduzir a probabilidade de aceitar uma observação de <span class="math inline">\(Y\)</span> como sendo observação da v.a. <span class="math inline">\(X\)</span>.</p>
+</div>
+</div>
+
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Computacionalmente, é conveniente considerar <span class="math inline">\(Y\)</span> como sendo uma v.a. com distribuição uniforme no suporte de <span class="math inline">\(f\)</span>, uma vez que gerar observações de uma distribuição uniforme é algo simples em qualquer computador. Para o caso discreto, considerar <span class="math inline">\(Y\)</span> com distribuição uniforme discreta poderá ser uma boa alternativa.</p>
+</div>
+</div>
+
+</div>
+<div id="exercicio-1" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<ol style="list-style-type: decimal">
+<li><p>Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas.</p></li>
+<li><p>Implemente o gerador <strong>Midsquare</strong> idealizado pelo matemático John von Neumann. Por que o gerador <strong>Midsquare</strong> não é um bom gerador? Explique.</p></li>
+<li><p>Defina matematicamente o gerador congruencial linear. Implemente uma função em R que implementa esse gerador.</p></li>
+<li><p>O gerador <strong>Randu</strong> é definido por <span class="math inline">\(x_{i + 1} = 65539 \times x_i\,\mathrm{mod}\,31\)</span>. O <strong>Randu</strong> é um gerador congruencial misto ou multiplicativo?</p></li>
+<li><p>Por que o gerador <strong>Randu</strong> é um dos peiores geradores de números pseudo-aleatório já criado? Explique.</p></li>
+<li><p>Defina um gerador congruencial de período completo para geração de números pseudo-aleatórios com distribuição uniforme no intervalo <span class="math inline">\((0,1)\)</span></p></li>
+<li><p>Explique o método da transformação para geração de números pseudo aleatório. Apresente um exemplo.</p></li>
+<li><p>Defina o método da inversão para geração de números pseudo-aleatórios. Sempre será possível utilizar esse método? Explique.</p></li>
+<li><p>Implemente uma função para geração de números pseudo-aleatórios com distribuição normal padrão. A função deverá implementar o método de Box-Müller e o método polar. Ao final obtenha um histograma com os números gerados (mil valores) e realize um teste de normalidade. Realize um teste de normalidade.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma variável aleatória em um espaço de probabilidade <span class="math inline">\((\Omega, \mathcal{A},\mathcal{P})\)</span> e suponha que <span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span>. Obtenha a distribuição de <span class="math inline">\(Y = -\log(X)\)</span>.</p></li>
+<li><p>Com base na distribuição da variável aleatória (v.a.) <span class="math inline">\(Y\)</span> do exercício acima, implemente uma função em R que gere observações de <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Conhecendo a distribuição da v.a. <span class="math inline">\(X\)</span>, implemente para cada um dos itens que seguem, uma função para geração de observações da v.a. <span class="math inline">\(Y\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda),\)</span> com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda &gt; 0\)</span> e <span class="math inline">\(Y = \sum_{i = 1}^n X_i \sim \Gamma(n, \lambda)\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathrm{Exp}(\lambda)\)</span>, com <span class="math inline">\(x \geq 0\)</span> e <span class="math inline">\(\lambda&gt;0\)</span> e <span class="math inline">\(Y = \mu - \beta\log(\lambda X) \sim \mathrm{Gumbel}(\mu,\beta)\)</span>, com <span class="math inline">\(\mu \in \Bbb{R}\)</span> e <span class="math inline">\(\beta&gt;0\)</span>;</p></li>
+<li><p><span class="math inline">\(X \sim \mathcal{U}(0,1)\)</span> (contínua) e <span class="math inline">\(Y = m + s[-\log(X)]^{-1/\alpha} \sim\)</span> Fréchet<span class="math inline">\((\alpha,s,m)\)</span>, com <span class="math inline">\(x, \alpha,s &gt; 0\)</span> e <span class="math inline">\(m \in \Bbb{R}\)</span>.</p></li>
+</ul></li>
+<li><p>Cite algumas das propriedades do gerador <strong>Mersenne Twister</strong>. Qual o seu período de ocorrência?</p></li>
+<li><p>Explique o algoritmo do método da aceitação e rejeição.</p></li>
+<li><p>Utilizando o método da aceitação e rejeição, implemente uma função que gere valores aleatório provenientes da distribuição da v.a. <span class="math inline">\(X\)</span> tal que</p></li>
+</ol>
+<p><span class="math display">\[P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.\]</span></p>
+<ol start="16" style="list-style-type: decimal">
+<li>Implemente duas funções que geram observações da v.a. <span class="math inline">\(X\)</span> utilizando o método da transformação para v.a. discretas e pelo método da aceitação e rejeição. Qual método é mais eficiente computacionalmente? Por que?</li>
+</ol>
+<p><span class="math display">\[\begin{eqnarray}
+P(X = 0) &amp;=&amp; 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\
+P(X = 3) &amp;=&amp; 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\
+P(X = 6) &amp;=&amp; 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\
+P(X = 9) &amp;=&amp; 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\
+P(X = 12) &amp;=&amp; 1.\nonumber
+\end{eqnarray}\]</span></p>
+<ol start="17" style="list-style-type: decimal">
+<li><p>Implemente a função <code>rdisc(n = 1L, x, probs)</code> que retorna números pseudo-aleatórios de uma v.a. discreta <span class="math inline">\(X\)</span> que assume uma quantidade finita de observações. Os argumentos de <code>rdisc</code> estão especificados abaixo:</p>
+<ul>
+<li><p><code>n</code>: número de observações a serem geradas;</p></li>
+<li><p><code>x</code>: vetor com as possíveis observações da v.a. <span class="math inline">\(X\)</span>;</p></li>
+<li><p><code>probs</code>: vetor com as probabilidades das observações passadas à <code>x</code>.</p></li>
+</ul></li>
+<li><p>Implemente uma função para o método da aceitação e rejeição (<code>ar_fp(n, x, prob)</code>), para o caso em que deseja-se gerar observações de uma v.a. <span class="math inline">\(X\)</span> discreta. O argumento <code>n</code> refere-se à quantidade de observações a serem geradas, <code>x</code> é um vetor de valores assumidos por <span class="math inline">\(X\)</span> e <code>prob</code> é um vetor de probabilidades de cada observação de <span class="math inline">\(X\)</span>. A função <code>ar_fp(n, x, prob)</code> deverá escolher um valor adequado para <span class="math inline">\(c\)</span>.</p></li>
+<li><p>Seja <span class="math inline">\(X\)</span> uma v.a. contínua com fdp <span class="math inline">\(f(x) = 6x(x-1)\)</span>, com <span class="math inline">\(0 &lt; x &lt; 1\)</span>. Implemente a função <code>rf(n, c = 1.5)</code> que gera números pseudo-aleatórios como observações de <span class="math inline">\(X\)</span>, pelo método da aceitação e rejeição, em que <code>n</code> é a quantidade de números a serem gerados e <code>c</code> é o valor da constante (0.5 por padrão) no algoritmo do método da aceitação e rejeição. <strong>Dica</strong>: considere <span class="math inline">\(Y \sim \mathcal{U}(0,1)\)</span>.</p></li>
+</ol>
+<!-- rf <- function(n = 1L, c = 6){ -->
+<!--   f <- function(x) 6 * x * (1 - x) -->
+<!--   i <- 1L -->
+<!--   n_rejeicao <- 0L -->
+<!--   vetor <- numeric(n) -->
+<!--   while (i < n){ -->
+<!--     u <- runif(n = 1L, min = 0, max = 1) -->
+<!--     y <- runif(n = 1L, min = 0, max = 1) -->
+<!--     if (u <= f(y)/c){ -->
+<!--       vetor[i] <- y -->
+<!--       i <- i + 1L -->
+<!--     }  -->
+<!--     else{ -->
+<!--       n_rejeicao <- n_rejeicao + 1L -->
+<!--     } -->
+<!--   } -->
+<!--   list(valores = vetor, rejeicao = n_rejeicao) -->
+<!-- } -->
+<!-- set.seed(0) -->
+<!-- n <- 2e4 -->
+<!-- c <- 20 -->
+<!-- result <- rf(n = n, c = c) -->
+<!-- # Probabilidade de aceitar: -->
+<!-- 1/c -->
+<!-- # Aproximacao da probabilidade de aceitar: -->
+<!-- 1 - result$rejeicao/(n + result$rejeicao) -->
+<ol start="20" style="list-style-type: decimal">
+<li>Considerando a função <code>rf(n, c)</code> implementada no exercício anterior, quantos passos serão necessários para que possamos gerar 10 mil observações proveniente da distribuição de <span class="math inline">\(X\)</span>, considerando <code>c = 6</code>? Respectivamente, quantos passos serão necessários para serem gerados a mesma quantidade de observações de <span class="math inline">\(X\)</span> considerando <code>c = 0.5</code>? <strong>Dica</strong>: antes de chamar a função implementada, fixe a semente fazendo <code>set.seed(0)</code>.</li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="topicos-em-estatistica-computacional.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/topicos_estatistica_computacional.Rmd",
+"text": "Editar"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["aulas_r.pdf"],
+"toc": {
+"collapse": null
+},
+"toolbar": {
+"position": "fixed",
+"download": ["aulas_r.pdf", "Aulas de R"],
+"search": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
