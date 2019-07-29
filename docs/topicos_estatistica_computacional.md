@@ -272,7 +272,7 @@ em que  $\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{'}$ é o vetor gradiente
 **Observação**:
 
 \BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
-É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras *ad hoc* que são computacionalmente menos custosas. Essa classe de algoritmos é o que demominamos de **classe de métodos gradiente**.
+É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras *ad hoc* que são computacionalmente menos custosas. Essa classe de algoritmos é o que denominamos de **classe de métodos gradiente**.
 </div></div>\EndKnitrBlock{rmdobservation}
 
 Na classe de métodos gradiente, fazemos

@@ -286,7 +286,7 @@ text(0.05, dnorm(x = 0, mean = 0, sd = 1) + 0.04, labels = expression(lambda[ót
 
 ```{block2, type='rmdobservation'}
 <div class=text-justify>
-É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras *ad hoc* que são computacionalmente menos custosas. Essa classe de algoritmos é o que demominamos de **classe de métodos gradiente**.
+É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras *ad hoc* que são computacionalmente menos custosas. Essa classe de algoritmos é o que denominamos de **classe de métodos gradiente**.
 </div>
 ```
 
