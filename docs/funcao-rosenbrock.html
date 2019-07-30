@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ESTATÍSTICA COMPUTACIONAL</title>
+  <title>7 Função Rosenbrock | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:title" content="7 Função Rosenbrock | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="prdm0/aulas_computacional" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta name="twitter:title" content="7 Função Rosenbrock | ESTATÍSTICA COMPUTACIONAL" />
   
   <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="topicos-em-estatistica-computacional.html">
 
-<link rel="next" href="prefacio.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -192,7 +192,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#otimizacao-nao-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-2"><i class="fa fa-check"></i>Exercício</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="funcao-rosenbrock.html"><a href="funcao-rosenbrock.html"><i class="fa fa-check"></i><b>7</b> Função Rosenbrock</a><ul>
+<li class="chapter" data-level="" data-path="funcao-rosenbrock.html"><a href="funcao-rosenbrock.html#exercicio-2"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -211,65 +213,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">ESTATÍSTICA COMPUTACIONAL</h1>
-<h2 class="subtitle"><em>Disciplina ministrada à alunos do bacharelado em estatística da UFPB</em></h2>
-<p class="author"><em><strong>Docente</strong>: Prof. Dr. Pedro Rafael Diniz Marinho <br/> <strong>E-mail</strong>: <a href="mailto:pedro.rafael.marinho@gmail.com" class="email">pedro.rafael.marinho@gmail.com</a> / <a href="mailto:pedro@de.ufpb.br" class="email">pedro@de.ufpb.br</a></em></p>
-</div>
-<div id="inicio" class="section level1 unnumbered">
-<h1>Início</h1>
-<p><strong>Última atualização</strong>: 30/07/2019 <br/>
-<strong>Departamento de Estatística (UFPB)</strong>: <a href="http://www.de.ufpb.br/" class="uri">http://www.de.ufpb.br/</a></p>
-<hr />
-<p align="center">
-<img src="images/logo_livro.png" width="220" height="350"/>
-</p>
-<hr />
-<p><strong>Licença</strong></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />O material <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Estatística Computacional</span> do <a xmlns:cc="http://creativecommons.org/ns#" href="https://prdm0.github.io/aulas_computacional/" property="cc:attributionName" rel="cc:attributionURL">Prof. Pedro Rafael. D. Marinho</a> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons - Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>. Isso quer dizer:</p>
+<div id="funcao-rosenbrock" class="section level1">
+<h1><span class="header-section-number">7</span> Função Rosenbrock</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="funcao-rosenbrock.html#cb6-1"></a>f_objetivo &lt;-<span class="st"> </span><span class="cf">function</span>(x) {   </span>
+<span id="cb6-2"><a href="funcao-rosenbrock.html#cb6-2"></a>    x1 &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</span>
+<span id="cb6-3"><a href="funcao-rosenbrock.html#cb6-3"></a>    x2 &lt;-<span class="st"> </span>x[<span class="dv">2</span>]</span>
+<span id="cb6-4"><a href="funcao-rosenbrock.html#cb6-4"></a>    <span class="dv">100</span> <span class="op">*</span><span class="st"> </span>(x2 <span class="op">-</span><span class="st"> </span>x1 <span class="op">*</span><span class="st"> </span>x1)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x1)<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb6-5"><a href="funcao-rosenbrock.html#cb6-5"></a>}   </span>
+<span id="cb6-6"><a href="funcao-rosenbrock.html#cb6-6"></a><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">fn =</span> f_objetivo, <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>)</span></code></pre></div>
+<pre><code>## $par
+## [1] 1 1
+## 
+## $value
+## [1] 2.846999e-27
+## 
+## $counts
+## function gradient 
+##       18        1 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL</code></pre>
+<div id="exercicio-2" class="section level2 unnumbered">
+<h2>Exercício</h2>
 <ol style="list-style-type: decimal">
-<li><p>Você tem o dirieto de copiar e redistribuir o material em qualquer suporte ou formato;</p></li>
-<li><p>Você tem o direito de remixar, transformar e criar a partir deste material;</p></li>
-<li><p>Você deve dar crédito apropriado, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas de nenhuma maneira que sugira que o licenciador endossa você ou seu uso;</p></li>
-<li><p>Você não poderá utilizar o material para fins comerciais;</p></li>
-<li><p>Se você remixar, transformar, ou criar a partir do material, tem de distribuir as suas contribuições sob a mesma licença que o original. Sendo assim, não poderá aplicar termos jurídicos ou medidas de caráter tecnológico que restrinjam legalmente outros de fazerem algo que a licença permita.</p></li>
+<li><p>Defina matematicamente o método gradiente para maximização de uma função <span class="math inline">\(\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subespaço do <span class="math inline">\(\mathbb{R}^p\)</span>.</p></li>
+<li><p>Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?</p></li>
+<li><p>Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton?</p></li>
+<li><p>Enuncie os métodos <strong>Steepest Ascent</strong>, <strong>Newton-Raphson</strong> e <strong>BHHH</strong>. Esses são métodos de Newton ou quasi-Newton? Explique.</p></li>
 </ol>
-<p><strong>Maiores detalhes a respeito da licença em</strong>: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="uri">https://creativecommons.org/licenses/by-nc-sa/4.0/</a>.</p>
-<p><strong>Observação</strong>:</p>
 
-<div class="rmdobservation">
-<div class="text-justify">
-<p>Os códigos que estão presentes nesse material estão sobre os termos <a href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><strong>GNU General Public License</strong></a> (<span class="math inline">\(\geq 3\)</span>, versão três ou superior). Assim, o leitor poderá fazer uso de qualquer código desse material em seus projetos, pacotes, desde que cite a fonte. Além disso, todas as imagens utilizadas nesse material são de uso livre e não comercial.</p>
-<p><strong>Na barra superior desse material você poderá encontrar um ícone para download das minhas aulas de R. Trata-se de um Portable Document Format (PDF) que contém minhas aulas de R. O material das aulas está sujeito a mesma licença desse material. Você é livre para utilizar e remixar, desde que referencie o autor e o <a href="http://www.de.ufpb.br/"><strong>Departamento de Estatística</strong></a> da <a href="https://www.ufpb.br/"><strong>UFPB</strong></a>. Além disso, você deverá deixar claro quais foram as modificações realizadas.</strong></p>
 </div>
-</div>
-
-<p><strong>Importante</strong>:</p>
-
-<div class="rmdimportant">
-<div class="text-justify">
-<p>Esse material está sob constante aprimoramento e sugestões poderão ser enviadas para o repositório do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> que hospeda este conteúdo.</p>
-<p>Uma vez que o material está sendo mantido e versionado no <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>, as alterações podem ser realizadas diretamente no arquivo fonte do projeto, bastando clicar no ícone em formato de um lápis, no canto superior esquerdo desta página, ou das páginas em que se desejam sugerir alterações, como correções de palavras, mudanças de parágrafos, alteração de códigos, melhoramento de exemplos, inclusão de novos exemplos, etc. As alterações serão bem vindas e serão acatadas (incorporadas ao arquivo orignal) na medida que forem julgadas como sendo convenientes.</p>
-</div>
-</div>
-
-<p><strong>Nota</strong>:</p>
-
-<div class="rmdnote">
-<div class="text-justify">
-<p>Para que seja possível propor alterações é necessário que você saiba utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> e tenha realizado um fork do trabalho em sua conta do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>. Apreder a utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> poderá ser muito útil (dentro da academia ou fora dela), uma vez que você saberá versionar seus códigos, artigos e trabalhos em geral.</p>
-</div>
-</div>
-
-
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="topicos-em-estatistica-computacional.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="prefacio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -299,7 +283,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/prdm0/aulas_computacional/edit/master/index.Rmd",
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/topicos_estatistica_computacional.Rmd",
 "text": "Editar"
 },
 "history": {

@@ -192,7 +192,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#otimizacao-nao-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-2"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -533,22 +532,121 @@ sendo <span class="math inline">\(N_t\)</span> uma matriz positiva-definida. Ass
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>O termo quasi-Newton é empregado para se referir ao fato de que esses métodos não fazem uso da matriz hessiana. Porém, esses métodos utilizam uma apriximação iterativa de uma matriz <span class="math inline">\(M_t\)</span> que converge para a matriz de segundas derivadas. Dessa forma, não entenda o termo quasi-Newton como se esses métodos fossem inferiores aos métodos de <strong>Newton-Raphson</strong>. Na verdade, os métodos quasi-Newton normalmente apresentam desempenho superior.</p>
+<p>O termo quasi-Newton é empregado para se referir ao fato de que esses métodos não fazem uso da matriz hessiana. Porém, esses métodos utilizam uma aproximação iterativa de uma matriz <span class="math inline">\(M_t\)</span> que converge para a matriz de segundas derivadas. Dessa forma, não entenda o termo quasi-Newton como se esses métodos fossem inferiores aos métodos de <strong>Newton-Raphson</strong>. Na verdade, os métodos quasi-Newton normalmente apresentam desempenho superior.</p>
 </div>
 </div>
 
-</div>
-</div>
-</div>
-<div id="exercicio-2" class="section level2 unnumbered">
-<h2>Exercício</h2>
-<ol style="list-style-type: decimal">
-<li><p>Defina matematicamente o método gradiente para maximização de uma função <span class="math inline">\(\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subespaço do <span class="math inline">\(\mathbb{R}^p\)</span>.</p></li>
-<li><p>Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?</p></li>
-<li><p>Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton?</p></li>
-<li><p>Enuncie os métodos <strong>Steepest Ascent</strong>, <strong>Newton-Raphson</strong> e <strong>BHHH</strong>. Esses são métodos de Newton ou quasi-Newton? Explique.</p></li>
-</ol>
+<!-- #### Otimização não-linear no R -->
+<!-- Em  R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é: -->
+<!-- ```{r, eval = FALSE} -->
+<!-- optim(par, fn, gr = NULL, ..., -->
+<!--       method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN", -->
+<!--                  "Brent"), -->
+<!--       lower = -Inf, upper = Inf, -->
+<!--       hessian = FALSE) -->
+<!-- ``` -->
+<!-- em que: -->
+<!--    1. `par` é um vetor de chutes inicias; -->
+<!--    2. `fn` é a função objetivo a ser **minimizada**; -->
+<!--    3. `gr` é a função gradiente da função `fn`; -->
+<!--    4. `method` é o método escolhido par minimizar `fn`. É possível escolher os métodos de Nelder-Mead, BFGS, CG, L-BFGS-B, SANN (Simulated Annealing) e Brent; -->
+<!--    4. `...` é o operador dot-dot-dot que poderá receber argumentos que por ventura possam existir nas funções `fn` e `gr`; -->
+<!--    5. `lower` é um vetor que limita inferiormente os parâmetros a serem otimizados (por padrão é `-Inf`); -->
+<!--    6. `upper` é um vetor que limita superiormente os parâmetros a serem otimizados (por padrão é `Inf`); -->
+<!--    7. `hessian` recebe um valor lógico, em que por padrão `hessian = FALSE`. Se `hessian = TRUE`, será calculado uma estimativa da matriz hessiana avaliada na estimativa de ponto de mínimo global. -->
+<!-- **Exemplo**: Utilizando a função `optim()` para minimizar a função [**Rosenbrock**](https://en.wikipedia.org/wiki/Rosenbrock_function) pelo método BFGS. -->
+<!-- ```{r, echo = FALSE, fig.align='center', fig.cap="Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960."} -->
+<!-- rosenbrock <- function(x1, x2) (1 - x1) ^ 2 + 100 * (x2 - x1 ^ 2) ^ 2 -->
+<!-- M  <- plot3D::mesh(seq(-2,  2, length.out = 550), -->
+<!--                     seq(-2,  2, length.out = 550)) -->
+<!-- x <- M$x -->
+<!-- y <- M$y -->
+<!-- z <- rosenbrock(x, y) -->
+<!-- plot3D::surf3D(x, y, z, inttype = 1, bty = "b2", phi = 5, theta = 150) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # Função Rosenbrock -->
+<!-- f_objetivo <- function(x, a = 2, b = 40) {    -->
+<!--     x1 <- x[1] -->
+<!--     x2 <- x[2] -->
+<!--     (a - x1) ^ 2 + b * (x2 - x1 ^ 2) ^ 2 -->
+<!-- }    -->
+<!-- optim(par = c(2, 2), fn = f_objetivo, method = "BFGS") -->
+<!-- ``` -->
+<!-- **Entendendo a saída (retorno da função)**: -->
+<!--   1. `par` é um vetor contendo as estimativas para $x_1$ e $x_2$; -->
+<!--   2. `value` é o valor da função avaliada nas estimativas obtidas; -->
+<!--   3. `counts` é a quantidade de chamadas da função a ser otimizada e do seu gradiente. Note que não passamos o gradiente da função de objetivo mas este teve que ser calculado numericamente; -->
+<!--   4. `convergence` é um vetor de uma única posição, em que 0 indica convergência. Qualquer número diferente de zero indica que houve problema de convergência no algoritmo escolhido para mininizar a função objetivo; -->
+<!--   5. `message` retorna alguma mensagem com informações adicionais, se necessário. Caso contrário, `NULL` será o retorno. -->
+<!-- A função de Rosenbrock tem mínimo analítico no ponto $(a, a^2)$ (ponto ótimo), em que $f(a, a^2) = 0$. Dessa forma, um bom método de otimização nos trará uma estimativa próxima ao ponto $(2, 4)$, uma vez que foi considerado, no código acima, $a = 2$ e $b = 40$. Como pode-se observar, o método BFGS forneceu uma boa estimativa para ponto ótimo analítico. -->
+<!-- **Nota**: -->
+<!-- ```{block2, type='rmdnote'} -->
+<!-- <div class=text-justify> -->
+<!-- Para o exemplo acima, $x_1$ e $x_2$ são chamadas de **variáveis**, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos **parâmetros** que indexam o modelo estatístico. Nesse caso, cada ponto da função  -->
+<!-- </div> -->
+<!-- ``` -->
+<!-- O argumento `...` é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança $\mathcal{l}(\pmb \theta)$. É por meio desse argumento que passamos a amostra para $\mathcal{l}(\pmb \theta)$. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de $-\mathcal{l}(\pmb \theta)$ e obter o vetor $\pmb \theta$ com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico. -->
+<!-- **Exemplo**: Considere o conjunto de dados obtido abaixo: -->
+<!-- ```{r, eval = FALSE, cache = TRUE, warning = FALSE} -->
+<!-- set.seed(0L) -->
+<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
+<!-- ``` -->
+<!-- Seja $X_1, \ldots, X_n$ uma amostra aleatória (v.a.'s i.i.d), em que $X_i \sim \mathcal{N}(\mu = 2, \sigma^2 = 1)\, \forall i$. Obtenha pelo método BFGS os estimadores de máxima verossimilhança para $\mu$ e $\sigma^2$. Seja $\mathcal{l(\pmb\theta)}$ a função de verossimilhança para amostra e $\pmb \theta^{'} = (\mu, \sigma^2)$. Precisaremos implementar a função de verossmilhança e multiplica-la por -1, uma vez que minimizando $-\mathcal{l}(\pmb \theta)$ equivale à maximizar $\mathcal{l}(\pmb \theta)$. -->
+<!-- ```{r, warning = FALSE, fig.align = 'center'} -->
+<!-- set.seed(0L) -->
+<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
+<!-- # Função de log-verssimilhança da amostra aleatória. -->
+<!-- loglikelihood_normal <- function(par, x){ -->
+<!--   mu <- par[1] -->
+<!--   sigma2 <- par[2] -->
+<!--   -sum(log(dnorm(x, mean = mu, sd = sqrt(sigma2)))) -->
+<!-- } -->
+<!-- # maximizando -log-likelihood da amostra aleatória. -->
+<!-- resultado <- optim(par = c(1, 1), fn = loglikelihood_normal, -->
+<!--                    method = "BFGS", x = dados) -->
+<!-- # Graficando a densidade estimada sobre os dados ---------------------------------- -->
+<!-- # Sequência no domínio da distribuição: -->
+<!-- x <- seq(-5, 6, length.out = 1000L)  -->
+<!-- y <- dnorm(x = x, mean = resultado$par[1], resultado$par[2]) -->
+<!-- # Histograma das observações: -->
+<!-- hist(x = dados, main = "Função Densidade de Probabilidade Estimada", -->
+<!--      ylab = "Probabilidade", xlab = "x", probability = TRUE,  -->
+<!--      col = rgb(1, 0.9, 0.8), border = NA) -->
+<!-- # Tracejando a densidade sobre o histograma: -->
+<!-- lines(x, y, lwd = 2) -->
+<!-- ``` -->
+<!-- **Importante**: -->
+<!-- ```{block2, type='rmdimportant'} -->
+<!-- <div class=text-justify> -->
+<!-- Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém verdadeira a recíproca. Além disso,  lembre-se também que a função `optim()` é implementada de forma a minimizar uma função objetivo. -->
+<!-- </div> -->
+<!-- ``` -->
+<!-- ## Exercício {-} -->
+<!-- 1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$. -->
+<!-- 2. Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear? -->
+<!-- 3. Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton? -->
+<!-- 4. Enuncie os métodos **Steepest Ascent**, **Newton-Raphson** e **BHHH**. Esses são métodos de Newton ou quasi-Newton? Explique. -->
+<!-- 5. Considere a [**Matyas function**](https://en.wikipedia.org/wiki/File:Matyas_function.pdf), função definida logo abaixo: -->
+<!--     $$f(x, y) = 0.26 \times (x^2 + y^2) - 0.48 \times xy,$$ -->
+<!--     em que $0 \leq x, y ,\leq 10$. Qual o ponto de mínimo global da função? Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
+<!-- 6. Considere a [**Himmelblau's function**](https://en.wikipedia.org/wiki/Test_functions_for_optimization#/media/File:Himmelblau_function.svg), função definida por: -->
+<!--    $$f(x, y) = (x^2 + y -11)^2 + (x + y^2 - 7)^2,$$ -->
+<!--    com $-5 \leq x,y \leq 5$. Essa função possui quatro pontos de mínimo global, são eles: -->
+<!--    $$ -->
+<!--    \mathrm{Min} = \left \{ -->
+<!--    \begin{array}{rcc} -->
+<!--    f(3.0, 2.0) & = & 0.0 \\ -->
+<!--    f(-2.805118, 3.131312) & = & 0.0 \\ -->
+<!--    f(-3.779310, -3.283186) & = & 0.0 \\ -->
+<!--    f(3.584428, -1.848126) & = & 0.0 -->
+<!--    \end{array}  -->
+<!--    \right. -->
+<!--    $$ -->
+<!--    Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
 
+</div>
+</div>
 </div>
 </div>
             </section>
