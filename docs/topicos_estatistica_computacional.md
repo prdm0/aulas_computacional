@@ -19,9 +19,11 @@ As observações acima são pontos de descontinuidade de $F_X(x)$. Então, a tra
 Em outras palavras, gere $u$ de uma v.a. $U \sim \mathcal{U}(0,1)$ e compare na sequência:
 
   1. Se $u < p_0$, faça $X = x_0$ e pare;
-  2. Se $u < p_0 + p_1$, faça $X = x_1$ e pare;
-  3. Se $u < p_0 + p_1 + p_2$, faça $X = x_2$ e pare;
-  4. etc;
+  2. Se $p_0 \leq u < p_0 + p_1$, faça $X = x_1$ e pare;
+  3. Se $p_0 + p_1\leq u < p_0 + p_1 + p_2$, faça $X = x_2$ e pare;
+  4. ...
+  5. Se $\sum_{i = 0}^{j-1} p_i \leq u < \sum_{i=0}^j p_i$, faça $X = x_j$ e pare;
+  6. ...
   
 em que $p_j = P(X = j)$.
 
@@ -399,153 +401,211 @@ $$M_{t+1} = M_{t} + \frac{\pmb \gamma_t \pmb \gamma_t^{'}}{\pmb \gamma_t^{'}\kap
 O termo quasi-Newton é empregado para se referir ao fato de que esses métodos não fazem uso da matriz hessiana. Porém, esses métodos utilizam uma aproximação iterativa de uma matriz $M_t$ que converge para a matriz de segundas derivadas. Dessa forma, não entenda o termo quasi-Newton como se esses métodos fossem inferiores aos métodos de **Newton-Raphson**. Na verdade, os métodos quasi-Newton normalmente apresentam desempenho superior.
 </div></div>\EndKnitrBlock{rmdnote}
 
-<!-- #### Otimização não-linear no R -->
+#### Otimização não-linear no R
 
-<!-- Em  R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é: -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- optim(par, fn, gr = NULL, ..., -->
-<!--       method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN", -->
-<!--                  "Brent"), -->
-<!--       lower = -Inf, upper = Inf, -->
-<!--       hessian = FALSE) -->
-<!-- ``` -->
-<!-- em que: -->
-
-<!--    1. `par` é um vetor de chutes inicias; -->
-<!--    2. `fn` é a função objetivo a ser **minimizada**; -->
-<!--    3. `gr` é a função gradiente da função `fn`; -->
-<!--    4. `method` é o método escolhido par minimizar `fn`. É possível escolher os métodos de Nelder-Mead, BFGS, CG, L-BFGS-B, SANN (Simulated Annealing) e Brent; -->
-<!--    4. `...` é o operador dot-dot-dot que poderá receber argumentos que por ventura possam existir nas funções `fn` e `gr`; -->
-<!--    5. `lower` é um vetor que limita inferiormente os parâmetros a serem otimizados (por padrão é `-Inf`); -->
-<!--    6. `upper` é um vetor que limita superiormente os parâmetros a serem otimizados (por padrão é `Inf`); -->
-<!--    7. `hessian` recebe um valor lógico, em que por padrão `hessian = FALSE`. Se `hessian = TRUE`, será calculado uma estimativa da matriz hessiana avaliada na estimativa de ponto de mínimo global. -->
+Em  R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é:
 
 
-<!-- **Exemplo**: Utilizando a função `optim()` para minimizar a função [**Rosenbrock**](https://en.wikipedia.org/wiki/Rosenbrock_function) pelo método BFGS. -->
+```r
+optim(par, fn, gr = NULL, ...,
+      method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN",
+                 "Brent"),
+      lower = -Inf, upper = Inf,
+      hessian = FALSE)
+```
+em que:
 
-<!-- ```{r, echo = FALSE, fig.align='center', fig.cap="Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960."} -->
-
-<!-- rosenbrock <- function(x1, x2) (1 - x1) ^ 2 + 100 * (x2 - x1 ^ 2) ^ 2 -->
-
-<!-- M  <- plot3D::mesh(seq(-2,  2, length.out = 550), -->
-<!--                     seq(-2,  2, length.out = 550)) -->
-<!-- x <- M$x -->
-<!-- y <- M$y -->
-
-<!-- z <- rosenbrock(x, y) -->
-<!-- plot3D::surf3D(x, y, z, inttype = 1, bty = "b2", phi = 5, theta = 150) -->
-<!-- ``` -->
-
-
-<!-- ```{r} -->
-<!-- # Função Rosenbrock -->
-<!-- f_objetivo <- function(x, a = 2, b = 40) {    -->
-<!--     x1 <- x[1] -->
-<!--     x2 <- x[2] -->
-<!--     (a - x1) ^ 2 + b * (x2 - x1 ^ 2) ^ 2 -->
-<!-- }    -->
-<!-- optim(par = c(2, 2), fn = f_objetivo, method = "BFGS") -->
-<!-- ``` -->
-
-<!-- **Entendendo a saída (retorno da função)**: -->
-
-<!--   1. `par` é um vetor contendo as estimativas para $x_1$ e $x_2$; -->
-
-<!--   2. `value` é o valor da função avaliada nas estimativas obtidas; -->
-
-<!--   3. `counts` é a quantidade de chamadas da função a ser otimizada e do seu gradiente. Note que não passamos o gradiente da função de objetivo mas este teve que ser calculado numericamente; -->
-
-<!--   4. `convergence` é um vetor de uma única posição, em que 0 indica convergência. Qualquer número diferente de zero indica que houve problema de convergência no algoritmo escolhido para mininizar a função objetivo; -->
-
-<!--   5. `message` retorna alguma mensagem com informações adicionais, se necessário. Caso contrário, `NULL` será o retorno. -->
-
-<!-- A função de Rosenbrock tem mínimo analítico no ponto $(a, a^2)$ (ponto ótimo), em que $f(a, a^2) = 0$. Dessa forma, um bom método de otimização nos trará uma estimativa próxima ao ponto $(2, 4)$, uma vez que foi considerado, no código acima, $a = 2$ e $b = 40$. Como pode-se observar, o método BFGS forneceu uma boa estimativa para ponto ótimo analítico. -->
-
-<!-- **Nota**: -->
-
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Para o exemplo acima, $x_1$ e $x_2$ são chamadas de **variáveis**, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos **parâmetros** que indexam o modelo estatístico. Nesse caso, cada ponto da função  -->
-<!-- </div> -->
-<!-- ``` -->
-
-<!-- O argumento `...` é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança $\mathcal{l}(\pmb \theta)$. É por meio desse argumento que passamos a amostra para $\mathcal{l}(\pmb \theta)$. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de $-\mathcal{l}(\pmb \theta)$ e obter o vetor $\pmb \theta$ com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico. -->
+   1. `par` é um vetor de chutes inicias;
+   2. `fn` é a função objetivo a ser **minimizada**;
+   3. `gr` é a função gradiente da função `fn`;
+   4. `method` é o método escolhido par minimizar `fn`. É possível escolher os métodos de Nelder-Mead, BFGS, CG, L-BFGS-B, SANN (Simulated Annealing) e Brent;
+   4. `...` é o operador dot-dot-dot que poderá receber argumentos que por ventura possam existir nas funções `fn` e `gr`;
+   5. `lower` é um vetor que limita inferiormente os parâmetros a serem otimizados (por padrão é `-Inf`);
+   6. `upper` é um vetor que limita superiormente os parâmetros a serem otimizados (por padrão é `Inf`);
+   7. `hessian` recebe um valor lógico, em que por padrão `hessian = FALSE`. Se `hessian = TRUE`, será calculado uma estimativa da matriz hessiana avaliada na estimativa de ponto de mínimo global.
 
 
-<!-- **Exemplo**: Considere o conjunto de dados obtido abaixo: -->
+**Exemplo**: Utilizando a função `optim()` para minimizar a função [**Rosenbrock**](https://en.wikipedia.org/wiki/Rosenbrock_function) pelo método BFGS.
 
-<!-- ```{r, eval = FALSE, cache = TRUE, warning = FALSE} -->
-<!-- set.seed(0L) -->
-<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
-<!-- ``` -->
-<!-- Seja $X_1, \ldots, X_n$ uma amostra aleatória (v.a.'s i.i.d), em que $X_i \sim \mathcal{N}(\mu = 2, \sigma^2 = 1)\, \forall i$. Obtenha pelo método BFGS os estimadores de máxima verossimilhança para $\mu$ e $\sigma^2$. Seja $\mathcal{l(\pmb\theta)}$ a função de verossimilhança para amostra e $\pmb \theta^{'} = (\mu, \sigma^2)$. Precisaremos implementar a função de verossmilhança e multiplica-la por -1, uma vez que minimizando $-\mathcal{l}(\pmb \theta)$ equivale à maximizar $\mathcal{l}(\pmb \theta)$. -->
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-16-1.png" alt="Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-16)Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960.</p>
+</div>
 
-<!-- ```{r, warning = FALSE, fig.align = 'center'} -->
-<!-- set.seed(0L) -->
-<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
 
-<!-- # Função de log-verssimilhança da amostra aleatória. -->
-<!-- loglikelihood_normal <- function(par, x){ -->
-<!--   mu <- par[1] -->
-<!--   sigma2 <- par[2] -->
-<!--   -sum(log(dnorm(x, mean = mu, sd = sqrt(sigma2)))) -->
-<!-- } -->
 
-<!-- # maximizando -log-likelihood da amostra aleatória. -->
-<!-- resultado <- optim(par = c(1, 1), fn = loglikelihood_normal, -->
-<!--                    method = "BFGS", x = dados) -->
+```r
+# Função Rosenbrock
+f_objetivo <- function(x, a = 2, b = 40) {
+    x1 <- x[1]
+    x2 <- x[2]
+    (a - x1) ^ 2 + b * (x2 - x1 ^ 2) ^ 2
+}
+optim(par = c(2, 2), fn = f_objetivo, method = "BFGS")
+```
 
-<!-- # Graficando a densidade estimada sobre os dados ---------------------------------- -->
+```
+## $par
+## [1] 1.999998 3.999992
+## 
+## $value
+## [1] 2.761362e-11
+## 
+## $counts
+## function gradient 
+##      128       45 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+```
 
-<!-- # Sequência no domínio da distribuição: -->
-<!-- x <- seq(-5, 6, length.out = 1000L)  -->
-<!-- y <- dnorm(x = x, mean = resultado$par[1], resultado$par[2]) -->
-<!-- # Histograma das observações: -->
-<!-- hist(x = dados, main = "Função Densidade de Probabilidade Estimada", -->
-<!--      ylab = "Probabilidade", xlab = "x", probability = TRUE,  -->
-<!--      col = rgb(1, 0.9, 0.8), border = NA) -->
-<!-- # Tracejando a densidade sobre o histograma: -->
-<!-- lines(x, y, lwd = 2) -->
-<!-- ``` -->
+**Entendendo a saída (retorno da função)**:
 
-<!-- **Importante**: -->
+  1. `par` é um vetor contendo as estimativas para $x_1$ e $x_2$;
 
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém verdadeira a recíproca. Além disso,  lembre-se também que a função `optim()` é implementada de forma a minimizar uma função objetivo. -->
-<!-- </div> -->
-<!-- ``` -->
+  2. `value` é o valor da função avaliada nas estimativas obtidas;
 
-<!-- ## Exercício {-} -->
+  3. `counts` é a quantidade de chamadas da função a ser otimizada e do seu gradiente. Note que não passamos o gradiente da função de objetivo mas este teve que ser calculado numericamente;
 
-<!-- 1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$. -->
+  4. `convergence` é um vetor de uma única posição, em que 0 indica convergência. Qualquer número diferente de zero indica que houve problema de convergência no algoritmo escolhido para mininizar a função objetivo;
 
-<!-- 2. Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear? -->
+  5. `message` retorna alguma mensagem com informações adicionais, se necessário. Caso contrário, `NULL` será o retorno.
 
-<!-- 3. Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton? -->
+A função de Rosenbrock tem mínimo analítico no ponto $(a, a^2)$ (ponto ótimo), em que $f(a, a^2) = 0$. Dessa forma, um bom método de otimização nos trará uma estimativa próxima ao ponto $(2, 4)$, uma vez que foi considerado, no código acima, $a = 2$ e $b = 40$. Como pode-se observar, o método BFGS forneceu uma boa estimativa para ponto ótimo analítico.
 
-<!-- 4. Enuncie os métodos **Steepest Ascent**, **Newton-Raphson** e **BHHH**. Esses são métodos de Newton ou quasi-Newton? Explique. -->
+**Nota**:
 
-<!-- 5. Considere a [**Matyas function**](https://en.wikipedia.org/wiki/File:Matyas_function.pdf), função definida logo abaixo: -->
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Para o exemplo acima, $x_1$ e $x_2$ são chamadas de **variáveis**, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos **parâmetros** que indexam o modelo estatístico. Nesse caso, cada ponto da função
+</div></div>\EndKnitrBlock{rmdnote}
 
-<!--     $$f(x, y) = 0.26 \times (x^2 + y^2) - 0.48 \times xy,$$ -->
-<!--     em que $0 \leq x, y ,\leq 10$. Qual o ponto de mínimo global da função? Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
+O argumento `...` é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança $\mathcal{l}(\pmb \theta)$. É por meio desse argumento que passamos a amostra para $\mathcal{l}(\pmb \theta)$. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de $-\mathcal{l}(\pmb \theta)$ e obter o vetor $\pmb \theta$ com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico.
 
-<!-- 6. Considere a [**Himmelblau's function**](https://en.wikipedia.org/wiki/Test_functions_for_optimization#/media/File:Himmelblau_function.svg), função definida por: -->
 
-<!--    $$f(x, y) = (x^2 + y -11)^2 + (x + y^2 - 7)^2,$$ -->
+**Exemplo**: Considere o conjunto de dados obtido abaixo:
 
-<!--    com $-5 \leq x,y \leq 5$. Essa função possui quatro pontos de mínimo global, são eles: -->
 
-<!--    $$ -->
-<!--    \mathrm{Min} = \left \{ -->
-<!--    \begin{array}{rcc} -->
-<!--    f(3.0, 2.0) & = & 0.0 \\ -->
-<!--    f(-2.805118, 3.131312) & = & 0.0 \\ -->
-<!--    f(-3.779310, -3.283186) & = & 0.0 \\ -->
-<!--    f(3.584428, -1.848126) & = & 0.0 -->
-<!--    \end{array}  -->
-<!--    \right. -->
-<!--    $$ -->
-<!--    Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
+```r
+set.seed(0L)
+dados <- rnorm(n = 750L, mean = 2, sd = 1)
+```
+Seja $X_1, \ldots, X_n$ uma amostra aleatória (v.a.'s i.i.d), em que $X_i \sim \mathcal{N}(\mu = 2, \sigma^2 = 1)\, \forall i$. Obtenha pelo método BFGS os estimadores de máxima verossimilhança para $\mu$ e $\sigma^2$. Seja $\mathcal{l(\pmb\theta)}$ a função de verossimilhança para amostra e $\pmb \theta^{'} = (\mu, \sigma^2)$. Precisaremos implementar a função de verossmilhança e multiplica-la por -1, uma vez que minimizando $-\mathcal{l}(\pmb \theta)$ equivale à maximizar $\mathcal{l}(\pmb \theta)$.
+
+
+```r
+set.seed(0L)
+dados <- rnorm(n = 750L, mean = 2, sd = 1)
+
+# Função de log-verssimilhança da amostra aleatória.
+loglikelihood_normal <- function(par, x){
+  mu <- par[1]
+  sigma2 <- par[2]
+  -sum(log(dnorm(x, mean = mu, sd = sqrt(sigma2))))
+}
+
+# maximizando -log-likelihood da amostra aleatória.
+resultado <- optim(par = c(1, 1), fn = loglikelihood_normal,
+                   method = "BFGS", x = dados)
+
+# Graficando a densidade estimada sobre os dados ----------------------------------
+
+# Sequência no domínio da distribuição:
+x <- seq(-5, 6, length.out = 1000L)
+y <- dnorm(x = x, mean = resultado$par[1], resultado$par[2])
+# Histograma das observações:
+hist(x = dados, main = "Função Densidade de Probabilidade Estimada",
+     ylab = "Probabilidade", xlab = "x", probability = TRUE,
+     col = rgb(1, 0.9, 0.8), border = NA)
+# Tracejando a densidade sobre o histograma:
+lines(x, y, lwd = 2)
+```
+
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
+
+**Importante**:
+
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém verdadeira a recíproca. Além disso,  lembre-se também que a função `optim()` é implementada de forma a minimizar uma função objetivo.
+</div></div>\EndKnitrBlock{rmdimportant}
+
+## Exercício {-}
+
+1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$.
+
+2. Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?
+
+3. Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton?
+
+4. Enuncie os métodos **Steepest Ascent**, **Newton-Raphson** e **BHHH**. Esses são métodos de Newton ou quasi-Newton? Explique.
+
+5. Considere a função abaixo:
+
+   $$f(\theta) = 6 + \theta ^ 2 \times \sin(14\theta),$$
+   em que $-2.5 \leq \theta \leq 2.5$.  Obtenha uma estimativa para o ponto de máximo global dessa função. Houve convergência?       Explique. Além disso, construa um gráfico da função $f(\theta)$ destacando o ponto de máximo no gráfico da função.
+
+6. Considere a [**Matyas function**](https://en.wikipedia.org/wiki/File:Matyas_function.pdf), função definida logo abaixo:
+
+    $$f(x, y) = 0.26 \times (x^2 + y^2) - 0.48 \times xy,$$
+    em que $0 \leq x, y ,\leq 10$. Qual o ponto de mínimo global da função? Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência?
+
+7. Considere a [**Himmelblau's function**](https://en.wikipedia.org/wiki/Test_functions_for_optimization#/media/File:Himmelblau_function.svg), função definida por:
+
+   $$f(x, y) = (x^2 + y -11)^2 + (x + y^2 - 7)^2,$$
+
+   com $-5 \leq x,y \leq 5$. Essa função possui quatro pontos de mínimo global, são eles:
+
+   $$
+   \mathrm{Min} = \left \{
+   \begin{array}{rcc}
+   f(3.0, 2.0) & = & 0.0 \\
+   f(-2.805118, 3.131312) & = & 0.0 \\
+   f(-3.779310, -3.283186) & = & 0.0 \\
+   f(3.584428, -1.848126) & = & 0.0
+   \end{array}
+   \right.
+   $$
+   Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência?
+   
+8. Considere a [**Earson function**](https://en.wikipedia.org/wiki/File:Easom_function.pdf), função definida abaixo:
+
+   $$f(x,y) = -\cos(x)\cos(y)\exp\{-[(x-\pi)^2 + (y-\pi)^2]\},$$
+   
+   em que $-100 \leq x,y \leq 100$. Essa função possui mínimo global no ponto $(\pi,\pi)$, com $f(\pi,\pi) = -1$. Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? O que você observa variando os chutes iniciais?
+   
+9. Por que os métodos de Newton ou quasi-Newton apresentam dificuldades de otmizar uma função objetivo como a função do exercício logo acima? Explique.
+
+10. Considere [**Hölder table function**](https://en.wikipedia.org/wiki/File:Holder_table_function.pdf), função definida como:
+
+   $$f(x,y) = - \left| \sin(x) \cos(y) \exp \left( \left| 1 - \frac{\sqrt{x^2 + y^2}}{\pi}  \right|  \right)   \right|,$$
+   em que $-10 \leq x,y \leq 10$. Essa função possui mínimos globais em:
+
+   $$
+   \mathrm{Min} = \left\{
+   \begin{array}{ccc}
+   f(8.05502,\, 9.66459) & = & -19.2085
+   \\
+   f(-8.05502,\, 9.66459) & = & -19.2085
+   \\
+   f(8.05502,\, -9.66459) & = & -19.2085
+   \\
+   f(-8.05502,\,-9.66459) & = & -19.2085
+   \\
+   \end{array}
+   \right.
+   $$
+   Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da      superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto        nesse último gráfico. Interprete o resultado obtido. Houve convergência?
+   
+11. Considere a [**Eggholder function**](https://en.wikipedia.org/wiki/File:Eggholder_function.pdf), função definida como:
+
+    $$f(x,y) = -(y + 47)\sin \left(\sqrt{\left|\frac{x}{2} + (y + 47)\right|}\right) - x\sin(\left|x - (y + 47)\right|),$$
+    em que $-512\leq x,y \leq 512$. Essa função possui mínimo global no ponto $(512, 404.2319)$,  assumiando o valor mínio, nesse     ponto, em $-959.6407$. Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global. Além disso, construa o     gráfico da superfície e o gráfico com as curvas de níveis, em que este último deverá apresentar o ponto da estimativa obtida.     Houve convergência?
+    
+12. [**Nadarajah e Haghighi (2011)**](https://link.springer.com/article/10.1007/s10182-011-0154-5) propuseram a distribuição de probabilidade Nadarajah-Haghighi (NH), em que se $X$ é uma v.a. tal que $X \sim \mathrm{NH}(\alpha, \lambda)$, então a f.d.p. da v.a. $X$ é dada por:
+
+    $$f_X(x) = \alpha \lambda (1 + \lambda x)^{\alpha - 1}\exp\{1 - (1 + \lambda x)^\alpha\},$$
+    com $x > 0$ e $\alpha, \lambda > 0$. Perceba para $\alpha = 1$, obtemos a f.d.p. de uma v.a. com distribuição exponencial com     parâmetro $\lambda$. Considere o conjunto de dados: 1.7, 2.2, 14.4, 1.1, 0.4, 20.6, 5.3, 0.7, 1.9, 13.0, 12.0, 9.3, 1.4, 18.7,    8.5, 25.5, 11.6, 14.1, 22.1, 1.1, 2.5, 14.4, 1.7, 37.6, 0.6, 2.2, 39.0, 0.3, 15.0, 11.0, 7.3, 22.9, 1.7, 0.1, 1.1, 0.6, 9.0,      1.7, 7.0, 20.1, 0.4, 2.8, 14.1, 9.9, 10.4, 10.7, 30.0, 3.6, 5.6, 30.8, 13.3, 4.2, 25.5, 3.4, 11.9, 21.5, 27.6, 36.4, 2.7, 64.0,    1.5, 2.5, 27.4, 1.0, 27.1, 20.2, 16.8, 5.3, 9.7, 27.5, 2.5, 27.0. **1** - Obtenha as estimativas de máxima verossimilhança,       pelo método BFGS, para os parâmetros $\alpha$ e $\lambda$ que indexam $f_X(x)$.  **2** - Construa o histograma dos dados e        sobreponha a f.d.p. estimada sobre o histograma. **3** - A densidade estimada parece ajusta-se bem ao conjunto de dados? **4**    - Houve convergência do método BFGS? **5** - Em caso de haver convergência, ela é suficiente para garantir de a $f_X(x)$ irá      modelar o conjunto de dados? Explique. 
+   
+13. Refaça o exercício acima considerando o conjunto de dados: 0.08, 2.09, 3.48, 4.87, 6.94, 8.66, 13.11, 23.63, 0.20, 2.23, 3.52, 4.98, 6.97, 9.02, 13.29, 0.40, 2.26, 3.57, 5.06, 7.09, 9.22, 13.80, 25.74, 0.50, 2.46, 3.64, 5.09, 7.26, 9.47, 14.24, 25.82, 0.51, 2.54, 3.70, 5.17, 7.28, 9.74, 14.76, 26.31, 0.81, 2.62, 3.82, 5.32, 7.32, 10.06, 14.77, 32.15, 2.64, 3.88, 5.32, 7.39, 10.34, 14.83, 34.26, 0.90, 2.69, 4.18, 5.34, 7.59, 10.66, 15.96, 36.66, 1.05, 2.69, 4.23, 5.41, 7.62, 10.75, 16.62, 43.01, 1.19, 2.75, 4.26, 5.41, 7.63, 17.12, 46.12, 1.26, 2.83, 4.33, 5.49, 7.66, 11.25, 17.14, 79.05, 1.35, 2.87, 5.62, 7.87, 11.64, 17.36, 1.40, 3.02, 4.34, 5.71, 7.93, 11.79, 18.10, 1.46, 4.40, 5.85, 8.26, 11.98, 19.13, 1.76, 3.25, 4.50, 6.25, 8.37, 12.02, 2.02, 3.31, 4.51, 6.54, 8.53, 12.03, 20.28, 2.02, 3.36, 6.76, 12.07, 21.73, 2.07, 3.36, 6.93, 8.65, 12.63, 22.69. 

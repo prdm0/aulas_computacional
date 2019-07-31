@@ -192,6 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#otimizacao-nao-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-2"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -228,9 +229,11 @@ As observações acima são pontos de descontinuidade de <span class="math inlin
 <p>Em outras palavras, gere <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U \sim \mathcal{U}(0,1)\)</span> e compare na sequência:</p>
 <ol style="list-style-type: decimal">
 <li>Se <span class="math inline">\(u &lt; p_0\)</span>, faça <span class="math inline">\(X = x_0\)</span> e pare;</li>
-<li>Se <span class="math inline">\(u &lt; p_0 + p_1\)</span>, faça <span class="math inline">\(X = x_1\)</span> e pare;</li>
-<li>Se <span class="math inline">\(u &lt; p_0 + p_1 + p_2\)</span>, faça <span class="math inline">\(X = x_2\)</span> e pare;</li>
-<li>etc;</li>
+<li>Se <span class="math inline">\(p_0 \leq u &lt; p_0 + p_1\)</span>, faça <span class="math inline">\(X = x_1\)</span> e pare;</li>
+<li>Se <span class="math inline">\(p_0 + p_1\leq u &lt; p_0 + p_1 + p_2\)</span>, faça <span class="math inline">\(X = x_2\)</span> e pare;</li>
+<li>…</li>
+<li>Se <span class="math inline">\(\sum_{i = 0}^{j-1} p_i \leq u &lt; \sum_{i=0}^j p_i\)</span>, faça <span class="math inline">\(X = x_j\)</span> e pare;</li>
+<li>…</li>
 </ol>
 <p>em que <span class="math inline">\(p_j = P(X = j)\)</span>.</p>
 <p><strong>Exemplo</strong>: Implemente, em R, uma função que retorna a quantidade de observações de uma v.a. <span class="math inline">\(X\)</span> com função de probabilidade:</p>
@@ -536,117 +539,174 @@ sendo <span class="math inline">\(N_t\)</span> uma matriz positiva-definida. Ass
 </div>
 </div>
 
-<!-- #### Otimização não-linear no R -->
-<!-- Em  R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- optim(par, fn, gr = NULL, ..., -->
-<!--       method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN", -->
-<!--                  "Brent"), -->
-<!--       lower = -Inf, upper = Inf, -->
-<!--       hessian = FALSE) -->
-<!-- ``` -->
-<!-- em que: -->
-<!--    1. `par` é um vetor de chutes inicias; -->
-<!--    2. `fn` é a função objetivo a ser **minimizada**; -->
-<!--    3. `gr` é a função gradiente da função `fn`; -->
-<!--    4. `method` é o método escolhido par minimizar `fn`. É possível escolher os métodos de Nelder-Mead, BFGS, CG, L-BFGS-B, SANN (Simulated Annealing) e Brent; -->
-<!--    4. `...` é o operador dot-dot-dot que poderá receber argumentos que por ventura possam existir nas funções `fn` e `gr`; -->
-<!--    5. `lower` é um vetor que limita inferiormente os parâmetros a serem otimizados (por padrão é `-Inf`); -->
-<!--    6. `upper` é um vetor que limita superiormente os parâmetros a serem otimizados (por padrão é `Inf`); -->
-<!--    7. `hessian` recebe um valor lógico, em que por padrão `hessian = FALSE`. Se `hessian = TRUE`, será calculado uma estimativa da matriz hessiana avaliada na estimativa de ponto de mínimo global. -->
-<!-- **Exemplo**: Utilizando a função `optim()` para minimizar a função [**Rosenbrock**](https://en.wikipedia.org/wiki/Rosenbrock_function) pelo método BFGS. -->
-<!-- ```{r, echo = FALSE, fig.align='center', fig.cap="Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960."} -->
-<!-- rosenbrock <- function(x1, x2) (1 - x1) ^ 2 + 100 * (x2 - x1 ^ 2) ^ 2 -->
-<!-- M  <- plot3D::mesh(seq(-2,  2, length.out = 550), -->
-<!--                     seq(-2,  2, length.out = 550)) -->
-<!-- x <- M$x -->
-<!-- y <- M$y -->
-<!-- z <- rosenbrock(x, y) -->
-<!-- plot3D::surf3D(x, y, z, inttype = 1, bty = "b2", phi = 5, theta = 150) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- # Função Rosenbrock -->
-<!-- f_objetivo <- function(x, a = 2, b = 40) {    -->
-<!--     x1 <- x[1] -->
-<!--     x2 <- x[2] -->
-<!--     (a - x1) ^ 2 + b * (x2 - x1 ^ 2) ^ 2 -->
-<!-- }    -->
-<!-- optim(par = c(2, 2), fn = f_objetivo, method = "BFGS") -->
-<!-- ``` -->
-<!-- **Entendendo a saída (retorno da função)**: -->
-<!--   1. `par` é um vetor contendo as estimativas para $x_1$ e $x_2$; -->
-<!--   2. `value` é o valor da função avaliada nas estimativas obtidas; -->
-<!--   3. `counts` é a quantidade de chamadas da função a ser otimizada e do seu gradiente. Note que não passamos o gradiente da função de objetivo mas este teve que ser calculado numericamente; -->
-<!--   4. `convergence` é um vetor de uma única posição, em que 0 indica convergência. Qualquer número diferente de zero indica que houve problema de convergência no algoritmo escolhido para mininizar a função objetivo; -->
-<!--   5. `message` retorna alguma mensagem com informações adicionais, se necessário. Caso contrário, `NULL` será o retorno. -->
-<!-- A função de Rosenbrock tem mínimo analítico no ponto $(a, a^2)$ (ponto ótimo), em que $f(a, a^2) = 0$. Dessa forma, um bom método de otimização nos trará uma estimativa próxima ao ponto $(2, 4)$, uma vez que foi considerado, no código acima, $a = 2$ e $b = 40$. Como pode-se observar, o método BFGS forneceu uma boa estimativa para ponto ótimo analítico. -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Para o exemplo acima, $x_1$ e $x_2$ são chamadas de **variáveis**, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos **parâmetros** que indexam o modelo estatístico. Nesse caso, cada ponto da função  -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- O argumento `...` é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança $\mathcal{l}(\pmb \theta)$. É por meio desse argumento que passamos a amostra para $\mathcal{l}(\pmb \theta)$. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de $-\mathcal{l}(\pmb \theta)$ e obter o vetor $\pmb \theta$ com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico. -->
-<!-- **Exemplo**: Considere o conjunto de dados obtido abaixo: -->
-<!-- ```{r, eval = FALSE, cache = TRUE, warning = FALSE} -->
-<!-- set.seed(0L) -->
-<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
-<!-- ``` -->
-<!-- Seja $X_1, \ldots, X_n$ uma amostra aleatória (v.a.'s i.i.d), em que $X_i \sim \mathcal{N}(\mu = 2, \sigma^2 = 1)\, \forall i$. Obtenha pelo método BFGS os estimadores de máxima verossimilhança para $\mu$ e $\sigma^2$. Seja $\mathcal{l(\pmb\theta)}$ a função de verossimilhança para amostra e $\pmb \theta^{'} = (\mu, \sigma^2)$. Precisaremos implementar a função de verossmilhança e multiplica-la por -1, uma vez que minimizando $-\mathcal{l}(\pmb \theta)$ equivale à maximizar $\mathcal{l}(\pmb \theta)$. -->
-<!-- ```{r, warning = FALSE, fig.align = 'center'} -->
-<!-- set.seed(0L) -->
-<!-- dados <- rnorm(n = 750L, mean = 2, sd = 1) -->
-<!-- # Função de log-verssimilhança da amostra aleatória. -->
-<!-- loglikelihood_normal <- function(par, x){ -->
-<!--   mu <- par[1] -->
-<!--   sigma2 <- par[2] -->
-<!--   -sum(log(dnorm(x, mean = mu, sd = sqrt(sigma2)))) -->
-<!-- } -->
-<!-- # maximizando -log-likelihood da amostra aleatória. -->
-<!-- resultado <- optim(par = c(1, 1), fn = loglikelihood_normal, -->
-<!--                    method = "BFGS", x = dados) -->
-<!-- # Graficando a densidade estimada sobre os dados ---------------------------------- -->
-<!-- # Sequência no domínio da distribuição: -->
-<!-- x <- seq(-5, 6, length.out = 1000L)  -->
-<!-- y <- dnorm(x = x, mean = resultado$par[1], resultado$par[2]) -->
-<!-- # Histograma das observações: -->
-<!-- hist(x = dados, main = "Função Densidade de Probabilidade Estimada", -->
-<!--      ylab = "Probabilidade", xlab = "x", probability = TRUE,  -->
-<!--      col = rgb(1, 0.9, 0.8), border = NA) -->
-<!-- # Tracejando a densidade sobre o histograma: -->
-<!-- lines(x, y, lwd = 2) -->
-<!-- ``` -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém verdadeira a recíproca. Além disso,  lembre-se também que a função `optim()` é implementada de forma a minimizar uma função objetivo. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- ## Exercício {-} -->
-<!-- 1. Defina matematicamente o método gradiente para maximização de uma função $\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow  \mathbb{R}$, em que $\pmb{\Theta}$ é um subespaço do $\mathbb{R}^p$. -->
-<!-- 2. Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear? -->
-<!-- 3. Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton? -->
-<!-- 4. Enuncie os métodos **Steepest Ascent**, **Newton-Raphson** e **BHHH**. Esses são métodos de Newton ou quasi-Newton? Explique. -->
-<!-- 5. Considere a [**Matyas function**](https://en.wikipedia.org/wiki/File:Matyas_function.pdf), função definida logo abaixo: -->
-<!--     $$f(x, y) = 0.26 \times (x^2 + y^2) - 0.48 \times xy,$$ -->
-<!--     em que $0 \leq x, y ,\leq 10$. Qual o ponto de mínimo global da função? Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
-<!-- 6. Considere a [**Himmelblau's function**](https://en.wikipedia.org/wiki/Test_functions_for_optimization#/media/File:Himmelblau_function.svg), função definida por: -->
-<!--    $$f(x, y) = (x^2 + y -11)^2 + (x + y^2 - 7)^2,$$ -->
-<!--    com $-5 \leq x,y \leq 5$. Essa função possui quatro pontos de mínimo global, são eles: -->
-<!--    $$ -->
-<!--    \mathrm{Min} = \left \{ -->
-<!--    \begin{array}{rcc} -->
-<!--    f(3.0, 2.0) & = & 0.0 \\ -->
-<!--    f(-2.805118, 3.131312) & = & 0.0 \\ -->
-<!--    f(-3.779310, -3.283186) & = & 0.0 \\ -->
-<!--    f(3.584428, -1.848126) & = & 0.0 -->
-<!--    \end{array}  -->
-<!--    \right. -->
-<!--    $$ -->
-<!--    Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? -->
+</div>
+<div id="otimizacao-nao-linear-no-r" class="section level4">
+<h4><span class="header-section-number">6.2.1.5</span> Otimização não-linear no R</h4>
+<p>Em R, é comum minimizar uma função objetivo utilizando a função <code>optim()</code> do pacote <strong>stats</strong> que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função <code>optim()</code> é:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="topicos-em-estatistica-computacional.html#cb5-1"></a><span class="kw">optim</span>(par, fn, <span class="dt">gr =</span> <span class="ot">NULL</span>, ...,</span>
+<span id="cb5-2"><a href="topicos-em-estatistica-computacional.html#cb5-2"></a>      <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;Nelder-Mead&quot;</span>, <span class="st">&quot;BFGS&quot;</span>, <span class="st">&quot;CG&quot;</span>, <span class="st">&quot;L-BFGS-B&quot;</span>, <span class="st">&quot;SANN&quot;</span>,</span>
+<span id="cb5-3"><a href="topicos-em-estatistica-computacional.html#cb5-3"></a>                 <span class="st">&quot;Brent&quot;</span>),</span>
+<span id="cb5-4"><a href="topicos-em-estatistica-computacional.html#cb5-4"></a>      <span class="dt">lower =</span> <span class="op">-</span><span class="ot">Inf</span>, <span class="dt">upper =</span> <span class="ot">Inf</span>,</span>
+<span id="cb5-5"><a href="topicos-em-estatistica-computacional.html#cb5-5"></a>      <span class="dt">hessian =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>em que:</p>
+<ol style="list-style-type: decimal">
+<li><code>par</code> é um vetor de chutes inicias;</li>
+<li><code>fn</code> é a função objetivo a ser <strong>minimizada</strong>;</li>
+<li><code>gr</code> é a função gradiente da função <code>fn</code>;</li>
+<li><code>method</code> é o método escolhido par minimizar <code>fn</code>. É possível escolher os métodos de Nelder-Mead, BFGS, CG, L-BFGS-B, SANN (Simulated Annealing) e Brent;</li>
+<li><code>...</code> é o operador dot-dot-dot que poderá receber argumentos que por ventura possam existir nas funções <code>fn</code> e <code>gr</code>;</li>
+<li><code>lower</code> é um vetor que limita inferiormente os parâmetros a serem otimizados (por padrão é <code>-Inf</code>);</li>
+<li><code>upper</code> é um vetor que limita superiormente os parâmetros a serem otimizados (por padrão é <code>Inf</code>);</li>
+<li><code>hessian</code> recebe um valor lógico, em que por padrão <code>hessian = FALSE</code>. Se <code>hessian = TRUE</code>, será calculado uma estimativa da matriz hessiana avaliada na estimativa de ponto de mínimo global.</li>
+</ol>
+<p><strong>Exemplo</strong>: Utilizando a função <code>optim()</code> para minimizar a função <a href="https://en.wikipedia.org/wiki/Rosenbrock_function"><strong>Rosenbrock</strong></a> pelo método BFGS.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-16"></span>
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-16-1.png" alt="Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960." width="672" />
+<p class="caption">
+Figura 6.2: Gráfico da superfície da função Rosenbrock introduzida por Howard H. Rosenbrock em 1960.
+</p>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="topicos-em-estatistica-computacional.html#cb6-1"></a><span class="co"># Função Rosenbrock</span></span>
+<span id="cb6-2"><a href="topicos-em-estatistica-computacional.html#cb6-2"></a>f_objetivo &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">a =</span> <span class="dv">2</span>, <span class="dt">b =</span> <span class="dv">40</span>) {</span>
+<span id="cb6-3"><a href="topicos-em-estatistica-computacional.html#cb6-3"></a>    x1 &lt;-<span class="st"> </span>x[<span class="dv">1</span>]</span>
+<span id="cb6-4"><a href="topicos-em-estatistica-computacional.html#cb6-4"></a>    x2 &lt;-<span class="st"> </span>x[<span class="dv">2</span>]</span>
+<span id="cb6-5"><a href="topicos-em-estatistica-computacional.html#cb6-5"></a>    (a <span class="op">-</span><span class="st"> </span>x1) <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>(x2 <span class="op">-</span><span class="st"> </span>x1 <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb6-6"><a href="topicos-em-estatistica-computacional.html#cb6-6"></a>}</span>
+<span id="cb6-7"><a href="topicos-em-estatistica-computacional.html#cb6-7"></a><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">fn =</span> f_objetivo, <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>)</span></code></pre></div>
+<pre><code>## $par
+## [1] 1.999998 3.999992
+## 
+## $value
+## [1] 2.761362e-11
+## 
+## $counts
+## function gradient 
+##      128       45 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL</code></pre>
+<p><strong>Entendendo a saída (retorno da função)</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>par</code> é um vetor contendo as estimativas para <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>;</p></li>
+<li><p><code>value</code> é o valor da função avaliada nas estimativas obtidas;</p></li>
+<li><p><code>counts</code> é a quantidade de chamadas da função a ser otimizada e do seu gradiente. Note que não passamos o gradiente da função de objetivo mas este teve que ser calculado numericamente;</p></li>
+<li><p><code>convergence</code> é um vetor de uma única posição, em que 0 indica convergência. Qualquer número diferente de zero indica que houve problema de convergência no algoritmo escolhido para mininizar a função objetivo;</p></li>
+<li><p><code>message</code> retorna alguma mensagem com informações adicionais, se necessário. Caso contrário, <code>NULL</code> será o retorno.</p></li>
+</ol>
+<p>A função de Rosenbrock tem mínimo analítico no ponto <span class="math inline">\((a, a^2)\)</span> (ponto ótimo), em que <span class="math inline">\(f(a, a^2) = 0\)</span>. Dessa forma, um bom método de otimização nos trará uma estimativa próxima ao ponto <span class="math inline">\((2, 4)\)</span>, uma vez que foi considerado, no código acima, <span class="math inline">\(a = 2\)</span> e <span class="math inline">\(b = 40\)</span>. Como pode-se observar, o método BFGS forneceu uma boa estimativa para ponto ótimo analítico.</p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Para o exemplo acima, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> são chamadas de <strong>variáveis</strong>, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos <strong>parâmetros</strong> que indexam o modelo estatístico. Nesse caso, cada ponto da função</p>
+</div>
+</div>
+
+<p>O argumento <code>...</code> é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança <span class="math inline">\(\mathcal{l}(\pmb \theta)\)</span>. É por meio desse argumento que passamos a amostra para <span class="math inline">\(\mathcal{l}(\pmb \theta)\)</span>. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de <span class="math inline">\(-\mathcal{l}(\pmb \theta)\)</span> e obter o vetor <span class="math inline">\(\pmb \theta\)</span> com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico.</p>
+<p><strong>Exemplo</strong>: Considere o conjunto de dados obtido abaixo:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="topicos-em-estatistica-computacional.html#cb8-1"></a><span class="kw">set.seed</span>(0L)</span>
+<span id="cb8-2"><a href="topicos-em-estatistica-computacional.html#cb8-2"></a>dados &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> 750L, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Seja <span class="math inline">\(X_1, \ldots, X_n\)</span> uma amostra aleatória (v.a.’s i.i.d), em que <span class="math inline">\(X_i \sim \mathcal{N}(\mu = 2, \sigma^2 = 1)\, \forall i\)</span>. Obtenha pelo método BFGS os estimadores de máxima verossimilhança para <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma^2\)</span>. Seja <span class="math inline">\(\mathcal{l(\pmb\theta)}\)</span> a função de verossimilhança para amostra e <span class="math inline">\(\pmb \theta^{&#39;} = (\mu, \sigma^2)\)</span>. Precisaremos implementar a função de verossmilhança e multiplica-la por -1, uma vez que minimizando <span class="math inline">\(-\mathcal{l}(\pmb \theta)\)</span> equivale à maximizar <span class="math inline">\(\mathcal{l}(\pmb \theta)\)</span>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="topicos-em-estatistica-computacional.html#cb9-1"></a><span class="kw">set.seed</span>(0L)</span>
+<span id="cb9-2"><a href="topicos-em-estatistica-computacional.html#cb9-2"></a>dados &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> 750L, <span class="dt">mean =</span> <span class="dv">2</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="topicos-em-estatistica-computacional.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="topicos-em-estatistica-computacional.html#cb9-4"></a><span class="co"># Função de log-verssimilhança da amostra aleatória.</span></span>
+<span id="cb9-5"><a href="topicos-em-estatistica-computacional.html#cb9-5"></a>loglikelihood_normal &lt;-<span class="st"> </span><span class="cf">function</span>(par, x){</span>
+<span id="cb9-6"><a href="topicos-em-estatistica-computacional.html#cb9-6"></a>  mu &lt;-<span class="st"> </span>par[<span class="dv">1</span>]</span>
+<span id="cb9-7"><a href="topicos-em-estatistica-computacional.html#cb9-7"></a>  sigma2 &lt;-<span class="st"> </span>par[<span class="dv">2</span>]</span>
+<span id="cb9-8"><a href="topicos-em-estatistica-computacional.html#cb9-8"></a>  <span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="kw">dnorm</span>(x, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> <span class="kw">sqrt</span>(sigma2))))</span>
+<span id="cb9-9"><a href="topicos-em-estatistica-computacional.html#cb9-9"></a>}</span>
+<span id="cb9-10"><a href="topicos-em-estatistica-computacional.html#cb9-10"></a></span>
+<span id="cb9-11"><a href="topicos-em-estatistica-computacional.html#cb9-11"></a><span class="co"># maximizando -log-likelihood da amostra aleatória.</span></span>
+<span id="cb9-12"><a href="topicos-em-estatistica-computacional.html#cb9-12"></a>resultado &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">fn =</span> loglikelihood_normal,</span>
+<span id="cb9-13"><a href="topicos-em-estatistica-computacional.html#cb9-13"></a>                   <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>, <span class="dt">x =</span> dados)</span>
+<span id="cb9-14"><a href="topicos-em-estatistica-computacional.html#cb9-14"></a></span>
+<span id="cb9-15"><a href="topicos-em-estatistica-computacional.html#cb9-15"></a><span class="co"># Graficando a densidade estimada sobre os dados ----------------------------------</span></span>
+<span id="cb9-16"><a href="topicos-em-estatistica-computacional.html#cb9-16"></a></span>
+<span id="cb9-17"><a href="topicos-em-estatistica-computacional.html#cb9-17"></a><span class="co"># Sequência no domínio da distribuição:</span></span>
+<span id="cb9-18"><a href="topicos-em-estatistica-computacional.html#cb9-18"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">6</span>, <span class="dt">length.out =</span> 1000L)</span>
+<span id="cb9-19"><a href="topicos-em-estatistica-computacional.html#cb9-19"></a>y &lt;-<span class="st"> </span><span class="kw">dnorm</span>(<span class="dt">x =</span> x, <span class="dt">mean =</span> resultado<span class="op">$</span>par[<span class="dv">1</span>], resultado<span class="op">$</span>par[<span class="dv">2</span>])</span>
+<span id="cb9-20"><a href="topicos-em-estatistica-computacional.html#cb9-20"></a><span class="co"># Histograma das observações:</span></span>
+<span id="cb9-21"><a href="topicos-em-estatistica-computacional.html#cb9-21"></a><span class="kw">hist</span>(<span class="dt">x =</span> dados, <span class="dt">main =</span> <span class="st">&quot;Função Densidade de Probabilidade Estimada&quot;</span>,</span>
+<span id="cb9-22"><a href="topicos-em-estatistica-computacional.html#cb9-22"></a>     <span class="dt">ylab =</span> <span class="st">&quot;Probabilidade&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">probability =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb9-23"><a href="topicos-em-estatistica-computacional.html#cb9-23"></a>     <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">border =</span> <span class="ot">NA</span>)</span>
+<span id="cb9-24"><a href="topicos-em-estatistica-computacional.html#cb9-24"></a><span class="co"># Tracejando a densidade sobre o histograma:</span></span>
+<span id="cb9-25"><a href="topicos-em-estatistica-computacional.html#cb9-25"></a><span class="kw">lines</span>(x, y, <span class="dt">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Nunca esqueça que minimizar <span class="math inline">\(-f\)</span> é equivalente a maximizar <span class="math inline">\(f\)</span>, sendo tabém verdadeira a recíproca. Além disso, lembre-se também que a função <code>optim()</code> é implementada de forma a minimizar uma função objetivo.</p>
+</div>
+</div>
 
 </div>
 </div>
+</div>
+<div id="exercicio-2" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<ol style="list-style-type: decimal">
+<li><p>Defina matematicamente o método gradiente para maximização de uma função <span class="math inline">\(\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subespaço do <span class="math inline">\(\mathbb{R}^p\)</span>.</p></li>
+<li><p>Qual a desvantagem do uso do processo de busca em linha em algoritmos de otimização não-linear?</p></li>
+<li><p>Defina os métodos quasi-Newton e o que os diferenciam dos de Newton? Qual as vantagens que a maioria desses métodos apresentam com relação aos métodos de Newton?</p></li>
+<li><p>Enuncie os métodos <strong>Steepest Ascent</strong>, <strong>Newton-Raphson</strong> e <strong>BHHH</strong>. Esses são métodos de Newton ou quasi-Newton? Explique.</p></li>
+<li><p>Considere a função abaixo:</p>
+<p><span class="math display">\[f(\theta) = 6 + \theta ^ 2 \times \sin(14\theta),\]</span>
+em que <span class="math inline">\(-2.5 \leq \theta \leq 2.5\)</span>. Obtenha uma estimativa para o ponto de máximo global dessa função. Houve convergência? Explique. Além disso, construa um gráfico da função <span class="math inline">\(f(\theta)\)</span> destacando o ponto de máximo no gráfico da função.</p></li>
+<li><p>Considere a <a href="https://en.wikipedia.org/wiki/File:Matyas_function.pdf"><strong>Matyas function</strong></a>, função definida logo abaixo:</p>
+<p><span class="math display">\[f(x, y) = 0.26 \times (x^2 + y^2) - 0.48 \times xy,\]</span>
+em que <span class="math inline">\(0 \leq x, y ,\leq 10\)</span>. Qual o ponto de mínimo global da função? Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência?</p></li>
+<li><p>Considere a <a href="https://en.wikipedia.org/wiki/Test_functions_for_optimization#/media/File:Himmelblau_function.svg"><strong>Himmelblau’s function</strong></a>, função definida por:</p>
+<p><span class="math display">\[f(x, y) = (x^2 + y -11)^2 + (x + y^2 - 7)^2,\]</span></p>
+<p>com <span class="math inline">\(-5 \leq x,y \leq 5\)</span>. Essa função possui quatro pontos de mínimo global, são eles:</p>
+<p><span class="math display">\[
+\mathrm{Min} = \left \{
+\begin{array}{rcc}
+f(3.0, 2.0) &amp; = &amp; 0.0 \\
+f(-2.805118, 3.131312) &amp; = &amp; 0.0 \\
+f(-3.779310, -3.283186) &amp; = &amp; 0.0 \\
+f(3.584428, -1.848126) &amp; = &amp; 0.0
+\end{array}
+\right.
+\]</span>
+Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência?</p></li>
+<li><p>Considere a <a href="https://en.wikipedia.org/wiki/File:Easom_function.pdf"><strong>Earson function</strong></a>, função definida abaixo:</p>
+<p><span class="math display">\[f(x,y) = -\cos(x)\cos(y)\exp\{-[(x-\pi)^2 + (y-\pi)^2]\},\]</span></p>
+<p>em que <span class="math inline">\(-100 \leq x,y \leq 100\)</span>. Essa função possui mínimo global no ponto <span class="math inline">\((\pi,\pi)\)</span>, com <span class="math inline">\(f(\pi,\pi) = -1\)</span>. Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência? O que você observa variando os chutes iniciais?</p></li>
+<li><p>Por que os métodos de Newton ou quasi-Newton apresentam dificuldades de otmizar uma função objetivo como a função do exercício logo acima? Explique.</p></li>
+<li><p>Considere <a href="https://en.wikipedia.org/wiki/File:Holder_table_function.pdf"><strong>Hölder table function</strong></a>, função definida como:</p></li>
+</ol>
+<p><span class="math display">\[f(x,y) = - \left| \sin(x) \cos(y) \exp \left( \left| 1 - \frac{\sqrt{x^2 + y^2}}{\pi}  \right|  \right)   \right|,\]</span>
+em que <span class="math inline">\(-10 \leq x,y \leq 10\)</span>. Essa função possui mínimos globais em:</p>
+<p><span class="math display">\[
+   \mathrm{Min} = \left\{
+   \begin{array}{ccc}
+   f(8.05502,\, 9.66459) &amp; = &amp; -19.2085
+   \\
+   f(-8.05502,\, 9.66459) &amp; = &amp; -19.2085
+   \\
+   f(8.05502,\, -9.66459) &amp; = &amp; -19.2085
+   \\
+   f(-8.05502,\,-9.66459) &amp; = &amp; -19.2085
+   \\
+   \end{array}
+   \right.
+   \]</span>
+Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global da função. Além disso, construa o gráfico da superfície obtida pela função e o gráfico com as curvas de níveis da função com a estimativa obtida indicada como um ponto nesse último gráfico. Interprete o resultado obtido. Houve convergência?</p>
+<ol start="11" style="list-style-type: decimal">
+<li><p>Considere a <a href="https://en.wikipedia.org/wiki/File:Eggholder_function.pdf"><strong>Eggholder function</strong></a>, função definida como:</p>
+<p><span class="math display">\[f(x,y) = -(y + 47)\sin \left(\sqrt{\left|\frac{x}{2} + (y + 47)\right|}\right) - x\sin(\left|x - (y + 47)\right|),\]</span>
+em que <span class="math inline">\(-512\leq x,y \leq 512\)</span>. Essa função possui mínimo global no ponto <span class="math inline">\((512, 404.2319)\)</span>, assumiando o valor mínio, nesse ponto, em <span class="math inline">\(-959.6407\)</span>. Obtenha uma estimativa, utilizando o método BFGS, para o ponto de mínimo global. Além disso, construa o gráfico da superfície e o gráfico com as curvas de níveis, em que este último deverá apresentar o ponto da estimativa obtida. Houve convergência?</p></li>
+<li><p><a href="https://link.springer.com/article/10.1007/s10182-011-0154-5"><strong>Nadarajah e Haghighi (2011)</strong></a> propuseram a distribuição de probabilidade Nadarajah-Haghighi (NH), em que se <span class="math inline">\(X\)</span> é uma v.a. tal que <span class="math inline">\(X \sim \mathrm{NH}(\alpha, \lambda)\)</span>, então a f.d.p. da v.a. <span class="math inline">\(X\)</span> é dada por:</p>
+<p><span class="math display">\[f_X(x) = \alpha \lambda (1 + \lambda x)^{\alpha - 1}\exp\{1 - (1 + \lambda x)^\alpha\},\]</span>
+com <span class="math inline">\(x &gt; 0\)</span> e <span class="math inline">\(\alpha, \lambda &gt; 0\)</span>. Perceba para <span class="math inline">\(\alpha = 1\)</span>, obtemos a f.d.p. de uma v.a. com distribuição exponencial com parâmetro <span class="math inline">\(\lambda\)</span>. Considere o conjunto de dados: 1.7, 2.2, 14.4, 1.1, 0.4, 20.6, 5.3, 0.7, 1.9, 13.0, 12.0, 9.3, 1.4, 18.7, 8.5, 25.5, 11.6, 14.1, 22.1, 1.1, 2.5, 14.4, 1.7, 37.6, 0.6, 2.2, 39.0, 0.3, 15.0, 11.0, 7.3, 22.9, 1.7, 0.1, 1.1, 0.6, 9.0, 1.7, 7.0, 20.1, 0.4, 2.8, 14.1, 9.9, 10.4, 10.7, 30.0, 3.6, 5.6, 30.8, 13.3, 4.2, 25.5, 3.4, 11.9, 21.5, 27.6, 36.4, 2.7, 64.0, 1.5, 2.5, 27.4, 1.0, 27.1, 20.2, 16.8, 5.3, 9.7, 27.5, 2.5, 27.0. <strong>1</strong> - Obtenha as estimativas de máxima verossimilhança, pelo método BFGS, para os parâmetros <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\lambda\)</span> que indexam <span class="math inline">\(f_X(x)\)</span>. <strong>2</strong> - Construa o histograma dos dados e sobreponha a f.d.p. estimada sobre o histograma. <strong>3</strong> - A densidade estimada parece ajusta-se bem ao conjunto de dados? <strong>4</strong> - Houve convergência do método BFGS? <strong>5</strong> - Em caso de haver convergência, ela é suficiente para garantir de a <span class="math inline">\(f_X(x)\)</span> irá modelar o conjunto de dados? Explique.</p></li>
+<li><p>Refaça o exercício acima considerando o conjunto de dados: 0.08, 2.09, 3.48, 4.87, 6.94, 8.66, 13.11, 23.63, 0.20, 2.23, 3.52, 4.98, 6.97, 9.02, 13.29, 0.40, 2.26, 3.57, 5.06, 7.09, 9.22, 13.80, 25.74, 0.50, 2.46, 3.64, 5.09, 7.26, 9.47, 14.24, 25.82, 0.51, 2.54, 3.70, 5.17, 7.28, 9.74, 14.76, 26.31, 0.81, 2.62, 3.82, 5.32, 7.32, 10.06, 14.77, 32.15, 2.64, 3.88, 5.32, 7.39, 10.34, 14.83, 34.26, 0.90, 2.69, 4.18, 5.34, 7.59, 10.66, 15.96, 36.66, 1.05, 2.69, 4.23, 5.41, 7.62, 10.75, 16.62, 43.01, 1.19, 2.75, 4.26, 5.41, 7.63, 17.12, 46.12, 1.26, 2.83, 4.33, 5.49, 7.66, 11.25, 17.14, 79.05, 1.35, 2.87, 5.62, 7.87, 11.64, 17.36, 1.40, 3.02, 4.34, 5.71, 7.93, 11.79, 18.10, 1.46, 4.40, 5.85, 8.26, 11.98, 19.13, 1.76, 3.25, 4.50, 6.25, 8.37, 12.02, 2.02, 3.31, 4.51, 6.54, 8.53, 12.03, 20.28, 2.02, 3.36, 6.76, 12.07, 21.73, 2.07, 3.36, 6.93, 8.65, 12.63, 22.69.</p></li>
+</ol>
+
 </div>
 </div>
             </section>
