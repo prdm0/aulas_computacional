@@ -608,4 +608,353 @@ Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém v
     $$f_X(x) = \alpha \lambda (1 + \lambda x)^{\alpha - 1}\exp\{1 - (1 + \lambda x)^\alpha\},$$
     com $x > 0$ e $\alpha, \lambda > 0$. Perceba para $\alpha = 1$, obtemos a f.d.p. de uma v.a. com distribuição exponencial com     parâmetro $\lambda$. Considere o conjunto de dados: 1.7, 2.2, 14.4, 1.1, 0.4, 20.6, 5.3, 0.7, 1.9, 13.0, 12.0, 9.3, 1.4, 18.7,    8.5, 25.5, 11.6, 14.1, 22.1, 1.1, 2.5, 14.4, 1.7, 37.6, 0.6, 2.2, 39.0, 0.3, 15.0, 11.0, 7.3, 22.9, 1.7, 0.1, 1.1, 0.6, 9.0,      1.7, 7.0, 20.1, 0.4, 2.8, 14.1, 9.9, 10.4, 10.7, 30.0, 3.6, 5.6, 30.8, 13.3, 4.2, 25.5, 3.4, 11.9, 21.5, 27.6, 36.4, 2.7, 64.0,    1.5, 2.5, 27.4, 1.0, 27.1, 20.2, 16.8, 5.3, 9.7, 27.5, 2.5, 27.0. **1** - Obtenha as estimativas de máxima verossimilhança,       pelo método BFGS, para os parâmetros $\alpha$ e $\lambda$ que indexam $f_X(x)$.  **2** - Construa o histograma dos dados e        sobreponha a f.d.p. estimada sobre o histograma. **3** - A densidade estimada parece ajusta-se bem ao conjunto de dados? **4**    - Houve convergência do método BFGS? **5** - Em caso de haver convergência, ela é suficiente para garantir de a $f_X(x)$ irá      modelar o conjunto de dados? Explique. 
    
-13. Refaça o exercício acima considerando o conjunto de dados: 0.08, 2.09, 3.48, 4.87, 6.94, 8.66, 13.11, 23.63, 0.20, 2.23, 3.52, 4.98, 6.97, 9.02, 13.29, 0.40, 2.26, 3.57, 5.06, 7.09, 9.22, 13.80, 25.74, 0.50, 2.46, 3.64, 5.09, 7.26, 9.47, 14.24, 25.82, 0.51, 2.54, 3.70, 5.17, 7.28, 9.74, 14.76, 26.31, 0.81, 2.62, 3.82, 5.32, 7.32, 10.06, 14.77, 32.15, 2.64, 3.88, 5.32, 7.39, 10.34, 14.83, 34.26, 0.90, 2.69, 4.18, 5.34, 7.59, 10.66, 15.96, 36.66, 1.05, 2.69, 4.23, 5.41, 7.62, 10.75, 16.62, 43.01, 1.19, 2.75, 4.26, 5.41, 7.63, 17.12, 46.12, 1.26, 2.83, 4.33, 5.49, 7.66, 11.25, 17.14, 79.05, 1.35, 2.87, 5.62, 7.87, 11.64, 17.36, 1.40, 3.02, 4.34, 5.71, 7.93, 11.79, 18.10, 1.46, 4.40, 5.85, 8.26, 11.98, 19.13, 1.76, 3.25, 4.50, 6.25, 8.37, 12.02, 2.02, 3.31, 4.51, 6.54, 8.53, 12.03, 20.28, 2.02, 3.36, 6.76, 12.07, 21.73, 2.07, 3.36, 6.93, 8.65, 12.63, 22.69. 
+13. Refaça o exercício acima considerando o conjunto de dados: 0.08, 2.09, 3.48, 4.87, 6.94, 8.66, 13.11, 23.63, 0.20, 2.23, 3.52, 4.98, 6.97, 9.02, 13.29, 0.40, 2.26, 3.57, 5.06, 7.09, 9.22, 13.80, 25.74, 0.50, 2.46, 3.64, 5.09, 7.26, 9.47, 14.24, 25.82, 0.51, 2.54, 3.70, 5.17, 7.28, 9.74, 14.76, 26.31, 0.81, 2.62, 3.82, 5.32, 7.32, 10.06, 14.77, 32.15, 2.64, 3.88, 5.32, 7.39, 10.34, 14.83, 34.26, 0.90, 2.69, 4.18, 5.34, 7.59, 10.66, 15.96, 36.66, 1.05, 2.69, 4.23, 5.41, 7.62, 10.75, 16.62, 43.01, 1.19, 2.75, 4.26, 5.41, 7.63, 17.12, 46.12, 1.26, 2.83, 4.33, 5.49, 7.66, 11.25, 17.14, 79.05, 1.35, 2.87, 5.62, 7.87, 11.64, 17.36, 1.40, 3.02, 4.34, 5.71, 7.93, 11.79, 18.10, 1.46, 4.40, 5.85, 8.26, 11.98, 19.13, 1.76, 3.25, 4.50, 6.25, 8.37, 12.02, 2.02, 3.31, 4.51, 6.54, 8.53, 12.03, 20.28, 2.02, 3.36, 6.76, 12.07, 21.73, 2.07, 3.36, 6.93, 8.65, 12.63, 22.69.
+
+## Monte Carlo
+
+### Um breve histórico
+
+Os métodos de Monte Carlo (MC) é uma classe de metodologias bastante utilizada na estatística moderna. De um modo geral, tais metodologias calculam quantidades sob amostras aleatórias que são gerada/obtidas de forma iterativa, em que ao final obtem-se estatísticas de interesse com base nos resultados armazenados. Os métodos de MC, por exemplo, poderão ser utilizado para estimar parâmetros da distribuição amostral de uma estatística e para o cálculo do erro quadrático médio (EQM). Estudos de MC podem ser projetados para avaliar a probabilidade de cobertura para a confinaça de um intervalo aleatório ou para avaliação do Erro Tipo I em um procedimento de teste de hipóteses. Esses são apenas alguns exemplo do uso dos métodos de MC. 
+
+Os métodos de MC auxiliam muito os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com "características" prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. 
+Além da estatística, os métodos de MC são bastante utilizados por profissionais em campos díspares como finanças, engenheria, física, biologia, entre outros.
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Para implementar um método de MC é necessário ter uma fonte de geração de números pseudo-aleatórios além da capacidade de controlarmos a sequência de números gerados. No R, como vimos anteriormente, teremos a nossa disposição diversas funções para a geração de números pseudo-aleatórios uniforme e não-uniformes e poderemos controlar a sequência gerada utilizando a função `set.seed()`.
+</div>   </div>\EndKnitrBlock{rmdnote}
+
+De acordo com Hammersley, no livro [**Monte Carlo Methods**](https://www.springer.com/gp/book/9789400958210), 1964, o nome "Monte Carlo" surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá. O projeto tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. O projeto foi uma das maiores colaborações científicas já realizadas que deram origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear. 
+
+<div class="figure" style="text-align: center">
+<img src="images/trinity.png" alt="Primeiro teste nuclear (nome de código **Trinity**), uma das três bombas atômicas produzidas pelo Projeto Manhattan. Teste realizado em 16 de julho de 1945." width="75%" />
+<p class="caption">(\#fig:unnamed-chunk-23)Primeiro teste nuclear (nome de código **Trinity**), uma das três bombas atômicas produzidas pelo Projeto Manhattan. Teste realizado em 16 de julho de 1945.</p>
+</div>
+
+O Projeto Manhattan foi conduzido no Laboratório Nacional de Los Alamos, construído para desenvolver as primeiras bombas atômicas utilizadas na Segunda Guerra Mundial. À época, tratava-se de um centro secreto das forças [**aliadas**](https://pt.wikipedia.org/wiki/Aliados) para o desenvolvimento de armas nucleares conhecido por **Site Y**. Atualmente o laboratório trata-se de uma das maiores instituições científicas multidisciplinares.
+
+<div class="figure" style="text-align: center">
+<img src="images/los_alamos.jpeg" alt="Laboratório de Los Alamos,  laboratório federal pertencente ao Departamento de Energia dos Estados Unidos (DOE), gerido pela Universidade da Califórnia, localizado em Los Alamos, Novo México." width="70%" />
+<p class="caption">(\#fig:unnamed-chunk-24)Laboratório de Los Alamos,  laboratório federal pertencente ao Departamento de Energia dos Estados Unidos (DOE), gerido pela Universidade da Califórnia, localizado em Los Alamos, Novo México.</p>
+</div>
+
+O Laboratório Nacional de Los Alamos, em toda sua história, reuniu diversos cientistas catedráticos e ganhadores de prêmios importantes como, por exemplo, o Prêmio Nobel. Na época da Segunda Guerra, diversos cientisticas de grande importância para o desenvolvimento científico e tecnológico atual faziam parte do projeto como [**Stanislaw Ulam**](https://en.wikipedia.org/wiki/Stanislaw_Ulam), [**Richard Feynman**](https://pt.wikipedia.org/wiki/Richard_Feynman) e [**John von Neumann**](https://pt.wikipedia.org/wiki/John_von_Neumann). 
+
+
+<div class="figure" style="text-align: center">
+<img src="images/Ulam_Feynman_von_Neumann.jpeg" alt="John von Neumann, Richard Feynman e Stanislaus Ulam em Los Alamos durante o Projeto Manhattan (da direita para a esquerda)." width="75%" />
+<p class="caption">(\#fig:unnamed-chunk-25)John von Neumann, Richard Feynman e Stanislaus Ulam em Los Alamos durante o Projeto Manhattan (da direita para a esquerda).</p>
+</div>
+
+No ano de 1946, enquanto se recuperava de uma encefalite, o matemático Stanislaw Ulam jovava paciência. Ele tentou calcular as probabilidades de alguns eventos no jogo utilizando análise combinatória. Porém, percebeu que uma alternativa mais prática seria realizar inúmeras jogadas e contar quantas vezes cada resultado ocorria, ou seja, utilizar a teoria frequentista de probabilidade. Detalhes sobre essa história poderá ser encontrada em [**Stam Ulam, John Von Neumann, and the Monte Carlo method, Los Alamos Science n. 15, pg 131 (1987)**](https://permalink.lanl.gov/object/tr?what=info:lanl-repo/lareport/LA-UR-88-9068), artigo livre e disponibilizado pela [**Los Alamos National Laboratory Research Library**](https://www.lanl.gov/library). Nesse artigo é apresentado trechos de cartas trocadas entre John von Neuman e Stanislau Ulam. O documento também apresenta uma descrição de 1983 que ajudou a entender a origem dos métodos de Monte Carlo realizada por Stanislaw Ulam, um ano antes do seu falecimento. Abaixo segue uma tradução aproximada do que foi dito:
+
+> "Os primeiros pensamentos e tentativas que fiz para praticar [o método de Monte Carlo] foram sugeridos por uma questão que me ocorreu em 1946, quando eu estava convalescendo de uma doença e jogando paciência. A questão é quais são as chances de um jogador sair com sucesso em um jogo de paciência com 52 cartas? Depois de passar muito tempo tentando estimar, por puro cálculo de combinação, eu me perguntei se um método mais prático que o pensamento abstrato não seria expor cem vezes e simplesmente contar o número de jogadas bem-sucedidas.  Isso já foi possível prever com o início da nova era de computadores rápidos, e eu imediatamente pensei em problemas de difusão de nêutrons e outras questões de física/matemática, e mais genericamente como mudar processos descritos por certas equações diferenciais em uma forma equivalente interpretável
+como uma sucessão de operações aleatórias. Mais tarde, ... [em 1946, eu] descrevi a ideia
+à John von Neumann e começamos a planejar cálculos reais."
+
+> --- Stanislaw Ulam.
+
+Ulam entendia que as técnicas de amostragem não eram muito utilizadas por envolverem cálculos extremamente demorados, tediósos e sujeito à erros, em uma época em que utilizavam-se dispositivos meânicos para realização de cálculos. Porém, nessa época surgiu o primeiro computador eletrônico, o [**ENIAC**](https://pt.wikipedia.org/wiki/ENIAC). Embora muito mais lento que os computadores atuais, o ENIAC impressionou Ulam que sugeriu o uso de técnicas de amostragem estatística e da teoria frequentista de probabilidade para simular a difusão de nêutrons em materiais sujeitos à fissão nuclear.
+
+O físico [**Nicholas Metropolis**](https://pt.wikipedia.org/wiki/Nicholas_Metropolis), que também participou do Projeto Manhattan sugeriu o nome **Monte Carlo** para o método estatístico. O nome foi inspirado em um tio de Ulam que sempre tomava dinheiro emprestado com parentes para ir jogar no [**cassino de Monte Carlo**](https://pt.wikipedia.org/wiki/Casino_de_Monte_Carlo), no distrito de Monte Carlo, em Mônaco. 
+
+<div class="figure" style="text-align: center">
+<img src="images/cassino_mc.jpg" alt="[**Le Casino de Monte-Carlo**](https://pt.wikipedia.org/wiki/Casino_de_Monte_Carlo), complexo de jogos e entretenimento localizado no distrito de Monte Carlo, Mônaco." width="75%" />
+<p class="caption">(\#fig:unnamed-chunk-26)[**Le Casino de Monte-Carlo**](https://pt.wikipedia.org/wiki/Casino_de_Monte_Carlo), complexo de jogos e entretenimento localizado no distrito de Monte Carlo, Mônaco.</p>
+</div>
+
+Esse fato pode ser lido no artigo [**The Beginning of the Monte Carlo Method, escrito por Nicholas Metropolis, Los Alamos, 1987**](https://la-science.lanl.gov/cgi-bin/getfile?00326866.pdf), um outro artigo livre e também disponibilizado pela [**Los Alamos National Laboratory Research Library**](https://www.lanl.gov/library). Nicholas Metropolis é também responsável pelo desenvolvimento de trabalhos que deram origem ao algoritmo de [**Mepropolis-Hastings**](https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm), método de MC muito utilizado na geração de números pseudo-aleatórios de distribuições multidimensionais, especialmente quando o número de dimensões é alto.
+
+### Métodos de Monte Carlo
+
+Nos dias atuais, é muito mais fácil codificar uma simulação de MC para obetenção de aproximações que poderiam ser complicadas de serem obtidas analiticamente. Porém, não há necessidade de que o que venha ser codificado seja um experimento aleatório, muito embora seja principalmente para esse propósito que essas simulações são utilizadas. 
+
+**Exemplo**: Calculando o ponto médio de uma função determinística utilizando simulações de MC. Seja $h(x) = \mathrm{sen}(x)$, tal que $x \in [0, 2\pi]$. Então, analiticamente, o ponto médio da função $h(x)$ é dado por:
+
+$$\overline{h} = \frac{1}{2\pi} \int_0^{2\pi} \mathrm{sen}(x) dx = \frac{1}{2\pi}[-\cos(x)] \Big|_0^{2\pi} = -\frac{1}{2\pi}[\cos(2\pi) - \cos(0)] = -\frac{1}{2\pi}\times 0 = 0.$$
+**Lembre-se**: O ponto médio de uma função diferenciável no intervalo $[a,b]$ é dado por
+
+$$\overline{h} = \frac{1}{b-a} \int_a^b h(x) dx.$$
+Para a função em questão, sob um olhar gráfico, temos que:
+
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-27-1.png" alt="Função seno(x), em que a reta azul destaca o ponto médio analítico da função." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-27)Função seno(x), em que a reta azul destaca o ponto médio analítico da função.</p>
+</div>
+
+Caso não desejássemos calcular a integral acima, o que não justifica-se, uma vez que a integral é bastante simples, poderemos aproximar o valor médio da função $h(x)$ utilizando uma simples simulação de MC. Para tanto, deveremos selecionar aleatoriamente diversos pontos da função e tirar uma média aritmética. Quanto mais pontos gearmos, melhor será a nossa aproximiação.
+
+
+```r
+# Número de réplicas de Monte Carlo (MC):
+N <- 50L
+# Fixando uma semente.
+set.seed(1L) 
+# Média dos valores da função:
+mean_est <- mean(sin(runif(n = N, min = 0, max = 2 * pi)))
+```
+
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-29-1.png" alt="Função seno(x), em que a reta azul destaca o ponto médio analítico e a reta em vermelho destaca o ponto médio estimado para 50 réplicas de MC, com os pontos selecionados estão destacados." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-29)Função seno(x), em que a reta azul destaca o ponto médio analítico e a reta em vermelho destaca o ponto médio estimado para 50 réplicas de MC, com os pontos selecionados estão destacados.</p>
+</div>
+
+### Integração por Monte Carlo
+
+O exercício anterior nos fornece tudo que precisaremos para desenvolver um método de MC para o cálculo aproximado de uma integral definida de uma função $h(x)$ com $x \in [a, b]$. Se
+
+$$\overline{h} = \frac{1}{b-a}\int_a^b h(x) dx$$
+e sabemos estimar $\overline{h}$ pelo método de MC, então saberemos caclular $\int_a^b h(x) dx$, uma vez que basta fazer:
+
+$$\int_a^b h(x) dx = (b - a)\overline{h},$$
+em que $\overline{h}$ é aproximado por MC.
+
+**Observação**:
+
+\BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
+Para obtermos uma aproximação para a integral de uma função $h(x)$ com $x \in [a, b]$, precisamos apenas calcular o ponto médio da função e multiplicar por $(b-a)$. Dessa forma, estimando o ponto médio de uma função por MC nos conduz diretamente ao método de MC para obter $\int_a^b h(x) dx$.
+</div></div>\EndKnitrBlock{rmdobservation}
+
+**Exemplo**: Seja $X$ uma v.a. tal que $X \sim Weibull(\alpha, \beta)$, com $\alpha, \beta > 0$ e $x \geq 0$. Implemente a função `intmc(N = 1e3L, fun, lower = NULL, upper = NULL, ...)`, que aproxima por MC a integral de uma função, em que `N` é o número de réplicas de MC, `fun` é a função que desejamos integrar, `lower` é o limite inferior de integração, `upper` é o limite superior de integração e `...` é o operador dot-dot-dot. Por meio da função `intmc()` e da função `integrate()`, obtenha uma aproximação para $P(X \leq 2)$.  
+
+
+```r
+fdp_weibull <- function(x, alpha, beta) dweibull(x, shape = alpha, scale = beta)
+
+intmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+  if (missing(fun)) stop ("The function has been omitted.")
+  if (is.null(lower) || is.null(upper)) stop ("Integration limits must be specified.")
+  
+  # Gerando valores uniformes no suporte da função:
+  u <- runif(n = N, min = lower, max = upper)
+  
+  # Valor aproximado da integral:
+  (upper - lower) * mean(fun(x = u, ...)) 
+}
+
+# P(X < 2):
+round(pweibull(q = 2, shape = 1.5, scale = 1.2), digits = 4L)
+```
+
+```
+## [1] 0.8837
+```
+
+```r
+set.seed(1L)
+# P(X < 2) por MC:
+round(intmc(N = 5e6, fun = fdp_weibull, lower = 0, upper = 2,
+      alpha = 1.5, beta = 1.2), digits = 4L)
+```
+
+```
+## [1] 0.8837
+```
+
+O método de integraçao de MC poderá ser entendido também por meio de uma interpretação estatística. Seja $h(x)$ uma função, com $x \in [a, b]$ e suponha que desejamos obter uma estimativa para 
+
+$$I = \int_a^b h(x) dx.$$
+
+Note que a integral acima poderá ser reescrita, sem alterar o seu resultado, como:
+
+$$I = (b - a) \int_a^b h(x) \frac{1}{b-a}dx.$$
+Perceba também que se $X$ é uma v.a., tal que $X \sim \mathcal{U}(a, b)$, então, $f_X(x) = \frac{1}{b-a}$, com $a \leq x \leq b$ é a f.d.p. de $X$. Dessa forma,
+
+\begin{eqnarray}
+I & = & (b - a) \int_a^b h(x) \frac{1}{b-a}dx = (b - a) \int_a^b h(x) f_X(x)dx = (b - a) \times \mathrm{E}[h(X)]\\
+  & = & (b - a) \times \mu.
+\end{eqnarray}
+
+Assim, perceba que o problema de calcular $I$ recai sobre o problema de calcular um valor esperado, isto é, calcular $\mu$. Dessa forma, precisaremos de um $\hat{\mu}$ que nos forneça uma boa estimativa para $\mu$. Consideremos 
+
+$$\hat{\mu} = n^{-1}\sum_{i=1}^n h(X_i),$$
+um estimador para $\mu$. Dessa forma, temos especificado um estimador para $I$ que é dado por:
+
+$$\hat{I} = (b - a)\hat{\mu}.$$
+Perceba que $\hat{\mu}$ é um estimador não-viesado para $\mu$. Isso implica que $\hat{I}$ também será um estimador não-viesado para $I$. Mais importante, temos que $\hat{\mu}$ é um estimador consistente para $\mu$. Isso é verdade, uma vez que se $X_i, \ldots, X_n$ é uma sequência de v.a.'s i.i.d. em um mesmo espaço de probabilidade, então
+
+$$P\Big(|S_n - n\mu| \geq n\varepsilon\Big) \leq \frac{\mathrm{Var}(S_n)}{\varepsilon^2 n^2},$$
+pela desigualdade de Chebychev, em que $S_n = \sum_{i=1}^n h(X_i)$. Como $X_i, \ldots, X_n$ é uma sequência de v.a.'s i.i.d., tal que $X_i \sim \mathcal{U}(a,b), \, \forall\, i$, então 
+
+$$\mathrm{Var}(S_n) = n \mathrm{Var}[h(X_i)].$$
+Logo, 
+
+$$\lim_{n \to +\infty}P\Big(\Big|S_n - \mu\Big| \geq n\varepsilon\Big) \leq \lim_{n \to +\infty}\frac{\mathrm{Var}[h(X_i)]}{n\varepsilon^2} = 0,$$
+uma vez que $h(x)$ é uma função contínua no intervalo $[a, b]$, logo existe um $M$ tal que $|h(X_i)| \leq M, \forall\, i$. 
+
+Assim, temos que $\hat{\mu}$ converge em probabilidade para $\mu$ ($\hat{\mu}$ é consistente para se estimar $\mu$) e denotamos por $\hat{\mu} \overset{p}{\to} \mu$. Sendo assim, temos que $\hat{I}$ é um estimador consistente para $I$. Isso garante que a medida que tomamos mais pontos, mais nos aproximamos do valor verdadeiro da integral, ou seja, mais nos aproximamos de $I$.
+
+Note que a variância de $\hat{I}$ é dada por:
+
+$$\mathrm{Var}(\hat{I}) = (b - a)^2 \mathrm{Var}(\hat{\mu}) = \frac{(b - a)^2}{n}\mathrm{Var}[g(X)].$$
+Pela definição de variância, temos que
+
+
+$$\mathrm{Var}(\hat{I}) =  \mathrm{E}\Big(\hat{I}^2\Big) - E^2(\hat{I}) = \gamma - \eta^2 = \sigma^2.$$
+Assim, um estimador para $\mathrm{Var}(\hat{I})$ também poderá ser obtido utilizando um procedimento de MC, de tal forma que:
+
+$$\widehat{\sigma}^2 = \widehat{\mathrm{Var}(\hat{I})} = \overline{\widehat{\gamma}} - \overline{\widehat{\eta}}^2,$$
+
+em que $\overline{\widehat{\gamma}} = n^{-1} \sum_{i=1}^n \hat{I}_i^2$ e $\overline{\widehat{\eta}}^2 = \Big(n^{-1}\sum_{i=1}^n\hat{I}_i\Big)^2$. Perceba que $\hat{I}_i$ é obtido por um procedimento de MC para cada $i$, com $i = 1, \ldots, n$. Sendo assim, necessitamos de várias estimativas da integral para se obter uma estimativa de $\mathrm{Var}(\hat{I})$ que também é um procedimento de MC.
+
+
+**Exemplo**: Abaixo é implementado a função `intvarmc(N = 1e3L, fun, lower = NULL, upper = NULL, ...)` que retona uma estimativa para a integral de uma função, a variância estimada por MC do estimador $\hat{I}$ e um vetor de estimativas $\hat{I}$ utilizados para o cálculo de $\widehat{\mathrm{Var}(\hat{I})}$ por MC. Em que
+
+   + `N` é a quantidade de réplicas de MC. Por padrão `N = 1e3L`;
+   
+   + `fun` é a função contínua que desejamos integrar;
+   
+   + `lower` é o limite inferior de integração;
+   
+   + `upper` é o limite superior de integração;
+
+   + `...` é o argumento dot-dot-dot (varargs) que será útil para passarmos outros argumentos à função que desejamos integrar.
+
+
+```r
+fdp_weibull <- function(x, alpha, beta) dweibull(x, shape = alpha,
+                                                 scale = beta)
+
+intmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+  if (missing(fun)) stop ("The function has been omitted.")
+  if (is.null(lower) || is.null(upper)) stop ("Integration limits must be specified.")
+  
+  # Gerando valores uniformes no suporte da função:
+  u <- runif(n = N, min = lower, max = upper)
+  
+  # Valor aproximado da integral:
+  (upper - lower) * mean(fun(x = u, ...))
+  
+}
+
+# Essa função retorna uma estimativa da integral de uma função h(x) por MC
+# uma estimativa da da variância do estimador de MC para integral de h(x):
+intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+    
+  i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...)
+    
+  var_hat <- mean(i_hat^2) - mean(i_hat)^2
+    
+  list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat)
+}
+
+set.seed(0L)
+result <- intvarmc(N = 5e3L, fun = fdp_weibull, lower = 0, upper = 10,
+                   alpha = 1.5, beta = 1.5)
+str(result)
+```
+
+```
+## List of 3
+##  $ i_hat   : num 1.03
+##  $ var_hat : num 0.000503
+##  $ vec_ihat: num [1:5000] 1.029 0.975 0.999 1.005 1.031 ...
+```
+
+```r
+# Realizando um teste de normalidade pelo
+# teste de Shapiro-Wilk:
+shapiro.test(result$vec_ihat)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  result$vec_ihat
+## W = 0.99969, p-value = 0.6642
+```
+
+Uma vez que são médias, perceba que as estimativas obtidas por $\hat{I}_1, \ldots, \hat{I}_n$ aparentemente segue uma distribuição normal, em que $\hat{I}_i \sim \mathcal{N}(I, \sigma^2/n)$, o que é garantido pelo [**Teorema Central do Limite**](https://pt.wikipedia.org/wiki/Teorema_central_do_limite).
+
+Construindo um histograma e realizando um teste de normalidade, temos:
+
+
+```r
+hist(result$vec_ihat, main = expression(paste("Estimativas ", hat(I)[i])), 
+     xlab = expression(hat(I)[i]), ylab = "Frequência",
+     border = NA, col = rgb(1, 0.9, 0.8))
+```
+
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
+
+### Aproximando o valor de $\pi$
+
+Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma:
+
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-34-1.png" alt="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar." width="480" />
+<p class="caption">(\#fig:unnamed-chunk-34)Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.</p>
+</div>
+
+A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$.
+
+**Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela.
+
+
+
+```r
+insideplot <- function(x, y) {
+  plot.new()
+  plot.window(xlim = c(0, 1), ylim = c(0, 1))
+  axis(1); axis(2)
+  title(xlab = "x", ylab = "y")
+  
+  x_circ <- seq(0, 1, length.out = 1000L)
+  y_circ <- sqrt(1 - x_circ ^ 2)
+  
+  test <- function(x, y){
+    if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19)
+    else points(x, y, col = "blue", pch = 19)
+  }
+  segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2)
+  segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2)
+  
+  lines(x_circ, y_circ, lwd = 2L)
+  invisible(mapply(FUN = test, x, y))
+}
+x <- c(0.42, 0.24, 0.81, 0.93)
+y <- c(0.21, 0.47, 0.72, 0.85) 
+insideplot(x, y)
+```
+
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-35-1.png" alt="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela." width="480" />
+<p class="caption">(\#fig:unnamed-chunk-35)Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela.</p>
+</div>
+
+**Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`.
+
+
+```r
+# Aproximando o valor da constante pi por MC:
+mcpi <- function(N = 1e3L){
+  x <- runif(n = N, min = 0, max = 1)
+  y <- runif(n = N, min = 0, max = 1)
+  
+  inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE)
+ 
+  insideplot(x, y)
+  
+  4 * sum(mapply(FUN = inside, x, y)) / N
+  
+  # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N 
+}
+# Fixando uma semente:
+set.seed(1L)
+# Aproximando o valor de pi (mil réplicas):
+mcpi()
+```
+
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-36-1.png" width="480" style="display: block; margin: auto;" />
+
+```
+## [1] 3.148
+```
+
+### Redução de variância
+
+
