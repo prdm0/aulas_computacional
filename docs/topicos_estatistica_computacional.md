@@ -780,18 +780,18 @@ pela desigualdade de Chebychev, em que $S_n = \sum_{i=1}^n h(X_i)$. Como $X_i, \
 $$\mathrm{Var}(S_n) = n \mathrm{Var}[h(X_i)].$$
 Logo, 
 
-$$\lim_{n \to +\infty}P\Big(\Big|S_n - \mu\Big| \geq n\varepsilon\Big) \leq \lim_{n \to +\infty}\frac{\mathrm{Var}[h(X_i)]}{n\varepsilon^2} = 0,$$
+$$\lim_{n \to +\infty}P\Big(\Big|S_n - n\mu\Big| \geq n\varepsilon\Big) \leq \lim_{n \to +\infty}\frac{\mathrm{Var}[h(X_i)]}{n\varepsilon^2} = 0,$$
 uma vez que $h(x)$ é uma função contínua no intervalo $[a, b]$, logo existe um $M$ tal que $|h(X_i)| \leq M, \forall\, i$. 
 
 Assim, temos que $\hat{\mu}$ converge em probabilidade para $\mu$ ($\hat{\mu}$ é consistente para se estimar $\mu$) e denotamos por $\hat{\mu} \overset{p}{\to} \mu$. Sendo assim, temos que $\hat{I}$ é um estimador consistente para $I$. Isso garante que a medida que tomamos mais pontos, mais nos aproximamos do valor verdadeiro da integral, ou seja, mais nos aproximamos de $I$.
 
 Note que a variância de $\hat{I}$ é dada por:
 
-$$\mathrm{Var}(\hat{I}) = (b - a)^2 \mathrm{Var}(\hat{\mu}) = \frac{(b - a)^2}{n}\mathrm{Var}[g(X)].$$
+$$\mathrm{Var}(\hat{I}) = (b - a)^2 \mathrm{Var}(\hat{\mu}) = \frac{(b - a)^2}{n}\mathrm{Var}[h(X)].$$
 Pela definição de variância, temos que
 
 
-$$\mathrm{Var}(\hat{I}) =  \mathrm{E}\Big(\hat{I}^2\Big) - E^2(\hat{I}) = \gamma - \eta^2 = \sigma^2.$$
+$$\sigma^2 = \mathrm{Var}(\hat{I}) =  \mathrm{E}\Big(\hat{I}^2\Big) - E^2(\hat{I}) = \gamma - \eta^2.$$
 Assim, um estimador para $\mathrm{Var}(\hat{I})$ também poderá ser obtido utilizando um procedimento de MC, de tal forma que:
 
 $$\widehat{\sigma}^2 = \widehat{\mathrm{Var}(\hat{I})} = \overline{\widehat{\gamma}} - \overline{\widehat{\eta}}^2,$$
@@ -881,80 +881,120 @@ hist(result$vec_ihat, main = expression(paste("Estimativas ", hat(I)[i])),
 
 <img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
 
-### Aproximando o valor de $\pi$
+**Observação**:
 
-Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma:
+\BeginKnitrBlock{rmdobservation}<div class="rmdobservation"><div class=text-justify>
+Note que a distribuição de $\hat{I}_i, \forall \, i$ é centrada no valor da integral que desejamos calcular. No caso do exercício acima, como a função é uma f.d.p, então a distribuição será centrada em 1.
+</div></div>\EndKnitrBlock{rmdobservation}
 
-<div class="figure" style="text-align: center">
-<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-34-1.png" alt="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-34)Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.</p>
-</div>
+<!-- ### Aproximando o valor de $\pi$ -->
 
-A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$.
+<!-- Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma: -->
 
-**Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela.
+<!-- ```{r, fig.align='center', fig.cap="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.", fig.dim=c(5,5), echo=FALSE} -->
+<!-- plot.new() -->
+<!-- plot.window(xlim = c(-1, 1), c(-1, 1)) -->
+<!-- axis(1); axis(2) -->
+<!-- x <- seq(-1, 1, length.out = 1000L) -->
+<!-- lines(x, sqrt(1 - x^2), lwd = 2) -->
+<!-- lines(x, -sqrt(1 - x^2), lwd = 2) -->
+<!-- grid() -->
+<!-- segments(x0 = -1, y0 = 0, x1 = 1, y1 = 0, lty = 2, lwd = 2) -->
+<!-- segments(x0 = 0, y0 = -1, x1 = 0, y1 = 1, lty = 2, lwd = 2) -->
+<!-- title(main = expression(paste("Área da Circunferência = ", pi)), xlab = "x", ylab = "y") -->
+<!-- points(x = 0, y = 0, pch = 19) -->
+<!-- text(0.5, 0.1, "r = 1") -->
+<!-- segments(-1, -1, 1, -1, lwd = 2) -->
+<!-- segments(-1, -1, -1, 1, lwd = 2) -->
+<!-- segments(-1, 1, 1, 1, lwd = 2) -->
+<!-- segments(1, -1, 1, 1, lwd = 2) -->
+<!-- ``` -->
 
+<!-- A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$. -->
 
-
-```r
-insideplot <- function(x, y) {
-  plot.new()
-  plot.window(xlim = c(0, 1), ylim = c(0, 1))
-  axis(1); axis(2)
-  title(xlab = "x", ylab = "y")
-  
-  x_circ <- seq(0, 1, length.out = 1000L)
-  y_circ <- sqrt(1 - x_circ ^ 2)
-  
-  test <- function(x, y){
-    if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19)
-    else points(x, y, col = "blue", pch = 19)
-  }
-  segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2)
-  segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2)
-  
-  lines(x_circ, y_circ, lwd = 2L)
-  invisible(mapply(FUN = test, x, y))
-}
-x <- c(0.42, 0.24, 0.81, 0.93)
-y <- c(0.21, 0.47, 0.72, 0.85) 
-insideplot(x, y)
-```
-
-<div class="figure" style="text-align: center">
-<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-35-1.png" alt="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-35)Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela.</p>
-</div>
-
-**Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`.
+<!-- **Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela. -->
 
 
-```r
-# Aproximando o valor da constante pi por MC:
-mcpi <- function(N = 1e3L){
-  x <- runif(n = N, min = 0, max = 1)
-  y <- runif(n = N, min = 0, max = 1)
-  
-  inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE)
- 
-  insideplot(x, y)
-  
-  4 * sum(mapply(FUN = inside, x, y)) / N
-  
-  # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N 
-}
-# Fixando uma semente:
-set.seed(1L)
-# Aproximando o valor de pi (mil réplicas):
-mcpi()
-```
+<!-- ```{r, fig.align="center", fig.dim=c(5,5), fig.cap="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela."} -->
+<!-- insideplot <- function(x, y) { -->
+<!--   plot.new() -->
+<!--   plot.window(xlim = c(0, 1), ylim = c(0, 1)) -->
+<!--   axis(1); axis(2) -->
+<!--   title(xlab = "x", ylab = "y") -->
 
-<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-36-1.png" width="480" style="display: block; margin: auto;" />
+<!--   x_circ <- seq(0, 1, length.out = 1000L) -->
+<!--   y_circ <- sqrt(1 - x_circ ^ 2) -->
 
-```
-## [1] 3.148
-```
+<!--   test <- function(x, y){ -->
+<!--     if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19) -->
+<!--     else points(x, y, col = "blue", pch = 19) -->
+<!--   } -->
+<!--   segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2) -->
+<!--   segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2) -->
 
-### Redução de variância
+<!--   lines(x_circ, y_circ, lwd = 2L) -->
+<!--   invisible(mapply(FUN = test, x, y)) -->
+<!-- } -->
+<!-- x <- c(0.42, 0.24, 0.81, 0.93) -->
+<!-- y <- c(0.21, 0.47, 0.72, 0.85)  -->
+<!-- insideplot(x, y) -->
+<!-- ``` -->
 
+<!-- **Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`. -->
 
+<!-- ```{r, dependson="insideplot", fig.align="center", fig.dim=c(5,5)} -->
+<!-- # Aproximando o valor da constante pi por MC: -->
+<!-- mcpi <- function(N = 1e3L){ -->
+<!--   x <- runif(n = N, min = 0, max = 1) -->
+<!--   y <- runif(n = N, min = 0, max = 1) -->
+
+<!--   inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE) -->
+
+<!--   insideplot(x, y) -->
+
+<!--   4 * sum(mapply(FUN = inside, x, y)) / N -->
+
+<!--   # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N  -->
+<!-- } -->
+<!-- # Fixando uma semente: -->
+<!-- set.seed(1L) -->
+<!-- # Aproximando o valor de pi (mil réplicas): -->
+<!-- mcpi() -->
+<!-- ``` -->
+
+<!-- ### Redução de variância -->
+
+## Exercício {-}
+
+1 - Enuncie um procedimento de Monte Carlo para o cálculo de uma integral de uma função contínua em um intervalo $[a, b]$. Depois, escreva um algoritmo para o procedimento enunciado. 
+
+2 - Seja $\hat{I}$ o estimador de $I = \int_a^b f(x) dx$, em que $f$ é uma função contínua no intervalo $[a, b]$, em que
+
+$$\hat{I} = (b-a) \frac{\sum_{i=1}^n f(x_i)}{n},$$
+cuja amostra é obtida pelo procedimento de Monte Carlo enunciado no exercício anterior. Mostre que $\hat{I}$ é um estimador não-viesado e consistente para $I$.
+
+3 - Implemente a função `intmc()` que calcula a integral de uma função contínua qualquer definida em um intervalo $[a, b]$. **Dica**: Utilize o operador dot-dot-dot (operador varargs) para que a função `intmc()` possa receber argumentos da função que será integrada por um procedimento de Monte Carlo.
+
+4 - Seja $X_1, \ldots, X_n$ uma amostra aleatória de v.a.'s tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Construa um procedimento de Monte Carlo para avaliar os estimadores $\hat{\sigma}^2$ e $S^2$ de $\sigma^2$, em que
+
+\begin{eqnarray}
+\hat{\sigma}^2 &=& \frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2\\
+&\mathrm{e}&\\
+S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
+\end{eqnarray}
+
+**Dica**: Para comparar, utilize uma aproximação do Erro Quadrático Medio (EQM) obtida por um procedimento de Monte Carlo. Lembre-se, se $\hat{\theta}$ é um estimador para $\theta$, então o $\mathrm{EQM}(\hat{\theta}) = \mathrm{E}[(\hat{\theta} - \theta)^2]$.
+
+5 - Um dado experimento aleatório consistem em lançar dois dados não viesados (6 lados em cada dado) observar a soma obtida. Por meio de um procedimento de Monte Carlo, obtenha a probabilidade aproximada da soma ser par. Simule para $N = 10, 100, 1000, 10000$ e $100000$, em que $N$ é o número de réplicas de Monte Carlo. O que você observa? Explique.
+
+6 - Walter está jogando um jogo com dois dados de 6 lados equiprováveis. O jogo consiste em lançar ambos os dados e caso a soma dos dados seja divisível por 3, ele ganhará, percendo em caso contrário. Realize um procedimento de Monte Carlo para avaliar o jogo e responda a pergunta: Em média o jogo é favorável ao jogador?
+
+7 - Suponha que tenhamos uma urna com bolas de mesmo tamanho  enumeradas de 1 à 100. Considere o experimento aleatório de retirar uma bola da urna e observar o seu número até obtermos a bola com número desejado. Nesse experimento, será considerado reposição, isto é, caso não tenha sido observado a numeração desejada, a bola será devolvida à urna. Implemente um procedimento de Monte Carlo considerando 10 mil repetições desse experimento e obtenha a média das retiradas necessárias para obter-se o número desejado. Além disso, retorne uma aproximação da probabilidade de se obter o número desejado. **Dica**: considere o número 77 como o número desejado. 
+
+8 -  Um dono de cassino estuda disponibilizar um novo jogo e solicita uma consultoria estatística para saber se o jogo será viável para o cassino, isto é, se o valor esperado em dólares do lucro obtido será positivo, em média. Realize uma simulação de Monte Carlo considerando 100 mil jogos e obtenha o valor médio de lançamentos de um jogador bem como a probabilidade (aproximada) de um jogador jogar apenas uma única partida. Além disso, responda: Se um jogador paga $\$$ 10 dólares para jogar e lucra $\$$ 1,50 dólares por cada jogada, o jogo é rentável para o dono do cassino?
+
+**Regras do Jogo**:
+
+   + Dois dados são lançados e caso a soma for 5, 6, 7, 8 ou 9 o jogo termina imediatamente;
+   
+   + Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou           12. 

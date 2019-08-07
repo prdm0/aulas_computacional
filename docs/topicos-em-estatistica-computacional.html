@@ -197,9 +197,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#um-breve-historico-1"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="6.3.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.2</b> Métodos de Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.3" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#integracao-por-monte-carlo"><i class="fa fa-check"></i><b>6.3.3</b> Integração por Monte Carlo</a></li>
-<li class="chapter" data-level="6.3.4" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#aproximando-o-valor-de-pi"><i class="fa fa-check"></i><b>6.3.4</b> Aproximando o valor de <span class="math inline">\(\pi\)</span></a></li>
-<li class="chapter" data-level="6.3.5" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#reducao-de-variancia"><i class="fa fa-check"></i><b>6.3.5</b> Redução de variância</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-3"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -852,13 +851,13 @@ Perceba que <span class="math inline">\(\hat{\mu}\)</span> é um estimador não-
 pela desigualdade de Chebychev, em que <span class="math inline">\(S_n = \sum_{i=1}^n h(X_i)\)</span>. Como <span class="math inline">\(X_i, \ldots, X_n\)</span> é uma sequência de v.a.’s i.i.d., tal que <span class="math inline">\(X_i \sim \mathcal{U}(a,b), \, \forall\, i\)</span>, então</p>
 <p><span class="math display">\[\mathrm{Var}(S_n) = n \mathrm{Var}[h(X_i)].\]</span>
 Logo,</p>
-<p><span class="math display">\[\lim_{n \to +\infty}P\Big(\Big|S_n - \mu\Big| \geq n\varepsilon\Big) \leq \lim_{n \to +\infty}\frac{\mathrm{Var}[h(X_i)]}{n\varepsilon^2} = 0,\]</span>
+<p><span class="math display">\[\lim_{n \to +\infty}P\Big(\Big|S_n - n\mu\Big| \geq n\varepsilon\Big) \leq \lim_{n \to +\infty}\frac{\mathrm{Var}[h(X_i)]}{n\varepsilon^2} = 0,\]</span>
 uma vez que <span class="math inline">\(h(x)\)</span> é uma função contínua no intervalo <span class="math inline">\([a, b]\)</span>, logo existe um <span class="math inline">\(M\)</span> tal que <span class="math inline">\(|h(X_i)| \leq M, \forall\, i\)</span>.</p>
 <p>Assim, temos que <span class="math inline">\(\hat{\mu}\)</span> converge em probabilidade para <span class="math inline">\(\mu\)</span> (<span class="math inline">\(\hat{\mu}\)</span> é consistente para se estimar <span class="math inline">\(\mu\)</span>) e denotamos por <span class="math inline">\(\hat{\mu} \overset{p}{\to} \mu\)</span>. Sendo assim, temos que <span class="math inline">\(\hat{I}\)</span> é um estimador consistente para <span class="math inline">\(I\)</span>. Isso garante que a medida que tomamos mais pontos, mais nos aproximamos do valor verdadeiro da integral, ou seja, mais nos aproximamos de <span class="math inline">\(I\)</span>.</p>
 <p>Note que a variância de <span class="math inline">\(\hat{I}\)</span> é dada por:</p>
-<p><span class="math display">\[\mathrm{Var}(\hat{I}) = (b - a)^2 \mathrm{Var}(\hat{\mu}) = \frac{(b - a)^2}{n}\mathrm{Var}[g(X)].\]</span>
+<p><span class="math display">\[\mathrm{Var}(\hat{I}) = (b - a)^2 \mathrm{Var}(\hat{\mu}) = \frac{(b - a)^2}{n}\mathrm{Var}[h(X)].\]</span>
 Pela definição de variância, temos que</p>
-<p><span class="math display">\[\mathrm{Var}(\hat{I}) =  \mathrm{E}\Big(\hat{I}^2\Big) - E^2(\hat{I}) = \gamma - \eta^2 = \sigma^2.\]</span>
+<p><span class="math display">\[\sigma^2 = \mathrm{Var}(\hat{I}) =  \mathrm{E}\Big(\hat{I}^2\Big) - E^2(\hat{I}) = \gamma - \eta^2.\]</span>
 Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</span> também poderá ser obtido utilizando um procedimento de MC, de tal forma que:</p>
 <p><span class="math display">\[\widehat{\sigma}^2 = \widehat{\mathrm{Var}(\hat{I})} = \overline{\widehat{\gamma}} - \overline{\widehat{\eta}}^2,\]</span></p>
 <p>em que <span class="math inline">\(\overline{\widehat{\gamma}} = n^{-1} \sum_{i=1}^n \hat{I}_i^2\)</span> e <span class="math inline">\(\overline{\widehat{\eta}}^2 = \Big(n^{-1}\sum_{i=1}^n\hat{I}_i\Big)^2\)</span>. Perceba que <span class="math inline">\(\hat{I}_i\)</span> é obtido por um procedimento de MC para cada <span class="math inline">\(i\)</span>, com <span class="math inline">\(i = 1, \ldots, n\)</span>. Sendo assim, necessitamos de várias estimativas da integral para se obter uma estimativa de <span class="math inline">\(\mathrm{Var}(\hat{I})\)</span> que também é um procedimento de MC.</p>
@@ -920,71 +919,100 @@ Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</sp
 <span id="cb301-2"><a href="topicos-em-estatistica-computacional.html#cb301-2"></a>     <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">hat</span>(I)[i]), <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;,</span></span>
 <span id="cb301-3"><a href="topicos-em-estatistica-computacional.html#cb301-3"></a><span class="st">     border = NA, col = rgb(1, 0.9, 0.8))</span></span></code></pre></div>
 <p><img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="aproximando-o-valor-de-pi" class="section level3">
-<h3><span class="header-section-number">6.3.4</span> Aproximando o valor de <span class="math inline">\(\pi\)</span></h3>
-<p>Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante <span class="math inline">\(\pi\)</span>. O método para aproximação do valor de <span class="math inline">\(\pi\)</span> é construído considerando inicialmente uma circunferência de raio (<span class="math inline">\(r = 1\)</span>) na seguinte forma:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-34"></span>
-<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-34-1.png" alt="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar." width="480" />
-<p class="caption">
-Figura 6.9: Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.
-</p>
-</div>
-<p>A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, …) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à <span class="math inline">\(\frac{\pi}{4}\)</span>. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de <span class="math inline">\(\pi\)</span>.</p>
-<p><strong>Exemplo</strong>: Implemente a função <code>insideplot(x, y)</code> que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="topicos-em-estatistica-computacional.html#cb302-1"></a>insideplot &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) {</span>
-<span id="cb302-2"><a href="topicos-em-estatistica-computacional.html#cb302-2"></a>  <span class="kw">plot.new</span>()</span>
-<span id="cb302-3"><a href="topicos-em-estatistica-computacional.html#cb302-3"></a>  <span class="kw">plot.window</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb302-4"><a href="topicos-em-estatistica-computacional.html#cb302-4"></a>  <span class="kw">axis</span>(<span class="dv">1</span>); <span class="kw">axis</span>(<span class="dv">2</span>)</span>
-<span id="cb302-5"><a href="topicos-em-estatistica-computacional.html#cb302-5"></a>  <span class="kw">title</span>(<span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;y&quot;</span>)</span>
-<span id="cb302-6"><a href="topicos-em-estatistica-computacional.html#cb302-6"></a>  </span>
-<span id="cb302-7"><a href="topicos-em-estatistica-computacional.html#cb302-7"></a>  x_circ &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length.out =</span> 1000L)</span>
-<span id="cb302-8"><a href="topicos-em-estatistica-computacional.html#cb302-8"></a>  y_circ &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_circ <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)</span>
-<span id="cb302-9"><a href="topicos-em-estatistica-computacional.html#cb302-9"></a>  </span>
-<span id="cb302-10"><a href="topicos-em-estatistica-computacional.html#cb302-10"></a>  test &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
-<span id="cb302-11"><a href="topicos-em-estatistica-computacional.html#cb302-11"></a>    <span class="cf">if</span> ((x <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>y <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) <span class="kw">points</span>(x, y, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb302-12"><a href="topicos-em-estatistica-computacional.html#cb302-12"></a>    <span class="cf">else</span> <span class="kw">points</span>(x, y, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb302-13"><a href="topicos-em-estatistica-computacional.html#cb302-13"></a>  }</span>
-<span id="cb302-14"><a href="topicos-em-estatistica-computacional.html#cb302-14"></a>  <span class="kw">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dt">lwd =</span> <span class="dv">2</span>); <span class="kw">segments</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb302-15"><a href="topicos-em-estatistica-computacional.html#cb302-15"></a>  <span class="kw">segments</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>); <span class="kw">segments</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb302-16"><a href="topicos-em-estatistica-computacional.html#cb302-16"></a>  </span>
-<span id="cb302-17"><a href="topicos-em-estatistica-computacional.html#cb302-17"></a>  <span class="kw">lines</span>(x_circ, y_circ, <span class="dt">lwd =</span> 2L)</span>
-<span id="cb302-18"><a href="topicos-em-estatistica-computacional.html#cb302-18"></a>  <span class="kw">invisible</span>(<span class="kw">mapply</span>(<span class="dt">FUN =</span> test, x, y))</span>
-<span id="cb302-19"><a href="topicos-em-estatistica-computacional.html#cb302-19"></a>}</span>
-<span id="cb302-20"><a href="topicos-em-estatistica-computacional.html#cb302-20"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.42</span>, <span class="fl">0.24</span>, <span class="fl">0.81</span>, <span class="fl">0.93</span>)</span>
-<span id="cb302-21"><a href="topicos-em-estatistica-computacional.html#cb302-21"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.21</span>, <span class="fl">0.47</span>, <span class="fl">0.72</span>, <span class="fl">0.85</span>) </span>
-<span id="cb302-22"><a href="topicos-em-estatistica-computacional.html#cb302-22"></a><span class="kw">insideplot</span>(x, y)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-35"></span>
-<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-35-1.png" alt="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela." width="480" />
-<p class="caption">
-Figura 4.4: Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela.
-</p>
-</div>
-<p><strong>Exemplo</strong>: Implementando a função <code>mcpi(N = 1e3L)</code> que aproxima o valor da constante <span class="math inline">\(\pi\)</span> por meio de um procedimento de MC. A função <code>mcpi()</code> retornará o valor aproximado da constante <span class="math inline">\(\pi\)</span> e construirá o gráfico com os pontos gerados utilizando a função <code>insideplot()</code>.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="topicos-em-estatistica-computacional.html#cb303-1"></a><span class="co"># Aproximando o valor da constante pi por MC:</span></span>
-<span id="cb303-2"><a href="topicos-em-estatistica-computacional.html#cb303-2"></a>mcpi &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L){</span>
-<span id="cb303-3"><a href="topicos-em-estatistica-computacional.html#cb303-3"></a>  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> N, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)</span>
-<span id="cb303-4"><a href="topicos-em-estatistica-computacional.html#cb303-4"></a>  y &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> N, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)</span>
-<span id="cb303-5"><a href="topicos-em-estatistica-computacional.html#cb303-5"></a>  </span>
-<span id="cb303-6"><a href="topicos-em-estatistica-computacional.html#cb303-6"></a>  inside &lt;-<span class="st"> </span><span class="cf">function</span>(x, y) <span class="kw">ifelse</span>((x <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>y <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</span>
-<span id="cb303-7"><a href="topicos-em-estatistica-computacional.html#cb303-7"></a> </span>
-<span id="cb303-8"><a href="topicos-em-estatistica-computacional.html#cb303-8"></a>  <span class="kw">insideplot</span>(x, y)</span>
-<span id="cb303-9"><a href="topicos-em-estatistica-computacional.html#cb303-9"></a>  </span>
-<span id="cb303-10"><a href="topicos-em-estatistica-computacional.html#cb303-10"></a>  <span class="dv">4</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">mapply</span>(<span class="dt">FUN =</span> inside, x, y)) <span class="op">/</span><span class="st"> </span>N</span>
-<span id="cb303-11"><a href="topicos-em-estatistica-computacional.html#cb303-11"></a>  </span>
-<span id="cb303-12"><a href="topicos-em-estatistica-computacional.html#cb303-12"></a>  <span class="co"># ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N </span></span>
-<span id="cb303-13"><a href="topicos-em-estatistica-computacional.html#cb303-13"></a>}</span>
-<span id="cb303-14"><a href="topicos-em-estatistica-computacional.html#cb303-14"></a><span class="co"># Fixando uma semente:</span></span>
-<span id="cb303-15"><a href="topicos-em-estatistica-computacional.html#cb303-15"></a><span class="kw">set.seed</span>(1L)</span>
-<span id="cb303-16"><a href="topicos-em-estatistica-computacional.html#cb303-16"></a><span class="co"># Aproximando o valor de pi (mil réplicas):</span></span>
-<span id="cb303-17"><a href="topicos-em-estatistica-computacional.html#cb303-17"></a><span class="kw">mcpi</span>()</span></code></pre></div>
-<p><img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-36-1.png" width="480" style="display: block; margin: auto;" /></p>
-<pre><code>## [1] 3.148</code></pre>
-</div>
-<div id="reducao-de-variancia" class="section level3">
-<h3><span class="header-section-number">6.3.5</span> Redução de variância</h3>
+<p><strong>Observação</strong>:</p>
 
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Note que a distribuição de <span class="math inline">\(\hat{I}_i, \forall \, i\)</span> é centrada no valor da integral que desejamos calcular. No caso do exercício acima, como a função é uma f.d.p, então a distribuição será centrada em 1.</p>
 </div>
+</div>
+
+<!-- ### Aproximando o valor de $\pi$ -->
+<!-- Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma: -->
+<!-- ```{r, fig.align='center', fig.cap="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.", fig.dim=c(5,5), echo=FALSE} -->
+<!-- plot.new() -->
+<!-- plot.window(xlim = c(-1, 1), c(-1, 1)) -->
+<!-- axis(1); axis(2) -->
+<!-- x <- seq(-1, 1, length.out = 1000L) -->
+<!-- lines(x, sqrt(1 - x^2), lwd = 2) -->
+<!-- lines(x, -sqrt(1 - x^2), lwd = 2) -->
+<!-- grid() -->
+<!-- segments(x0 = -1, y0 = 0, x1 = 1, y1 = 0, lty = 2, lwd = 2) -->
+<!-- segments(x0 = 0, y0 = -1, x1 = 0, y1 = 1, lty = 2, lwd = 2) -->
+<!-- title(main = expression(paste("Área da Circunferência = ", pi)), xlab = "x", ylab = "y") -->
+<!-- points(x = 0, y = 0, pch = 19) -->
+<!-- text(0.5, 0.1, "r = 1") -->
+<!-- segments(-1, -1, 1, -1, lwd = 2) -->
+<!-- segments(-1, -1, -1, 1, lwd = 2) -->
+<!-- segments(-1, 1, 1, 1, lwd = 2) -->
+<!-- segments(1, -1, 1, 1, lwd = 2) -->
+<!-- ``` -->
+<!-- A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$. -->
+<!-- **Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela. -->
+<!-- ```{r, fig.align="center", fig.dim=c(5,5), fig.cap="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela."} -->
+<!-- insideplot <- function(x, y) { -->
+<!--   plot.new() -->
+<!--   plot.window(xlim = c(0, 1), ylim = c(0, 1)) -->
+<!--   axis(1); axis(2) -->
+<!--   title(xlab = "x", ylab = "y") -->
+<!--   x_circ <- seq(0, 1, length.out = 1000L) -->
+<!--   y_circ <- sqrt(1 - x_circ ^ 2) -->
+<!--   test <- function(x, y){ -->
+<!--     if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19) -->
+<!--     else points(x, y, col = "blue", pch = 19) -->
+<!--   } -->
+<!--   segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2) -->
+<!--   segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2) -->
+<!--   lines(x_circ, y_circ, lwd = 2L) -->
+<!--   invisible(mapply(FUN = test, x, y)) -->
+<!-- } -->
+<!-- x <- c(0.42, 0.24, 0.81, 0.93) -->
+<!-- y <- c(0.21, 0.47, 0.72, 0.85)  -->
+<!-- insideplot(x, y) -->
+<!-- ``` -->
+<!-- **Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`. -->
+<!-- ```{r, dependson="insideplot", fig.align="center", fig.dim=c(5,5)} -->
+<!-- # Aproximando o valor da constante pi por MC: -->
+<!-- mcpi <- function(N = 1e3L){ -->
+<!--   x <- runif(n = N, min = 0, max = 1) -->
+<!--   y <- runif(n = N, min = 0, max = 1) -->
+<!--   inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE) -->
+<!--   insideplot(x, y) -->
+<!--   4 * sum(mapply(FUN = inside, x, y)) / N -->
+<!--   # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N  -->
+<!-- } -->
+<!-- # Fixando uma semente: -->
+<!-- set.seed(1L) -->
+<!-- # Aproximando o valor de pi (mil réplicas): -->
+<!-- mcpi() -->
+<!-- ``` -->
+<!-- ### Redução de variância -->
+</div>
+</div>
+<div id="exercicio-3" class="section level2 unnumbered">
+<h2>Exercício</h2>
+<p>1 - Enuncie um procedimento de Monte Carlo para o cálculo de uma integral de uma função contínua em um intervalo <span class="math inline">\([a, b]\)</span>. Depois, escreva um algoritmo para o procedimento enunciado.</p>
+<p>2 - Seja <span class="math inline">\(\hat{I}\)</span> o estimador de <span class="math inline">\(I = \int_a^b f(x) dx\)</span>, em que <span class="math inline">\(f\)</span> é uma função contínua no intervalo <span class="math inline">\([a, b]\)</span>, em que</p>
+<p><span class="math display">\[\hat{I} = (b-a) \frac{\sum_{i=1}^n f(x_i)}{n},\]</span>
+cuja amostra é obtida pelo procedimento de Monte Carlo enunciado no exercício anterior. Mostre que <span class="math inline">\(\hat{I}\)</span> é um estimador não-viesado e consistente para <span class="math inline">\(I\)</span>.</p>
+<p>3 - Implemente a função <code>intmc()</code> que calcula a integral de uma função contínua qualquer definida em um intervalo <span class="math inline">\([a, b]\)</span>. <strong>Dica</strong>: Utilize o operador dot-dot-dot (operador varargs) para que a função <code>intmc()</code> possa receber argumentos da função que será integrada por um procedimento de Monte Carlo.</p>
+<p>4 - Seja <span class="math inline">\(X_1, \ldots, X_n\)</span> uma amostra aleatória de v.a.’s tal que <span class="math inline">\(X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)\)</span>. Construa um procedimento de Monte Carlo para avaliar os estimadores <span class="math inline">\(\hat{\sigma}^2\)</span> e <span class="math inline">\(S^2\)</span> de <span class="math inline">\(\sigma^2\)</span>, em que</p>
+<p><span class="math display">\[\begin{eqnarray}
+\hat{\sigma}^2 &amp;=&amp; \frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2\\
+&amp;\mathrm{e}&amp;\\
+S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
+\end{eqnarray}\]</span></p>
+<p><strong>Dica</strong>: Para comparar, utilize uma aproximação do Erro Quadrático Medio (EQM) obtida por um procedimento de Monte Carlo. Lembre-se, se <span class="math inline">\(\hat{\theta}\)</span> é um estimador para <span class="math inline">\(\theta\)</span>, então o <span class="math inline">\(\mathrm{EQM}(\hat{\theta}) = \mathrm{E}[(\hat{\theta} - \theta)^2]\)</span>.</p>
+<p>5 - Um dado experimento aleatório consistem em lançar dois dados não viesados (6 lados em cada dado) observar a soma obtida. Por meio de um procedimento de Monte Carlo, obtenha a probabilidade aproximada da soma ser par. Simule para <span class="math inline">\(N = 10, 100, 1000, 10000\)</span> e <span class="math inline">\(100000\)</span>, em que <span class="math inline">\(N\)</span> é o número de réplicas de Monte Carlo. O que você observa? Explique.</p>
+<p>6 - Walter está jogando um jogo com dois dados de 6 lados equiprováveis. O jogo consiste em lançar ambos os dados e caso a soma dos dados seja divisível por 3, ele ganhará, percendo em caso contrário. Realize um procedimento de Monte Carlo para avaliar o jogo e responda a pergunta: Em média o jogo é favorável ao jogador?</p>
+<p>7 - Suponha que tenhamos uma urna com bolas de mesmo tamanho enumeradas de 1 à 100. Considere o experimento aleatório de retirar uma bola da urna e observar o seu número até obtermos a bola com número desejado. Nesse experimento, será considerado reposição, isto é, caso não tenha sido observado a numeração desejada, a bola será devolvida à urna. Implemente um procedimento de Monte Carlo considerando 10 mil repetições desse experimento e obtenha a média das retiradas necessárias para obter-se o número desejado. Além disso, retorne uma aproximação da probabilidade de se obter o número desejado. <strong>Dica</strong>: considere o número 77 como o número desejado.</p>
+<p>8 - Um dono de cassino estuda disponibilizar um novo jogo e solicita uma consultoria estatística para saber se o jogo será viável para o cassino, isto é, se o valor esperado em dólares do lucro obtido será positivo, em média. Realize uma simulação de Monte Carlo considerando 100 mil jogos e obtenha o valor médio de lançamentos de um jogador bem como a probabilidade (aproximada) de um jogador jogar apenas uma única partida. Além disso, responda: Se um jogador paga <span class="math inline">\(\$\)</span> 10 dólares para jogar e lucra <span class="math inline">\(\$\)</span> 1,50 dólares por cada jogada, o jogo é rentável para o dono do cassino?</p>
+<p><strong>Regras do Jogo</strong>:</p>
+<ul>
+<li><p>Dois dados são lançados e caso a soma for 5, 6, 7, 8 ou 9 o jogo termina imediatamente;</p></li>
+<li><p>Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou 12.</p></li>
+</ul>
+
 </div>
 </div>
             </section>
