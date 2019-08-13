@@ -679,7 +679,7 @@ Esse fato pode ser lido no artigo [**The Beginning of the Monte Carlo Method, es
 
 ### Métodos de Monte Carlo
 
-Nos dias atuais, é muito mais fácil codificar uma simulação de MC para obetenção de aproximações que poderiam ser complicadas de serem obtidas analiticamente. Porém, não há necessidade de que o que venha ser codificado seja um experimento aleatório, muito embora seja principalmente para esse propósito que essas simulações são utilizadas. 
+Nos dias atuais, é muito mais fácil codificar uma simulação de MC para obetenção de aproximações que poderiam ser complicadas de serem obtidas analiticamente. Porém, os procedimentos de MC podem ser utilizados para resolver um problema deterministo. Por exemplo, é possível construir um procedimento de MC para aproximar o valor médio de uma função, bem como para calcular uma integral definida de uma função contínua em um intervalo $[a, b]$, sendo estes exemplos notoriamente determinísticos. Porém, os procedimentos de MC são procedimentos que fazem uso de amostragem aleatória massiva para a obtenção de resultados numéricos aproximados. Por exemplo, o [**método da aceitação e rejeição**][Método da aceitação e rejeição], apresentado em seções anteriores, é um típico procedimento de MC, uma vez que o método é iterativo e em suas iterações faz uso de geração de observações de uma sequência de variáveis aleatórias. O exemplo que segue mostra a construção de um procedimento simples de MC para o cálculo aproximado do valor médio de uma função.
 
 **Exemplo**: Calculando o ponto médio de uma função determinística utilizando simulações de MC. Seja $h(x) = \mathrm{sen}(x)$, tal que $x \in [0, 2\pi]$. Então, analiticamente, o ponto médio da função $h(x)$ é dado por:
 
@@ -864,7 +864,7 @@ intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
     
   i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...)
     
-  var_hat <- mean(i_hat^2) - mean(i_hat)^2
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
     
   list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat)
 }
@@ -897,95 +897,411 @@ Note que a distribuição de $\hat{I}_i, \forall \, i$ é centrada no valor da i
 </div>
 ```
 
-<!-- ### Aproximando o valor de $\pi$ -->
+### Aproximando o valor de $\pi$
 
-<!-- Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma: -->
+Uma outra aplicação bastante conhecida dos métodos de MC é a obtenção de um valor aproximado para a constante $\pi$. O método para aproximação do valor de $\pi$ é construído considerando inicialmente uma circunferência de raio ($r = 1$) na seguinte forma:
 
-<!-- ```{r, fig.align='center', fig.cap="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.", fig.dim=c(5,5), echo=FALSE} -->
-<!-- plot.new() -->
-<!-- plot.window(xlim = c(-1, 1), c(-1, 1)) -->
-<!-- axis(1); axis(2) -->
-<!-- x <- seq(-1, 1, length.out = 1000L) -->
-<!-- lines(x, sqrt(1 - x^2), lwd = 2) -->
-<!-- lines(x, -sqrt(1 - x^2), lwd = 2) -->
-<!-- grid() -->
-<!-- segments(x0 = -1, y0 = 0, x1 = 1, y1 = 0, lty = 2, lwd = 2) -->
-<!-- segments(x0 = 0, y0 = -1, x1 = 0, y1 = 1, lty = 2, lwd = 2) -->
-<!-- title(main = expression(paste("Área da Circunferência = ", pi)), xlab = "x", ylab = "y") -->
-<!-- points(x = 0, y = 0, pch = 19) -->
-<!-- text(0.5, 0.1, "r = 1") -->
-<!-- segments(-1, -1, 1, -1, lwd = 2) -->
-<!-- segments(-1, -1, -1, 1, lwd = 2) -->
-<!-- segments(-1, 1, 1, 1, lwd = 2) -->
-<!-- segments(1, -1, 1, 1, lwd = 2) -->
-<!-- ``` -->
+```{r, fig.align='center', fig.cap="Cicunferência centrada no ponton (0,0) de raio igual à 1 (um) e de área igual à constante de desejamos estimar.", fig.dim=c(5,5), echo=FALSE}
+plot.new()
+plot.window(xlim = c(-1, 1), c(-1, 1))
+axis(1); axis(2)
+x <- seq(-1, 1, length.out = 1000L)
+lines(x, sqrt(1 - x^2), lwd = 2)
+lines(x, -sqrt(1 - x^2), lwd = 2)
+grid()
+segments(x0 = -1, y0 = 0, x1 = 1, y1 = 0, lty = 2, lwd = 2)
+segments(x0 = 0, y0 = -1, x1 = 0, y1 = 1, lty = 2, lwd = 2)
+title(main = expression(paste("Área da Circunferência = ", pi)), xlab = "x", ylab = "y")
+points(x = 0, y = 0, pch = 19)
+text(0.5, 0.1, "r = 1")
+segments(-1, -1, 1, -1, lwd = 2)
+segments(-1, -1, -1, 1, lwd = 2)
+segments(-1, 1, 1, 1, lwd = 2)
+segments(1, -1, 1, 1, lwd = 2)
+```
 
-<!-- A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$. -->
+A estatégia por meio de um procedimento de MC é gerar massivamente (mil, 10 mil, 100 mil, ...) pontos no interior do quadrado de área 1. Dessa forma, deveremos contabilizar a quantidade de pontos que cairam no interior da circunferência e dividir pelo total de pontos, isto é, desejamos obter a proporção de pontos que cairam dentro da circunferência, onde teremos, assim, uma aproximação da área. Porém, perceba que poderemos nos restringir ao primeiro quadrante, com área igual à $\frac{\pi}{4}$. Dessa forma, considerando apenas o primerio quadrante, temos que a porporção de pontos que caem no interior da circunferência multiplicada por 4 irá fornecer uma aproximação para o valor de $\pi$.
 
-<!-- **Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela. -->
+**Exemplo**: Implemente a função `insideplot(x, y)` que recebe como argumentos dois vetores de mesmo comprimento. A função deverá construir um gráfico do primeiro quadrante da circunferência, em um quadrado unitário, com os pontos formados pelos valores dos vetores, par a par, destancando de vermelho os pontos no interior da circunferência e de azul àqueles que caem fora dela.
 
 
-<!-- ```{r, fig.align="center", fig.dim=c(5,5), fig.cap="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela."} -->
-<!-- insideplot <- function(x, y) { -->
-<!--   plot.new() -->
-<!--   plot.window(xlim = c(0, 1), ylim = c(0, 1)) -->
-<!--   axis(1); axis(2) -->
-<!--   title(xlab = "x", ylab = "y") -->
+```{r, fig.align="center", fig.dim=c(5,5), fig.cap="Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (0.24, 0.47), (0.81, 0.72) e (0.93, 0.85), em que pontos vemelhos estão no interior da circunferência e pontos azuis fora dela."}
+insideplot <- function(x, y) {
+  plot.new()
+  plot.window(xlim = c(0, 1), ylim = c(0, 1))
+  axis(1); axis(2)
+  title(xlab = "x", ylab = "y")
 
-<!--   x_circ <- seq(0, 1, length.out = 1000L) -->
-<!--   y_circ <- sqrt(1 - x_circ ^ 2) -->
+  x_circ <- seq(0, 1, length.out = 1000L)
+  y_circ <- sqrt(1 - x_circ ^ 2)
 
-<!--   test <- function(x, y){ -->
-<!--     if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19) -->
-<!--     else points(x, y, col = "blue", pch = 19) -->
-<!--   } -->
-<!--   segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2) -->
-<!--   segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2) -->
+  test <- function(x, y){
+    if ((x ^ 2 + y ^ 2) <= 1) points(x, y, col = "red", pch = 19)
+    else points(x, y, col = "blue", pch = 19)
+  }
+  segments(0, 0, 1, 0, lwd = 2); segments(0, 0, 0, 1, lwd = 2)
+  segments(0, 1, 1, 1, lwd = 2); segments(1, 0, 1, 1, lwd = 2)
 
-<!--   lines(x_circ, y_circ, lwd = 2L) -->
-<!--   invisible(mapply(FUN = test, x, y)) -->
-<!-- } -->
-<!-- x <- c(0.42, 0.24, 0.81, 0.93) -->
-<!-- y <- c(0.21, 0.47, 0.72, 0.85)  -->
-<!-- insideplot(x, y) -->
-<!-- ``` -->
+  lines(x_circ, y_circ, lwd = 2L)
+  invisible(mapply(FUN = test, x, y))
+}
+x <- c(0.42, 0.24, 0.81, 0.93)
+y <- c(0.21, 0.47, 0.72, 0.85)
+insideplot(x, y)
+```
 
-<!-- **Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`. -->
+**Exemplo**: Implementando a função `mcpi(N = 1e3L)` que aproxima o valor da constante $\pi$ por meio de um procedimento de MC. A função `mcpi()` retornará o valor aproximado da constante $\pi$ e  construirá o gráfico com os pontos gerados utilizando a função `insideplot()`.
 
-<!-- ```{r, dependson="insideplot", fig.align="center", fig.dim=c(5,5)} -->
-<!-- # Aproximando o valor da constante pi por MC: -->
-<!-- mcpi <- function(N = 1e3L){ -->
-<!--   x <- runif(n = N, min = 0, max = 1) -->
-<!--   y <- runif(n = N, min = 0, max = 1) -->
+```{r, dependson="insideplot", fig.align="center", fig.dim=c(5,5)}
+# Aproximando o valor da constante pi por MC:
+mcpi <- function(N = 1e3L){
+  x <- runif(n = N, min = 0, max = 1)
+  y <- runif(n = N, min = 0, max = 1)
 
-<!--   inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE) -->
+  inside <- function(x, y) ifelse((x ^ 2 + y ^ 2) <= 1, TRUE, FALSE)
 
-<!--   insideplot(x, y) -->
+  insideplot(x, y)
 
-<!--   4 * sum(mapply(FUN = inside, x, y)) / N -->
+  4 * sum(mapply(FUN = inside, x, y)) / N
 
-<!--   # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N  -->
-<!-- } -->
-<!-- # Fixando uma semente: -->
-<!-- set.seed(1L) -->
-<!-- # Aproximando o valor de pi (mil réplicas): -->
-<!-- mcpi() -->
-<!-- ``` -->
+  # ou sum(purrr::map2_lgl(.x = x, .y = y, .f = inside)) / N
+}
+# Fixando uma semente:
+set.seed(1L)
+# Aproximando o valor de pi (mil réplicas):
+mcpi()
+```
 
-<!-- ### Redução de variância -->
+### Paralelizando um procedimento de Monte Carlo
+
+A classe de procedimentos de MC contemplam metodologias típias que podem ser paralelizadas, isto é, por se tratarem de procedimentos iterativos, cada iteração poderá ser realizada em paralelo. Porém, é importante deixar claro que nem todo o procedimento iterativo poderá ser paralelizado. Essa é uma restrição do ponto de vista matemático e não do ponto de vista de computação. Isso deve-se ao fato de que nem todos procedimentos iterativos são matematicamente independentes, isto é, nesses procedimentos, para realizarmos a iteração $t + 1$ necessariamente devemos esperar pelos cálculos realizados na $t$-ésima iteração. 
+
+Tipicamente, os procedimentos de MC são matematicamente independentes. Embora a construção de tais procedimentos que produzem amostras com as propriedades desejadas geralmente não seja difícil, a tarefa de garantir a convergência a uma taxa compatível com os recursos computacionais atuais continua sendo um grande desafio. 
+
+Nos dias atuais, é comum observarmos códigos passíveis de paralização sem fazer o devido aproveitamento de todos os recursos computacionais disponíveis em um dado computador. Em dias atuais, é comum processadores e GPUS (Graphics Processing Unit) com vários núcleos de processamento.
+
+A linguagem R disponibiliza diversas bibliotecas para se trabalhar com computação paralela. Ente alguns pacotes importantes que viablizam o uso de computação paralela em R destaco o [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) e o  [**snow**](https://cran.r-project.org/web/packages/snow) ("**S**imple **N**etwork of **W**orkstations). Tempos atrás, havia também o pacote [**multicore**](https://cran.r-project.org/web/packages/multicore) que foi removido do CRAN, sendo substituído pelo pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). 
+
+Diversas funções do pacote **parallel** são derivadas do pacote **snow** e do antigo pacote **multicore**. O pacote **parallel** reúne as melhores características desses pacotes, com algumas modificações e características próprias. Além desses pacote, há diversas outas bibliotecas em R disponíveis para implementação de códigos paralelizados. Porém, a maioria dessas bibliotecas utilizam-se do **parallel** e **snow** como backend para suas implementações. Por exemplo, **foreach** + **doParallel** normalmente são utilizados em conjunto para a criação de loops com execução em paralelo, em que utiliza-se das funções `foreach()` + `%dopar%` do pacote **foreach**. Nesse exemplo, o pacote **doParallel** atuará como uma interface para o pacote **parallel** que é o verdadeiro responsável para efetuar a paralelização do loop.
+
+Uma das vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) está no fato dele ser distribuído em conjunto com a linguagem R. Mais precisamente, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) foi incluído, pela primeira vez, em 31 de Outubro de 2011, na versão 2.14.0 da linguagem R. Uma outra vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) é que ele necessita de menos configurações iniciais para a utilização dos seus funcionais em um procedimento de paralização **multicore** em um mesmo processador.
+
+A única desvantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) diz respeito aos usuários do sistema operacional (SO) Windows, em que alguns de seus funcionais não irão funcionar de forma paralela. Porém, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) dispõe de funcionais alternativos para a realização de computação paralela em Windows. A vantagem de utilizar-se um sistema **\*nix** é que os funcionais que funcionam em Windows também funcionarão em sistemas **\*nix**.
+
+Aqui trataremos apenas da paralelização **multicore** de memória compartilhada em um único processador, isto é, em um mesmo chip, utilizando a linguagem R. Para os exemplos, utilizaremos os típicos procedimentos de MC que são passíveis de execução em paralelo. 
+
+Processadores com múltiplos núcleos são muito comuns nos dias atuais. Também é comum estamos implementando nossas simulações em computadores pessoais que normalmente possue apenas um único processador com vários núcleos de processamento. A ideia é discutir como aproveitarmos todo o recurso computacional desses processadores e assim usufruirmos de um código com maior performance, uma vez que temos esses recursos a nossa disposição. Abaixo encontra-se uma representação típica de um processador com vários núcleos de processamento, mais precisamente, 4 (cores) destacados em azul e 8 (oito) threads destacados em vermelho.
+
+```{r echo = FALSE, out.width = '50%', fig.align = "center", fig.cap = "Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete."}
+knitr::include_graphics("images/processador_threads.png")
+```
+
+Abaixo encontram-se listados alguns conceitos comumente utilizados em computação paralela. Entender essas nomenclaturas ajudará bastante a compreensão de textos em computação paralela.
+
+   + **Nó**: um único computador que consiste basicamente de uma placa-mãe com uma memória e um processador;
+   
+   + **Processador**/**soquete**: a unidade física que contém um ou mais núcleos que fazem cálculos;
+   
+   + **Core**/**núcleo**: a menor unidade de computação do processador. Cada core é capaz de executar um único programa/tarefa;
+   
+   + **Thread** (hardware): também conhecido como core lógico, as threads, do ponto de vista de hardware, são unidades de computação dentro dos cores que poderá permitir que um core faça duas ou mais tarefas ao mesmo tempo. 
+   
+   + **Trabalhador**/**worker**: um processo independente que conduz o cálculo e fornece os resultados para o processo **mestre**/**master**. Alguns texto referem-se aos trabalhadores como threads (software), em que **thread mestre**/**thread master** é o processo mestre e as bifurcações geridas por esse processo principal em outros processos são chamados de **threads escravas**/**slave threads**.
+
+**Importante**:
+
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+Com o pacote **parallel** é possível também fazer uso de computação paralela utilizando [**Message Passing Interface - MPI**](https://pt.wikipedia.org/wiki/Message_Passing_Interface) (um padrão de dados em computação paralela), quando temos a nossa disposição um cluster configurado com várias máquina (vários nós), cada um com vários processadores com múltiplos núcleos de processamento.
+
+**Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.** 
+</div>
+```
+
+### Speedup
+
+Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $N$ threads. Ou seja, se $S$ é o **speedup**, então
+
+$$S = \frac{T(1)}{T(n)},$$
+em que $T(1)$ é o tempo serial e $T(n)$ é o tempo em paralelo ao considerar $N$ cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o **speedup**, maior será o ganho computacional ao se paralelizar um código.
+
+**Lei de Amdahl**
+
+Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma "parede assintótica", em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica **poderá** seguir a **Lei de Amdahl**, definida por [**Gene Myron Amdahl**](https://en.wikipedia.org/wiki/Gene_Amdahl), em uma conferência, em 1967. A lei diz que:
+
+$$T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],$$
+em que $T(n)$ é o tempo que um algoritmo leva para ser executado de forma paralela utilizando $n$ núcleos e $s$ é a proporção do código que deve ser executado de forma serial, sendo $1 - s$ a proporção de código executado de forma paralela.
+
+Sendo assim, o **speedup** teórico é dado por:
+
+$$S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$
+Perceba que, 
+
+$$\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},$$
+é o **speedup** máximo alcançado, segundo essa lei.
+
+
+```{r, echo = FALSE, fig.align="center", fig.cap="Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo."}
+amdahls_law <- function(p = 0, n = 1){
+  s = 1 - p
+  1 / (s + 1/n * (1 - s))
+} 
+
+x <- 1L:20L
+plot.new()
+plot.window(xlim = c(1, 20), ylim = c(0, 25))
+axis(1, seq(1, 20), cex.axis = 0.8)
+axis(2)
+title(xlab = "Número de Núcleos", ylab = "Speedup")
+
+lines(1L:20L, amdahls_law(p = 1, n = 1L:20L), lwd = 2, pch = 8, type = "b")
+lines(1L:20L, amdahls_law(p = 0.99, n = 1L:20L), lwd = 2, pch = 18, type = "b")
+lines(1L:20L, amdahls_law(p = 0.95, n = 1L:20L), lwd = 2, pch = 17, type = "b")
+lines(1L:20L, amdahls_law(p = 0.85, n = 1L:20L), lwd = 2 , pch = 16, type = "b")
+lines(1L:20L, amdahls_law(p = 0, n = 1L:20L), lwd = 2 , pch = 15, type = "b")
+legend("topleft", legend = c(paste("1.00"), paste("0.99"), paste("0.95"), 
+       paste("0.85"), paste("0.00")), lty = 1, pch = c(8, 18, 17, 16, 15),
+       title = "Proporção de código em paralelo", bty = "n")
+```
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos.
+
+O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o **speedup**. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.
+</div>
+```
+
+
+### Pacote parallel
+
+O pacote **parallel** possui diversas funções úteis. Você poderá encontrar um tutorial do **parallel** clicando [**aqui**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). O pacote **parallel** possui diversas funções úteis, em que um vetor completo com o nome das funções pode ser obtido fazendo:
+
+```{r}
+library(parallel)
+ls("package:parallel")
+```
+
+As funções que serão destacadas aqui e que nos ajudaram a paralelizar um procedimento de MC são as funções `mclapply()`, `mcmapply()`, `mcMap()` e `detectCores()`. Perceba que algumas funções iniciam-se com **mc**, o que faz alusão à expressão **multicore** (múltiplos núcleos). Dessa forma, `mclapply()` equivale ao funcional `lapply()`, porém trabalhando de forma paralela, `mcmapply()` é análogo paralelo do funcional `mapply()` e `mcMap()` é o analogo paralelo do funcional `Map()`.
+
+As funções `mclapply()` e `mcmapply()` trabalham de forma **multicore**, ou seja, sobre um único processador com vários núcleos físicos e lógicos. Isso é feito utilizando o conceito de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), sendo este um conceito de sistemas operacionais [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que está disponível em todas as plataformas R, exceto em Windows. O sistema [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) cria um novo processo de R tomando uma cópia completa do processo mestre, incluindo o espaço de trabalho e o estado de fluxo de números aleatórios. Porém, em um SO razoável, as cópias compartilham páginas de memória com o processo mestre até o momento em que o que é comum entre entre os processos seja modificado, permitindo assim que este procedimento de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) seja eficiente.
+
+**Exemplo**: Comparando a execução serial e paralela da função `intvarmc()`. Como é possível observar, optou-se em paralelizar a função `intmc()` que é utilizado pela função `intvarmc()` para o cálculo das integrais aproximadas por um procedimento de MC. É possível observar que paralelizar a execução da função `intvarmc()` contribuiu significativamente na melhoria da peformance da função `intvarmc()`. Observe as saídas dos tempos de execução das funções `intvarmc()` (função com execução serial) e `intvarmc_parallel()` (cópia paralelizada da função `intvarmc()`):
+
+**Código Serial**:
+
+```{r}
+# Código Serial -----------------------------------------------------------
+intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+  
+  i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...)
+  
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+  
+  list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat)
+}
+
+set.seed(0L)
+time_serial <- system.time(result_serial <- 
+                             intvarmc(N = 5e3L, fun = fdp_weibull, 
+                                      lower = 0, upper = 10,
+                                      alpha = 1.5, beta = 1.5))
+result_serial$i_hat
+```
+
+**Código Paralelizado**:
+
+```{r}
+# Código Paralelizado -----------------------------------------------------
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+  
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ...,
+                                     mc.cores =  parallel::detectCores()))
+  
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+  
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
+
+set.seed(0L)
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10, 
+                                                 alpha = 1.5, beta = 1.5))
+result_parallel$i_hat
+```
+
+**Importante**:
+
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) que uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO.
+
+Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf), a custo de **um pouco mais** de passos, já que não há suporte à [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). Como função `mclapply()` e funções derivadas fazem uso de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), deveremos considerar funções que não fazem uso de  [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)).
+</div>
+```
+
+**Exemplo**: Implementação da função `intvarmc_parallel()` para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função `mclapply()` pela função `parLapply()` que também está disponível no pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). 
+
+Assim como o [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), o **PSOCK** é também uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O **PSOCK** faz algumas execuções do comando `Rscript`, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo **multicore**, em Windows, há a necessidade da criação de um cluster do tipo **PSOCK**.
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+É sempre uma boa prática desligar as theads chamando a função `stopCluster()` ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências.
+</div>
+```
+
+```{r, eval = FALSE}
+# No Windows --------------------------------------------------------------
+# Atribuindo a quantidade de núcleos disponíveis.
+cores <- getOption("mc.cores", parallel::detectCores())
+
+# Criando um cluster do tipo PSOCK.
+cl <- makeCluster(cores, type = "PSOCK")
+
+# Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas
+# em cada núcleo.
+clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment())
+
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+  
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+  
+  i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...))
+ 
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+  
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
+
+set.seed(0L)
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10, 
+                                                 alpha = 1.5, beta = 1.5))
+stopCluster(cl)
+result_parallel$i_hat
+```
+
+Tanto no exemplo de paralização em SO **\*nix** utilizando [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) quanto em Windows utilizando um cluster **PSOCK**, a função `intvarmc_parallel()` mostrou-se mais eficiente do sua implementação serial. Porém, nos deparamos com o problema de reprodutibilidade. Perceba que fazer `set.seed(0L)` antes da execução da função `intvarmc_parallel()` não é suficiente para garantir os mesmos resultados. Como é de responsabilidade do SO distribuir os processos entre as threads (hardware) disponíveis e o gerador de números pseudo-aleatórios toma estados distintos a depender da thread (hardware) ao qual um trabalhador foi alocado, sequências distintas muito provavelmente serão observadas entre execuções de uma função paralelizada.
+
+O pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) contém uma implementação das ideias de L'Ecuyer et al. (2002), cujo o artigo é livre e poderá ser acessado com o link abaixo:
+
+L'Ecuyer  P,  Simard  R,  Chen  EJ,  Kelton  WD  (2002). **An  object-oriented  random-numberpackage with many long streams and substreams**. *Operations Research*, 50, 1073--5. URL [**link**](http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf).
+
+Assim, em R, é possível fazer uso desse gerador que recebe o nome **L'Ecuyer-CMRG**. Isso poderá ser feito passando a string `"L'Ecuyer-CMRG"`, alem da semente, para o agumento `kind` da função `set.seed()` ou alterando o gerador utilizando a função `"RNGkind()"` e posteriormente utilizando a função `set.seed()` para fixar uma semente. As duas formas estão apresentadas abaixo:
+
+```{r, eval = FALSE}
+# Forma 1:
+set.seed(seed = 0L, kind = "L'Ecuyer-CMRG")
+
+# Forma 2:
+RNGkind(kind = "L'Ecuyer-CMRG")
+set.seed(0L)
+```
+
+**Exemplo**: Reproduções da função `intvarmc_parallel()` usando os sistemas [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) e **PSOCK**, repectivamente. Trata-se de um exemplo que poderá ser reproduzível, uma vez que foi utilizado o gerador **L'Ecuyer-CMRG** com semente fixa.
+
+**Paralelização usando FORK**:
+
+```{r, dependson="time_serial"}
+# Código Paralelizado -----------------------------------------------------
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+  
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+  
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ...,
+                                     mc.cores =  parallel::detectCores()))
+  
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+  
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
+
+# Fixando uma semente para um gerador que poderá
+# trabalhar sobre processos paralelizados.
+set.seed(0L, kin = "L'Ecuyer-CMRG")
+time_parallel <- system.time(result_parallel <- 
+                               intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10, 
+                                                 alpha = 1.5, beta = 1.5))
+# Uma aproximação para integral de uma função
+# utilizando um procedimento de MC:
+result_parallel$i_hat
+
+# Speedup:
+time_serial[3]/time_parallel[3]
+```
+
+**Paralelização usando PSOCK**:
+
+```{r, eval = FALSE}
+# No Windows --------------------------------------------------------------
+# Atribuindo a quantidade de núcleos disponíveis.
+cores <- getOption("mc.cores", parallel::detectCores())
+
+# Criando um cluster do tipo PSOCK.
+cl <- makeCluster(cores, type = "PSOCK")
+
+# Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas
+# em cada núcleo.
+clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment())
+
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+  
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+  
+  i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...))
+ 
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+  
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
+
+# Fixando uma semente para um gerador que poderá
+# trabalhar sobre processos paralelizados.
+set.seed(0L, kin = "L'Ecuyer-CMRG")
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10, 
+                                                 alpha = 1.5, beta = 1.5))
+stopCluster(cl)
+
+# Uma aproximação para integral de uma função
+# utilizando um procedimento de MC:
+result_parallel$i_hat
+
+# Speedup:
+time_serial[3]/time_parallel[3]
+```
 
 ## Exercício {-}
 
-1 - Enuncie um procedimento de Monte Carlo para o cálculo de uma integral de uma função contínua em um intervalo $[a, b]$. Depois, escreva um algoritmo para o procedimento enunciado. 
+1 - Explique o que é um procedimento de Monte Carlo (MC)?
 
-2 - Seja $\hat{I}$ o estimador de $I = \int_a^b f(x) dx$, em que $f$ é uma função contínua no intervalo $[a, b]$, em que
+2 - Enuncie um procedimento de MC para o cálculo de uma integral de uma função contínua em um intervalo $[a, b]$. Depois, escreva um algoritmo para o procedimento enunciado. 
+
+3 - Seja $\hat{I}$ o estimador de $I = \int_a^b f(x) dx$, em que $f$ é uma função contínua no intervalo $[a, b]$, em que
 
 $$\hat{I} = (b-a) \frac{\sum_{i=1}^n f(x_i)}{n},$$
-cuja amostra é obtida pelo procedimento de Monte Carlo enunciado no exercício anterior. Mostre que $\hat{I}$ é um estimador não-viesado e consistente para $I$.
+cuja amostra é obtida pelo procedimento de MC enunciado no exercício anterior. Mostre que $\hat{I}$ é um estimador não-viesado e consistente para $I$.
 
-3 - Implemente a função `intmc()` que calcula a integral de uma função contínua qualquer definida em um intervalo $[a, b]$. **Dica**: Utilize o operador dot-dot-dot (operador varargs) para que a função `intmc()` possa receber argumentos da função que será integrada por um procedimento de Monte Carlo.
+4 - Implemente a função `intmc()` que calcula a integral de uma função contínua qualquer definida em um intervalo $[a, b]$. **Dica**: Utilize o operador dot-dot-dot (operador varargs) para que a função `intmc()` possa receber argumentos da função que será integrada por um procedimento de MC.
 
-4 - Seja $X_1, \ldots, X_n$ uma amostra aleatória de v.a.'s tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Construa um procedimento de Monte Carlo para avaliar os estimadores $\hat{\sigma}^2$ e $S^2$ de $\sigma^2$, em que
+5 - Seja $X_1, \ldots, X_n$ uma amostra aleatória de v.a.'s tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Construa um procedimento de MC para avaliar os estimadores $\hat{\sigma}^2$ e $S^2$ de $\sigma^2$, em que
 
 \begin{eqnarray}
 \hat{\sigma}^2 &=& \frac{1}{n}\sum_{i=1}^n (X_i - \overline{X})^2\\
@@ -993,18 +1309,32 @@ cuja amostra é obtida pelo procedimento de Monte Carlo enunciado no exercício 
 S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 \end{eqnarray}
 
-**Dica**: Para comparar, utilize uma aproximação do Erro Quadrático Medio (EQM) obtida por um procedimento de Monte Carlo. Lembre-se, se $\hat{\theta}$ é um estimador para $\theta$, então o $\mathrm{EQM}(\hat{\theta}) = \mathrm{E}[(\hat{\theta} - \theta)^2]$.
+**Dica**: Para comparar, utilize uma aproximação do Erro Quadrático Medio (EQM) obtida por um procedimento de MC. Lembre-se, se $\hat{\theta}$ é um estimador para $\theta$, então o $\mathrm{EQM}(\hat{\theta}) = \mathrm{E}[(\hat{\theta} - \theta)^2]$.
 
-5 - Um dado experimento aleatório consistem em lançar dois dados não viesados (6 lados em cada dado) observar a soma obtida. Por meio de um procedimento de Monte Carlo, obtenha a probabilidade aproximada da soma ser par. Simule para $N = 10, 100, 1000, 10000$ e $100000$, em que $N$ é o número de réplicas de Monte Carlo. O que você observa? Explique.
+6 - Um dado experimento aleatório consiste em lançar dois dados não viesados (6 lados em cada dado) e observar a soma obtida. Por meio de um procedimento de MC, obtenha a probabilidade aproximada da soma ser par. Simule para $N = 10, 100, 1000, 10000$ e $100000$, em que $N$ é o número de réplicas de MC. O que você observa? Explique.
 
-6 - Walter está jogando um jogo com dois dados de 6 lados equiprováveis. O jogo consiste em lançar ambos os dados e caso a soma dos dados seja divisível por 3, ele ganhará, percendo em caso contrário. Realize um procedimento de Monte Carlo para avaliar o jogo e responda a pergunta: Em média o jogo é favorável ao jogador?
+7 - Walter está jogando um jogo com dois dados de 6 lados equiprováveis. O jogo consiste em lançar ambos os dados e caso a soma dos dados seja divisível por 3, ele ganhará, percendo em caso contrário. Realize um procedimento de MC para avaliar o jogo e responda a pergunta: Em média o jogo é favorável ao jogador?
 
-7 - Suponha que tenhamos uma urna com bolas de mesmo tamanho  enumeradas de 1 à 100. Considere o experimento aleatório de retirar uma bola da urna e observar o seu número até obtermos a bola com número desejado. Nesse experimento, será considerado reposição, isto é, caso não tenha sido observado a numeração desejada, a bola será devolvida à urna. Implemente um procedimento de Monte Carlo considerando 10 mil repetições desse experimento e obtenha a média das retiradas necessárias para obter-se o número desejado. Além disso, retorne uma aproximação da probabilidade de se obter o número desejado. **Dica**: considere o número 77 como o número desejado. 
+8 - Suponha que tenhamos uma urna com bolas de mesmo tamanho  enumeradas de 1 à 100. Considere o experimento aleatório de retirar uma bola da urna e observar o seu número até obtermos a bola com número desejado. Nesse experimento, será considerado reposição, isto é, caso não tenha sido observado a numeração desejada, a bola será devolvida à urna. Implemente um procedimento de MC considerando 10 mil repetições desse experimento e obtenha a média das retiradas necessárias para obter-se o número desejado. Além disso, retorne uma aproximação da probabilidade de se obter o número desejado. **Dica**: considere o número 77 como o número desejado. 
 
-8 -  Um dono de cassino estuda disponibilizar um novo jogo e solicita uma consultoria estatística para saber se o jogo será viável para o cassino, isto é, se o valor esperado em dólares do lucro obtido será positivo, em média. Realize uma simulação de Monte Carlo considerando 100 mil jogos e obtenha o valor médio de lançamentos de um jogador bem como a probabilidade (aproximada) de um jogador jogar apenas uma única partida. Além disso, responda: Se um jogador paga $\$$ 10 dólares para jogar e lucra $\$$ 1,50 dólares por cada jogada, o jogo é rentável para o dono do cassino?
+9 -  Um dono de cassino estuda disponibilizar um novo jogo e solicita uma consultoria estatística para saber se o jogo será viável para o cassino, isto é, se o valor esperado em dólares do lucro obtido será positivo, em média. Realize uma simulação de MC considerando 100 mil jogos e obtenha o valor médio de lançamentos de um jogador bem como a probabilidade (aproximada) de um jogador jogar apenas uma única partida. Além disso, responda: Se um jogador paga $\$$ 10 dólares para jogar e lucra $\$$ 1,50 dólares por cada jogada, o jogo é rentável para o dono do cassino?
 
 **Regras do Jogo**:
 
    + Dois dados são lançados e caso a soma for 5, 6, 7, 8 ou 9 o jogo termina imediatamente;
    
-   + Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou           12. 
+   + Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou 12. 
+
+10 - Explique, com suas palavras, o que é paralelização **multicore**. Descreva brevemente os conceitos de **nó**, **thread** (hardware), **processo master** e **trabalhadores**.
+
+11 - Descreva brevemente o sistema **FORK** e **PSOCK**. Apresente um exemplo de um código paralelizado usando o sistema **FORK** e **PSOCK**, respectivamente.
+
+12 - Defina **speedup** e explique o significado.
+
+13 - Ao paralelizar um algoritmo, teremos garantia da melhoria do desempenho computacional? Explique.
+
+14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de **speedup** definido por essa lei?
+
+15 - Implemente utilizando paralelismo um procedimento de MC para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado.
+
+16 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC.
