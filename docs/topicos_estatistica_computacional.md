@@ -60,7 +60,7 @@ Em um estudo de simulação, poderemos ter interesse em gerar observações equi
 $$P(X = j) = \frac{1}{n}, \,\, j = 1, 2, \ldots, n.$$
 Porém, note que para esse caso, não precisaremos fazer muitas comparações, uma vez que sabemos que $x = j$ quando $u \leq \frac{j-1}{n}$. Sendo assim, tomamos $x = j$ quando $nu \leq j - 1$. 
 
-Note que fazer $x = j$ quando $nu \leq j - 1$ equivale a fazer $x = \mathrm{Int}(nu) + 1$, em que $\mathrm{Int}(\cdot)$ aqui irá retornar o maior inteiro de um número. 
+Note que fazer $x = j$ quando $nu \leq j - 1$ equivale a fazer $x = \mathrm{Int}(nu) + 1$, em que $\mathrm{Int}(\cdot)$ aqui irá retornar o menor inteiro de um número. 
 
 **Exemplo**: Seja $X \sim Bernoulli(p)$, em que $P(X = 0) = 1 - p$ e $P(X = 1) = p$, com $0\leq p \leq 1$. A função `rbernoulli(n = 1L, p)` retorna possíveis observações de $X$.
 
@@ -1128,7 +1128,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.575     0.275     0.831
+##     1.576     0.325     1.251
 ```
 
 ```r
@@ -1136,7 +1136,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9992813
+## [1] 1.000258
 ```
 
 **Importante**:
@@ -1253,7 +1253,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.359577
+## 1.936508
 ```
 
 **Paralelização usando PSOCK**:
@@ -1347,12 +1347,14 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 
 14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de **speedup** definido por essa lei?
 
-15 - Implemente utilizando paralelismo um procedimento de MC para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado.
+15 - Implemente um procedimento de MC, utilizando paralelismo para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado.
 
-16 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC.
+17 - Implemente uma função que realiza uma simulação de MC para avaliar o procedimento de MC para aproximação da constante $\pi$. Obtenha o **speedup** e discuta o resultado. Considere 100 mil iterações em ambos os procedimentos.
 
-<!-- # Exercício 6 -->
-<!-- mc_ex6 <- function(n = 10L){ -->
+18 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC. Considere 100 mil iterações de MC.
+
+<!-- # Exercício 16: (paralelizando o exercício) -->
+<!-- mc_ex6 <- function(n = 1e3L){ -->
 <!--   dado1 <- ceiling(6L * runif(n)) + 1L -->
 <!--   dado2 <- ceiling(6L * runif(n)) + 1L -->
 
