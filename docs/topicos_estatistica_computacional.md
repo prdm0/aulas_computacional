@@ -1128,7 +1128,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.559     0.377     0.983
+##     1.575     0.275     0.831
 ```
 
 ```r
@@ -1136,7 +1136,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9997372
+## [1] 0.9992813
 ```
 
 **Importante**:
@@ -1253,7 +1253,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 1.814407
+## 2.359577
 ```
 
 **Paralelização usando PSOCK**:
@@ -1349,4 +1349,20 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 
 15 - Implemente utilizando paralelismo um procedimento de MC para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado.
 
-16 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos de MC paralelizados.
+16 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC.
+
+<!-- # Exercício 6 -->
+<!-- mc_ex6 <- function(n = 10L){ -->
+<!--   dado1 <- ceiling(6L * runif(n)) + 1L -->
+<!--   dado2 <- ceiling(6L * runif(n)) + 1L -->
+
+<!--   teste <- function(x, y) ifelse((x + y) %% 2 == 0L , TRUE, FALSE) -->
+
+<!--   sum(parallel::mcmapply(FUN = teste, x = dado1, y = dado2, -->
+<!--                          mc.cores = parallel::detectCores()))/n -->
+
+<!--   #sum(purrr::map2_dbl(.f = teste,  .x = dado1, .y = dado2))/n -->
+<!-- } -->
+
+<!-- system.time(result <- mc_ex6(n = 3e6)) -->
+<!-- result -->
