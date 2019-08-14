@@ -1128,7 +1128,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.576     0.325     1.251
+##     0.537     0.132     0.757
 ```
 
 ```r
@@ -1136,7 +1136,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000258
+## [1] 0.9994606
 ```
 
 **Importante**:
@@ -1253,7 +1253,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 1.936508
+## 2.192797
 ```
 
 **Paralelização usando PSOCK**:
@@ -1366,5 +1366,5 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--   #sum(purrr::map2_dbl(.f = teste,  .x = dado1, .y = dado2))/n -->
 <!-- } -->
 
-<!-- system.time(result <- mc_ex6(n = 3e6)) -->
+<!-- system.time(result <- mc_ex6(n = 1e6)) -->
 <!-- result -->

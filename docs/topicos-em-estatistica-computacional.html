@@ -1117,9 +1117,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="topicos-em-estatistica-computacional.html#cb27-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>, </span>
 <span id="cb27-19"><a href="topicos-em-estatistica-computacional.html#cb27-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.576     0.325     1.251</code></pre>
+##     0.537     0.132     0.757</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="topicos-em-estatistica-computacional.html#cb29-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000258</code></pre>
+<pre><code>## [1] 0.9994606</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1210,7 +1210,7 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="topicos-em-estatistica-computacional.html#cb35-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb35-2"><a href="topicos-em-estatistica-computacional.html#cb35-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 1.936508</code></pre>
+## 2.192797</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="topicos-em-estatistica-computacional.html#cb37-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb37-2"><a href="topicos-em-estatistica-computacional.html#cb37-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1293,7 +1293,7 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--                          mc.cores = parallel::detectCores()))/n -->
 <!--   #sum(purrr::map2_dbl(.f = teste,  .x = dado1, .y = dado2))/n -->
 <!-- } -->
-<!-- system.time(result <- mc_ex6(n = 3e6)) -->
+<!-- system.time(result <- mc_ex6(n = 1e6)) -->
 <!-- result -->
 
 </div>
