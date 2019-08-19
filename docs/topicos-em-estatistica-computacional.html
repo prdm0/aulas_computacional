@@ -198,6 +198,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#metodos-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.2</b> Métodos de Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.3" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#integracao-por-monte-carlo"><i class="fa fa-check"></i><b>6.3.3</b> Integração por Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.4" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#aproximando-o-valor-de-pi"><i class="fa fa-check"></i><b>6.3.4</b> Aproximando o valor de <span class="math inline">\(\pi\)</span></a></li>
+<li class="chapter" data-level="6.3.5" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#paralelizando-um-procedimento-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.5</b> Paralelizando um procedimento de Monte Carlo</a></li>
+<li class="chapter" data-level="6.3.6" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#speedup"><i class="fa fa-check"></i><b>6.3.6</b> Speedup</a></li>
+<li class="chapter" data-level="6.3.7" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#pacote-parallel"><i class="fa fa-check"></i><b>6.3.7</b> Pacote parallel</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-3"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
@@ -988,222 +991,267 @@ Figura 6.9: Resultado do uso da função insideplot() nos pontos (0.42, 0.21), (
 <span id="cb303-17"><a href="topicos-em-estatistica-computacional.html#cb303-17"></a><span class="kw">mcpi</span>()</span></code></pre></div>
 <p><img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-37-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 3.148</code></pre>
-<!-- ### Paralelizando um procedimento de Monte Carlo -->
-<!-- A classe de procedimentos de MC contemplam metodologias típias que podem ser paralelizadas, isto é, por se tratarem de procedimentos iterativos, cada iteração poderá ser realizada em paralelo. Porém, é importante deixar claro que nem todo o procedimento iterativo poderá ser paralelizado. Essa é uma restrição do ponto de vista matemático e não do ponto de vista de computação. Isso deve-se ao fato de que nem todos procedimentos iterativos são matematicamente independentes, isto é, nesses procedimentos, para realizarmos a iteração $t + 1$ necessariamente devemos esperar pelos cálculos realizados na $t$-ésima iteração.  -->
-<!-- Tipicamente, os procedimentos de MC são matematicamente independentes. Embora a construção de tais procedimentos que produzem amostras com as propriedades desejadas geralmente não seja difícil, a tarefa de garantir a convergência a uma taxa compatível com os recursos computacionais atuais continua sendo um grande desafio.  -->
-<!-- Nos dias atuais, é comum observarmos códigos passíveis de paralização sem fazer o devido aproveitamento de todos os recursos computacionais disponíveis em um dado computador. Em dias atuais, é comum processadores e GPUS (Graphics Processing Unit) com vários núcleos de processamento. -->
-<!-- A linguagem R disponibiliza diversas bibliotecas para se trabalhar com computação paralela. Ente alguns pacotes importantes que viablizam o uso de computação paralela em R destaco o [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) e o  [**snow**](https://cran.r-project.org/web/packages/snow) ("**S**imple **N**etwork of **W**orkstations). Tempos atrás, havia também o pacote [**multicore**](https://cran.r-project.org/web/packages/multicore) que foi removido do CRAN, sendo substituído pelo pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).  -->
-<!-- Diversas funções do pacote **parallel** são derivadas do pacote **snow** e do antigo pacote **multicore**. O pacote **parallel** reúne as melhores características desses pacotes, com algumas modificações e características próprias. Além desses pacote, há diversas outas bibliotecas em R disponíveis para implementação de códigos paralelizados. Porém, a maioria dessas bibliotecas utilizam-se do **parallel** e **snow** como backend para suas implementações. Por exemplo, **foreach** + **doParallel** normalmente são utilizados em conjunto para a criação de loops com execução em paralelo, em que utiliza-se das funções `foreach()` + `%dopar%` do pacote **foreach**. Nesse exemplo, o pacote **doParallel** atuará como uma interface para o pacote **parallel** que é o verdadeiro responsável para efetuar a paralelização do loop. -->
-<!-- Uma das vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) está no fato dele ser distribuído em conjunto com a linguagem R. Mais precisamente, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) foi incluído, pela primeira vez, em 31 de Outubro de 2011, na versão 2.14.0 da linguagem R. Uma outra vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) é que ele necessita de menos configurações iniciais para a utilização dos seus funcionais em um procedimento de paralização **multicore** em um mesmo processador. -->
-<!-- A única desvantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) diz respeito aos usuários do sistema operacional (SO) Windows, em que alguns de seus funcionais não irão funcionar de forma paralela. Porém, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) dispõe de funcionais alternativos para a realização de computação paralela em Windows. A vantagem de utilizar-se um sistema **\*nix** é que os funcionais que funcionam em Windows também funcionarão em sistemas **\*nix**. -->
-<!-- Aqui trataremos apenas da paralelização **multicore** de memória compartilhada em um único processador, isto é, em um mesmo chip, utilizando a linguagem R. Para os exemplos, utilizaremos os típicos procedimentos de MC que são passíveis de execução em paralelo.  -->
-<!-- Processadores com múltiplos núcleos são muito comuns nos dias atuais. Também é comum estamos implementando nossas simulações em computadores pessoais que normalmente possue apenas um único processador com vários núcleos de processamento. A ideia é discutir como aproveitarmos todo o recurso computacional desses processadores e assim usufruirmos de um código com maior performance, uma vez que temos esses recursos a nossa disposição. Abaixo encontra-se uma representação típica de um processador com vários núcleos de processamento, mais precisamente, 4 (cores) destacados em azul e 8 (oito) threads destacados em vermelho. -->
-<!-- ```{r echo = FALSE, out.width = '50%', fig.align = "center", fig.cap = "Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete."} -->
-<!-- knitr::include_graphics("images/processador_threads.png") -->
-<!-- ``` -->
-<!-- Abaixo encontram-se listados alguns conceitos comumente utilizados em computação paralela. Entender essas nomenclaturas ajudará bastante a compreensão de textos em computação paralela. -->
-<!--    + **Nó**: um único computador que consiste basicamente de uma placa-mãe com uma memória e um processador; -->
-<!--    + **Processador**/**soquete**: a unidade física que contém um ou mais núcleos que fazem cálculos; -->
-<!--    + **Core**/**núcleo**: a menor unidade de computação do processador. Cada core é capaz de executar um único programa/tarefa; -->
-<!--    + **Thread** (hardware): também conhecido como core lógico, as threads, do ponto de vista de hardware, são unidades de computação dentro dos cores que poderá permitir que um core faça duas ou mais tarefas ao mesmo tempo.  -->
-<!--    + **Trabalhador**/**worker**: um processo independente que conduz o cálculo e fornece os resultados para o processo **mestre**/**master**. Alguns texto referem-se aos trabalhadores como threads (software), em que **thread mestre**/**thread master** é o processo mestre e as bifurcações geridas por esse processo principal em outros processos são chamados de **threads escravas**/**slave threads**. -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Com o pacote **parallel** é possível também fazer uso de computação paralela utilizando [**Message Passing Interface - MPI**](https://pt.wikipedia.org/wiki/Message_Passing_Interface) (um padrão de dados em computação paralela), quando temos a nossa disposição um cluster configurado com várias máquina (vários nós), cada um com vários processadores com múltiplos núcleos de processamento. -->
-<!-- **Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.**  -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- ### Speedup -->
-<!-- Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $N$ threads. Ou seja, se $S$ é o **speedup**, então -->
-<!-- $$S = \frac{T(1)}{T(n)},$$ -->
-<!-- em que $T(1)$ é o tempo serial e $T(n)$ é o tempo em paralelo ao considerar $N$ cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o **speedup**, maior será o ganho computacional ao se paralelizar um código. -->
-<!-- **Lei de Amdahl** -->
-<!-- Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma "parede assintótica", em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica **poderá** seguir a **Lei de Amdahl**, definida por [**Gene Myron Amdahl**](https://en.wikipedia.org/wiki/Gene_Amdahl), em uma conferência, em 1967. A lei diz que: -->
-<!-- $$T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],$$ -->
-<!-- em que $T(n)$ é o tempo que um algoritmo leva para ser executado de forma paralela utilizando $n$ núcleos e $s$ é a proporção do código que deve ser executado de forma serial, sendo $1 - s$ a proporção de código executado de forma paralela. -->
-<!-- Sendo assim, o **speedup** teórico é dado por: -->
-<!-- $$S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$ -->
-<!-- Perceba que,  -->
-<!-- $$\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},$$ -->
-<!-- é o **speedup** máximo alcançado, segundo essa lei. -->
-<!-- ```{r, echo = FALSE, fig.align="center", fig.cap="Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo."} -->
-<!-- amdahls_law <- function(p = 0, n = 1){ -->
-<!--   s = 1 - p -->
-<!--   1 / (s + 1/n * (1 - s)) -->
-<!-- }  -->
-<!-- x <- 1L:20L -->
-<!-- plot.new() -->
-<!-- plot.window(xlim = c(1, 20), ylim = c(0, 25)) -->
-<!-- axis(1, seq(1, 20), cex.axis = 0.8) -->
-<!-- axis(2) -->
-<!-- title(xlab = "Número de Núcleos", ylab = "Speedup") -->
-<!-- lines(1L:20L, amdahls_law(p = 1, n = 1L:20L), lwd = 2, pch = 8, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.99, n = 1L:20L), lwd = 2, pch = 18, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.95, n = 1L:20L), lwd = 2, pch = 17, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.85, n = 1L:20L), lwd = 2 , pch = 16, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0, n = 1L:20L), lwd = 2 , pch = 15, type = "b") -->
-<!-- legend("topleft", legend = c(paste("1.00"), paste("0.99"), paste("0.95"),  -->
-<!--        paste("0.85"), paste("0.00")), lty = 1, pch = c(8, 18, 17, 16, 15), -->
-<!--        title = "Proporção de código em paralelo", bty = "n") -->
-<!-- ``` -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos. -->
-<!-- O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o **speedup**. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- ### Pacote parallel -->
-<!-- O pacote **parallel** possui diversas funções úteis. Você poderá encontrar um tutorial do **parallel** clicando [**aqui**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). O pacote **parallel** possui diversas funções úteis, em que um vetor completo com o nome das funções pode ser obtido fazendo: -->
-<!-- ```{r} -->
-<!-- library(parallel) -->
-<!-- ls("package:parallel") -->
-<!-- ``` -->
-<!-- As funções que serão destacadas aqui e que nos ajudaram a paralelizar um procedimento de MC são as funções `mclapply()`, `mcmapply()`, `mcMap()` e `detectCores()`. Perceba que algumas funções iniciam-se com **mc**, o que faz alusão à expressão **multicore** (múltiplos núcleos). Dessa forma, `mclapply()` equivale ao funcional `lapply()`, porém trabalhando de forma paralela, `mcmapply()` é análogo paralelo do funcional `mapply()` e `mcMap()` é o analogo paralelo do funcional `Map()`. -->
-<!-- As funções `mclapply()` e `mcmapply()` trabalham de forma **multicore**, ou seja, sobre um único processador com vários núcleos físicos e lógicos. Isso é feito utilizando o conceito de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), sendo este um conceito de sistemas operacionais [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que está disponível em todas as plataformas R, exceto em Windows. O sistema [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) cria um novo processo de R tomando uma cópia completa do processo mestre, incluindo o espaço de trabalho e o estado de fluxo de números aleatórios. Porém, em um SO razoável, as cópias compartilham páginas de memória com o processo mestre até o momento em que o que é comum entre entre os processos seja modificado, permitindo assim que este procedimento de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) seja eficiente. -->
-<!-- **Exemplo**: Comparando a execução serial e paralela da função `intvarmc()`. Como é possível observar, optou-se em paralelizar a função `intmc()` que é utilizado pela função `intvarmc()` para o cálculo das integrais aproximadas por um procedimento de MC. É possível observar que paralelizar a execução da função `intvarmc()` contribuiu significativamente na melhoria da peformance da função `intvarmc()`. Observe as saídas dos tempos de execução das funções `intvarmc()` (função com execução serial) e `intvarmc_parallel()` (cópia paralelizada da função `intvarmc()`): -->
-<!-- **Código Serial**: -->
-<!-- ```{r} -->
-<!-- # Código Serial ----------------------------------------------------------- -->
-<!-- intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
-<!--   i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...) -->
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
-<!--   list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
-<!-- set.seed(0L) -->
-<!-- time_serial <- system.time(result_serial <-  -->
-<!--                              intvarmc(N = 5e3L, fun = fdp_weibull,  -->
-<!--                                       lower = 0, upper = 10, -->
-<!--                                       alpha = 1.5, beta = 1.5)) -->
-<!-- result_serial$i_hat -->
-<!-- ``` -->
-<!-- **Código Paralelizado**: -->
-<!-- ```{r} -->
-<!-- # Código Paralelizado ----------------------------------------------------- -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ..., -->
-<!--                                      mc.cores =  parallel::detectCores())) -->
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
-<!-- set.seed(0L) -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- result_parallel$i_hat -->
-<!-- ``` -->
-<!-- **Importante**: -->
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) que uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO. -->
-<!-- Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf), a custo de **um pouco mais** de passos, já que não há suporte à [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). Como função `mclapply()` e funções derivadas fazem uso de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), deveremos considerar funções que não fazem uso de  [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- **Exemplo**: Implementação da função `intvarmc_parallel()` para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função `mclapply()` pela função `parLapply()` que também está disponível no pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).  -->
-<!-- Assim como o [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), o **PSOCK** é também uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O **PSOCK** faz algumas execuções do comando `Rscript`, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo **multicore**, em Windows, há a necessidade da criação de um cluster do tipo **PSOCK**. -->
-<!-- **Nota**: -->
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- É sempre uma boa prática desligar as theads chamando a função `stopCluster()` ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências. -->
-<!-- </div> -->
-<!-- ``` -->
-<!-- ```{r, eval = FALSE} -->
-<!-- # No Windows -------------------------------------------------------------- -->
-<!-- # Atribuindo a quantidade de núcleos disponíveis. -->
-<!-- cores <- getOption("mc.cores", parallel::detectCores()) -->
-<!-- # Criando um cluster do tipo PSOCK. -->
-<!-- cl <- makeCluster(cores, type = "PSOCK") -->
-<!-- # Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas -->
-<!-- # em cada núcleo. -->
-<!-- clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment()) -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
-<!--   i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...)) -->
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
-<!-- set.seed(0L) -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- stopCluster(cl) -->
-<!-- result_parallel$i_hat -->
-<!-- ``` -->
-<!-- Tanto no exemplo de paralização em SO **\*nix** utilizando [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) quanto em Windows utilizando um cluster **PSOCK**, a função `intvarmc_parallel()` mostrou-se mais eficiente do sua implementação serial. Porém, nos deparamos com o problema de reprodutibilidade. Perceba que fazer `set.seed(0L)` antes da execução da função `intvarmc_parallel()` não é suficiente para garantir os mesmos resultados. Como é de responsabilidade do SO distribuir os processos entre as threads (hardware) disponíveis e o gerador de números pseudo-aleatórios toma estados distintos a depender da thread (hardware) ao qual um trabalhador foi alocado, sequências distintas muito provavelmente serão observadas entre execuções de uma função paralelizada. -->
-<!-- O pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) contém uma implementação das ideias de L'Ecuyer et al. (2002), cujo o artigo é livre e poderá ser acessado com o link abaixo: -->
-<!-- L'Ecuyer  P,  Simard  R,  Chen  EJ,  Kelton  WD  (2002). **An  object-oriented  random-numberpackage with many long streams and substreams**. *Operations Research*, 50, 1073--5. URL [**link**](http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf). -->
-<!-- Assim, em R, é possível fazer uso desse gerador que recebe o nome **L'Ecuyer-CMRG**. Isso poderá ser feito passando a string `"L'Ecuyer-CMRG"`, alem da semente, para o agumento `kind` da função `set.seed()` ou alterando o gerador utilizando a função `"RNGkind()"` e posteriormente utilizando a função `set.seed()` para fixar uma semente. As duas formas estão apresentadas abaixo: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- # Forma 1: -->
-<!-- set.seed(seed = 0L, kind = "L'Ecuyer-CMRG") -->
-<!-- # Forma 2: -->
-<!-- RNGkind(kind = "L'Ecuyer-CMRG") -->
-<!-- set.seed(0L) -->
-<!-- ``` -->
-<!-- **Exemplo**: Reproduções da função `intvarmc_parallel()` usando os sistemas [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) e **PSOCK**, repectivamente. Trata-se de um exemplo que poderá ser reproduzível, uma vez que foi utilizado o gerador **L'Ecuyer-CMRG** com semente fixa. -->
-<!-- **Paralelização usando FORK**: -->
-<!-- ```{r, dependson="time_serial"} -->
-<!-- # Código Paralelizado ----------------------------------------------------- -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ..., -->
-<!--                                      mc.cores =  parallel::detectCores())) -->
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
-<!-- # Fixando uma semente para um gerador que poderá -->
-<!-- # trabalhar sobre processos paralelizados. -->
-<!-- set.seed(0L, kin = "L'Ecuyer-CMRG") -->
-<!-- time_parallel <- system.time(result_parallel <-  -->
-<!--                                intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- # Uma aproximação para integral de uma função -->
-<!-- # utilizando um procedimento de MC: -->
-<!-- result_parallel$i_hat -->
-<!-- # Speedup: -->
-<!-- time_serial[3]/time_parallel[3] -->
-<!-- ``` -->
-<!-- **Paralelização usando PSOCK**: -->
-<!-- ```{r, eval = FALSE} -->
-<!-- # No Windows -------------------------------------------------------------- -->
-<!-- # Atribuindo a quantidade de núcleos disponíveis. -->
-<!-- cores <- getOption("mc.cores", parallel::detectCores()) -->
-<!-- # Criando um cluster do tipo PSOCK. -->
-<!-- cl <- makeCluster(cores, type = "PSOCK") -->
-<!-- # Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas -->
-<!-- # em cada núcleo. -->
-<!-- clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment()) -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
-<!--   i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...)) -->
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
-<!-- # Fixando uma semente para um gerador que poderá -->
-<!-- # trabalhar sobre processos paralelizados. -->
-<!-- set.seed(0L, kin = "L'Ecuyer-CMRG") -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- stopCluster(cl) -->
-<!-- # Uma aproximação para integral de uma função -->
-<!-- # utilizando um procedimento de MC: -->
-<!-- result_parallel$i_hat -->
-<!-- # Speedup: -->
-<!-- time_serial[3]/time_parallel[3] -->
-<!-- ``` -->
+</div>
+<div id="paralelizando-um-procedimento-de-monte-carlo" class="section level3">
+<h3><span class="header-section-number">6.3.5</span> Paralelizando um procedimento de Monte Carlo</h3>
+<p>A classe de procedimentos de MC contemplam metodologias típias que podem ser paralelizadas, isto é, por se tratarem de procedimentos iterativos, cada iteração poderá ser realizada em paralelo. Porém, é importante deixar claro que nem todo o procedimento iterativo poderá ser paralelizado. Essa é uma restrição do ponto de vista matemático e não do ponto de vista de computação. Isso deve-se ao fato de que nem todos procedimentos iterativos são matematicamente independentes, isto é, nesses procedimentos, para realizarmos a iteração <span class="math inline">\(t + 1\)</span> necessariamente devemos esperar pelos cálculos realizados na <span class="math inline">\(t\)</span>-ésima iteração.</p>
+<p>Tipicamente, os procedimentos de MC são matematicamente independentes. Embora a construção de tais procedimentos que produzem amostras com as propriedades desejadas geralmente não seja difícil, a tarefa de garantir a convergência a uma taxa compatível com os recursos computacionais atuais continua sendo um grande desafio.</p>
+<p>Nos dias atuais, é comum observarmos códigos passíveis de paralização sem fazer o devido aproveitamento de todos os recursos computacionais disponíveis em um dado computador. Em dias atuais, é comum processadores e GPUS (Graphics Processing Unit) com vários núcleos de processamento.</p>
+<p>A linguagem R disponibiliza diversas bibliotecas para se trabalhar com computação paralela. Ente alguns pacotes importantes que viablizam o uso de computação paralela em R destaco o <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> e o <a href="https://cran.r-project.org/web/packages/snow"><strong>snow</strong></a> ("<strong>S</strong>imple <strong>N</strong>etwork of <strong>W</strong>orkstations). Tempos atrás, havia também o pacote <a href="https://cran.r-project.org/web/packages/multicore"><strong>multicore</strong></a> que foi removido do CRAN, sendo substituído pelo pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a>.</p>
+<p>Diversas funções do pacote <strong>parallel</strong> são derivadas do pacote <strong>snow</strong> e do antigo pacote <strong>multicore</strong>. O pacote <strong>parallel</strong> reúne as melhores características desses pacotes, com algumas modificações e características próprias. Além desses pacote, há diversas outas bibliotecas em R disponíveis para implementação de códigos paralelizados. Porém, a maioria dessas bibliotecas utilizam-se do <strong>parallel</strong> e <strong>snow</strong> como backend para suas implementações. Por exemplo, <strong>foreach</strong> + <strong>doParallel</strong> normalmente são utilizados em conjunto para a criação de loops com execução em paralelo, em que utiliza-se das funções <code>foreach()</code> + <code>%dopar%</code> do pacote <strong>foreach</strong>. Nesse exemplo, o pacote <strong>doParallel</strong> atuará como uma interface para o pacote <strong>parallel</strong> que é o verdadeiro responsável para efetuar a paralelização do loop.</p>
+<p>Uma das vantagem do pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> está no fato dele ser distribuído em conjunto com a linguagem R. Mais precisamente, o pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> foi incluído, pela primeira vez, em 31 de Outubro de 2011, na versão 2.14.0 da linguagem R. Uma outra vantagem do pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> é que ele necessita de menos configurações iniciais para a utilização dos seus funcionais em um procedimento de paralização <strong>multicore</strong> em um mesmo processador.</p>
+<p>A única desvantagem do pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> diz respeito aos usuários do sistema operacional (SO) Windows, em que alguns de seus funcionais não irão funcionar de forma paralela. Porém, o pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> dispõe de funcionais alternativos para a realização de computação paralela em Windows. A vantagem de utilizar-se um sistema <strong>*nix</strong> é que os funcionais que funcionam em Windows também funcionarão em sistemas <strong>*nix</strong>.</p>
+<p>Aqui trataremos apenas da paralelização <strong>multicore</strong> de memória compartilhada em um único processador, isto é, em um mesmo chip, utilizando a linguagem R. Para os exemplos, utilizaremos os típicos procedimentos de MC que são passíveis de execução em paralelo.</p>
+<p>Processadores com múltiplos núcleos são muito comuns nos dias atuais. Também é comum estamos implementando nossas simulações em computadores pessoais que normalmente possue apenas um único processador com vários núcleos de processamento. A ideia é discutir como aproveitarmos todo o recurso computacional desses processadores e assim usufruirmos de um código com maior performance, uma vez que temos esses recursos a nossa disposição. Abaixo encontra-se uma representação típica de um processador com vários núcleos de processamento, mais precisamente, 4 (cores) destacados em azul e 8 (oito) threads destacados em vermelho.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-38"></span>
+<img src="images/processador_threads.png" alt="Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete." width="50%" />
+<p class="caption">
+Figura 6.10: Representação de um processador <strong>multicore</strong> (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete.
+</p>
+</div>
+<p>Abaixo encontram-se listados alguns conceitos comumente utilizados em computação paralela. Entender essas nomenclaturas ajudará bastante a compreensão de textos em computação paralela.</p>
+<ul>
+<li><p><strong>Nó</strong>: um único computador que consiste basicamente de uma placa-mãe com uma memória e um processador;</p></li>
+<li><p><strong>Processador</strong>/<strong>soquete</strong>: a unidade física que contém um ou mais núcleos que fazem cálculos;</p></li>
+<li><p><strong>Core</strong>/<strong>núcleo</strong>: a menor unidade de computação do processador. Cada core é capaz de executar um único programa/tarefa;</p></li>
+<li><p><strong>Thread</strong> (hardware): também conhecido como core lógico, as threads, do ponto de vista de hardware, são unidades de computação dentro dos cores que poderá permitir que um core faça duas ou mais tarefas ao mesmo tempo.</p></li>
+<li><p><strong>Trabalhador</strong>/<strong>worker</strong>: um processo independente que conduz o cálculo e fornece os resultados para o processo <strong>mestre</strong>/<strong>master</strong>. Alguns texto referem-se aos trabalhadores como threads (software), em que <strong>thread mestre</strong>/<strong>thread master</strong> é o processo mestre e as bifurcações geridas por esse processo principal em outros processos são chamados de <strong>threads escravas</strong>/<strong>slave threads</strong>.</p></li>
+</ul>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Com o pacote <strong>parallel</strong> é possível também fazer uso de computação paralela utilizando <a href="https://pt.wikipedia.org/wiki/Message_Passing_Interface"><strong>Message Passing Interface - MPI</strong></a> (um padrão de dados em computação paralela), quando temos a nossa disposição um cluster configurado com várias máquina (vários nós), cada um com vários processadores com múltiplos núcleos de processamento.</p>
+<p><strong>Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.</strong></p>
+</div>
+</div>
+
+</div>
+<div id="speedup" class="section level3">
+<h3><span class="header-section-number">6.3.6</span> Speedup</h3>
+<p>Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida <strong>speedup</strong> que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em <span class="math inline">\(N\)</span> threads. Ou seja, se <span class="math inline">\(S\)</span> é o <strong>speedup</strong>, então</p>
+<p><span class="math display">\[S = \frac{T(1)}{T(n)},\]</span>
+em que <span class="math inline">\(T(1)\)</span> é o tempo serial e <span class="math inline">\(T(n)\)</span> é o tempo em paralelo ao considerar <span class="math inline">\(N\)</span> cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o <strong>speedup</strong>, maior será o ganho computacional ao se paralelizar um código.</p>
+<p><strong>Lei de Amdahl</strong></p>
+<p>Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma “parede assintótica”, em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica <strong>poderá</strong> seguir a <strong>Lei de Amdahl</strong>, definida por <a href="https://en.wikipedia.org/wiki/Gene_Amdahl"><strong>Gene Myron Amdahl</strong></a>, em uma conferência, em 1967. A lei diz que:</p>
+<p><span class="math display">\[T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],\]</span>
+em que <span class="math inline">\(T(n)\)</span> é o tempo que um algoritmo leva para ser executado de forma paralela utilizando <span class="math inline">\(n\)</span> núcleos e <span class="math inline">\(s\)</span> é a proporção do código que deve ser executado de forma serial, sendo <span class="math inline">\(1 - s\)</span> a proporção de código executado de forma paralela.</p>
+<p>Sendo assim, o <strong>speedup</strong> teórico é dado por:</p>
+<p><span class="math display">\[S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.\]</span>
+Perceba que,</p>
+<p><span class="math display">\[\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},\]</span>
+é o <strong>speedup</strong> máximo alcançado, segundo essa lei.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-40-1.png" alt="Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo." width="672" />
+<p class="caption">
+Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo.
+</p>
+</div>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos.</p>
+<p>O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o <strong>speedup</strong>. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.</p>
+</div>
+</div>
+
+</div>
+<div id="pacote-parallel" class="section level3">
+<h3><span class="header-section-number">6.3.7</span> Pacote parallel</h3>
+<p>O pacote <strong>parallel</strong> possui diversas funções úteis. Você poderá encontrar um tutorial do <strong>parallel</strong> clicando <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>aqui</strong></a>. O pacote <strong>parallel</strong> possui diversas funções úteis, em que um vetor completo com o nome das funções pode ser obtido fazendo:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="topicos-em-estatistica-computacional.html#cb305-1"></a><span class="kw">library</span>(parallel)</span>
+<span id="cb305-2"><a href="topicos-em-estatistica-computacional.html#cb305-2"></a><span class="kw">ls</span>(<span class="st">&quot;package:parallel&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;clusterApply&quot;        &quot;clusterApplyLB&quot;      &quot;clusterCall&quot;        
+##  [4] &quot;clusterEvalQ&quot;        &quot;clusterExport&quot;       &quot;clusterMap&quot;         
+##  [7] &quot;clusterSetRNGStream&quot; &quot;clusterSplit&quot;        &quot;detectCores&quot;        
+## [10] &quot;getDefaultCluster&quot;   &quot;makeCluster&quot;         &quot;makeForkCluster&quot;    
+## [13] &quot;makePSOCKcluster&quot;    &quot;mc.reset.stream&quot;     &quot;mcaffinity&quot;         
+## [16] &quot;mccollect&quot;           &quot;mclapply&quot;            &quot;mcMap&quot;              
+## [19] &quot;mcmapply&quot;            &quot;mcparallel&quot;          &quot;nextRNGStream&quot;      
+## [22] &quot;nextRNGSubStream&quot;    &quot;parApply&quot;            &quot;parCapply&quot;          
+## [25] &quot;parLapply&quot;           &quot;parLapplyLB&quot;         &quot;parRapply&quot;          
+## [28] &quot;parSapply&quot;           &quot;parSapplyLB&quot;         &quot;pvec&quot;               
+## [31] &quot;setDefaultCluster&quot;   &quot;splitIndices&quot;        &quot;stopCluster&quot;</code></pre>
+<p>As funções que serão destacadas aqui e que nos ajudaram a paralelizar um procedimento de MC são as funções <code>mclapply()</code>, <code>mcmapply()</code>, <code>mcMap()</code> e <code>detectCores()</code>. Perceba que algumas funções iniciam-se com <strong>mc</strong>, o que faz alusão à expressão <strong>multicore</strong> (múltiplos núcleos). Dessa forma, <code>mclapply()</code> equivale ao funcional <code>lapply()</code>, porém trabalhando de forma paralela, <code>mcmapply()</code> é análogo paralelo do funcional <code>mapply()</code> e <code>mcMap()</code> é o analogo paralelo do funcional <code>Map()</code>.</p>
+<p>As funções <code>mclapply()</code> e <code>mcmapply()</code> trabalham de forma <strong>multicore</strong>, ou seja, sobre um único processador com vários núcleos físicos e lógicos. Isso é feito utilizando o conceito de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>, sendo este um conceito de sistemas operacionais <a href="https://pt.wikipedia.org/wiki/POSIX"><strong>POSIX</strong></a> que está disponível em todas as plataformas R, exceto em Windows. O sistema <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> cria um novo processo de R tomando uma cópia completa do processo mestre, incluindo o espaço de trabalho e o estado de fluxo de números aleatórios. Porém, em um SO razoável, as cópias compartilham páginas de memória com o processo mestre até o momento em que o que é comum entre entre os processos seja modificado, permitindo assim que este procedimento de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> seja eficiente.</p>
+<p><strong>Exemplo</strong>: Comparando a execução serial e paralela da função <code>intvarmc()</code>. Como é possível observar, optou-se em paralelizar a função <code>intmc()</code> que é utilizado pela função <code>intvarmc()</code> para o cálculo das integrais aproximadas por um procedimento de MC. É possível observar que paralelizar a execução da função <code>intvarmc()</code> contribuiu significativamente na melhoria da peformance da função <code>intvarmc()</code>. Observe as saídas dos tempos de execução das funções <code>intvarmc()</code> (função com execução serial) e <code>intvarmc_parallel()</code> (cópia paralelizada da função <code>intvarmc()</code>):</p>
+<p><strong>Código Serial</strong>:</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="topicos-em-estatistica-computacional.html#cb307-1"></a><span class="co"># Código Serial -----------------------------------------------------------</span></span>
+<span id="cb307-2"><a href="topicos-em-estatistica-computacional.html#cb307-2"></a>intvarmc &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L, fun, <span class="dt">lower =</span> <span class="ot">NULL</span>, <span class="dt">upper =</span> <span class="ot">NULL</span>, ...){</span>
+<span id="cb307-3"><a href="topicos-em-estatistica-computacional.html#cb307-3"></a></span>
+<span id="cb307-4"><a href="topicos-em-estatistica-computacional.html#cb307-4"></a>  intmc_map &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">intmc</span>(N, fun, lower, upper, ...)</span>
+<span id="cb307-5"><a href="topicos-em-estatistica-computacional.html#cb307-5"></a></span>
+<span id="cb307-6"><a href="topicos-em-estatistica-computacional.html#cb307-6"></a>  i_hat &lt;-<span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dt">.x =</span> <span class="dv">1</span><span class="op">:</span>N, <span class="dt">.f =</span> intmc_map, ...)</span>
+<span id="cb307-7"><a href="topicos-em-estatistica-computacional.html#cb307-7"></a></span>
+<span id="cb307-8"><a href="topicos-em-estatistica-computacional.html#cb307-8"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb307-9"><a href="topicos-em-estatistica-computacional.html#cb307-9"></a></span>
+<span id="cb307-10"><a href="topicos-em-estatistica-computacional.html#cb307-10"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb307-11"><a href="topicos-em-estatistica-computacional.html#cb307-11"></a>}</span>
+<span id="cb307-12"><a href="topicos-em-estatistica-computacional.html#cb307-12"></a></span>
+<span id="cb307-13"><a href="topicos-em-estatistica-computacional.html#cb307-13"></a><span class="kw">set.seed</span>(0L)</span>
+<span id="cb307-14"><a href="topicos-em-estatistica-computacional.html#cb307-14"></a>time_serial &lt;-<span class="st"> </span><span class="kw">system.time</span>(result_serial &lt;-</span>
+<span id="cb307-15"><a href="topicos-em-estatistica-computacional.html#cb307-15"></a><span class="st">                             </span><span class="kw">intvarmc</span>(<span class="dt">N =</span> <span class="fl">5e3</span>L, <span class="dt">fun =</span> fdp_weibull,</span>
+<span id="cb307-16"><a href="topicos-em-estatistica-computacional.html#cb307-16"></a>                                      <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
+<span id="cb307-17"><a href="topicos-em-estatistica-computacional.html#cb307-17"></a>                                      <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span>
+<span id="cb307-18"><a href="topicos-em-estatistica-computacional.html#cb307-18"></a>result_serial<span class="op">$</span>i_hat</span></code></pre></div>
+<pre><code>## [1] 1.000779</code></pre>
+<p><strong>Código Paralelizado</strong>:</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="topicos-em-estatistica-computacional.html#cb309-1"></a><span class="co"># Código Paralelizado -----------------------------------------------------</span></span>
+<span id="cb309-2"><a href="topicos-em-estatistica-computacional.html#cb309-2"></a>intvarmc_parallel &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L, fun, <span class="dt">lower =</span> <span class="ot">NULL</span>, <span class="dt">upper =</span> <span class="ot">NULL</span>, ...){</span>
+<span id="cb309-3"><a href="topicos-em-estatistica-computacional.html#cb309-3"></a></span>
+<span id="cb309-4"><a href="topicos-em-estatistica-computacional.html#cb309-4"></a>  intmc_map &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">intmc</span>(N, fun, lower, upper, ...)</span>
+<span id="cb309-5"><a href="topicos-em-estatistica-computacional.html#cb309-5"></a></span>
+<span id="cb309-6"><a href="topicos-em-estatistica-computacional.html#cb309-6"></a>  <span class="co"># Reescrita da função intmc() para que seja possível utilizar</span></span>
+<span id="cb309-7"><a href="topicos-em-estatistica-computacional.html#cb309-7"></a>  <span class="co"># em um funcional baseado no funcional lapply().</span></span>
+<span id="cb309-8"><a href="topicos-em-estatistica-computacional.html#cb309-8"></a>  i_hat &lt;-<span class="st"> </span><span class="kw">unlist</span>(parallel<span class="op">::</span><span class="kw">mclapply</span>(<span class="dt">X =</span> 1L<span class="op">:</span>N, <span class="dt">FUN =</span> intmc_map, ...,</span>
+<span id="cb309-9"><a href="topicos-em-estatistica-computacional.html#cb309-9"></a>                                     <span class="dt">mc.cores =</span>  parallel<span class="op">::</span><span class="kw">detectCores</span>()))</span>
+<span id="cb309-10"><a href="topicos-em-estatistica-computacional.html#cb309-10"></a></span>
+<span id="cb309-11"><a href="topicos-em-estatistica-computacional.html#cb309-11"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb309-12"><a href="topicos-em-estatistica-computacional.html#cb309-12"></a></span>
+<span id="cb309-13"><a href="topicos-em-estatistica-computacional.html#cb309-13"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb309-14"><a href="topicos-em-estatistica-computacional.html#cb309-14"></a>}</span>
+<span id="cb309-15"><a href="topicos-em-estatistica-computacional.html#cb309-15"></a></span>
+<span id="cb309-16"><a href="topicos-em-estatistica-computacional.html#cb309-16"></a><span class="kw">set.seed</span>(0L)</span>
+<span id="cb309-17"><a href="topicos-em-estatistica-computacional.html#cb309-17"></a><span class="kw">system.time</span>(result_parallel &lt;-<span class="st"> </span><span class="kw">intvarmc_parallel</span>(<span class="dt">N =</span> <span class="fl">5e3</span>L, <span class="dt">fun =</span> fdp_weibull,</span>
+<span id="cb309-18"><a href="topicos-em-estatistica-computacional.html#cb309-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
+<span id="cb309-19"><a href="topicos-em-estatistica-computacional.html#cb309-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
+<pre><code>##   usuário   sistema decorrido 
+##     1.616     0.253     0.912</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="topicos-em-estatistica-computacional.html#cb311-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
+<pre><code>## [1] 0.9996718</code></pre>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas *<strong>nix</strong> e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> serem derivadas do pacote <strong>multicore</strong> e utilizarem <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> que uma chamada de sistema <a href="https://pt.wikipedia.org/wiki/POSIX"><strong>POSIX</strong></a> não compatível com o SO Windows. Essas funções, em que <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> é apenas uma delas, constroem uma interface entre um processo e o SO.</p>
+<p>Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a>, a custo de <strong>um pouco mais</strong> de passos, já que não há suporte à <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>. Como função <code>mclapply()</code> e funções derivadas fazem uso de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>, deveremos considerar funções que não fazem uso de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>.</p>
+</div>
+</div>
+
+<p><strong>Exemplo</strong>: Implementação da função <code>intvarmc_parallel()</code> para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função <code>mclapply()</code> pela função <code>parLapply()</code> que também está disponível no pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a>.</p>
+<p>Assim como o <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>, o <strong>PSOCK</strong> é também uma chamada de sistema <a href="https://pt.wikipedia.org/wiki/POSIX"><strong>POSIX</strong></a> que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O <strong>PSOCK</strong> faz algumas execuções do comando <code>Rscript</code>, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo <strong>multicore</strong>, em Windows, há a necessidade da criação de um cluster do tipo <strong>PSOCK</strong>.</p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>É sempre uma boa prática desligar as theads chamando a função <code>stopCluster()</code> ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências.</p>
+</div>
+</div>
+
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="topicos-em-estatistica-computacional.html#cb313-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
+<span id="cb313-2"><a href="topicos-em-estatistica-computacional.html#cb313-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
+<span id="cb313-3"><a href="topicos-em-estatistica-computacional.html#cb313-3"></a>cores &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;mc.cores&quot;</span>, parallel<span class="op">::</span><span class="kw">detectCores</span>())</span>
+<span id="cb313-4"><a href="topicos-em-estatistica-computacional.html#cb313-4"></a></span>
+<span id="cb313-5"><a href="topicos-em-estatistica-computacional.html#cb313-5"></a><span class="co"># Criando um cluster do tipo PSOCK.</span></span>
+<span id="cb313-6"><a href="topicos-em-estatistica-computacional.html#cb313-6"></a>cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(cores, <span class="dt">type =</span> <span class="st">&quot;PSOCK&quot;</span>)</span>
+<span id="cb313-7"><a href="topicos-em-estatistica-computacional.html#cb313-7"></a></span>
+<span id="cb313-8"><a href="topicos-em-estatistica-computacional.html#cb313-8"></a><span class="co"># Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas</span></span>
+<span id="cb313-9"><a href="topicos-em-estatistica-computacional.html#cb313-9"></a><span class="co"># em cada núcleo.</span></span>
+<span id="cb313-10"><a href="topicos-em-estatistica-computacional.html#cb313-10"></a><span class="kw">clusterExport</span>(<span class="dt">cl =</span> cl, <span class="dt">varlist =</span> <span class="kw">c</span>(<span class="st">&quot;intmc&quot;</span>, <span class="st">&quot;fdp_weibull&quot;</span>), <span class="dt">envir =</span> <span class="kw">environment</span>())</span>
+<span id="cb313-11"><a href="topicos-em-estatistica-computacional.html#cb313-11"></a></span>
+<span id="cb313-12"><a href="topicos-em-estatistica-computacional.html#cb313-12"></a>intvarmc_parallel &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L, fun, <span class="dt">lower =</span> <span class="ot">NULL</span>, <span class="dt">upper =</span> <span class="ot">NULL</span>, ...){</span>
+<span id="cb313-13"><a href="topicos-em-estatistica-computacional.html#cb313-13"></a></span>
+<span id="cb313-14"><a href="topicos-em-estatistica-computacional.html#cb313-14"></a>  <span class="co"># Reescrita da função intmc() para que seja possível utilizar</span></span>
+<span id="cb313-15"><a href="topicos-em-estatistica-computacional.html#cb313-15"></a>  <span class="co"># em um funcional baseado no funcional lapply().</span></span>
+<span id="cb313-16"><a href="topicos-em-estatistica-computacional.html#cb313-16"></a>  intmc_map &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">intmc</span>(N, fun, lower, upper, ...)</span>
+<span id="cb313-17"><a href="topicos-em-estatistica-computacional.html#cb313-17"></a></span>
+<span id="cb313-18"><a href="topicos-em-estatistica-computacional.html#cb313-18"></a>  i_hat &lt;-<span class="st"> </span><span class="kw">unlist</span>(parallel<span class="op">::</span><span class="kw">parLapply</span>(<span class="dt">cl =</span> cl, <span class="dt">X =</span> 1L<span class="op">:</span>N, <span class="dt">fun =</span> intmc_map, ...))</span>
+<span id="cb313-19"><a href="topicos-em-estatistica-computacional.html#cb313-19"></a></span>
+<span id="cb313-20"><a href="topicos-em-estatistica-computacional.html#cb313-20"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb313-21"><a href="topicos-em-estatistica-computacional.html#cb313-21"></a></span>
+<span id="cb313-22"><a href="topicos-em-estatistica-computacional.html#cb313-22"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb313-23"><a href="topicos-em-estatistica-computacional.html#cb313-23"></a>}</span>
+<span id="cb313-24"><a href="topicos-em-estatistica-computacional.html#cb313-24"></a></span>
+<span id="cb313-25"><a href="topicos-em-estatistica-computacional.html#cb313-25"></a><span class="kw">set.seed</span>(0L)</span>
+<span id="cb313-26"><a href="topicos-em-estatistica-computacional.html#cb313-26"></a><span class="kw">system.time</span>(result_parallel &lt;-<span class="st"> </span><span class="kw">intvarmc_parallel</span>(<span class="dt">N =</span> <span class="fl">5e3</span>L, <span class="dt">fun =</span> fdp_weibull,</span>
+<span id="cb313-27"><a href="topicos-em-estatistica-computacional.html#cb313-27"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
+<span id="cb313-28"><a href="topicos-em-estatistica-computacional.html#cb313-28"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span>
+<span id="cb313-29"><a href="topicos-em-estatistica-computacional.html#cb313-29"></a><span class="kw">stopCluster</span>(cl)</span>
+<span id="cb313-30"><a href="topicos-em-estatistica-computacional.html#cb313-30"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
+<p>Tanto no exemplo de paralização em SO <strong>*nix</strong> utilizando <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> quanto em Windows utilizando um cluster <strong>PSOCK</strong>, a função <code>intvarmc_parallel()</code> mostrou-se mais eficiente do sua implementação serial. Porém, nos deparamos com o problema de reprodutibilidade. Perceba que fazer <code>set.seed(0L)</code> antes da execução da função <code>intvarmc_parallel()</code> não é suficiente para garantir os mesmos resultados. Como é de responsabilidade do SO distribuir os processos entre as threads (hardware) disponíveis e o gerador de números pseudo-aleatórios toma estados distintos a depender da thread (hardware) ao qual um trabalhador foi alocado, sequências distintas muito provavelmente serão observadas entre execuções de uma função paralelizada.</p>
+<p>O pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a> contém uma implementação das ideias de L’Ecuyer et al. (2002), cujo o artigo é livre e poderá ser acessado com o link abaixo:</p>
+<blockquote>
+<p>L’Ecuyer P, Simard R, Chen EJ, Kelton WD (2002). <strong>An object-oriented random-number package with many long streams and substreams</strong>. <em>Operations Research</em>, 50, 1073–5. URL <a href="http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf"><strong>link</strong></a>.</p>
+</blockquote>
+<p>Assim, em R, é possível fazer uso desse gerador que recebe o nome <strong>L’Ecuyer-CMRG</strong>. Isso poderá ser feito passando a string <code>"L'Ecuyer-CMRG"</code>, alem da semente, para o agumento <code>kind</code> da função <code>set.seed()</code> ou alterando o gerador utilizando a função <code>"RNGkind()"</code> e posteriormente utilizando a função <code>set.seed()</code> para fixar uma semente. As duas formas estão apresentadas abaixo:</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="topicos-em-estatistica-computacional.html#cb314-1"></a><span class="co"># Forma 1:</span></span>
+<span id="cb314-2"><a href="topicos-em-estatistica-computacional.html#cb314-2"></a><span class="kw">set.seed</span>(<span class="dt">seed =</span> 0L, <span class="dt">kind =</span> <span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)</span>
+<span id="cb314-3"><a href="topicos-em-estatistica-computacional.html#cb314-3"></a></span>
+<span id="cb314-4"><a href="topicos-em-estatistica-computacional.html#cb314-4"></a><span class="co"># Forma 2:</span></span>
+<span id="cb314-5"><a href="topicos-em-estatistica-computacional.html#cb314-5"></a><span class="kw">RNGkind</span>(<span class="dt">kind =</span> <span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)</span>
+<span id="cb314-6"><a href="topicos-em-estatistica-computacional.html#cb314-6"></a><span class="kw">set.seed</span>(0L)</span></code></pre></div>
+<p><strong>Exemplo</strong>: Reproduções da função <code>intvarmc_parallel()</code> usando os sistemas <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a> e <strong>PSOCK</strong>, repectivamente. Trata-se de um exemplo que poderá ser reproduzível, uma vez que foi utilizado o gerador <strong>L’Ecuyer-CMRG</strong> com semente fixa.</p>
+<p><strong>Paralelização usando FORK</strong>:</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="topicos-em-estatistica-computacional.html#cb315-1"></a><span class="co"># Código Paralelizado -----------------------------------------------------</span></span>
+<span id="cb315-2"><a href="topicos-em-estatistica-computacional.html#cb315-2"></a>intvarmc_parallel &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L, fun, <span class="dt">lower =</span> <span class="ot">NULL</span>, <span class="dt">upper =</span> <span class="ot">NULL</span>, ...){</span>
+<span id="cb315-3"><a href="topicos-em-estatistica-computacional.html#cb315-3"></a></span>
+<span id="cb315-4"><a href="topicos-em-estatistica-computacional.html#cb315-4"></a>  intmc_map &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">intmc</span>(N, fun, lower, upper, ...)</span>
+<span id="cb315-5"><a href="topicos-em-estatistica-computacional.html#cb315-5"></a></span>
+<span id="cb315-6"><a href="topicos-em-estatistica-computacional.html#cb315-6"></a>  <span class="co"># Reescrita da função intmc() para que seja possível utilizar</span></span>
+<span id="cb315-7"><a href="topicos-em-estatistica-computacional.html#cb315-7"></a>  <span class="co"># em um funcional baseado no funcional lapply().</span></span>
+<span id="cb315-8"><a href="topicos-em-estatistica-computacional.html#cb315-8"></a>  i_hat &lt;-<span class="st"> </span><span class="kw">unlist</span>(parallel<span class="op">::</span><span class="kw">mclapply</span>(<span class="dt">X =</span> 1L<span class="op">:</span>N, <span class="dt">FUN =</span> intmc_map, ...,</span>
+<span id="cb315-9"><a href="topicos-em-estatistica-computacional.html#cb315-9"></a>                                     <span class="dt">mc.cores =</span>  parallel<span class="op">::</span><span class="kw">detectCores</span>()))</span>
+<span id="cb315-10"><a href="topicos-em-estatistica-computacional.html#cb315-10"></a></span>
+<span id="cb315-11"><a href="topicos-em-estatistica-computacional.html#cb315-11"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb315-12"><a href="topicos-em-estatistica-computacional.html#cb315-12"></a></span>
+<span id="cb315-13"><a href="topicos-em-estatistica-computacional.html#cb315-13"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb315-14"><a href="topicos-em-estatistica-computacional.html#cb315-14"></a>}</span>
+<span id="cb315-15"><a href="topicos-em-estatistica-computacional.html#cb315-15"></a></span>
+<span id="cb315-16"><a href="topicos-em-estatistica-computacional.html#cb315-16"></a><span class="co"># Fixando uma semente para um gerador que poderá</span></span>
+<span id="cb315-17"><a href="topicos-em-estatistica-computacional.html#cb315-17"></a><span class="co"># trabalhar sobre processos paralelizados.</span></span>
+<span id="cb315-18"><a href="topicos-em-estatistica-computacional.html#cb315-18"></a><span class="kw">set.seed</span>(0L, <span class="dt">kin =</span> <span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)</span>
+<span id="cb315-19"><a href="topicos-em-estatistica-computacional.html#cb315-19"></a>time_parallel &lt;-<span class="st"> </span><span class="kw">system.time</span>(result_parallel &lt;-</span>
+<span id="cb315-20"><a href="topicos-em-estatistica-computacional.html#cb315-20"></a><span class="st">                               </span><span class="kw">intvarmc_parallel</span>(<span class="dt">N =</span> <span class="fl">5e3</span>L, <span class="dt">fun =</span> fdp_weibull,</span>
+<span id="cb315-21"><a href="topicos-em-estatistica-computacional.html#cb315-21"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
+<span id="cb315-22"><a href="topicos-em-estatistica-computacional.html#cb315-22"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span>
+<span id="cb315-23"><a href="topicos-em-estatistica-computacional.html#cb315-23"></a><span class="co"># Uma aproximação para integral de uma função</span></span>
+<span id="cb315-24"><a href="topicos-em-estatistica-computacional.html#cb315-24"></a><span class="co"># utilizando um procedimento de MC:</span></span>
+<span id="cb315-25"><a href="topicos-em-estatistica-computacional.html#cb315-25"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
+<pre><code>## [1] 0.9998191</code></pre>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="topicos-em-estatistica-computacional.html#cb317-1"></a><span class="co"># Speedup:</span></span>
+<span id="cb317-2"><a href="topicos-em-estatistica-computacional.html#cb317-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##  elapsed 
+## 2.448642</code></pre>
+<p><strong>Paralelização usando PSOCK</strong>:</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="topicos-em-estatistica-computacional.html#cb319-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
+<span id="cb319-2"><a href="topicos-em-estatistica-computacional.html#cb319-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
+<span id="cb319-3"><a href="topicos-em-estatistica-computacional.html#cb319-3"></a>cores &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;mc.cores&quot;</span>, parallel<span class="op">::</span><span class="kw">detectCores</span>())</span>
+<span id="cb319-4"><a href="topicos-em-estatistica-computacional.html#cb319-4"></a></span>
+<span id="cb319-5"><a href="topicos-em-estatistica-computacional.html#cb319-5"></a><span class="co"># Criando um cluster do tipo PSOCK.</span></span>
+<span id="cb319-6"><a href="topicos-em-estatistica-computacional.html#cb319-6"></a>cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(cores, <span class="dt">type =</span> <span class="st">&quot;PSOCK&quot;</span>)</span>
+<span id="cb319-7"><a href="topicos-em-estatistica-computacional.html#cb319-7"></a></span>
+<span id="cb319-8"><a href="topicos-em-estatistica-computacional.html#cb319-8"></a><span class="co"># Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas</span></span>
+<span id="cb319-9"><a href="topicos-em-estatistica-computacional.html#cb319-9"></a><span class="co"># em cada núcleo.</span></span>
+<span id="cb319-10"><a href="topicos-em-estatistica-computacional.html#cb319-10"></a><span class="kw">clusterExport</span>(<span class="dt">cl =</span> cl, <span class="dt">varlist =</span> <span class="kw">c</span>(<span class="st">&quot;intmc&quot;</span>, <span class="st">&quot;fdp_weibull&quot;</span>), <span class="dt">envir =</span> <span class="kw">environment</span>())</span>
+<span id="cb319-11"><a href="topicos-em-estatistica-computacional.html#cb319-11"></a></span>
+<span id="cb319-12"><a href="topicos-em-estatistica-computacional.html#cb319-12"></a>intvarmc_parallel &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">N =</span> <span class="fl">1e3</span>L, fun, <span class="dt">lower =</span> <span class="ot">NULL</span>, <span class="dt">upper =</span> <span class="ot">NULL</span>, ...){</span>
+<span id="cb319-13"><a href="topicos-em-estatistica-computacional.html#cb319-13"></a></span>
+<span id="cb319-14"><a href="topicos-em-estatistica-computacional.html#cb319-14"></a>  <span class="co"># Reescrita da função intmc() para que seja possível utilizar</span></span>
+<span id="cb319-15"><a href="topicos-em-estatistica-computacional.html#cb319-15"></a>  <span class="co"># em um funcional baseado no funcional lapply().</span></span>
+<span id="cb319-16"><a href="topicos-em-estatistica-computacional.html#cb319-16"></a>  intmc_map &lt;-<span class="st"> </span><span class="cf">function</span>(x, ...) <span class="kw">intmc</span>(N, fun, lower, upper, ...)</span>
+<span id="cb319-17"><a href="topicos-em-estatistica-computacional.html#cb319-17"></a></span>
+<span id="cb319-18"><a href="topicos-em-estatistica-computacional.html#cb319-18"></a>  i_hat &lt;-<span class="st"> </span><span class="kw">unlist</span>(parallel<span class="op">::</span><span class="kw">parLapply</span>(<span class="dt">cl =</span> cl, <span class="dt">X =</span> 1L<span class="op">:</span>N, <span class="dt">fun =</span> intmc_map, ...))</span>
+<span id="cb319-19"><a href="topicos-em-estatistica-computacional.html#cb319-19"></a></span>
+<span id="cb319-20"><a href="topicos-em-estatistica-computacional.html#cb319-20"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb319-21"><a href="topicos-em-estatistica-computacional.html#cb319-21"></a></span>
+<span id="cb319-22"><a href="topicos-em-estatistica-computacional.html#cb319-22"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb319-23"><a href="topicos-em-estatistica-computacional.html#cb319-23"></a>}</span>
+<span id="cb319-24"><a href="topicos-em-estatistica-computacional.html#cb319-24"></a></span>
+<span id="cb319-25"><a href="topicos-em-estatistica-computacional.html#cb319-25"></a><span class="co"># Fixando uma semente para um gerador que poderá</span></span>
+<span id="cb319-26"><a href="topicos-em-estatistica-computacional.html#cb319-26"></a><span class="co"># trabalhar sobre processos paralelizados.</span></span>
+<span id="cb319-27"><a href="topicos-em-estatistica-computacional.html#cb319-27"></a><span class="kw">set.seed</span>(0L, <span class="dt">kin =</span> <span class="st">&quot;L&#39;Ecuyer-CMRG&quot;</span>)</span>
+<span id="cb319-28"><a href="topicos-em-estatistica-computacional.html#cb319-28"></a><span class="kw">system.time</span>(result_parallel &lt;-<span class="st"> </span><span class="kw">intvarmc_parallel</span>(<span class="dt">N =</span> <span class="fl">5e3</span>L, <span class="dt">fun =</span> fdp_weibull,</span>
+<span id="cb319-29"><a href="topicos-em-estatistica-computacional.html#cb319-29"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
+<span id="cb319-30"><a href="topicos-em-estatistica-computacional.html#cb319-30"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span>
+<span id="cb319-31"><a href="topicos-em-estatistica-computacional.html#cb319-31"></a><span class="kw">stopCluster</span>(cl)</span>
+<span id="cb319-32"><a href="topicos-em-estatistica-computacional.html#cb319-32"></a></span>
+<span id="cb319-33"><a href="topicos-em-estatistica-computacional.html#cb319-33"></a><span class="co"># Uma aproximação para integral de uma função</span></span>
+<span id="cb319-34"><a href="topicos-em-estatistica-computacional.html#cb319-34"></a><span class="co"># utilizando um procedimento de MC:</span></span>
+<span id="cb319-35"><a href="topicos-em-estatistica-computacional.html#cb319-35"></a>result_parallel<span class="op">$</span>i_hat</span>
+<span id="cb319-36"><a href="topicos-em-estatistica-computacional.html#cb319-36"></a></span>
+<span id="cb319-37"><a href="topicos-em-estatistica-computacional.html#cb319-37"></a><span class="co"># Speedup:</span></span>
+<span id="cb319-38"><a href="topicos-em-estatistica-computacional.html#cb319-38"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 </div>
 </div>
 <div id="exercicio-3" class="section level2 unnumbered">
@@ -1230,14 +1278,13 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <li><p>Dois dados são lançados e caso a soma for 5, 6, 7, 8 ou 9 o jogo termina imediatamente;</p></li>
 <li><p>Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou 12.</p></li>
 </ul>
-<!-- 10 - Explique, com suas palavras, o que é paralelização **multicore**. Descreva brevemente os conceitos de **nó**, **thread** (hardware), **processo master** e **trabalhadores**. -->
-<!-- 11 - Descreva brevemente o sistema **FORK** e **PSOCK**. Apresente um exemplo de um código paralelizado usando o sistema **FORK** e **PSOCK**, respectivamente. -->
-<!-- 12 - Defina **speedup** e explique o significado. -->
-<!-- 13 - Ao paralelizar um algoritmo, teremos garantia da melhoria do desempenho computacional? Explique. -->
-<!-- 14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de **speedup** definido por essa lei? -->
-<!-- 15 - Implemente um procedimento de MC, utilizando paralelismo para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado. -->
-<!-- 17 - Implemente uma função que realiza uma simulação de MC para avaliar o procedimento de MC para aproximação da constante $\pi$. Obtenha o **speedup** e discuta o resultado. Considere 100 mil iterações em ambos os procedimentos. -->
-<!-- 18 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC. Considere 100 mil iterações de MC. -->
+<p>10 - Explique, com suas palavras, o que é paralelização <strong>multicore</strong>. Descreva brevemente os conceitos de <strong>nó</strong>, <strong>thread</strong> (hardware), <strong>processo master</strong> e <strong>trabalhadores</strong>.</p>
+<p>11 - Descreva brevemente o sistema <strong>FORK</strong> e <strong>PSOCK</strong>. Apresente um exemplo de um código paralelizado usando o sistema <strong>FORK</strong> e <strong>PSOCK</strong>, respectivamente.</p>
+<p>12 - Defina <strong>speedup</strong> e explique o significado.</p>
+<p>13 - Ao paralelizar um algoritmo, teremos garantia da melhoria do desempenho computacional? Explique.</p>
+<p>14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de <strong>speedup</strong> definido por essa lei?</p>
+<p>15 - Implemente um procedimento de MC, utilizando paralelismo para avaliar o cálculo do estimador de <span class="math inline">\(\hat{I}\)</span> definido no exercício 3. Obtenha o <strong>speedup</strong> e discuta o resultado.</p>
+<p>16 - Implemente uma versão paralela dos exercícios 5, 6, 7, 8 e 9. Avalie a implementação paralela com a versão serial. Houveram melhoria no desempenho computacional utilizando as versões paralelizadas? Explique.</p>
 <!-- # Exercício 16: (paralelizando o exercício) -->
 <!-- mc_ex6 <- function(n = 1e3L){ -->
 <!--   dado1 <- ceiling(6L * runif(n)) + 1L -->
@@ -1249,6 +1296,45 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- } -->
 <!-- system.time(result <- mc_ex6(n = 1e6)) -->
 <!-- result -->
+<p>17 - Implemente de forma paralela, uma função que realiza uma simulação de MC para avaliar o procedimento de MC para aproximação da constante <span class="math inline">\(\pi\)</span>. Obtenha o <strong>speedup</strong> e discuta o resultado. Considere 100 mil iterações em ambos os procedimentos.</p>
+<p>18 - Implemente uma versão paralelizada do método da aceitação e rejeição para geração de números pseudo-aleatórios. Obtenha o <strong>speedup</strong> e discuta se houve ou não melhorias no desempenho computacional ao considerar-se a versão paralelizada. Explique.</p>
+<!-- # Método da Aceitação e Rejeição (SERIAL) --------------------------------- -->
+<!-- ar_serial <- function(n = 1L, fun, lower, upper, par, ...){ -->
+<!--   func_obj <- function(x) -1 * fun(x, ...) * (upper - lower) -->
+<!--   x_c <- optim(fn = func_obj, par = par, lower = lower, -->
+<!--                upper = upper, method = "Brent")$par -->
+<!--   c <- fun(x_c, ...) * (upper - lower) -->
+<!--   test <- function(x){ -->
+<!--     repeat{ -->
+<!--       y <- runif(1L, min = lower, max = upper) -->
+<!--       u <- runif(n = 1L, min = 0, max = 1) -->
+<!--       if(u < (fun(y, ...) * (upper - lower) / c)) return(y) -->
+<!--     } -->
+<!--   } -->
+<!--   unlist(lapply(X = 1:n, FUN = test)) -->
+<!-- }   -->
+<!-- f <- function(x, ...) dnorm(x, mean = ..1, sd = ..2) -->
+<!-- result_serial <- ar_serial(n = 1e6L, fun = f, lower = -38,  -->
+<!--                            upper = 38, par = 1, 0, 1) -->
+<!-- # Método da Aceitação e Rejeição (PARALELO) ------------------------------- -->
+<!-- ar_paralelo <- function(n = 1L, fun, lower, upper, par, ...){ -->
+<!--   func_obj <- function(x) -1 * fun(x, ...) * (upper - lower) -->
+<!--   x_c <- optim(fn = func_obj, par = par, lower = lower, -->
+<!--                upper = upper, method = "Brent")$par -->
+<!--   c <- fun(x_c, ...) * (upper - lower) -->
+<!--   test <- function(x){ -->
+<!--     repeat{ -->
+<!--       y <- runif(1L, min = lower, max = upper) -->
+<!--       u <- runif(n = 1L, min = 0, max = 1) -->
+<!--       if(u < (fun(y, ...) * (upper - lower) / c)) return(y) -->
+<!--     } -->
+<!--   } -->
+<!--   unlist(parallel::mclapply(X = 1:n, FUN = test,  -->
+<!--                             mc.cores = parallel::detectCores())) -->
+<!-- }   -->
+<!-- f <- function(x, ...) dnorm(x, mean = ..1, sd = ..2) -->
+<!-- result_paralelo <- ar_paralelo(n = 1e6L, fun = f, lower = -38,  -->
+<!--                                upper = 38, par = 1, 0, 1) -->
 
 </div>
 </div>

@@ -961,321 +961,344 @@ mcpi()
 ## [1] 3.148
 ```
 
-<!-- ### Paralelizando um procedimento de Monte Carlo -->
+### Paralelizando um procedimento de Monte Carlo
 
-<!-- A classe de procedimentos de MC contemplam metodologias típias que podem ser paralelizadas, isto é, por se tratarem de procedimentos iterativos, cada iteração poderá ser realizada em paralelo. Porém, é importante deixar claro que nem todo o procedimento iterativo poderá ser paralelizado. Essa é uma restrição do ponto de vista matemático e não do ponto de vista de computação. Isso deve-se ao fato de que nem todos procedimentos iterativos são matematicamente independentes, isto é, nesses procedimentos, para realizarmos a iteração $t + 1$ necessariamente devemos esperar pelos cálculos realizados na $t$-ésima iteração.  -->
+A classe de procedimentos de MC contemplam metodologias típias que podem ser paralelizadas, isto é, por se tratarem de procedimentos iterativos, cada iteração poderá ser realizada em paralelo. Porém, é importante deixar claro que nem todo o procedimento iterativo poderá ser paralelizado. Essa é uma restrição do ponto de vista matemático e não do ponto de vista de computação. Isso deve-se ao fato de que nem todos procedimentos iterativos são matematicamente independentes, isto é, nesses procedimentos, para realizarmos a iteração $t + 1$ necessariamente devemos esperar pelos cálculos realizados na $t$-ésima iteração.
 
-<!-- Tipicamente, os procedimentos de MC são matematicamente independentes. Embora a construção de tais procedimentos que produzem amostras com as propriedades desejadas geralmente não seja difícil, a tarefa de garantir a convergência a uma taxa compatível com os recursos computacionais atuais continua sendo um grande desafio.  -->
+Tipicamente, os procedimentos de MC são matematicamente independentes. Embora a construção de tais procedimentos que produzem amostras com as propriedades desejadas geralmente não seja difícil, a tarefa de garantir a convergência a uma taxa compatível com os recursos computacionais atuais continua sendo um grande desafio.
 
-<!-- Nos dias atuais, é comum observarmos códigos passíveis de paralização sem fazer o devido aproveitamento de todos os recursos computacionais disponíveis em um dado computador. Em dias atuais, é comum processadores e GPUS (Graphics Processing Unit) com vários núcleos de processamento. -->
+Nos dias atuais, é comum observarmos códigos passíveis de paralização sem fazer o devido aproveitamento de todos os recursos computacionais disponíveis em um dado computador. Em dias atuais, é comum processadores e GPUS (Graphics Processing Unit) com vários núcleos de processamento.
 
-<!-- A linguagem R disponibiliza diversas bibliotecas para se trabalhar com computação paralela. Ente alguns pacotes importantes que viablizam o uso de computação paralela em R destaco o [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) e o  [**snow**](https://cran.r-project.org/web/packages/snow) ("**S**imple **N**etwork of **W**orkstations). Tempos atrás, havia também o pacote [**multicore**](https://cran.r-project.org/web/packages/multicore) que foi removido do CRAN, sendo substituído pelo pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).  -->
+A linguagem R disponibiliza diversas bibliotecas para se trabalhar com computação paralela. Ente alguns pacotes importantes que viablizam o uso de computação paralela em R destaco o [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) e o  [**snow**](https://cran.r-project.org/web/packages/snow) ("**S**imple **N**etwork of **W**orkstations). Tempos atrás, havia também o pacote [**multicore**](https://cran.r-project.org/web/packages/multicore) que foi removido do CRAN, sendo substituído pelo pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).
 
-<!-- Diversas funções do pacote **parallel** são derivadas do pacote **snow** e do antigo pacote **multicore**. O pacote **parallel** reúne as melhores características desses pacotes, com algumas modificações e características próprias. Além desses pacote, há diversas outas bibliotecas em R disponíveis para implementação de códigos paralelizados. Porém, a maioria dessas bibliotecas utilizam-se do **parallel** e **snow** como backend para suas implementações. Por exemplo, **foreach** + **doParallel** normalmente são utilizados em conjunto para a criação de loops com execução em paralelo, em que utiliza-se das funções `foreach()` + `%dopar%` do pacote **foreach**. Nesse exemplo, o pacote **doParallel** atuará como uma interface para o pacote **parallel** que é o verdadeiro responsável para efetuar a paralelização do loop. -->
+Diversas funções do pacote **parallel** são derivadas do pacote **snow** e do antigo pacote **multicore**. O pacote **parallel** reúne as melhores características desses pacotes, com algumas modificações e características próprias. Além desses pacote, há diversas outas bibliotecas em R disponíveis para implementação de códigos paralelizados. Porém, a maioria dessas bibliotecas utilizam-se do **parallel** e **snow** como backend para suas implementações. Por exemplo, **foreach** + **doParallel** normalmente são utilizados em conjunto para a criação de loops com execução em paralelo, em que utiliza-se das funções `foreach()` + `%dopar%` do pacote **foreach**. Nesse exemplo, o pacote **doParallel** atuará como uma interface para o pacote **parallel** que é o verdadeiro responsável para efetuar a paralelização do loop.
 
-<!-- Uma das vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) está no fato dele ser distribuído em conjunto com a linguagem R. Mais precisamente, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) foi incluído, pela primeira vez, em 31 de Outubro de 2011, na versão 2.14.0 da linguagem R. Uma outra vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) é que ele necessita de menos configurações iniciais para a utilização dos seus funcionais em um procedimento de paralização **multicore** em um mesmo processador. -->
+Uma das vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) está no fato dele ser distribuído em conjunto com a linguagem R. Mais precisamente, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) foi incluído, pela primeira vez, em 31 de Outubro de 2011, na versão 2.14.0 da linguagem R. Uma outra vantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) é que ele necessita de menos configurações iniciais para a utilização dos seus funcionais em um procedimento de paralização **multicore** em um mesmo processador.
 
-<!-- A única desvantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) diz respeito aos usuários do sistema operacional (SO) Windows, em que alguns de seus funcionais não irão funcionar de forma paralela. Porém, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) dispõe de funcionais alternativos para a realização de computação paralela em Windows. A vantagem de utilizar-se um sistema **\*nix** é que os funcionais que funcionam em Windows também funcionarão em sistemas **\*nix**. -->
+A única desvantagem do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) diz respeito aos usuários do sistema operacional (SO) Windows, em que alguns de seus funcionais não irão funcionar de forma paralela. Porém, o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) dispõe de funcionais alternativos para a realização de computação paralela em Windows. A vantagem de utilizar-se um sistema **\*nix** é que os funcionais que funcionam em Windows também funcionarão em sistemas **\*nix**.
 
-<!-- Aqui trataremos apenas da paralelização **multicore** de memória compartilhada em um único processador, isto é, em um mesmo chip, utilizando a linguagem R. Para os exemplos, utilizaremos os típicos procedimentos de MC que são passíveis de execução em paralelo.  -->
+Aqui trataremos apenas da paralelização **multicore** de memória compartilhada em um único processador, isto é, em um mesmo chip, utilizando a linguagem R. Para os exemplos, utilizaremos os típicos procedimentos de MC que são passíveis de execução em paralelo.
 
-<!-- Processadores com múltiplos núcleos são muito comuns nos dias atuais. Também é comum estamos implementando nossas simulações em computadores pessoais que normalmente possue apenas um único processador com vários núcleos de processamento. A ideia é discutir como aproveitarmos todo o recurso computacional desses processadores e assim usufruirmos de um código com maior performance, uma vez que temos esses recursos a nossa disposição. Abaixo encontra-se uma representação típica de um processador com vários núcleos de processamento, mais precisamente, 4 (cores) destacados em azul e 8 (oito) threads destacados em vermelho. -->
+Processadores com múltiplos núcleos são muito comuns nos dias atuais. Também é comum estamos implementando nossas simulações em computadores pessoais que normalmente possue apenas um único processador com vários núcleos de processamento. A ideia é discutir como aproveitarmos todo o recurso computacional desses processadores e assim usufruirmos de um código com maior performance, uma vez que temos esses recursos a nossa disposição. Abaixo encontra-se uma representação típica de um processador com vários núcleos de processamento, mais precisamente, 4 (cores) destacados em azul e 8 (oito) threads destacados em vermelho.
 
-<!-- ```{r echo = FALSE, out.width = '50%', fig.align = "center", fig.cap = "Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete."} -->
-<!-- knitr::include_graphics("images/processador_threads.png") -->
-<!-- ``` -->
+<div class="figure" style="text-align: center">
+<img src="images/processador_threads.png" alt="Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete." width="50%" />
+<p class="caption">(\#fig:unnamed-chunk-38)Representação de um processador **multicore** (múltiplos núcleos), em que os retângulos vermelhos representam os pseudo-cores (hardware threads) e a parte cinza onde encontra-se o processador chamamos de soquete.</p>
+</div>
 
-<!-- Abaixo encontram-se listados alguns conceitos comumente utilizados em computação paralela. Entender essas nomenclaturas ajudará bastante a compreensão de textos em computação paralela. -->
+Abaixo encontram-se listados alguns conceitos comumente utilizados em computação paralela. Entender essas nomenclaturas ajudará bastante a compreensão de textos em computação paralela.
 
-<!--    + **Nó**: um único computador que consiste basicamente de uma placa-mãe com uma memória e um processador; -->
+   + **Nó**: um único computador que consiste basicamente de uma placa-mãe com uma memória e um processador;
 
-<!--    + **Processador**/**soquete**: a unidade física que contém um ou mais núcleos que fazem cálculos; -->
+   + **Processador**/**soquete**: a unidade física que contém um ou mais núcleos que fazem cálculos;
 
-<!--    + **Core**/**núcleo**: a menor unidade de computação do processador. Cada core é capaz de executar um único programa/tarefa; -->
+   + **Core**/**núcleo**: a menor unidade de computação do processador. Cada core é capaz de executar um único programa/tarefa;
 
-<!--    + **Thread** (hardware): também conhecido como core lógico, as threads, do ponto de vista de hardware, são unidades de computação dentro dos cores que poderá permitir que um core faça duas ou mais tarefas ao mesmo tempo.  -->
+   + **Thread** (hardware): também conhecido como core lógico, as threads, do ponto de vista de hardware, são unidades de computação dentro dos cores que poderá permitir que um core faça duas ou mais tarefas ao mesmo tempo.
 
-<!--    + **Trabalhador**/**worker**: um processo independente que conduz o cálculo e fornece os resultados para o processo **mestre**/**master**. Alguns texto referem-se aos trabalhadores como threads (software), em que **thread mestre**/**thread master** é o processo mestre e as bifurcações geridas por esse processo principal em outros processos são chamados de **threads escravas**/**slave threads**. -->
+   + **Trabalhador**/**worker**: um processo independente que conduz o cálculo e fornece os resultados para o processo **mestre**/**master**. Alguns texto referem-se aos trabalhadores como threads (software), em que **thread mestre**/**thread master** é o processo mestre e as bifurcações geridas por esse processo principal em outros processos são chamados de **threads escravas**/**slave threads**.
 
-<!-- **Importante**: -->
+**Importante**:
 
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- Com o pacote **parallel** é possível também fazer uso de computação paralela utilizando [**Message Passing Interface - MPI**](https://pt.wikipedia.org/wiki/Message_Passing_Interface) (um padrão de dados em computação paralela), quando temos a nossa disposição um cluster configurado com várias máquina (vários nós), cada um com vários processadores com múltiplos núcleos de processamento. -->
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+Com o pacote **parallel** é possível também fazer uso de computação paralela utilizando [**Message Passing Interface - MPI**](https://pt.wikipedia.org/wiki/Message_Passing_Interface) (um padrão de dados em computação paralela), quando temos a nossa disposição um cluster configurado com várias máquina (vários nós), cada um com vários processadores com múltiplos núcleos de processamento.
 
-<!-- **Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.**  -->
-<!-- </div> -->
-<!-- ``` -->
+**Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.**
+</div></div>\EndKnitrBlock{rmdimportant}
 
-<!-- ### Speedup -->
+### Speedup
 
-<!-- Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $N$ threads. Ou seja, se $S$ é o **speedup**, então -->
+Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $N$ threads. Ou seja, se $S$ é o **speedup**, então
 
-<!-- $$S = \frac{T(1)}{T(n)},$$ -->
-<!-- em que $T(1)$ é o tempo serial e $T(n)$ é o tempo em paralelo ao considerar $N$ cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o **speedup**, maior será o ganho computacional ao se paralelizar um código. -->
+$$S = \frac{T(1)}{T(n)},$$
+em que $T(1)$ é o tempo serial e $T(n)$ é o tempo em paralelo ao considerar $N$ cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o **speedup**, maior será o ganho computacional ao se paralelizar um código.
 
-<!-- **Lei de Amdahl** -->
+**Lei de Amdahl**
 
-<!-- Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma "parede assintótica", em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica **poderá** seguir a **Lei de Amdahl**, definida por [**Gene Myron Amdahl**](https://en.wikipedia.org/wiki/Gene_Amdahl), em uma conferência, em 1967. A lei diz que: -->
+Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma "parede assintótica", em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica **poderá** seguir a **Lei de Amdahl**, definida por [**Gene Myron Amdahl**](https://en.wikipedia.org/wiki/Gene_Amdahl), em uma conferência, em 1967. A lei diz que:
 
-<!-- $$T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],$$ -->
-<!-- em que $T(n)$ é o tempo que um algoritmo leva para ser executado de forma paralela utilizando $n$ núcleos e $s$ é a proporção do código que deve ser executado de forma serial, sendo $1 - s$ a proporção de código executado de forma paralela. -->
+$$T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],$$
+em que $T(n)$ é o tempo que um algoritmo leva para ser executado de forma paralela utilizando $n$ núcleos e $s$ é a proporção do código que deve ser executado de forma serial, sendo $1 - s$ a proporção de código executado de forma paralela.
 
-<!-- Sendo assim, o **speedup** teórico é dado por: -->
+Sendo assim, o **speedup** teórico é dado por:
 
-<!-- $$S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$ -->
-<!-- Perceba que,  -->
+$$S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$
+Perceba que,
 
-<!-- $$\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},$$ -->
-<!-- é o **speedup** máximo alcançado, segundo essa lei. -->
+$$\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},$$
+é o **speedup** máximo alcançado, segundo essa lei.
 
 
-<!-- ```{r, echo = FALSE, fig.align="center", fig.cap="Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo."} -->
-<!-- amdahls_law <- function(p = 0, n = 1){ -->
-<!--   s = 1 - p -->
-<!--   1 / (s + 1/n * (1 - s)) -->
-<!-- }  -->
+<div class="figure" style="text-align: center">
+<img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-40-1.png" alt="Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-40)Speedup estimado utilizando a Lei de Amdhal levando em consideração a quantidade de núcleos disponiveis e a proporção de código passível de paralelização de um algoritmo.</p>
+</div>
 
-<!-- x <- 1L:20L -->
-<!-- plot.new() -->
-<!-- plot.window(xlim = c(1, 20), ylim = c(0, 25)) -->
-<!-- axis(1, seq(1, 20), cex.axis = 0.8) -->
-<!-- axis(2) -->
-<!-- title(xlab = "Número de Núcleos", ylab = "Speedup") -->
+**Nota**:
 
-<!-- lines(1L:20L, amdahls_law(p = 1, n = 1L:20L), lwd = 2, pch = 8, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.99, n = 1L:20L), lwd = 2, pch = 18, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.95, n = 1L:20L), lwd = 2, pch = 17, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0.85, n = 1L:20L), lwd = 2 , pch = 16, type = "b") -->
-<!-- lines(1L:20L, amdahls_law(p = 0, n = 1L:20L), lwd = 2 , pch = 15, type = "b") -->
-<!-- legend("topleft", legend = c(paste("1.00"), paste("0.99"), paste("0.95"),  -->
-<!--        paste("0.85"), paste("0.00")), lty = 1, pch = c(8, 18, 17, 16, 15), -->
-<!--        title = "Proporção de código em paralelo", bty = "n") -->
-<!-- ``` -->
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos.
 
-<!-- **Nota**: -->
+O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o **speedup**. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.
+</div></div>\EndKnitrBlock{rmdnote}
 
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos. -->
 
-<!-- O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o **speedup**. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos. -->
-<!-- </div> -->
-<!-- ``` -->
+### Pacote parallel
 
+O pacote **parallel** possui diversas funções úteis. Você poderá encontrar um tutorial do **parallel** clicando [**aqui**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). O pacote **parallel** possui diversas funções úteis, em que um vetor completo com o nome das funções pode ser obtido fazendo:
 
-<!-- ### Pacote parallel -->
 
-<!-- O pacote **parallel** possui diversas funções úteis. Você poderá encontrar um tutorial do **parallel** clicando [**aqui**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf). O pacote **parallel** possui diversas funções úteis, em que um vetor completo com o nome das funções pode ser obtido fazendo: -->
+```r
+library(parallel)
+ls("package:parallel")
+```
 
-<!-- ```{r} -->
-<!-- library(parallel) -->
-<!-- ls("package:parallel") -->
-<!-- ``` -->
+```
+##  [1] "clusterApply"        "clusterApplyLB"      "clusterCall"        
+##  [4] "clusterEvalQ"        "clusterExport"       "clusterMap"         
+##  [7] "clusterSetRNGStream" "clusterSplit"        "detectCores"        
+## [10] "getDefaultCluster"   "makeCluster"         "makeForkCluster"    
+## [13] "makePSOCKcluster"    "mc.reset.stream"     "mcaffinity"         
+## [16] "mccollect"           "mclapply"            "mcMap"              
+## [19] "mcmapply"            "mcparallel"          "nextRNGStream"      
+## [22] "nextRNGSubStream"    "parApply"            "parCapply"          
+## [25] "parLapply"           "parLapplyLB"         "parRapply"          
+## [28] "parSapply"           "parSapplyLB"         "pvec"               
+## [31] "setDefaultCluster"   "splitIndices"        "stopCluster"
+```
 
-<!-- As funções que serão destacadas aqui e que nos ajudaram a paralelizar um procedimento de MC são as funções `mclapply()`, `mcmapply()`, `mcMap()` e `detectCores()`. Perceba que algumas funções iniciam-se com **mc**, o que faz alusão à expressão **multicore** (múltiplos núcleos). Dessa forma, `mclapply()` equivale ao funcional `lapply()`, porém trabalhando de forma paralela, `mcmapply()` é análogo paralelo do funcional `mapply()` e `mcMap()` é o analogo paralelo do funcional `Map()`. -->
+As funções que serão destacadas aqui e que nos ajudaram a paralelizar um procedimento de MC são as funções `mclapply()`, `mcmapply()`, `mcMap()` e `detectCores()`. Perceba que algumas funções iniciam-se com **mc**, o que faz alusão à expressão **multicore** (múltiplos núcleos). Dessa forma, `mclapply()` equivale ao funcional `lapply()`, porém trabalhando de forma paralela, `mcmapply()` é análogo paralelo do funcional `mapply()` e `mcMap()` é o analogo paralelo do funcional `Map()`.
 
-<!-- As funções `mclapply()` e `mcmapply()` trabalham de forma **multicore**, ou seja, sobre um único processador com vários núcleos físicos e lógicos. Isso é feito utilizando o conceito de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), sendo este um conceito de sistemas operacionais [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que está disponível em todas as plataformas R, exceto em Windows. O sistema [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) cria um novo processo de R tomando uma cópia completa do processo mestre, incluindo o espaço de trabalho e o estado de fluxo de números aleatórios. Porém, em um SO razoável, as cópias compartilham páginas de memória com o processo mestre até o momento em que o que é comum entre entre os processos seja modificado, permitindo assim que este procedimento de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) seja eficiente. -->
+As funções `mclapply()` e `mcmapply()` trabalham de forma **multicore**, ou seja, sobre um único processador com vários núcleos físicos e lógicos. Isso é feito utilizando o conceito de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), sendo este um conceito de sistemas operacionais [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que está disponível em todas as plataformas R, exceto em Windows. O sistema [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) cria um novo processo de R tomando uma cópia completa do processo mestre, incluindo o espaço de trabalho e o estado de fluxo de números aleatórios. Porém, em um SO razoável, as cópias compartilham páginas de memória com o processo mestre até o momento em que o que é comum entre entre os processos seja modificado, permitindo assim que este procedimento de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) seja eficiente.
 
-<!-- **Exemplo**: Comparando a execução serial e paralela da função `intvarmc()`. Como é possível observar, optou-se em paralelizar a função `intmc()` que é utilizado pela função `intvarmc()` para o cálculo das integrais aproximadas por um procedimento de MC. É possível observar que paralelizar a execução da função `intvarmc()` contribuiu significativamente na melhoria da peformance da função `intvarmc()`. Observe as saídas dos tempos de execução das funções `intvarmc()` (função com execução serial) e `intvarmc_parallel()` (cópia paralelizada da função `intvarmc()`): -->
+**Exemplo**: Comparando a execução serial e paralela da função `intvarmc()`. Como é possível observar, optou-se em paralelizar a função `intmc()` que é utilizado pela função `intvarmc()` para o cálculo das integrais aproximadas por um procedimento de MC. É possível observar que paralelizar a execução da função `intvarmc()` contribuiu significativamente na melhoria da peformance da função `intvarmc()`. Observe as saídas dos tempos de execução das funções `intvarmc()` (função com execução serial) e `intvarmc_parallel()` (cópia paralelizada da função `intvarmc()`):
 
-<!-- **Código Serial**: -->
+**Código Serial**:
 
-<!-- ```{r} -->
-<!-- # Código Serial ----------------------------------------------------------- -->
-<!-- intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
 
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
+```r
+# Código Serial -----------------------------------------------------------
+intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
 
-<!--   i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...) -->
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
 
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
+  i_hat <- purrr::map_dbl(.x = 1:N, .f = intmc_map, ...)
 
-<!--   list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
 
-<!-- set.seed(0L) -->
-<!-- time_serial <- system.time(result_serial <-  -->
-<!--                              intvarmc(N = 5e3L, fun = fdp_weibull,  -->
-<!--                                       lower = 0, upper = 10, -->
-<!--                                       alpha = 1.5, beta = 1.5)) -->
-<!-- result_serial$i_hat -->
-<!-- ``` -->
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
 
-<!-- **Código Paralelizado**: -->
+set.seed(0L)
+time_serial <- system.time(result_serial <-
+                             intvarmc(N = 5e3L, fun = fdp_weibull,
+                                      lower = 0, upper = 10,
+                                      alpha = 1.5, beta = 1.5))
+result_serial$i_hat
+```
 
-<!-- ```{r} -->
-<!-- # Código Paralelizado ----------------------------------------------------- -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
+```
+## [1] 1.000779
+```
 
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
+**Código Paralelizado**:
 
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ..., -->
-<!--                                      mc.cores =  parallel::detectCores())) -->
 
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
+```r
+# Código Paralelizado -----------------------------------------------------
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
 
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
 
-<!-- set.seed(0L) -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- result_parallel$i_hat -->
-<!-- ``` -->
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ...,
+                                     mc.cores =  parallel::detectCores()))
 
-<!-- **Importante**: -->
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
 
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) que uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO. -->
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
 
-<!-- Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf), a custo de **um pouco mais** de passos, já que não há suporte à [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). Como função `mclapply()` e funções derivadas fazem uso de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), deveremos considerar funções que não fazem uso de  [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). -->
-<!-- </div> -->
-<!-- ``` -->
+set.seed(0L)
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10,
+                                                 alpha = 1.5, beta = 1.5))
+```
 
-<!-- **Exemplo**: Implementação da função `intvarmc_parallel()` para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função `mclapply()` pela função `parLapply()` que também está disponível no pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).  -->
+```
+##   usuário   sistema decorrido 
+##     1.616     0.253     0.912
+```
 
-<!-- Assim como o [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), o **PSOCK** é também uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O **PSOCK** faz algumas execuções do comando `Rscript`, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo **multicore**, em Windows, há a necessidade da criação de um cluster do tipo **PSOCK**. -->
+```r
+result_parallel$i_hat
+```
 
-<!-- **Nota**: -->
+```
+## [1] 0.9996718
+```
 
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- É sempre uma boa prática desligar as theads chamando a função `stopCluster()` ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências. -->
-<!-- </div> -->
-<!-- ``` -->
+**Importante**:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- # No Windows -------------------------------------------------------------- -->
-<!-- # Atribuindo a quantidade de núcleos disponíveis. -->
-<!-- cores <- getOption("mc.cores", parallel::detectCores()) -->
+\BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
+O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) que uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO.
 
-<!-- # Criando um cluster do tipo PSOCK. -->
-<!-- cl <- makeCluster(cores, type = "PSOCK") -->
+Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf), a custo de **um pouco mais** de passos, já que não há suporte à [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). Como função `mclapply()` e funções derivadas fazem uso de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), deveremos considerar funções que não fazem uso de  [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)).
+</div></div>\EndKnitrBlock{rmdimportant}
 
-<!-- # Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas -->
-<!-- # em cada núcleo. -->
-<!-- clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment()) -->
+**Exemplo**: Implementação da função `intvarmc_parallel()` para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função `mclapply()` pela função `parLapply()` que também está disponível no pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf).
 
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
+Assim como o [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), o **PSOCK** é também uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O **PSOCK** faz algumas execuções do comando `Rscript`, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo **multicore**, em Windows, há a necessidade da criação de um cluster do tipo **PSOCK**.
 
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
+**Nota**:
 
-<!--   i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...)) -->
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+É sempre uma boa prática desligar as theads chamando a função `stopCluster()` ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências.
+</div></div>\EndKnitrBlock{rmdnote}
 
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
 
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
+```r
+# No Windows --------------------------------------------------------------
+# Atribuindo a quantidade de núcleos disponíveis.
+cores <- getOption("mc.cores", parallel::detectCores())
 
-<!-- set.seed(0L) -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- stopCluster(cl) -->
-<!-- result_parallel$i_hat -->
-<!-- ``` -->
+# Criando um cluster do tipo PSOCK.
+cl <- makeCluster(cores, type = "PSOCK")
 
-<!-- Tanto no exemplo de paralização em SO **\*nix** utilizando [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) quanto em Windows utilizando um cluster **PSOCK**, a função `intvarmc_parallel()` mostrou-se mais eficiente do sua implementação serial. Porém, nos deparamos com o problema de reprodutibilidade. Perceba que fazer `set.seed(0L)` antes da execução da função `intvarmc_parallel()` não é suficiente para garantir os mesmos resultados. Como é de responsabilidade do SO distribuir os processos entre as threads (hardware) disponíveis e o gerador de números pseudo-aleatórios toma estados distintos a depender da thread (hardware) ao qual um trabalhador foi alocado, sequências distintas muito provavelmente serão observadas entre execuções de uma função paralelizada. -->
+# Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas
+# em cada núcleo.
+clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment())
 
-<!-- O pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) contém uma implementação das ideias de L'Ecuyer et al. (2002), cujo o artigo é livre e poderá ser acessado com o link abaixo: -->
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
 
-<!-- L'Ecuyer  P,  Simard  R,  Chen  EJ,  Kelton  WD  (2002). **An  object-oriented  random-numberpackage with many long streams and substreams**. *Operations Research*, 50, 1073--5. URL [**link**](http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf). -->
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
 
-<!-- Assim, em R, é possível fazer uso desse gerador que recebe o nome **L'Ecuyer-CMRG**. Isso poderá ser feito passando a string `"L'Ecuyer-CMRG"`, alem da semente, para o agumento `kind` da função `set.seed()` ou alterando o gerador utilizando a função `"RNGkind()"` e posteriormente utilizando a função `set.seed()` para fixar uma semente. As duas formas estão apresentadas abaixo: -->
+  i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...))
 
-<!-- ```{r, eval = FALSE} -->
-<!-- # Forma 1: -->
-<!-- set.seed(seed = 0L, kind = "L'Ecuyer-CMRG") -->
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
 
-<!-- # Forma 2: -->
-<!-- RNGkind(kind = "L'Ecuyer-CMRG") -->
-<!-- set.seed(0L) -->
-<!-- ``` -->
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
 
-<!-- **Exemplo**: Reproduções da função `intvarmc_parallel()` usando os sistemas [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) e **PSOCK**, repectivamente. Trata-se de um exemplo que poderá ser reproduzível, uma vez que foi utilizado o gerador **L'Ecuyer-CMRG** com semente fixa. -->
+set.seed(0L)
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10,
+                                                 alpha = 1.5, beta = 1.5))
+stopCluster(cl)
+result_parallel$i_hat
+```
 
-<!-- **Paralelização usando FORK**: -->
+Tanto no exemplo de paralização em SO **\*nix** utilizando [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) quanto em Windows utilizando um cluster **PSOCK**, a função `intvarmc_parallel()` mostrou-se mais eficiente do sua implementação serial. Porém, nos deparamos com o problema de reprodutibilidade. Perceba que fazer `set.seed(0L)` antes da execução da função `intvarmc_parallel()` não é suficiente para garantir os mesmos resultados. Como é de responsabilidade do SO distribuir os processos entre as threads (hardware) disponíveis e o gerador de números pseudo-aleatórios toma estados distintos a depender da thread (hardware) ao qual um trabalhador foi alocado, sequências distintas muito provavelmente serão observadas entre execuções de uma função paralelizada.
 
-<!-- ```{r, dependson="time_serial"} -->
-<!-- # Código Paralelizado ----------------------------------------------------- -->
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
+O pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) contém uma implementação das ideias de L'Ecuyer et al. (2002), cujo o artigo é livre e poderá ser acessado com o link abaixo:
 
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
+> L'Ecuyer  P,  Simard  R,  Chen  EJ,  Kelton  WD  (2002). **An  object-oriented  random-number package with many long streams and substreams**. *Operations Research*, 50, 1073--5. URL [**link**](http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf).
 
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ..., -->
-<!--                                      mc.cores =  parallel::detectCores())) -->
+Assim, em R, é possível fazer uso desse gerador que recebe o nome **L'Ecuyer-CMRG**. Isso poderá ser feito passando a string `"L'Ecuyer-CMRG"`, alem da semente, para o agumento `kind` da função `set.seed()` ou alterando o gerador utilizando a função `"RNGkind()"` e posteriormente utilizando a função `set.seed()` para fixar uma semente. As duas formas estão apresentadas abaixo:
 
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
 
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
+```r
+# Forma 1:
+set.seed(seed = 0L, kind = "L'Ecuyer-CMRG")
 
-<!-- # Fixando uma semente para um gerador que poderá -->
-<!-- # trabalhar sobre processos paralelizados. -->
-<!-- set.seed(0L, kin = "L'Ecuyer-CMRG") -->
-<!-- time_parallel <- system.time(result_parallel <-  -->
-<!--                                intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- # Uma aproximação para integral de uma função -->
-<!-- # utilizando um procedimento de MC: -->
-<!-- result_parallel$i_hat -->
+# Forma 2:
+RNGkind(kind = "L'Ecuyer-CMRG")
+set.seed(0L)
+```
 
-<!-- # Speedup: -->
-<!-- time_serial[3]/time_parallel[3] -->
-<!-- ``` -->
+**Exemplo**: Reproduções da função `intvarmc_parallel()` usando os sistemas [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) e **PSOCK**, repectivamente. Trata-se de um exemplo que poderá ser reproduzível, uma vez que foi utilizado o gerador **L'Ecuyer-CMRG** com semente fixa.
 
-<!-- **Paralelização usando PSOCK**: -->
+**Paralelização usando FORK**:
 
-<!-- ```{r, eval = FALSE} -->
-<!-- # No Windows -------------------------------------------------------------- -->
-<!-- # Atribuindo a quantidade de núcleos disponíveis. -->
-<!-- cores <- getOption("mc.cores", parallel::detectCores()) -->
 
-<!-- # Criando um cluster do tipo PSOCK. -->
-<!-- cl <- makeCluster(cores, type = "PSOCK") -->
+```r
+# Código Paralelizado -----------------------------------------------------
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
 
-<!-- # Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas -->
-<!-- # em cada núcleo. -->
-<!-- clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment()) -->
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
 
-<!-- intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){ -->
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  i_hat <- unlist(parallel::mclapply(X = 1L:N, FUN = intmc_map, ...,
+                                     mc.cores =  parallel::detectCores()))
 
-<!--   # Reescrita da função intmc() para que seja possível utilizar -->
-<!--   # em um funcional baseado no funcional lapply(). -->
-<!--   intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...) -->
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
 
-<!--   i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...)) -->
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
 
-<!--   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2 -->
+# Fixando uma semente para um gerador que poderá
+# trabalhar sobre processos paralelizados.
+set.seed(0L, kin = "L'Ecuyer-CMRG")
+time_parallel <- system.time(result_parallel <-
+                               intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10,
+                                                 alpha = 1.5, beta = 1.5))
+# Uma aproximação para integral de uma função
+# utilizando um procedimento de MC:
+result_parallel$i_hat
+```
 
-<!--   list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat) -->
-<!-- } -->
+```
+## [1] 0.9998191
+```
 
-<!-- # Fixando uma semente para um gerador que poderá -->
-<!-- # trabalhar sobre processos paralelizados. -->
-<!-- set.seed(0L, kin = "L'Ecuyer-CMRG") -->
-<!-- system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull, -->
-<!--                                                  lower = 0, upper = 10,  -->
-<!--                                                  alpha = 1.5, beta = 1.5)) -->
-<!-- stopCluster(cl) -->
+```r
+# Speedup:
+time_serial[3]/time_parallel[3]
+```
 
-<!-- # Uma aproximação para integral de uma função -->
-<!-- # utilizando um procedimento de MC: -->
-<!-- result_parallel$i_hat -->
+```
+##  elapsed 
+## 2.448642
+```
 
-<!-- # Speedup: -->
-<!-- time_serial[3]/time_parallel[3] -->
-<!-- ``` -->
+**Paralelização usando PSOCK**:
+
+
+```r
+# No Windows --------------------------------------------------------------
+# Atribuindo a quantidade de núcleos disponíveis.
+cores <- getOption("mc.cores", parallel::detectCores())
+
+# Criando um cluster do tipo PSOCK.
+cl <- makeCluster(cores, type = "PSOCK")
+
+# Exportando as funções intmc() e fdp_weibull() para que sejam reconhecidas
+# em cada núcleo.
+clusterExport(cl = cl, varlist = c("intmc", "fdp_weibull"), envir = environment())
+
+intvarmc_parallel <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
+
+  # Reescrita da função intmc() para que seja possível utilizar
+  # em um funcional baseado no funcional lapply().
+  intmc_map <- function(x, ...) intmc(N, fun, lower, upper, ...)
+
+  i_hat <- unlist(parallel::parLapply(cl = cl, X = 1L:N, fun = intmc_map, ...))
+
+  var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
+
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
+}
+
+# Fixando uma semente para um gerador que poderá
+# trabalhar sobre processos paralelizados.
+set.seed(0L, kin = "L'Ecuyer-CMRG")
+system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
+                                                 lower = 0, upper = 10,
+                                                 alpha = 1.5, beta = 1.5))
+stopCluster(cl)
+
+# Uma aproximação para integral de uma função
+# utilizando um procedimento de MC:
+result_parallel$i_hat
+
+# Speedup:
+time_serial[3]/time_parallel[3]
+```
 
 ## Exercício {-}
 
@@ -1314,21 +1337,19 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
    
    + Se nenhum dos resultamos acima for obtido, o jogador continua lançando ambos os dados até obter uma soma igual à 11 ou 12. 
 
-<!-- 10 - Explique, com suas palavras, o que é paralelização **multicore**. Descreva brevemente os conceitos de **nó**, **thread** (hardware), **processo master** e **trabalhadores**. -->
+10 - Explique, com suas palavras, o que é paralelização **multicore**. Descreva brevemente os conceitos de **nó**, **thread** (hardware), **processo master** e **trabalhadores**.
 
-<!-- 11 - Descreva brevemente o sistema **FORK** e **PSOCK**. Apresente um exemplo de um código paralelizado usando o sistema **FORK** e **PSOCK**, respectivamente. -->
+11 - Descreva brevemente o sistema **FORK** e **PSOCK**. Apresente um exemplo de um código paralelizado usando o sistema **FORK** e **PSOCK**, respectivamente.
 
-<!-- 12 - Defina **speedup** e explique o significado. -->
+12 - Defina **speedup** e explique o significado.
 
-<!-- 13 - Ao paralelizar um algoritmo, teremos garantia da melhoria do desempenho computacional? Explique. -->
+13 - Ao paralelizar um algoritmo, teremos garantia da melhoria do desempenho computacional? Explique.
 
-<!-- 14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de **speedup** definido por essa lei? -->
+14 - Enuncie a Lei de Amdahl e cite um ponto negativo dessa lei. Qual o valor máximo de **speedup** definido por essa lei?
 
-<!-- 15 - Implemente um procedimento de MC, utilizando paralelismo para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado. -->
+15 - Implemente um procedimento de MC, utilizando paralelismo para avaliar o cálculo do estimador de $\hat{I}$ definido no exercício 3. Obtenha o **speedup** e discuta o resultado.
 
-<!-- 17 - Implemente uma função que realiza uma simulação de MC para avaliar o procedimento de MC para aproximação da constante $\pi$. Obtenha o **speedup** e discuta o resultado. Considere 100 mil iterações em ambos os procedimentos. -->
-
-<!-- 18 - Implemente de forma paralela os exercícios 5, 6, 7, 8 e 9. Discuta se houve ou não melhoria no desempenho computacional dos procedimentos paralelizados de MC. Considere 100 mil iterações de MC. -->
+16 - Implemente uma versão paralela dos exercícios 5, 6, 7, 8 e 9. Avalie a implementação paralela com a versão serial. Houveram melhoria no desempenho computacional utilizando as versões paralelizadas? Explique.
 
 <!-- # Exercício 16: (paralelizando o exercício) -->
 <!-- mc_ex6 <- function(n = 1e3L){ -->
@@ -1345,3 +1366,60 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 
 <!-- system.time(result <- mc_ex6(n = 1e6)) -->
 <!-- result -->
+
+17 - Implemente de forma paralela, uma função que realiza uma simulação de MC para avaliar o procedimento de MC para aproximação da constante $\pi$. Obtenha o **speedup** e discuta o resultado. Considere 100 mil iterações em ambos os procedimentos.
+
+18 - Implemente uma versão paralelizada do método da aceitação e rejeição para geração de números pseudo-aleatórios. Obtenha o **speedup** e discuta se houve ou não melhorias no desempenho computacional ao considerar-se a versão paralelizada. Explique.
+
+<!-- # Método da Aceitação e Rejeição (SERIAL) --------------------------------- -->
+<!-- ar_serial <- function(n = 1L, fun, lower, upper, par, ...){ -->
+
+<!--   func_obj <- function(x) -1 * fun(x, ...) * (upper - lower) -->
+<!--   x_c <- optim(fn = func_obj, par = par, lower = lower, -->
+<!--                upper = upper, method = "Brent")$par -->
+
+<!--   c <- fun(x_c, ...) * (upper - lower) -->
+
+
+<!--   test <- function(x){ -->
+<!--     repeat{ -->
+<!--       y <- runif(1L, min = lower, max = upper) -->
+<!--       u <- runif(n = 1L, min = 0, max = 1) -->
+<!--       if(u < (fun(y, ...) * (upper - lower) / c)) return(y) -->
+<!--     } -->
+<!--   } -->
+
+<!--   unlist(lapply(X = 1:n, FUN = test)) -->
+<!-- }   -->
+
+<!-- f <- function(x, ...) dnorm(x, mean = ..1, sd = ..2) -->
+
+<!-- result_serial <- ar_serial(n = 1e6L, fun = f, lower = -38,  -->
+<!--                            upper = 38, par = 1, 0, 1) -->
+
+<!-- # Método da Aceitação e Rejeição (PARALELO) ------------------------------- -->
+<!-- ar_paralelo <- function(n = 1L, fun, lower, upper, par, ...){ -->
+
+<!--   func_obj <- function(x) -1 * fun(x, ...) * (upper - lower) -->
+<!--   x_c <- optim(fn = func_obj, par = par, lower = lower, -->
+<!--                upper = upper, method = "Brent")$par -->
+
+<!--   c <- fun(x_c, ...) * (upper - lower) -->
+
+
+<!--   test <- function(x){ -->
+<!--     repeat{ -->
+<!--       y <- runif(1L, min = lower, max = upper) -->
+<!--       u <- runif(n = 1L, min = 0, max = 1) -->
+<!--       if(u < (fun(y, ...) * (upper - lower) / c)) return(y) -->
+<!--     } -->
+<!--   } -->
+
+<!--   unlist(parallel::mclapply(X = 1:n, FUN = test,  -->
+<!--                             mc.cores = parallel::detectCores())) -->
+<!-- }   -->
+
+<!-- f <- function(x, ...) dnorm(x, mean = ..1, sd = ..2) -->
+
+<!-- result_paralelo <- ar_paralelo(n = 1e6L, fun = f, lower = -38,  -->
+<!--                                upper = 38, par = 1, 0, 1) -->
