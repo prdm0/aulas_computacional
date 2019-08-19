@@ -1128,7 +1128,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.616     0.253     0.912
+##     1.632     0.199     0.965
 ```
 
 ```r
@@ -1136,13 +1136,13 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9996718
+## [1] 0.9999949
 ```
 
 **Importante**:
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
-O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) que uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO.
+O código paralelizado no exemplo anterior irá verdadeiramente funcionar de forma paralela em sistemas ***nix** e não trabalhará corretamente em Windows. Isso se deve ao fato de muitas funções do pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf) serem derivadas do pacote **multicore** e utilizarem [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), uma chamada de sistema [**POSIX**](https://pt.wikipedia.org/wiki/POSIX) não compatível com o SO Windows. Essas funções, em que [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)) é apenas uma delas, constroem uma interface entre um processo e o SO.
 
 Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote [**parallel**](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf), a custo de **um pouco mais** de passos, já que não há suporte à [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)). Como função `mclapply()` e funções derivadas fazem uso de [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)), deveremos considerar funções que não fazem uso de  [**FORK**](https://en.wikipedia.org/wiki/Fork_(system_call)).
 </div></div>\EndKnitrBlock{rmdimportant}
@@ -1253,7 +1253,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.448642
+## 1.851142
 ```
 
 **Paralelização usando PSOCK**:
