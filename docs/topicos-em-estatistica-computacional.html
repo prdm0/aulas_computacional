@@ -303,7 +303,7 @@ para todo valor de <span class="math inline">\(t\)</span>, com <span class="math
 <p><strong>Algoritmo do Método da Aceitação e Rejeição</strong>:</p>
 <p>1 - Gere uma observação <span class="math inline">\(y\)</span> proveniente de uma v.a. <span class="math inline">\(Y\)</span> com fdp/fp <span class="math inline">\(g\)</span>;</p>
 <p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U\sim \mathcal{U} (0, 1)\)</span>;</p>
-<p>3 - Se <span class="math inline">\(u &lt; \frac{f(y)}{cg(y)}\)</span> aceite <span class="math inline">\(x = y\)</span>; caso contrário rejeite <span class="math inline">\(y\)</span> como observação da v.a. <span class="math inline">\(X\)</span> e volte para o passo anterior.</p>
+<p>3 - Se <span class="math inline">\(u &lt; \frac{f(y)}{cg(y)}\)</span> aceite <span class="math inline">\(x = y\)</span>; caso contrário rejeite <span class="math inline">\(y\)</span> como observação da v.a. <span class="math inline">\(X\)</span> e volte ao passo 1.</p>
 <p><strong>Prova</strong>: Consideremos o caso discreto, ou seja, que <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são v.a.s com fp’s <span class="math inline">\(f\)</span> e <span class="math inline">\(g\)</span>, respectivamente. Pelo passo 3 do algoritmo acima, temos que <span class="math inline">\(\{aceitar\} = \{x = y\} = u &lt; \frac{f(y)}{cg(y)}\)</span>. Isto é,</p>
 <p><span class="math display">\[P(aceitar | Y = y) = \frac{P(aceitar \cap \{Y = y\})}{g(y)} = \frac{P(U \leq f(y)/cg(y)) \times g(y)}{g(y)} = \frac{f(y)}{cg(y)}.\]</span>
 Daí, pelo <a href="https://pt.wikipedia.org/wiki/Lei_da_probabilidade_total"><strong>Teorema da Probabilidade Total</strong></a>, temos que:</p>
@@ -358,11 +358,9 @@ O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</
 <li>Implemente duas funções que geram observações da v.a. <span class="math inline">\(X\)</span> utilizando o método da transformação para v.a. discretas e pelo método da aceitação e rejeição. Qual método é mais eficiente computacionalmente? Por que?</li>
 </ol>
 <p><span class="math display">\[\begin{eqnarray}
-P(X = 0) &amp;=&amp; 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\
-P(X = 3) &amp;=&amp; 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\
-P(X = 6) &amp;=&amp; 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\
-P(X = 9) &amp;=&amp; 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\
-P(X = 12) &amp;=&amp; 1.\nonumber
+P(X = 0) &amp;=&amp; 0.14, P(X = 1) = 0.27, P(X = 2) = 0.27,\nonumber\\
+P(X = 3) &amp;=&amp; 0.18, P(X = 4) = 0.09, P(X = 5) = 0.04, \nonumber\\
+P(X = 6) &amp;=&amp; 0.01. \nonumber\\
 \end{eqnarray}\]</span></p>
 <ol start="17" style="list-style-type: decimal">
 <li><p>Implemente a função <code>rdisc(n = 1L, x, probs)</code> que retorna números pseudo-aleatórios de uma v.a. discreta <span class="math inline">\(X\)</span> que assume uma quantidade finita de observações. Os argumentos de <code>rdisc</code> estão especificados abaixo:</p>
@@ -898,7 +896,7 @@ Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</sp
 <span id="cb297-23"><a href="topicos-em-estatistica-computacional.html#cb297-23"></a>    </span>
 <span id="cb297-24"><a href="topicos-em-estatistica-computacional.html#cb297-24"></a>  var_hat &lt;-<span class="st"> </span><span class="kw">mean</span>(i_hat <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(i_hat) <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
 <span id="cb297-25"><a href="topicos-em-estatistica-computacional.html#cb297-25"></a>    </span>
-<span id="cb297-26"><a href="topicos-em-estatistica-computacional.html#cb297-26"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> i_hat[<span class="dv">1</span>], <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
+<span id="cb297-26"><a href="topicos-em-estatistica-computacional.html#cb297-26"></a>  <span class="kw">list</span>(<span class="dt">i_hat =</span> <span class="kw">mean</span>(i_hat), <span class="dt">var_hat =</span> var_hat, <span class="dt">vec_ihat =</span> i_hat)</span>
 <span id="cb297-27"><a href="topicos-em-estatistica-computacional.html#cb297-27"></a>}</span>
 <span id="cb297-28"><a href="topicos-em-estatistica-computacional.html#cb297-28"></a></span>
 <span id="cb297-29"><a href="topicos-em-estatistica-computacional.html#cb297-29"></a><span class="kw">set.seed</span>(0L)</span>
@@ -906,7 +904,7 @@ Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</sp
 <span id="cb297-31"><a href="topicos-em-estatistica-computacional.html#cb297-31"></a>                   <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>)</span>
 <span id="cb297-32"><a href="topicos-em-estatistica-computacional.html#cb297-32"></a><span class="kw">str</span>(result)</span></code></pre></div>
 <pre><code>## List of 3
-##  $ i_hat   : num 1.03
+##  $ i_hat   : num 1
 ##  $ var_hat : num 0.000503
 ##  $ vec_ihat: num [1:5000] 1.029 0.975 0.999 1.005 1.031 ...</code></pre>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="topicos-em-estatistica-computacional.html#cb299-1"></a><span class="co"># Realizando um teste de normalidade pelo</span></span>
@@ -1029,15 +1027,15 @@ Figura 6.10: Representação de um processador <strong>multicore</strong> (múlt
 </div>
 <div id="speedup" class="section level3">
 <h3><span class="header-section-number">6.3.6</span> Speedup</h3>
-<p>Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida <strong>speedup</strong> que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em <span class="math inline">\(N\)</span> threads. Ou seja, se <span class="math inline">\(S\)</span> é o <strong>speedup</strong>, então</p>
-<p><span class="math display">\[S = \frac{T(1)}{T(n)},\]</span>
+<p>Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida <strong>speedup</strong> que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em <span class="math inline">\(n\)</span> threads. Ou seja, se <span class="math inline">\(S\)</span> é o <strong>speedup</strong>, então</p>
+<p><span class="math display">\[S(n) = \frac{T(1)}{T(n)},\]</span>
 em que <span class="math inline">\(T(1)\)</span> é o tempo serial e <span class="math inline">\(T(n)\)</span> é o tempo em paralelo ao considerar <span class="math inline">\(N\)</span> cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o <strong>speedup</strong>, maior será o ganho computacional ao se paralelizar um código.</p>
 <p><strong>Lei de Amdahl</strong></p>
 <p>Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o número de núcleos utilizados em paralelo, dizemos que o código em paralelo produz uma aceleração linear, sendo este o melhor dos cenários. Porém, na maioria dos problemas em que desejamos paralelizar, o tempo de computação atinge uma “parede assintótica”, em que os benefícios de utilizar núcleos adicionais são compensados pelos custos adicionais de gerenciar o fluxo de informações entre tantos trabalhadores. Essa função assintótica <strong>poderá</strong> seguir a <strong>Lei de Amdahl</strong>, definida por <a href="https://en.wikipedia.org/wiki/Gene_Amdahl"><strong>Gene Myron Amdahl</strong></a>, em uma conferência, em 1967. A lei diz que:</p>
 <p><span class="math display">\[T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],\]</span>
 em que <span class="math inline">\(T(n)\)</span> é o tempo que um algoritmo leva para ser executado de forma paralela utilizando <span class="math inline">\(n\)</span> núcleos e <span class="math inline">\(s\)</span> é a proporção do código que deve ser executado de forma serial, sendo <span class="math inline">\(1 - s\)</span> a proporção de código executado de forma paralela.</p>
-<p>Sendo assim, o <strong>speedup</strong> teórico é dado por:</p>
-<p><span class="math display">\[S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.\]</span>
+<p>Sendo assim, dado <span class="math inline">\(s\)</span>, o <strong>speedup</strong> teórico é dado por:</p>
+<p><span class="math display">\[S(n) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.\]</span>
 Perceba que,</p>
 <p><span class="math display">\[\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},\]</span>
 é o <strong>speedup</strong> máximo alcançado, segundo essa lei.</p>
@@ -1117,9 +1115,9 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb309-18"><a href="topicos-em-estatistica-computacional.html#cb309-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb309-19"><a href="topicos-em-estatistica-computacional.html#cb309-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.548     0.263     0.721</code></pre>
+##     2.769     0.379     0.541</code></pre>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="topicos-em-estatistica-computacional.html#cb311-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.999913</code></pre>
+<pre><code>## [1] 0.9996403</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1208,11 +1206,11 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb315-23"><a href="topicos-em-estatistica-computacional.html#cb315-23"></a><span class="co"># Uma aproximação para integral de uma função</span></span>
 <span id="cb315-24"><a href="topicos-em-estatistica-computacional.html#cb315-24"></a><span class="co"># utilizando um procedimento de MC:</span></span>
 <span id="cb315-25"><a href="topicos-em-estatistica-computacional.html#cb315-25"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.9998191</code></pre>
+<pre><code>## [1] 0.9993872</code></pre>
 <div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="topicos-em-estatistica-computacional.html#cb317-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb317-2"><a href="topicos-em-estatistica-computacional.html#cb317-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.348328</code></pre>
+## 2.824966</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="topicos-em-estatistica-computacional.html#cb319-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb319-2"><a href="topicos-em-estatistica-computacional.html#cb319-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1338,7 +1336,7 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- ## Bootstrap -->
 <!-- O método bootstrap foi introduzido em 1979 por Bradley Efron em um artigo publicado no [**The Annals of Statistics**](https://www.imstat.org/journals-and-publications/annals-of-statistics/). A referência do artigo encontra-se abaixo e poderá ser acesso pelo link na referência, uma vez que o artigo é aberto. -->
 <!-- > Efron, B. [**Bootstrap methods: another look at the jackknife**](https://projecteuclid.org/download/pdf_1/euclid.aos/1176344552). The Annals of Statistics, -->
-<!-- v. 7, p. 1--26, 1979.  -->
+<!-- v. 7, p. 1--26, 1979. -->
 <!-- Tal método foi inspirado em uma metodologia anterior baseada em reamostragem denominada [**jackknife**](https://en.wikipedia.org/wiki/Jackknife_resampling), idealizada por [**Maurice Quenouille**](https://en.wikipedia.org/wiki/Maurice_Quenouille) em 1949 e aperfeiçoada em 1956. Para maiores detalhes, consulte as referências abaixo: -->
 <!-- > Quenouille, Maurice H. [**Problems in Plane Sampling**](https://projecteuclid.org/download/pdf_1/euclid.aoms/1177729989). The Annals of Mathematical Statistics, v. 20, 355--375, 1949. -->
 <!-- e -->
@@ -1353,14 +1351,14 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- knitr::include_graphics("images/boots.png") -->
 <!-- ``` -->
 <!-- </div> -->
-<!-- > "The Baron had fallen to the bottom of a deep lake. Just when it looked like all was lost, he thought to pick himself up by his own **bootstraps**."  -->
+<!-- > "The Baron had fallen to the bottom of a deep lake. Just when it looked like all was lost, he thought to pick himself up by his own **bootstraps**." -->
 <!-- > **Tradução**: "O Barão tinha caı́do no fundo de um lago profundo. Justo quando parecia que tudo estava perdido, ele pensou em retirar-se por seus próprios **bootstraps**"). -->
 <!-- Inicialmente houve ceticismo sobre a metodologia bootstrap, tendo sido tal ceticismo superado à medida em que estudos acumularam evidências de que o bootstrap pode ser consideravelmente mais eficaz que metodologias tradicionais. -->
 <!-- A ideia de substituir aproximações complicadas e muitas vezes imprecisas por métodos de simulação baseados em reamostragem tem atraído diversos pesquisadores a desenvolver metodologias baseadas em bootstrap para os mais variados fins. Com a popularização do método bootstrap, alguns pesquisadores começaram a estabelecer condições matemáticas sob as quais o bootstrap é justificável. -->
-<!-- Na literatura existem muitos trabalhos que fazem uso de metodologias bootstrap. Em geral, o método bootstrap é utilizado para correção de viés de estimadores, construção de intervalos de confiança, testes de hipóteses, estimação do erro-padrão de um estimador, entre outros.  -->
+<!-- Na literatura existem muitos trabalhos que fazem uso de metodologias bootstrap. Em geral, o método bootstrap é utilizado para correção de viés de estimadores, construção de intervalos de confiança, testes de hipóteses, estimação do erro-padrão de um estimador, entre outros. -->
 <!-- As metodologias bootstrap apresentam dois paradigmas, sendo eles o **bootstrap paramétrico** e o **bootstrap não-paramétrico**. Bootstrap paramétrico refere-se ao caso em que a reamostragem é feita com base em uma distribuição $F(\widehat{\theta})$ conhecida ou estabelecida, em que $\widehat{\theta}$ é um estimador para $\theta$. Em contrapartida, no bootstrap não-paramétrico há o desconhecimento da distribuição $F$ verdadeira. A reamostragem é feita com base na função de distribuição empírica $F_n$. **Reamostrar de $F_n$ equivale a reamostrar dos dados com reposição**. -->
 <!-- O bootstrap não-paramétrico trata a amostra como se fosse a população e a reamostragem é realizada dessa amostra como se estevessemos amostrando da população. O método de bootstrap não-paramétrico é frequentemente utilizado quando a distribuição da população alvo não é especificada. Nesse casos, temos apenas as informações contidas na amostra, em que poderemos fazer uso da distribuição empírica (distribuição dos dados) como uma aproximação da distribuição verdadeira $F$ (desconhecida). -->
-<!-- Seja $\pmb X = (X_1, \ldots, X_n)$ uma sequência de v.a.'s i.i.d. (uma amostra aleatória), tal que $F_{X_i}$ é **desconhecida**, com $i = 1, \ldots, n$. Como a natureza funcional de $F_{X_i}$ é desconhecida, as únicas informações que teremos a nossa disposição são as observações da amostra aleatória, ou seja, $\pmb x = (x_1, \ldots, x_n)$. Muito embora desconhecemos $F_{X_i}$, sabemos que  -->
+<!-- Seja $\pmb X = (X_1, \ldots, X_n)$ uma sequência de v.a.'s i.i.d. (uma amostra aleatória), tal que $F_{X_i}$ é **desconhecida**, com $i = 1, \ldots, n$. Como a natureza funcional de $F_{X_i}$ é desconhecida, as únicas informações que teremos a nossa disposição são as observações da amostra aleatória, ou seja, $\pmb x = (x_1, \ldots, x_n)$. Muito embora desconhecemos $F_{X_i}$, sabemos que -->
 <!-- $$P\Big(\lim_{n\to \infty} \mathrm{sup}|F_n - F_{X_i}| = 0\Big) = 1,$$ -->
 <!-- em que $F_n$ é a função de distribuição empírica (função de distribuição dos dados) que é dada por: -->
 <!-- $$F_n(t) = \frac{1}{n} \sum_{i = 1} ^ n I\{x_i \leq t\}.$$ -->
@@ -1377,7 +1375,7 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--    lines(domain, prob, col = rgb(1, 0.5, 0.04), ...) -->
 <!--    title(xlab = "x", ylab = "Probabilidade", main = paste("n = ", length(x))) -->
 <!-- } -->
-<!-- # Dados proveniente da distribuição verdadeira  -->
+<!-- # Dados proveniente da distribuição verdadeira -->
 <!-- # Weibull(alpha = 0.5, beta = 1.3): -->
 <!-- set.seed(1L) -->
 <!-- dados <- rweibull(50L, shape = 1.5, scale = 2.0) -->
@@ -1410,7 +1408,7 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--     n <- length(x) -->
 <!--     # Selecionando observações uniformemente distribuídas em x. -->
 <!--     # Poderia ser utilizado a função sample(). -->
-<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]  -->
+<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)] -->
 <!--   } -->
 <!--   # A função boot() calcula uma statística em uma única amostra -->
 <!--   # bootstrap: -->
@@ -1420,7 +1418,7 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--   purrr::map_dbl(.x = 1L:N, .f = boot, sample_true = sample_true) -->
 <!--   # or -->
 <!--   #lapply(X = 1L:N, FUN = boot, sample_true) -->
-<!-- }   -->
+<!-- } -->
 <!-- # Fixando uma semente: -->
 <!-- set.seed(1L) -->
 <!-- # Observe que stat é a média amostra, uma vez que passamos a função -->
@@ -1438,14 +1436,14 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- ### Estimando erro-padrão -->
 <!-- A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser obtida por: -->
 <!-- $$\widehat{se}(T_n)_{boot} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},$$ -->
-<!-- em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário.  -->
+<!-- em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário. -->
 <!-- **Nota**: -->
 <!-- ```{block2, type='rmdnote'} -->
 <!-- <div class=text-justify> -->
 <!-- Para obtenção de uma boa estimativa do erro-padrão de $T_n$, considere $B \geq 250$. -->
 <!-- </div> -->
 <!-- ``` -->
-<!-- **Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{boot}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{boot}$.  -->
+<!-- **Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{boot}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{boot}$. -->
 <!-- ```{r, dependson="bootstraping"} -->
 <!-- # Fixando uma semente. -->
 <!-- set.seed(1L) -->
@@ -1466,14 +1464,14 @@ S^2 &amp;=&amp; \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- ### Diminuindo o viés -->
 <!-- Se $T_n$ é um estimador não-viesado para $\theta$, então $\mathrm{E}(T_n) = \theta$. Porém, alguns estimadores podem ser viesados para estimar $\theta$, em que o seu viés poderá ser obtido por: -->
 <!-- $$B(T_n) = \mathrm{E}(T_n - \theta) = \mathrm{E}(T_n) - \theta.$$ -->
-<!-- Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$.  -->
+<!-- Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$. -->
 <!-- Em um situação ideal, temos que o estimador $T_n$ corrigido por víes é dado por -->
 <!-- $$T_n^{\mathrm{ideal}} = T_n - B(T_n).$$ -->
 <!-- Porém, note que $T_n^{\mathrm{ideal}}$ não é um estimador, uma vez que $T_n^{\mathrm{ideal}}$ depende de $\theta$. Assim, em uma situação quase-ideal, temos que -->
 <!-- $$T_n^{\mathrm{quase-ideal}} = T_n  - \widehat{B(T_n)}.$$ -->
 <!-- Queremos construir um estimador $T_n^{\mathrm{corrigido}}$ semelhante à $T_n^{\mathrm{quase-ideal}}$. -->
 <!-- $$T_n^{\mathrm{corrigido}} = T_n - \widehat{B(T_n)} = T_n - [\widehat{\mathrm{E}(T_n)} - T_n] = 2T_n - \widehat{\mathrm{E}(T_n)}.$$ -->
-<!-- O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome  -->
+<!-- O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome -->
 <!-- $$\widehat{\mathrm{E}(T_n)} = \frac{1}{n}\sum_{i=1}^B T_n^{*,i} = \overline{T_n^{*}}.$$ -->
 <!-- Portanto, o estimador $T_n$ corrigido por bootstrap é dado por: -->
 <!-- $$T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}.$$ -->

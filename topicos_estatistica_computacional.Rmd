@@ -98,7 +98,7 @@ para todo valor de $t$, com $f(t) > 0$. Para utilizar o método a aceitação e 
 
 2 - Gere uma observação $u$ de uma v.a. $U\sim \mathcal{U} (0, 1)$;
 
-3 - Se $u < \frac{f(y)}{cg(y)}$ aceite $x = y$; caso contrário rejeite $y$ como observação da v.a. $X$ e volte para o passo anterior.
+3 - Se $u < \frac{f(y)}{cg(y)}$ aceite $x = y$; caso contrário rejeite $y$ como observação da v.a. $X$ e volte ao passo 1.
 
 **Prova**: Consideremos o caso discreto, ou seja, que $X$ e $Y$ são v.a.s com fp's $f$ e $g$, respectivamente. Pelo passo 3 do algoritmo acima, temos que $\{aceitar\} =  \{x = y\} = u < \frac{f(y)}{cg(y)}$. Isto é,
 
@@ -170,11 +170,9 @@ $$P(X = 1) = 0.3, P(X = 2) = 0.2, P(X = 3) = 0.35, P(X = 4) = 0.15.$$
 16. Implemente duas funções que geram observações da v.a. $X$ utilizando o método da transformação para v.a. discretas e pelo método da aceitação e rejeição. Qual método é mais eficiente computacionalmente? Por que?
 
 \begin{eqnarray}
-P(X = 0) &=& 0.01, P(X = 1) = 0.04, P(X = 2) = 0.12,\nonumber\\
-P(X = 3) &=& 0.27, P(X = 4) = 0.44, P(X = 5) = 0.62, \nonumber\\
-P(X = 6) &=& 0.76, P(X = 7) = 0.87, P(X = 8) = 0.93, \nonumber\\
-P(X = 9) &=& 0.97, P(X = 10) = 0.99, P(X = 11) = 0.99, \nonumber\\
-P(X = 12) &=& 1.\nonumber
+P(X = 0) &=& 0.14, P(X = 1) = 0.27, P(X = 2) = 0.27,\nonumber\\
+P(X = 3) &=& 0.18, P(X = 4) = 0.09, P(X = 5) = 0.04, \nonumber\\
+P(X = 6) &=& 0.01. \nonumber\\
 \end{eqnarray}
 
 17. Implemente a função `rdisc(n = 1L, x, probs)` que retorna números pseudo-aleatórios de uma v.a. discreta $X$ que assume uma quantidade finita de observações. Os argumentos de `rdisc` estão especificados abaixo:
@@ -866,7 +864,7 @@ intvarmc <- function(N = 1e3L, fun, lower = NULL, upper = NULL, ...){
     
   var_hat <- mean(i_hat ^ 2) - mean(i_hat) ^ 2
     
-  list(i_hat = i_hat[1], var_hat = var_hat, vec_ihat = i_hat)
+  list(i_hat = mean(i_hat), var_hat = var_hat, vec_ihat = i_hat)
 }
 
 set.seed(0L)
@@ -1020,9 +1018,9 @@ Com o pacote **parallel** é possível também fazer uso de computação paralel
 
 ### Speedup
 
-Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $N$ threads. Ou seja, se $S$ é o **speedup**, então
+Uma forma de mensurar o ganho ou perda computacional ao executar um código em paralelo é utilizando a medida **speedup** que é definido como a relação de tempo gasto para executar uma terefa de forma serial com o tempo gasta para executar a mesma tarefa em $n$ threads. Ou seja, se $S$ é o **speedup**, então
 
-$$S = \frac{T(1)}{T(n)},$$
+$$S(n) = \frac{T(1)}{T(n)},$$
 em que $T(1)$ é o tempo serial e $T(n)$ é o tempo em paralelo ao considerar $N$ cores, em um processador que suporta essa quantidade de núcleos. Assim, quanto maior o **speedup**, maior será o ganho computacional ao se paralelizar um código.
 
 **Lei de Amdahl**
@@ -1032,9 +1030,9 @@ Se o tempo de processamento de uma tarefa pode ser escalonado linearmente com o 
 $$T(n) = T(1)\Big[s + \frac{1}{n}(1 - s)\Big],$$
 em que $T(n)$ é o tempo que um algoritmo leva para ser executado de forma paralela utilizando $n$ núcleos e $s$ é a proporção do código que deve ser executado de forma serial, sendo $1 - s$ a proporção de código executado de forma paralela.
 
-Sendo assim, o **speedup** teórico é dado por:
+Sendo assim, dado $s$, o **speedup** teórico é dado por:
 
-$$S(s) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$
+$$S(n) = \frac{T(1)}{T(n)} = \frac{T(1)}{T(1)\Big[s + \frac{1}{n}(1 - s)\Big]} = \frac{1}{s + \frac{1}{n}(1-s)}.$$
 Perceba que,
 
 $$\lim_{n \to \infty} \frac{1}{s + \frac{1}{n}(1-s)} = \frac{1}{s},$$
@@ -1417,7 +1415,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- O método bootstrap foi introduzido em 1979 por Bradley Efron em um artigo publicado no [**The Annals of Statistics**](https://www.imstat.org/journals-and-publications/annals-of-statistics/). A referência do artigo encontra-se abaixo e poderá ser acesso pelo link na referência, uma vez que o artigo é aberto. -->
 
 <!-- > Efron, B. [**Bootstrap methods: another look at the jackknife**](https://projecteuclid.org/download/pdf_1/euclid.aos/1176344552). The Annals of Statistics, -->
-<!-- v. 7, p. 1--26, 1979.  -->
+<!-- v. 7, p. 1--26, 1979. -->
 
 <!-- Tal método foi inspirado em uma metodologia anterior baseada em reamostragem denominada [**jackknife**](https://en.wikipedia.org/wiki/Jackknife_resampling), idealizada por [**Maurice Quenouille**](https://en.wikipedia.org/wiki/Maurice_Quenouille) em 1949 e aperfeiçoada em 1956. Para maiores detalhes, consulte as referências abaixo: -->
 
@@ -1442,7 +1440,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- knitr::include_graphics("images/boots.png") -->
 <!-- ``` -->
 <!-- </div> -->
-<!-- > "The Baron had fallen to the bottom of a deep lake. Just when it looked like all was lost, he thought to pick himself up by his own **bootstraps**."  -->
+<!-- > "The Baron had fallen to the bottom of a deep lake. Just when it looked like all was lost, he thought to pick himself up by his own **bootstraps**." -->
 
 <!-- > **Tradução**: "O Barão tinha caı́do no fundo de um lago profundo. Justo quando parecia que tudo estava perdido, ele pensou em retirar-se por seus próprios **bootstraps**"). -->
 
@@ -1451,13 +1449,13 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 
 <!-- A ideia de substituir aproximações complicadas e muitas vezes imprecisas por métodos de simulação baseados em reamostragem tem atraído diversos pesquisadores a desenvolver metodologias baseadas em bootstrap para os mais variados fins. Com a popularização do método bootstrap, alguns pesquisadores começaram a estabelecer condições matemáticas sob as quais o bootstrap é justificável. -->
 
-<!-- Na literatura existem muitos trabalhos que fazem uso de metodologias bootstrap. Em geral, o método bootstrap é utilizado para correção de viés de estimadores, construção de intervalos de confiança, testes de hipóteses, estimação do erro-padrão de um estimador, entre outros.  -->
+<!-- Na literatura existem muitos trabalhos que fazem uso de metodologias bootstrap. Em geral, o método bootstrap é utilizado para correção de viés de estimadores, construção de intervalos de confiança, testes de hipóteses, estimação do erro-padrão de um estimador, entre outros. -->
 
 <!-- As metodologias bootstrap apresentam dois paradigmas, sendo eles o **bootstrap paramétrico** e o **bootstrap não-paramétrico**. Bootstrap paramétrico refere-se ao caso em que a reamostragem é feita com base em uma distribuição $F(\widehat{\theta})$ conhecida ou estabelecida, em que $\widehat{\theta}$ é um estimador para $\theta$. Em contrapartida, no bootstrap não-paramétrico há o desconhecimento da distribuição $F$ verdadeira. A reamostragem é feita com base na função de distribuição empírica $F_n$. **Reamostrar de $F_n$ equivale a reamostrar dos dados com reposição**. -->
 
 <!-- O bootstrap não-paramétrico trata a amostra como se fosse a população e a reamostragem é realizada dessa amostra como se estevessemos amostrando da população. O método de bootstrap não-paramétrico é frequentemente utilizado quando a distribuição da população alvo não é especificada. Nesse casos, temos apenas as informações contidas na amostra, em que poderemos fazer uso da distribuição empírica (distribuição dos dados) como uma aproximação da distribuição verdadeira $F$ (desconhecida). -->
 
-<!-- Seja $\pmb X = (X_1, \ldots, X_n)$ uma sequência de v.a.'s i.i.d. (uma amostra aleatória), tal que $F_{X_i}$ é **desconhecida**, com $i = 1, \ldots, n$. Como a natureza funcional de $F_{X_i}$ é desconhecida, as únicas informações que teremos a nossa disposição são as observações da amostra aleatória, ou seja, $\pmb x = (x_1, \ldots, x_n)$. Muito embora desconhecemos $F_{X_i}$, sabemos que  -->
+<!-- Seja $\pmb X = (X_1, \ldots, X_n)$ uma sequência de v.a.'s i.i.d. (uma amostra aleatória), tal que $F_{X_i}$ é **desconhecida**, com $i = 1, \ldots, n$. Como a natureza funcional de $F_{X_i}$ é desconhecida, as únicas informações que teremos a nossa disposição são as observações da amostra aleatória, ou seja, $\pmb x = (x_1, \ldots, x_n)$. Muito embora desconhecemos $F_{X_i}$, sabemos que -->
 
 <!-- $$P\Big(\lim_{n\to \infty} \mathrm{sup}|F_n - F_{X_i}| = 0\Big) = 1,$$ -->
 <!-- em que $F_n$ é a função de distribuição empírica (função de distribuição dos dados) que é dada por: -->
@@ -1482,7 +1480,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--    lines(domain, prob, col = rgb(1, 0.5, 0.04), ...) -->
 <!--    title(xlab = "x", ylab = "Probabilidade", main = paste("n = ", length(x))) -->
 <!-- } -->
-<!-- # Dados proveniente da distribuição verdadeira  -->
+<!-- # Dados proveniente da distribuição verdadeira -->
 <!-- # Weibull(alpha = 0.5, beta = 1.3): -->
 <!-- set.seed(1L) -->
 <!-- dados <- rweibull(50L, shape = 1.5, scale = 2.0) -->
@@ -1528,7 +1526,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--     n <- length(x) -->
 <!--     # Selecionando observações uniformemente distribuídas em x. -->
 <!--     # Poderia ser utilizado a função sample(). -->
-<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]  -->
+<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)] -->
 <!--   } -->
 
 <!--   # A função boot() calcula uma statística em uma única amostra -->
@@ -1541,7 +1539,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!--   # or -->
 <!--   #lapply(X = 1L:N, FUN = boot, sample_true) -->
 
-<!-- }   -->
+<!-- } -->
 <!-- # Fixando uma semente: -->
 <!-- set.seed(1L) -->
 <!-- # Observe que stat é a média amostra, uma vez que passamos a função -->
@@ -1564,7 +1562,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser obtida por: -->
 
 <!-- $$\widehat{se}(T_n)_{boot} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},$$ -->
-<!-- em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário.  -->
+<!-- em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário. -->
 
 <!-- **Nota**: -->
 
@@ -1574,7 +1572,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- </div> -->
 <!-- ``` -->
 
-<!-- **Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{boot}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{boot}$.  -->
+<!-- **Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{boot}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{boot}$. -->
 
 
 <!-- ```{r, dependson="bootstraping"} -->
@@ -1602,7 +1600,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 <!-- Se $T_n$ é um estimador não-viesado para $\theta$, então $\mathrm{E}(T_n) = \theta$. Porém, alguns estimadores podem ser viesados para estimar $\theta$, em que o seu viés poderá ser obtido por: -->
 
 <!-- $$B(T_n) = \mathrm{E}(T_n - \theta) = \mathrm{E}(T_n) - \theta.$$ -->
-<!-- Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$.  -->
+<!-- Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$. -->
 <!-- Em um situação ideal, temos que o estimador $T_n$ corrigido por víes é dado por -->
 
 <!-- $$T_n^{\mathrm{ideal}} = T_n - B(T_n).$$ -->
@@ -1614,7 +1612,7 @@ S^2 &=& \frac{1}{n - 1}\sum_{i=1}^n (X_i - \overline{X})^2.
 
 <!-- $$T_n^{\mathrm{corrigido}} = T_n - \widehat{B(T_n)} = T_n - [\widehat{\mathrm{E}(T_n)} - T_n] = 2T_n - \widehat{\mathrm{E}(T_n)}.$$ -->
 
-<!-- O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome  -->
+<!-- O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome -->
 
 <!-- $$\widehat{\mathrm{E}(T_n)} = \frac{1}{n}\sum_{i=1}^B T_n^{*,i} = \overline{T_n^{*}}.$$ -->
 <!-- Portanto, o estimador $T_n$ corrigido por bootstrap é dado por: -->
