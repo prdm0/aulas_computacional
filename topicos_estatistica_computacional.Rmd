@@ -1259,6 +1259,10 @@ time_parallel <- system.time(result_parallel <-
 # utilizando um procedimento de MC:
 result_parallel$i_hat
 
+# Tempo em serial:
+time_serial[3]
+# Tempo em paralelo:
+time_parallel[3]
 # Speedup:
 time_serial[3]/time_parallel[3]
 ```
