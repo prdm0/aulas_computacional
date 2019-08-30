@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.586     0.291     0.931
+##     1.620     0.194     0.797
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000008
+## [1] 0.9996675
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##    2.09
+##   1.995
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.859
+##   0.735
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.433062
+## 2.714286
 ```
 
 **Paralelização usando PSOCK**:
@@ -1557,7 +1557,7 @@ Em uma abordagem não-paramétrica, um histograma poderia ser uma estimativa gr�
 $$P(X^* = x_i) = \frac{1}{n}, \, i = 1, \ldots, n.$$
 Sendo assim, note que a função de distribuição teórica de $X^*$ é dada por $F_n$. Daí, amostrar de $\pmb x$ (**com reposição**) nos geram amostras bootstrap que tem a distribuição empírica como distribuição teórica e que sabemos que converge quase cetamente para $F$ (desconhecida).
 
-Seja $T_n = \hat{\theta}$ um estimador de $\theta$ com base na amostra aleatória original $\pmb X$, em que $\theta$ é um parâmetro ou vetor de parâmetros. Temos que $t$ é a estimativa obtida por $T_n$ com base nas observações originais $\pmb x$. Analogamente, considere $T_n^* = \hat{\theta}^*$ o mesmo estimador $T_n$ sobre uma amostra aleatória bootstrap $\pmb X^*$, em que $t^*$ é estimativa obtida por $T_n^*$ com base em uma pseudo-amostra bootstrap $\pmb x^*$.
+Seja $T_n = \hat{\theta}$ um estimador de $\theta$ com base na amostra aleatória original $\pmb X$, em que $\theta$ é um parâmetro ou vetor de parâmetros. Temos que $t$ é a estimativa obtida por $T_n$ com base nas observações originais $\pmb x$. Analogamente, considere $T_n^* = \hat{\theta}^*$ o mesmo estimador $T_n$ sobre uma amostra aleatória bootstrap $\pmb X^*$, em que $t^*$ é a estimativa obtida por $T_n^*$ com base em uma pseudo-amostra bootstrap $\pmb x^*$.
 
 Assim, uma estimativa da função de distribuição de $T_n$ poderá ser obtida com os passos abaixo:
 
