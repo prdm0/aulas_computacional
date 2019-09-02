@@ -1466,7 +1466,7 @@ knitr::include_graphics("images/boots.png")
 </div>
 > "The Baron had fallen to the bottom of a deep lake. Just when it looked like all was lost, he thought to pick himself up by his own **bootstraps**."
 
-> **Tradução**: "O Barão tinha caı́do no fundo de um lago profundo. Justo quando parecia que tudo estava perdido, ele pensou em retirar-se por seus próprios **bootstraps**").
+> **Tradução**: "O Barão tinha caı́do no fundo de um lago profundo. Justo quando parecia que tudo estava perdido, ele pensou em retirar-se por seus próprios **bootstraps**.").
 
 
 Inicialmente houve ceticismo sobre a metodologia bootstrap, tendo sido tal ceticismo superado à medida em que estudos acumularam evidências de que o bootstrap pode ser consideravelmente mais eficaz que metodologias tradicionais.
@@ -1536,203 +1536,231 @@ Assim, uma estimativa da função de distribuição de $T_n$ poderá ser obtida 
 
 2. A estimativa bootstrap de $F_{T_n}(\cdot)$ é a função de distribuição empírica das estimativas bootstrap $t^{*,1}, \ldots, t^{*,B}$.
 
-<!-- **Exemplo**: Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$, com $n = 250$. Então, por meio do algoritmo acima, poderemos obter, com o código abaixo, uma estimativa da distribuição de $T_n$. Nesse caso, não é difícil perceber que a distribuição de $T_n$ terá distribuição $\mathcal{N}(\mu, \sigma^2/n)$, em que $\mu = \mathrm{E}(X) = 1/\lambda$ e $\sigma^2 = \mathrm{Var}(X) = 1/\lambda^2$. Nesse caso, a distribuição teórica de $T_n$ é $\mathcal{N}(2, 0.016)$. -->
+**Exemplo**: Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$, com $n = 250$. Então, por meio do algoritmo acima, poderemos obter, com o código abaixo, uma estimativa da distribuição de $T_n$. Nesse caso, não é difícil perceber que a distribuição de $T_n$ terá distribuição $\mathcal{N}(\mu, \sigma^2/n)$, em que $\mu = \mathrm{E}(X) = 1/\lambda$ e $\sigma^2 = \mathrm{Var}(X) = 1/\lambda^2$. Nesse caso, a distribuição teórica de $T_n$ é $\mathcal{N}(2, 0.016)$.
 
 
-<!-- ```{r, fig.align="center", fig.cap="Histograma construído com base nas estimativas obtidas nas amostras bootstrap. Trata-se de uma aproximação para a densidade da estatística que nesse caso é a média amostral."} -->
-<!-- # Amostra original: -->
-<!-- x <- rexp(250L, 0.5) # lambda = 1/2 -->
+```{r, fig.align="center", fig.cap="Histograma construído com base nas estimativas obtidas nas amostras bootstrap. Trata-se de uma aproximação para a densidade da estatística que nesse caso é a média amostral."}
+# Amostra original:
+x <- rexp(250L, 0.5) # lambda = 1/2
 
-<!-- bootstraping <- function(B = 100L, sample_true, stat, ...){ -->
+bootstraping <- function(B = 100L, sample_true, stat, ...){
 
-<!--   # A função resample() obtem uma amostra com reposição de x: -->
-<!--   resample <- function(x){ -->
-<!--     n <- length(x) -->
-<!--     # Selecionando observações uniformemente distribuídas em x. -->
-<!--     # Poderia ser utilizado a função sample(). -->
-<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)] -->
-<!--   } -->
+  # A função resample() obtem uma amostra com reposição de x:
+  resample <- function(x){
+    n <- length(x)
+    # Selecionando observações uniformemente distribuídas em x.
+    # Poderia ser utilizado a função sample().
+    x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]
+  }
 
-<!--   # A função boot() calcula uma statística em uma única amostra -->
-<!--   # bootstrap: -->
-<!--   boot <- function(x, sample_true){ -->
-<!--     stat(resample(sample_true), ...) -->
-<!--   } -->
+  # A função boot() calcula uma statística em uma única amostra
+  # bootstrap:
+  boot <- function(x, sample_true){
+    stat(resample(sample_true), ...)
+  }
 
-<!--   purrr::map_dbl(.x = 1L:B, .f = boot, sample_true = sample_true) -->
-<!--   # or -->
-<!--   #lapply(X = 1L:N, FUN = boot, sample_true) -->
+  purrr::map_dbl(.x = 1L:B, .f = boot, sample_true = sample_true)
+  # or
+  #lapply(X = 1L:N, FUN = boot, sample_true)
 
-<!-- } -->
-<!-- # Fixando uma semente: -->
-<!-- set.seed(1L) -->
-<!-- # Observe que stat é a média amostra, uma vez que passamos a função -->
-<!-- # mean(). -->
-<!-- result <- bootstraping(B = 3e3L, sample_true = x, stat = mean) -->
-<!-- hist(result, probability = TRUE, main = expression(paste("Aproximação para a densidade de ",  T[n])), -->
-<!--      border = NA, col = rgb(1, 0.9, 0.8), xlab = expression(t^"*"), ylab = "Probabilidade") -->
-<!-- ``` -->
+}
+# Fixando uma semente:
+set.seed(1L)
+# Observe que stat é a média amostra, uma vez que passamos a função
+# mean().
+result <- bootstraping(B = 3e3L, sample_true = x, stat = mean)
+hist(result, probability = TRUE, main = expression(paste("Aproximação para a densidade de ",  T[n])),
+     border = NA, col = rgb(1, 0.9, 0.8), xlab = expression(t^"*"), ylab = "Probabilidade")
+```
 
-<!-- **Importante**: -->
+**Importante**:
 
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- O método de bootstrap não deverá ser utilizado para estimar $\theta$. Por exemplo, $1/B \sum_{i = 1}^B t_i^*$ pode não ser uma boa estimativa para $\theta$. O bootstrap fornece boas aproximações para a forma e amplitude da distribuição de $T_n$ mas não necessariamente para a sua locação. Isso se deve ao fato que temos duas contes de erro, uma vez a função de distribuição empírica $F_n^*$ obtida por $\pmb x^*$ aproxima a distribuição teórica de $X^*$ que é $F_n$ e esta por sua vez aproxima $F$ por meio de $\pmb x$. -->
-<!-- </div> -->
-<!-- ``` -->
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+O método de bootstrap não deverá ser utilizado para estimar $\theta$. Por exemplo, $1/B \sum_{i = 1}^B t_i^*$ pode não ser uma boa estimativa para $\theta$. O bootstrap fornece boas aproximações para a forma e amplitude da distribuição de $T_n$ mas não necessariamente para a sua locação. Isso se deve ao fato que temos duas contes de erro, uma vez a função de distribuição empírica $F_n^*$ obtida por $\pmb x^*$ aproxima a distribuição teórica de $X^*$ que é $F_n$ e esta por sua vez aproxima $F$ por meio de $\pmb x$.
+</div>
+```
 
-<!-- ### Estimando erro-padrão -->
+### Estimando erro-padrão
 
-<!-- A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser obtida por: -->
+A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser escrito como:
 
-<!-- $$\widehat{se}(T_n)_{boot} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},$$ -->
-<!-- em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário. -->
+$$\widehat{se}(T_n)_{\mathrm{boot}} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},$$
+em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário.
 
-<!-- **Nota**: -->
+**Nota**:
 
-<!-- ```{block2, type='rmdnote'} -->
-<!-- <div class=text-justify> -->
-<!-- Para obtenção de uma boa estimativa do erro-padrão de $T_n$, considere $B \geq 250$. -->
-<!-- </div> -->
-<!-- ``` -->
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Para obtenção de uma boa estimativa do erro-padrão de $T_n$, considere $B \geq 250$.
+</div>
+```
 
-<!-- **Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{boot}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{boot}$. -->
-
-
-<!-- ```{r, dependson="bootstraping"} -->
-<!-- # Fixando uma semente. -->
-<!-- set.seed(1L) -->
-<!-- # O objeto "amostra" é a amostral original. -->
-<!-- amostra <- rnorm(n = 250L, mean = 0, sd = 1) # Amostra original. -->
-<!-- # Obtendo mil amostras bootstrap com reposição da amostra original e calcuando -->
-<!-- # a média amostral, i.e, T_n^* é a média amostral (stat = mean). Note que fazer -->
-<!-- # var(bootstraping()) estamos obtendo uma estimativa do erro-padrão via bootstrap -->
-<!-- # da média amostral. -->
-<!-- sd(bootstraping(N = 1e3L, sample_true = amostra, stat = mean)) -->
-<!-- ``` -->
-
-<!-- **Impotante**: -->
-
-<!-- ```{block2, type='rmdimportant'} -->
-<!-- <div class=text-justify> -->
-<!-- A amostra original não precisa ser observações de v.a.'s com distribuição normal. Utilizamos o caso da normal para facilitar as contas. O método bootstrap poderá ser aplicado à observações de uma amostra aleatória com distribuição qualquer. -->
-<!-- </div> -->
-<!-- ``` -->
-
-<!-- ### Diminuindo o viés -->
-
-<!-- Se $T_n$ é um estimador não-viesado para $\theta$, então $\mathrm{E}(T_n) = \theta$. Porém, alguns estimadores podem ser viesados para estimar $\theta$, em que o seu viés poderá ser obtido por: -->
-
-<!-- $$B(T_n) = \mathrm{E}(T_n - \theta) = \mathrm{E}(T_n) - \theta.$$ -->
-<!-- Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$. -->
-<!-- Em um situação ideal, temos que o estimador $T_n$ corrigido por víes é dado por -->
-
-<!-- $$T_n^{\mathrm{ideal}} = T_n - B(T_n).$$ -->
-<!-- Porém, note que $T_n^{\mathrm{ideal}}$ não é um estimador, uma vez que $T_n^{\mathrm{ideal}}$ depende de $\theta$. Assim, em uma situação quase-ideal, temos que -->
-
-<!-- $$T_n^{\mathrm{quase-ideal}} = T_n  - \widehat{B(T_n)}.$$ -->
-
-<!-- Queremos construir um estimador $T_n^{\mathrm{corrigido}}$ semelhante à $T_n^{\mathrm{quase-ideal}}$. -->
-
-<!-- $$T_n^{\mathrm{corrigido}} = T_n - \widehat{B(T_n)} = T_n - [\widehat{\mathrm{E}(T_n)} - T_n] = 2T_n - \widehat{\mathrm{E}(T_n)}.$$ -->
-
-<!-- O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome -->
-
-<!-- $$\widehat{\mathrm{E}(T_n)} = \frac{1}{n}\sum_{i=1}^B T_n^{*,i} = \overline{T_n^{*}}.$$ -->
-<!-- Portanto, o estimador $T_n$ corrigido por bootstrap é dado por: -->
-
-<!-- $$T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}.$$ -->
-
-<!-- Dessa forma, a estimativa corrigida por bootstrap é dada por $t_n^{\mathrm{corrigido-boot}} = 2t_n - \overline{t_n^*}$, em que $t_n$ é a estimativa obtida por $T_n$ em $\pmb x$ e $\overline{t_n^*}$ é a média das estimatativas obtidas por $T_n$ calculada sobre as amostras bootstrap $\Big(t_n^{*,1},\ldots, t_n^{*,B}\Big)$. Sendo assim, $t_n^{\mathrm{corrigido-boot}}$ dará a estimativa para $\theta$ corrigida por bootstrap. -->
-
-<!-- **Exemplo**: Implemente a função `bias_boot(B = 100L, sample_true, f, kicks, idpar = 1L, ...)` que receberá como argumentos a quantidade de réplicas bootstrap (`B`), a amostra original (`sample_true`), uma f.d.p / f.p (`f`) ao qual obteremos as estimativas de máxima verossimilhança por métodos númericos, os chutes iniciais `kicks` utilizado pelo método de minimização de $-\mathcal{l}(\pmb \theta)$, em que $\mathcal{l}(\pmb \theta)$ é a função de log-verossimilhança e $\pmb \theta$ é o vetor de parâmetros que idexam a f.d.p / f.p. Os dois últimos argumentos `idpar = 1L` e `...` informa o parâmetro ao qual desejamos corrigir por viés via bootstrap, em que `1L` indica o primeiro parâmetro de $\pmb \theta$ e argumentos adicionais passados à função de otimização `optim()`, respectivamente. A ideia é que `bias_boot()` é que seja uma função que receba, por exemplo, uma f.d.p e retorne a estimativa de máxima verossimilhança sobre a amostra original e a estimativa corrigida por bootstrap. Por exemplo, se é $X_1, \ldots, X_n$ uma sequência de v.a.'s i.i.d (amostra aleatória), tal que $X_i \sim Weibull(\alpha = 2, \beta = 2)$, para $i = 1, \ldots, n$, então -->
-
-<!-- ```{r, eval = FALSE} -->
-<!-- amostra <- rweibull(n = 30L, shape = 2, scale = 2) -->
-<!-- bias_boot(B = 500L, sample_true = amostra, f = fdp_weibull,  -->
-<!--           kicks = c(1, 1), idpar = 1L, method = "BFGS") -->
-<!-- ``` -->
-<!-- deverá retornar a estimativa de máxima verossimilhança de $\alpha$ e a respectiva estimativa corrigida por viés via bootstrap. O trecho acima, temos que 500 réplicas bootstrap, um objeto `amostra` com a amostra original, `fdp_weibull()` a função densidade de uma v.a. com distribuição Weibull, os chutes iniciais $\alpha_0 = 1$ e $\beta_0 = 1$ para o método BFGS. O argumento `idpar = 1L` indica que desejamos corrigir por viés, via bootstrap, o parâmetro $\alpha$ que fixamos em 2. -->
+**Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{\mathrm{boot}}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{\mathrm{boot}}$.
 
 
-<!-- ```{r, eval = TRUE} -->
-<!-- bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){ -->
+```{r, dependson="bootstraping"}
+# Fixando uma semente.
+set.seed(1L)
+# O objeto "amostra" é a amostral original.
+amostra <- rnorm(n = 250L, mean = 0, sd = 1) # Amostra original.
+# Obtendo mil amostras bootstrap com reposição da amostra original e calcuando
+# a média amostral, i.e, T_n^* é a média amostral (stat = mean). Note que fazer
+# var(bootstraping()) estamos obtendo uma estimativa do erro-padrão via bootstrap
+# da média amostral.
+sd(bootstraping(N = 1e3L, sample_true = amostra, stat = mean))
+```
 
-<!--   log_likelihood <- function(par, x){ -->
-<!--     -sum(log(f(par, x))) -->
-<!--   } -->
+**Impotante**:
 
-<!--   # A função resample() obtem uma amostra com reposição de x: -->
-<!--   resample <- function(x) { -->
-<!--     n <- length(x) -->
-<!--     # Selecionando observações uniformemente distribuídas em x. -->
-<!--     # Poderia ser utilizado a função sample(). -->
-<!--     x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]  -->
-<!--   } # Aqui termina a função resample(). -->
+```{block2, type='rmdimportant'}
+<div class=text-justify>
+A amostra original não precisa ser observações de v.a.'s com distribuição normal. Utilizamos o caso da normal para facilitar as contas. O método bootstrap poderá ser aplicado à observações de uma amostra aleatória com distribuição qualquer.
+</div>
+```
 
-<!--   # A função boot() calcula uma statística em uma única amostra -->
-<!--   # bootstrap: -->
-<!--   boot <- function(i) { -->
-<!--     #result <- double(1L) -->
-<!--     repeat { -->
-<!--       result <- optim(par = kicks, fn = log_likelihood, x = resample(sample_true), ...) -->
-<!--       if (result$convergence == 0L) { -->
-<!--         result <- result$par[idpar] -->
-<!--         break -->
-<!--       } -->
-<!--     } -->
-<!--     result -->
-<!--   } # Aqui termina a função boot(). -->
+### Diminuindo o viés
 
-<!--   purrr::map_dbl(.x = 1L:B, .f = boot) -->
-<!-- } -->
-<!-- ``` -->
+Se $T_n$ é um estimador não-viesado para $\theta$, então $\mathrm{E}(T_n) = \theta$. Porém, alguns estimadores podem ser viesados para estimar $\theta$, em que o seu viés poderá ser obtido por:
 
-<!-- **Descervendo melhor a função `bootstraping()` acima**: -->
+$$B(T_n) = \mathrm{E}(T_n - \theta) = \mathrm{E}(T_n) - \theta.$$
+Diremos que um $T_n$ é um estimador **assintoticamente não-viesado** para $\theta$ se $\lim_{n \to \infty} B(T_n) = 0$. Alguns estimadores podem ter boas propriedades estatísticas mas serem viesados em amostras que não são suficientemente grandes. Por exemplo, os estimadores de máxima veorssimilhança podem ser viesados em pequenas amostras mas sabemos que são assintoticamente não-viesados, como é o caso do estimador de máxima verossimilhança de $\sigma^2$ dado por $\hat{\sigma}^2 = 1/n \sum_{i=1}^{n}(X_i - \overline{X})^2$, com $X_i, \ldots, X_n$ sendo uma amostra aleatória tal que $X_i \sim \mathcal{N}(\mu, \sigma^2)$, com $i = 1, \ldots, n$. Nesse caso, $\mathrm{E}(\hat{\sigma}^2) = \frac{(n-1)}{n} \sigma^2$. Daí, poderemos corrigir o víes de $\hat{\sigma}^2$ considerando $S^2 = \frac{n}{n-1}\hat{\sigma}^2 = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X})^2$.
+Em um situação ideal, temos que o estimador $T_n$ corrigido por víes é dado por
 
-<!-- ```{block2, type='rmdobservation'} -->
-<!-- <div class=text-justify> -->
-<!-- O código acima apresenta uma nova implementação da função `bootstraping()` de forma que, agora, a função irá obter as estimativas de máxima verossimilhança utilizando métodos numéricos. Sendo assim, `bootstraping()` irá receber como argumento o número de réplicas bootstrap (`B`), a amostra original (`sample_true`), uma f.d.p / f.p (`f`), os chutes iniciais (`kicks`) para o método iterativo utilizado para minimizar $-\mathcal{l(\pmb \theta)}$, em que $\mathcal{l}(\cdot)$ é a função de log-verossimilhança e $\theta$ é o vetor de parâmetros que indexa a função f.d.p / f.p passada como argumento à `f`. O argumento `idpar = 1L` refere-se à posição do parâmetro que desejamos efetuar a correção de viés via bootstrap (por padrão é o primeiro) do vetor $\pmb \theta$. O argumento `...` irá permitir que argumentos adicionais sejam passados à função `bootstraping()` e aplicados à função `optim()` utilizada para obtenção das estimativas numéricas. Por exemplo, poderemos passar `method = "BFGS"` à `bootstraping()`  que é um argumento suportado pela função `optim()`. -->
+$$T_n^{\mathrm{ideal}} = T_n - B(T_n).$$
+Porém, note que $T_n^{\mathrm{ideal}}$ não é um estimador, uma vez que $T_n^{\mathrm{ideal}}$ depende de $\theta$. Assim, em uma situação quase-ideal, temos que
 
-<!-- Assim como na implementação anterior da função `bootstraping()`, no exemplo logo acima, temos que `resample()` é uma função simples que é resposável por reamostrar com reposição da amostra original passada à `sample_true()`. A função `resample()` é utilizada dentro da função `boot()`. A função `boot()` obtem as estimativas numéricas de máxima verossimilhaça sobre uma amostra bootstrap. Perceba que utiliza-se a estrutura de repetição `repeat` para repetir o processo de optimização sobre outra amostras bootstrap, caso não haja convergência do método de otimização, uma vez que `result$convergence` diferente de zero indica não convergência do método iterativo de minimização. Não haver convergência sobre uma dada amostra bootstrap implica que as estimativas obtidas não são estimativas de máxima verossimilhança. Precisamos que $T_n^*$ sejam estimativas de máxima veorissmilhança, o que convêm substituir uma amostra que não houve convergência por outra amostra em que a convergência é observada. -->
-<!-- </div> -->
-<!-- ``` -->
+$$T_n^{\mathrm{quase-ideal}} = T_n  - \widehat{B(T_n)}.$$
 
-<!-- No código abaixo é implementado a função `fdp_weibull()` que sejá passado como argumento para a função `bias_boot()` que é responsável por corrigir por viés, via bootstrap, a estimativa de máxima verossimilhança de um dos parâmetros que indexa `fdp_weibull()`. Por padrão, o argumento é o primeiro, isto é, `idpar = 1L`. Perceba que a função `bias_boot()` faz uso da função `bootstraping()` que é responsável por fazer todo o trabalho pesado. Ao final, `bias_boot()` retornará uma lista com a estimativa de máxima verossimilhança sem correção e a restivativa corrigida por viés, via bootstrap, respectivamente. -->
+Queremos construir um estimador $T_n^{\mathrm{corrigido}}$ semelhante à $T_n^{\mathrm{quase-ideal}}$.
 
-<!-- ```{r, dependson="bootstraping", warning=FALSE} -->
-<!-- # Função densidade da Weibull: -->
-<!-- fdp_weibull <- function(par, x){ -->
-<!--   alpha <- par[1] -->
-<!--   beta <- par[2] -->
-<!--   dweibull(x, shape = alpha, scale = beta) -->
-<!-- } -->
+$$T_n^{\mathrm{corrigido}} = T_n - \widehat{B(T_n)} = T_n - [\widehat{\mathrm{E}(T_n)} - T_n] = 2T_n - \widehat{\mathrm{E}(T_n)}.$$
 
-<!-- bias_boot <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){ -->
+O estimador bootstrap do viés utiliza-se, assim como em qualquer método bootstrap, a distribuição bootstrap de $T_n$ para estimar a distribuição de $T_n$. Assim, tome
 
-<!--   log_likelihood <- function(par, x){ -->
-<!--     -sum(log(f(par, x))) -->
-<!--   } -->
+$$\widehat{\mathrm{E}(T_n)} = \frac{1}{n}\sum_{i=1}^B T_n^{*,i} = \overline{T_n^{*}}.$$
+Portanto, o estimador $T_n$ corrigido por bootstrap é dado por:
 
-<!--   result <- optim(par = kicks, fn = log_likelihood, x = sample_true, ...)$par[idpar] -->
-<!--   result_boot <- 2 * result - mean(bootstraping(B, sample_true, f, kicks, idpar, ...)) -->
+$$T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}.$$
 
-<!--   list(stat = result, stat_corrigida = result_boot) -->
+Dessa forma, a estimativa corrigida por bootstrap é dada por $t_n^{\mathrm{corrigido-boot}} = 2t_n - \overline{t_n^*}$, em que $t_n$ é a estimativa obtida por $T_n$ em $\pmb x$ e $\overline{t_n^*}$ é a média das estimatativas obtidas por $T_n$ calculada sobre as amostras bootstrap $\Big(t_n^{*,1},\ldots, t_n^{*,B}\Big)$. Sendo assim, $t_n^{\mathrm{corrigido-boot}}$ dará a estimativa para $\theta$ corrigida por bootstrap.
 
-<!-- } -->
+**Exemplo**: Implemente a função `bias_boot(B = 100L, sample_true, f, kicks, idpar = 1L, ...)` que receberá como argumentos a quantidade de réplicas bootstrap (`B`), a amostra original (`sample_true`), uma f.d.p / f.p (`f`) ao qual obteremos as estimativas de máxima verossimilhança por métodos númericos, os chutes iniciais `kicks` utilizado pelo método de minimização de $-\mathcal{l}(\pmb \theta)$, em que $\mathcal{l}(\pmb \theta)$ é a função de log-verossimilhança e $\pmb \theta$ é o vetor de parâmetros que idexam a f.d.p / f.p. Os dois últimos argumentos `idpar = 1L` e `...` informa o parâmetro ao qual desejamos corrigir por viés via bootstrap, em que `1L` indica o primeiro parâmetro de $\pmb \theta$ e argumentos adicionais passados à função de otimização `optim()`, respectivamente. A ideia é que `bias_boot()` é que seja uma função que receba, por exemplo, uma f.d.p e retorne a estimativa de máxima verossimilhança sobre a amostra original e a estimativa corrigida por bootstrap. Por exemplo, se é $X_1, \ldots, X_n$ uma sequência de v.a.'s i.i.d (amostra aleatória), tal que $X_i \sim Weibull(\alpha = 2, \beta = 2)$, para $i = 1, \ldots, n$, então
 
-<!-- set.seed(1L) # Fixando uma semente. -->
-<!-- # O objeto "amostra" é a amostral original. -->
-<!-- amostra <- rweibull(n = 30L, shape = 2, scale = 2) -->
-<!-- bias_boot(B = 500L, sample_true = amostra, f = fdp_weibull,  -->
-<!--           kicks = c(1, 1), idpar = 1L, method = "BFGS") -->
-<!-- ``` -->
-
-<!-- Observe que a estimativa corrigida por bootstrap fornece uma melhor estimativa para o parâmetro $\alpha = 2$. Porém, nem sempre a correção é significativa. -->
+```{r, eval = FALSE}
+amostra <- rweibull(n = 30L, shape = 2, scale = 2)
+bias_boot(B = 500L, sample_true = amostra, f = fdp_weibull,
+          kicks = c(1, 1), idpar = 1L, method = "BFGS")
+```
+deverá retornar a estimativa de máxima verossimilhança de $\alpha$ e a respectiva estimativa corrigida por viés via bootstrap. O trecho acima, temos que 500 réplicas bootstrap, um objeto `amostra` com a amostra original, `fdp_weibull()` a função densidade de uma v.a. com distribuição Weibull, os chutes iniciais $\alpha_0 = 1$ e $\beta_0 = 1$ para o método BFGS. O argumento `idpar = 1L` indica que desejamos corrigir por viés, via bootstrap, o parâmetro $\alpha$ que fixamos em 2.
 
 
+```{r, eval = TRUE}
+bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
 
+  log_likelihood <- function(par, x){
+    -sum(log(f(par, x)))
+  }
 
-<!-- ### Construindo intervalo aleatório -->
+  # A função resample() obtem uma amostra com reposição de x:
+  resample <- function(x) {
+    n <- length(x)
+    # Selecionando observações uniformemente distribuídas em x.
+    # Poderia ser utilizado a função sample().
+    x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]
+  } # Aqui termina a função resample().
 
-<!-- ### Teste de hipótes -->
+  # A função boot() calcula uma statística em uma única amostra
+  # bootstrap:
+  boot <- function(i) {
+    #result <- double(1L)
+    repeat {
+      result <- optim(par = kicks, fn = log_likelihood, x = resample(sample_true), ...)
+      if (result$convergence == 0L) {
+        result <- result$par[idpar]
+        break
+      }
+    }
+    result
+  } # Aqui termina a função boot().
+
+  purrr::map_dbl(.x = 1L:B, .f = boot)
+}
+```
+
+**Descervendo melhor a função `bootstraping()` acima**:
+
+```{block2, type='rmdobservation'}
+<div class=text-justify>
+O código acima apresenta uma nova implementação da função `bootstraping()` de forma que, agora, a função irá obter as estimativas de máxima verossimilhança utilizando métodos numéricos. Sendo assim, `bootstraping()` irá receber como argumento o número de réplicas bootstrap (`B`), a amostra original (`sample_true`), uma f.d.p / f.p (`f`), os chutes iniciais (`kicks`) para o método iterativo utilizado para minimizar $-\mathcal{l(\pmb \theta)}$, em que $\mathcal{l}(\cdot)$ é a função de log-verossimilhança e $\theta$ é o vetor de parâmetros que indexa a função f.d.p / f.p passada como argumento à `f`. O argumento `idpar = 1L` refere-se à posição do parâmetro que desejamos efetuar a correção de viés via bootstrap (por padrão é o primeiro) do vetor $\pmb \theta$. O argumento `...` irá permitir que argumentos adicionais sejam passados à função `bootstraping()` e aplicados à função `optim()` utilizada para obtenção das estimativas numéricas. Por exemplo, poderemos passar `method = "BFGS"` à `bootstraping()`  que é um argumento suportado pela função `optim()`.
+
+Assim como na implementação anterior da função `bootstraping()`, no exemplo logo acima, temos que `resample()` é uma função simples que é resposável por reamostrar com reposição da amostra original passada à `sample_true()`. A função `resample()` é utilizada dentro da função `boot()`. A função `boot()` obtem as estimativas numéricas de máxima verossimilhaça sobre uma amostra bootstrap. Perceba que utiliza-se a estrutura de repetição `repeat` para repetir o processo de optimização sobre outra amostras bootstrap, caso não haja convergência do método de otimização, uma vez que `result$convergence` diferente de zero indica não convergência do método iterativo de minimização. Não haver convergência sobre uma dada amostra bootstrap implica que as estimativas obtidas não são estimativas de máxima verossimilhança. Precisamos que $T_n^*$ sejam estimativas de máxima veorissmilhança, o que convêm substituir uma amostra que não houve convergência por outra amostra em que a convergência é observada.
+</div>
+```
+
+No código abaixo é implementado a função `fdp_weibull()` que sejá passado como argumento para a função `bias_boot()` que é responsável por corrigir por viés, via bootstrap, a estimativa de máxima verossimilhança de um dos parâmetros que indexa `fdp_weibull()`. Por padrão, o argumento é o primeiro, isto é, `idpar = 1L`. Perceba que a função `bias_boot()` faz uso da função `bootstraping()` que é responsável por fazer todo o trabalho pesado. Ao final, `bias_boot()` retornará uma lista com a estimativa de máxima verossimilhança sem correção e a restivativa corrigida por viés, via bootstrap, respectivamente.
+
+```{r, dependson="bootstraping", warning=FALSE}
+# Função densidade da Weibull:
+fdp_weibull <- function(par, x){
+  alpha <- par[1]
+  beta <- par[2]
+  dweibull(x, shape = alpha, scale = beta)
+}
+
+bias_boot <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
+
+  log_likelihood <- function(par, x){
+    -sum(log(f(par, x)))
+  }
+
+  result <- optim(par = kicks, fn = log_likelihood, x = sample_true, ...)$par[idpar]
+  result_boot <- 2 * result - mean(bootstraping(B, sample_true, f, kicks, idpar, ...))
+
+  list(stat = result, stat_corrigida = result_boot)
+
+}
+
+set.seed(1L) # Fixando uma semente.
+# O objeto "amostra" é a amostral original.
+amostra <- rweibull(n = 30L, shape = 2, scale = 2)
+bias_boot(B = 500L, sample_true = amostra, f = fdp_weibull,
+          kicks = c(1, 1), idpar = 1L, method = "BFGS")
+```
+
+Observe que a estimativa corrigida por bootstrap fornece uma melhor estimativa para o parâmetro $\alpha = 2.$   
+
+**Nota**:
+
+```{block2, type='rmdnote'}
+<div class=text-justify>
+Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 129, se 
+
+$$\frac{|\widehat{B(T_n)}|}{\widehat{se}(T_n)_{\mathrm{boot}}} \leq 0.25,$$
+em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, a correção por viés via bootstrap poderá não ser necessária.
+</div>
+```
+
+### Construindo intervalos aleatórios
+
+### Teste de hipótes
+
+## Exercício {-}
+
+1. Defina função de distribuição empírica $F_n(\cdot)$. Implemente a função `empirical(data, t)` que recebe como argumento um conjunto de dados passado como argumento à `data` e retorna $F_n(t)$.
+
+2. Descreva, com poucas palavras, o método de reamostragem bootstrap e cite a diferença do bootstrap paramétrico para o bootstrap paramétrico. Explique.
+
+3. Explique o porquê reamostramos com reposição de $\pmb x = (x_1, \ldots, x_n)$, em que $\pmb x$ é a amostra original, quando estamos fazendo uso de bootstrap não-paramétrico.
+
+4. Seja $\pmb X^* = (X_1^*, X_2^*, \ldots, X_n^*)$ uma amostra aleatória bootstrap. Qual a distribuição teórica de $X_i^*$, com $i = 1, \ldots, n$? Explique.
+
+5. Seja $T_n$ um estimador qualquer. Defina o estimador bootstrap para obtenção da estimativa do erro-padrão de $T_n$.
+
+6. Defina o que o viés de um estimador $T_n$ qualquer e denote por $B(T_n)$. Como podemos utilizar o método bootstrap para obtenção da estimativa do viés de $T_n$ via bootstrap? Explique.
+
+7. O estimador $T_n$ corrigido por viés via bootstrap é dado por $T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}$. Explique como essa correção é obtida.
+
+8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$.
+
+9. Implemente o exercício anteiror de forma paralela. Obtenha o **speedup**.
