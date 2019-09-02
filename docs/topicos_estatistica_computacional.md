@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.594     0.225     0.757
+##     1.600     0.260     0.774
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9992421
+## [1] 1.000337
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.153
+##   2.173
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.842
+##   0.797
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.557007
+## 2.726474
 ```
 
 **Paralelização usando PSOCK**:
@@ -1786,9 +1786,9 @@ $$\frac{|\widehat{B(T_n)}|}{\widehat{se}(T_n)_{\mathrm{boot}}} \leq 0.25,$$
 em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, a correção por viés via bootstrap poderá não ser necessária.
 </div></div>\EndKnitrBlock{rmdnote}
 
-### Construindo intervalos aleatórios
+<!-- ### Construindo intervalos aleatórios -->
 
-### Teste de hipótes
+<!-- ### Teste de hipótes -->
 
 ## Exercício {-}
 
@@ -1806,6 +1806,6 @@ em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, 
 
 7. O estimador $T_n$ corrigido por viés via bootstrap é dado por $T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}$. Explique como essa correção é obtida.
 
-8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$.
+8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$.
 
 9. Implemente o exercício anteiror de forma paralela. Obtenha o **speedup**.

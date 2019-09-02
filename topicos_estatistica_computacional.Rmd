@@ -1741,9 +1741,9 @@ em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, 
 </div>
 ```
 
-### Construindo intervalos aleatórios
+<!-- ### Construindo intervalos aleatórios -->
 
-### Teste de hipótes
+<!-- ### Teste de hipótes -->
 
 ## Exercício {-}
 
@@ -1761,6 +1761,6 @@ em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, 
 
 7. O estimador $T_n$ corrigido por viés via bootstrap é dado por $T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}$. Explique como essa correção é obtida.
 
-8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B}(T_n)_{\mathrm{boot}}$.
+8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$.
 
 9. Implemente o exercício anteiror de forma paralela. Obtenha o **speedup**.
