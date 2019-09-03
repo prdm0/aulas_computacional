@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.639     0.289     1.143
+##     1.584     0.311     0.882
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000152
+## [1] 1.000397
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.159
+##   2.097
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.841
+##   0.968
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.567182
+## 2.166322
 ```
 
 **Paralelização usando PSOCK**:
@@ -1786,10 +1786,11 @@ $$\frac{|\widehat{B(T_n)}|}{\widehat{se}(T_n)_{\mathrm{boot}}} \leq 0.25,$$
 em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, a correção por viés via bootstrap poderá não ser necessária.
 </div></div>\EndKnitrBlock{rmdnote}
 
-**Exemplo**: O exemplo abaixo mostra como incorporar uma **barra de progresso** que informará o quão próximo estamos do fim da execução da função `bias_boot()`. Note a execução repetida de `boot()`, implementada dentro do escopo da função `bootstraping()` é o que verdadeiramente torna custosa a execução da função `bias_boot()`. Dessa forma, escolheu-se dentro de `boot()` atualizar o progresso usando o comando `progress::pb$tick()`. Perceba que antes da definição de `boot()` foi criado o objeto `pb` da classe **progress_bar**, em que foi informado o número total de chamadas à `boot()`. Perceba que é necessário instalar o pacote [**progress**](https://github.com/r-lib/progress) que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções `tic()` e `toc()` do pacote [**tictoc**](https://github.com/collectivemedia/tictoc) como uma alternativa para marcar o tempo de execução da função `bias_boot()`. Trata-se de uma alternativa à função `system.time()` do pacote **base**.
+**Exemplo**: O exemplo abaixo mostra como incorporar uma **barra de progresso** (usando caracteres ASCII) que informará o quão próximo estamos do fim da execução da função `bias_boot()`. Note a execução repetida de `boot()`, implementada dentro do escopo da função `bootstraping()` é o que verdadeiramente torna custosa a execução da função `bias_boot()`. Dessa forma, escolheu-se dentro de `boot()` atualizar o progresso usando o comando `pb$tick()`. Perceba que antes da definição de `boot()` foi criado o objeto `pb` da classe **progress_bar**, em que foi informado o número total de chamadas à `boot()`. Perceba que é necessário instalar o pacote [**progress**](https://github.com/r-lib/progress) que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções `tic()` e `toc()` do pacote [**tictoc**](https://github.com/collectivemedia/tictoc) como uma alternativa para marcar o tempo de execução da função `bias_boot()`. Trata-se de uma alternativa à função `system.time()` do pacote **base**.
 
 
 ```r
+library(progress)
 bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
   
   log_likelihood <- function(par, x){
@@ -1806,7 +1807,7 @@ bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
   
   # A função boot() calcula uma statística em uma única amostra
   # bootstrap:
-  pb <- progress::progress_bar$new(total = B) # objeto progress_bar.
+  pb <- progress_bar$new(total = B) # objeto progress_bar.
   boot <- function(i) {
     #result <- double(1L)
     repeat {
@@ -1816,7 +1817,7 @@ bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
         break
       }
     }
-    progress::pb$tick() # Dando um tick().
+    pb$tick() # Dando um tick().
     result
   } # Aqui termina a função boot().
   purrr::map_dbl(.x = 1L:B, .f = boot)
@@ -1837,7 +1838,38 @@ tictoc::toc()
 O uso de uma barra informativa sobre o status da execução de uma função poderá adicionar custos computacionais.
 </div></div>\EndKnitrBlock{rmdnote}
 
-<!-- ### Construindo intervalos aleatórios -->
+### Construindo intervalos aleatórios
+
+Um intervalo de confiança (IC) é uma estimativa intervalar para um parâmetro de interesse de uma população. Em vez de estimar o parâmetro por um único valor (estimativa pontual), o intervalo de confiança fornece um conjunto de estimativas possíveis para esse parâmetro de interesse através de um intervalo aleatório. Estimativas intervalares são realizadas sob um nível de confiança $1-\alpha$, com $\alpha \in (0,1)$, em que $\alpha$ é o nível de significância adotado e fixado pelo pesquisador. Um intervalo $I_{\gamma}$ (intervalo de nível $\gamma$) para o parâmetro $\theta$ é tal que
+\begin{equation}
+P(I_\gamma\,\, \mathrm{conter}\,\, \theta) = \gamma.
+\end{equation}
+
+Um intervalo de confiança bilateral é delimitado pelos limites inferior e superior $\ell_{\frac{\alpha_1}{2}}$ e $\ell_{1-\frac{\alpha_2}{2}}$ respectivamente, em que, $\alpha_1$ e $\alpha_2$ pertencem ao conjunto de valores possíveis de $\alpha$, tal que
+\begin{equation}
+P\left(\theta < \ell_{\frac{\alpha_1}{2}}\right) = \frac{\alpha_1}{2}\,\,\,\, \mathrm{e}\,\,\,\, P\left(\theta < \ell_{1-\frac{\alpha_2}{2}} \right) = 1 - \frac{\alpha_2}{2}.
+\end{equation}  
+
+A cobertura do intervalo $\left[\ell_{\alpha_1/2},\ell_{1-\alpha_2/2}\right]$ é $\gamma = 1 - (\frac{\alpha_1}{2}+\frac{\alpha_2}{2})$, com $\alpha_1/2+\alpha_2/2 = \alpha$, sendo $\alpha_1/2$ e $\alpha_2/2$ os erros de coberturas à esquerda e à direta do intervalo $I_\gamma$, respectivamente. As escolhas de $\alpha_1$ e $\alpha_2$ devem ser feitas de forma que a amplitude de $I_{\gamma}$ seja a menor possível. Na prática é usual escolher $\alpha_1$ e $\alpha_2$ de modo que
+$$P\left(\theta < \ell_{\frac{\alpha_1}{2}}\right) = P\left(\theta > \ell_{1-\frac{\alpha_2}{2}}\right) = \frac{\alpha}{2}.$$
+
+Uma abordagem frequentemente utilizada na construção de intervalos de confiança paramétricos é considerar um estimador $\widehat{\theta}$ para um parâmetro $\theta$ da população, em que $\widehat{\theta}$ é usualmente um estimador de máxima verossimilhança de $\theta$. Queremos encontrar um intervalo que contenha $\theta$ com $100\gamma\%$ de confiança. Seja $T_n$ um estimador do escalar $\theta$ baseado em $n$ observações e $t$ sua estimativa. Por simplicidade, suponhamos que $T_n$ seja uma variável aleatória contínua. Denotando-se o $p$-ésimo quantil da distribuição da variável aleatória $T_n - \theta$ por $a_p$, temos que
+\begin{equation}\label{eq:ic_parametrico}
+P\left(T_n - \theta \leq a_{\frac{\alpha_1}{2}}\right) = \frac{\alpha}{2} = P\left(T_n - \theta \geq a_{1-\frac{\alpha_2}{2}}\right).
+\end{equation}
+
+Como a quantidade $Q = T_n - \theta$ é inversível em $\theta$ e $T_n$ depende apenas da amostra, podemos construir o intervalo de confiança para $\theta$ reescrevendo os eventos, ou seja, podemos reescrever os eventos $T_n -\theta \leq a_{\frac{\alpha_1}{2}}$ e $T_n - \theta \geq a_{1-\frac{\alpha_2}{2}}$ como $\theta > T_n - a_{\frac{\alpha_1}{2}}$ e $\theta < T_n - a_{1-\frac{\alpha_2}{2}}$, respectivamente. Assim, o intervalo de confiança de nível $\gamma$ é dado pelos limites
+\begin{equation}\label{eq:limites_de_confiancas}
+\ell_{\alpha/2} = t - a_{1-\frac{\alpha_2}{2}}, \, \, \ell_{1-\alpha/2} = t - a_{\frac{\alpha_1}{2}}.
+\end{equation}
+
+Em situações em que o intervalo bilateral é de interesse, a soma de $\alpha_1/2$ e $\alpha_2/2$ é igual a $\alpha$. Quando estamos interessados em intervalos simétricos, temos que $\alpha_1 = \alpha_2 = \alpha$. Assim,
+\begin{equation}\label{eq:ic_geral}
+\ell_{\alpha/2} = t - a_{1-\alpha/2}, \, \, \ell_{1-\alpha/2} = t - a_{\alpha/2}.
+\end{equation}
+
+Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisador está interessado na construção de intervalos de confiança unilaterais, temos que os limites para construção dos intervalos unilateral inferior e unilateral superior são dados por $\ell_{1-\alpha}$ e $\ell_{\alpha}$ respectivamente. Os limites serão obtidos de tal forma que $P\left(\theta < \ell_{\alpha}\right) = P\left(\theta > \ell_{1-\alpha}\right) = \alpha$.  
+
 
 <!-- ### Teste de hipótes -->
 

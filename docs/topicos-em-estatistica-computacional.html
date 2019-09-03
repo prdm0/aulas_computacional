@@ -206,6 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#estimando-erro-padrao"><i class="fa fa-check"></i><b>6.4.1</b> Estimando erro-padrão</a></li>
 <li class="chapter" data-level="6.4.2" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#diminuindo-o-vies"><i class="fa fa-check"></i><b>6.4.2</b> Diminuindo o viés</a></li>
+<li class="chapter" data-level="6.4.3" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#construindo-intervalos-aleatorios"><i class="fa fa-check"></i><b>6.4.3</b> Construindo intervalos aleatórios</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="topicos-em-estatistica-computacional.html"><a href="topicos-em-estatistica-computacional.html#exercicio-4"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
@@ -1135,9 +1136,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="topicos-em-estatistica-computacional.html#cb27-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="topicos-em-estatistica-computacional.html#cb27-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.639     0.289     1.143</code></pre>
+##     1.584     0.311     0.882</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="topicos-em-estatistica-computacional.html#cb29-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000152</code></pre>
+<pre><code>## [1] 1.000397</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1230,15 +1231,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="topicos-em-estatistica-computacional.html#cb35-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="topicos-em-estatistica-computacional.html#cb35-2"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.159</code></pre>
+##   2.097</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="topicos-em-estatistica-computacional.html#cb37-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="topicos-em-estatistica-computacional.html#cb37-2"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.841</code></pre>
+##   0.968</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="topicos-em-estatistica-computacional.html#cb39-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="topicos-em-estatistica-computacional.html#cb39-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.567182</code></pre>
+## 2.166322</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="topicos-em-estatistica-computacional.html#cb41-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="topicos-em-estatistica-computacional.html#cb41-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1632,46 +1633,47 @@ em que <span class="math inline">\(\widehat{B(T_n)}\)</span> é o viés do estim
 </div>
 </div>
 
-<p><strong>Exemplo</strong>: O exemplo abaixo mostra como incorporar uma <strong>barra de progresso</strong> que informará o quão próximo estamos do fim da execução da função <code>bias_boot()</code>. Note a execução repetida de <code>boot()</code>, implementada dentro do escopo da função <code>bootstraping()</code> é o que verdadeiramente torna custosa a execução da função <code>bias_boot()</code>. Dessa forma, escolheu-se dentro de <code>boot()</code> atualizar o progresso usando o comando <code>progress::pb$tick()</code>. Perceba que antes da definição de <code>boot()</code> foi criado o objeto <code>pb</code> da classe <strong>progress_bar</strong>, em que foi informado o número total de chamadas à <code>boot()</code>. Perceba que é necessário instalar o pacote <a href="https://github.com/r-lib/progress"><strong>progress</strong></a> que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções <code>tic()</code> e <code>toc()</code> do pacote <a href="https://github.com/collectivemedia/tictoc"><strong>tictoc</strong></a> como uma alternativa para marcar o tempo de execução da função <code>bias_boot()</code>. Trata-se de uma alternativa à função <code>system.time()</code> do pacote <strong>base</strong>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="topicos-em-estatistica-computacional.html#cb50-1"></a>bootstraping &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">B =</span> 100L, sample_true, f, kicks, <span class="dt">idpar =</span> 1L, ...){</span>
-<span id="cb50-2"><a href="topicos-em-estatistica-computacional.html#cb50-2"></a>  </span>
-<span id="cb50-3"><a href="topicos-em-estatistica-computacional.html#cb50-3"></a>  log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(par, x){</span>
-<span id="cb50-4"><a href="topicos-em-estatistica-computacional.html#cb50-4"></a>    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="kw">f</span>(par, x)))</span>
-<span id="cb50-5"><a href="topicos-em-estatistica-computacional.html#cb50-5"></a>  }</span>
-<span id="cb50-6"><a href="topicos-em-estatistica-computacional.html#cb50-6"></a>  </span>
-<span id="cb50-7"><a href="topicos-em-estatistica-computacional.html#cb50-7"></a>  <span class="co"># A função resample() obtem uma amostra com reposição de x:</span></span>
-<span id="cb50-8"><a href="topicos-em-estatistica-computacional.html#cb50-8"></a>  resample &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb50-9"><a href="topicos-em-estatistica-computacional.html#cb50-9"></a>    n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb50-10"><a href="topicos-em-estatistica-computacional.html#cb50-10"></a>    <span class="co"># Selecionando observações uniformemente distribuídas em x.</span></span>
-<span id="cb50-11"><a href="topicos-em-estatistica-computacional.html#cb50-11"></a>    <span class="co"># Poderia ser utilizado a função sample().</span></span>
-<span id="cb50-12"><a href="topicos-em-estatistica-computacional.html#cb50-12"></a>    x[<span class="kw">floor</span>(n <span class="op">*</span><span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> n, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>1L)]</span>
-<span id="cb50-13"><a href="topicos-em-estatistica-computacional.html#cb50-13"></a>  } <span class="co"># Aqui termina a função resample().</span></span>
-<span id="cb50-14"><a href="topicos-em-estatistica-computacional.html#cb50-14"></a>  </span>
-<span id="cb50-15"><a href="topicos-em-estatistica-computacional.html#cb50-15"></a>  <span class="co"># A função boot() calcula uma statística em uma única amostra</span></span>
-<span id="cb50-16"><a href="topicos-em-estatistica-computacional.html#cb50-16"></a>  <span class="co"># bootstrap:</span></span>
-<span id="cb50-17"><a href="topicos-em-estatistica-computacional.html#cb50-17"></a>  pb &lt;-<span class="st"> </span>progress<span class="op">::</span>progress_bar<span class="op">$</span><span class="kw">new</span>(<span class="dt">total =</span> B) <span class="co"># objeto progress_bar.</span></span>
-<span id="cb50-18"><a href="topicos-em-estatistica-computacional.html#cb50-18"></a>  boot &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</span>
-<span id="cb50-19"><a href="topicos-em-estatistica-computacional.html#cb50-19"></a>    <span class="co">#result &lt;- double(1L)</span></span>
-<span id="cb50-20"><a href="topicos-em-estatistica-computacional.html#cb50-20"></a>    <span class="cf">repeat</span> {</span>
-<span id="cb50-21"><a href="topicos-em-estatistica-computacional.html#cb50-21"></a>      result &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> kicks, <span class="dt">fn =</span> log_likelihood, <span class="dt">x =</span> <span class="kw">resample</span>(sample_true), ...)</span>
-<span id="cb50-22"><a href="topicos-em-estatistica-computacional.html#cb50-22"></a>      <span class="cf">if</span> (result<span class="op">$</span>convergence <span class="op">==</span><span class="st"> </span>0L) {</span>
-<span id="cb50-23"><a href="topicos-em-estatistica-computacional.html#cb50-23"></a>        result &lt;-<span class="st"> </span>result<span class="op">$</span>par[idpar]</span>
-<span id="cb50-24"><a href="topicos-em-estatistica-computacional.html#cb50-24"></a>        <span class="cf">break</span></span>
-<span id="cb50-25"><a href="topicos-em-estatistica-computacional.html#cb50-25"></a>      }</span>
-<span id="cb50-26"><a href="topicos-em-estatistica-computacional.html#cb50-26"></a>    }</span>
-<span id="cb50-27"><a href="topicos-em-estatistica-computacional.html#cb50-27"></a>    progress<span class="op">::</span>pb<span class="op">$</span><span class="kw">tick</span>() <span class="co"># Dando um tick().</span></span>
-<span id="cb50-28"><a href="topicos-em-estatistica-computacional.html#cb50-28"></a>    result</span>
-<span id="cb50-29"><a href="topicos-em-estatistica-computacional.html#cb50-29"></a>  } <span class="co"># Aqui termina a função boot().</span></span>
-<span id="cb50-30"><a href="topicos-em-estatistica-computacional.html#cb50-30"></a>  purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dt">.x =</span> 1L<span class="op">:</span>B, <span class="dt">.f =</span> boot)</span>
-<span id="cb50-31"><a href="topicos-em-estatistica-computacional.html#cb50-31"></a>}</span>
-<span id="cb50-32"><a href="topicos-em-estatistica-computacional.html#cb50-32"></a><span class="kw">set.seed</span>(1L) <span class="co"># Fixando uma semente.</span></span>
-<span id="cb50-33"><a href="topicos-em-estatistica-computacional.html#cb50-33"></a><span class="co"># O objeto &quot;amostra&quot; é a amostral original.</span></span>
-<span id="cb50-34"><a href="topicos-em-estatistica-computacional.html#cb50-34"></a>amostra &lt;-<span class="st"> </span><span class="kw">rweibull</span>(<span class="dt">n =</span> 30L, <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="dv">2</span>)</span>
-<span id="cb50-35"><a href="topicos-em-estatistica-computacional.html#cb50-35"></a></span>
-<span id="cb50-36"><a href="topicos-em-estatistica-computacional.html#cb50-36"></a>tictoc<span class="op">::</span><span class="kw">tic</span>()</span>
-<span id="cb50-37"><a href="topicos-em-estatistica-computacional.html#cb50-37"></a><span class="kw">bias_boot</span>(<span class="dt">B =</span> <span class="fl">2e3</span>L, <span class="dt">sample_true =</span> amostra, <span class="dt">f =</span> fdp_weibull,</span>
-<span id="cb50-38"><a href="topicos-em-estatistica-computacional.html#cb50-38"></a>          <span class="dt">kicks =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">idpar =</span> 1L, <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>)</span>
-<span id="cb50-39"><a href="topicos-em-estatistica-computacional.html#cb50-39"></a>tictoc<span class="op">::</span><span class="kw">toc</span>()</span></code></pre></div>
+<p><strong>Exemplo</strong>: O exemplo abaixo mostra como incorporar uma <strong>barra de progresso</strong> (usando caracteres ASCII) que informará o quão próximo estamos do fim da execução da função <code>bias_boot()</code>. Note a execução repetida de <code>boot()</code>, implementada dentro do escopo da função <code>bootstraping()</code> é o que verdadeiramente torna custosa a execução da função <code>bias_boot()</code>. Dessa forma, escolheu-se dentro de <code>boot()</code> atualizar o progresso usando o comando <code>pb$tick()</code>. Perceba que antes da definição de <code>boot()</code> foi criado o objeto <code>pb</code> da classe <strong>progress_bar</strong>, em que foi informado o número total de chamadas à <code>boot()</code>. Perceba que é necessário instalar o pacote <a href="https://github.com/r-lib/progress"><strong>progress</strong></a> que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções <code>tic()</code> e <code>toc()</code> do pacote <a href="https://github.com/collectivemedia/tictoc"><strong>tictoc</strong></a> como uma alternativa para marcar o tempo de execução da função <code>bias_boot()</code>. Trata-se de uma alternativa à função <code>system.time()</code> do pacote <strong>base</strong>.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="topicos-em-estatistica-computacional.html#cb50-1"></a><span class="kw">library</span>(progress)</span>
+<span id="cb50-2"><a href="topicos-em-estatistica-computacional.html#cb50-2"></a>bootstraping &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">B =</span> 100L, sample_true, f, kicks, <span class="dt">idpar =</span> 1L, ...){</span>
+<span id="cb50-3"><a href="topicos-em-estatistica-computacional.html#cb50-3"></a>  </span>
+<span id="cb50-4"><a href="topicos-em-estatistica-computacional.html#cb50-4"></a>  log_likelihood &lt;-<span class="st"> </span><span class="cf">function</span>(par, x){</span>
+<span id="cb50-5"><a href="topicos-em-estatistica-computacional.html#cb50-5"></a>    <span class="op">-</span><span class="kw">sum</span>(<span class="kw">log</span>(<span class="kw">f</span>(par, x)))</span>
+<span id="cb50-6"><a href="topicos-em-estatistica-computacional.html#cb50-6"></a>  }</span>
+<span id="cb50-7"><a href="topicos-em-estatistica-computacional.html#cb50-7"></a>  </span>
+<span id="cb50-8"><a href="topicos-em-estatistica-computacional.html#cb50-8"></a>  <span class="co"># A função resample() obtem uma amostra com reposição de x:</span></span>
+<span id="cb50-9"><a href="topicos-em-estatistica-computacional.html#cb50-9"></a>  resample &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
+<span id="cb50-10"><a href="topicos-em-estatistica-computacional.html#cb50-10"></a>    n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb50-11"><a href="topicos-em-estatistica-computacional.html#cb50-11"></a>    <span class="co"># Selecionando observações uniformemente distribuídas em x.</span></span>
+<span id="cb50-12"><a href="topicos-em-estatistica-computacional.html#cb50-12"></a>    <span class="co"># Poderia ser utilizado a função sample().</span></span>
+<span id="cb50-13"><a href="topicos-em-estatistica-computacional.html#cb50-13"></a>    x[<span class="kw">floor</span>(n <span class="op">*</span><span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> n, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>1L)]</span>
+<span id="cb50-14"><a href="topicos-em-estatistica-computacional.html#cb50-14"></a>  } <span class="co"># Aqui termina a função resample().</span></span>
+<span id="cb50-15"><a href="topicos-em-estatistica-computacional.html#cb50-15"></a>  </span>
+<span id="cb50-16"><a href="topicos-em-estatistica-computacional.html#cb50-16"></a>  <span class="co"># A função boot() calcula uma statística em uma única amostra</span></span>
+<span id="cb50-17"><a href="topicos-em-estatistica-computacional.html#cb50-17"></a>  <span class="co"># bootstrap:</span></span>
+<span id="cb50-18"><a href="topicos-em-estatistica-computacional.html#cb50-18"></a>  pb &lt;-<span class="st"> </span>progress_bar<span class="op">$</span><span class="kw">new</span>(<span class="dt">total =</span> B) <span class="co"># objeto progress_bar.</span></span>
+<span id="cb50-19"><a href="topicos-em-estatistica-computacional.html#cb50-19"></a>  boot &lt;-<span class="st"> </span><span class="cf">function</span>(i) {</span>
+<span id="cb50-20"><a href="topicos-em-estatistica-computacional.html#cb50-20"></a>    <span class="co">#result &lt;- double(1L)</span></span>
+<span id="cb50-21"><a href="topicos-em-estatistica-computacional.html#cb50-21"></a>    <span class="cf">repeat</span> {</span>
+<span id="cb50-22"><a href="topicos-em-estatistica-computacional.html#cb50-22"></a>      result &lt;-<span class="st"> </span><span class="kw">optim</span>(<span class="dt">par =</span> kicks, <span class="dt">fn =</span> log_likelihood, <span class="dt">x =</span> <span class="kw">resample</span>(sample_true), ...)</span>
+<span id="cb50-23"><a href="topicos-em-estatistica-computacional.html#cb50-23"></a>      <span class="cf">if</span> (result<span class="op">$</span>convergence <span class="op">==</span><span class="st"> </span>0L) {</span>
+<span id="cb50-24"><a href="topicos-em-estatistica-computacional.html#cb50-24"></a>        result &lt;-<span class="st"> </span>result<span class="op">$</span>par[idpar]</span>
+<span id="cb50-25"><a href="topicos-em-estatistica-computacional.html#cb50-25"></a>        <span class="cf">break</span></span>
+<span id="cb50-26"><a href="topicos-em-estatistica-computacional.html#cb50-26"></a>      }</span>
+<span id="cb50-27"><a href="topicos-em-estatistica-computacional.html#cb50-27"></a>    }</span>
+<span id="cb50-28"><a href="topicos-em-estatistica-computacional.html#cb50-28"></a>    pb<span class="op">$</span><span class="kw">tick</span>() <span class="co"># Dando um tick().</span></span>
+<span id="cb50-29"><a href="topicos-em-estatistica-computacional.html#cb50-29"></a>    result</span>
+<span id="cb50-30"><a href="topicos-em-estatistica-computacional.html#cb50-30"></a>  } <span class="co"># Aqui termina a função boot().</span></span>
+<span id="cb50-31"><a href="topicos-em-estatistica-computacional.html#cb50-31"></a>  purrr<span class="op">::</span><span class="kw">map_dbl</span>(<span class="dt">.x =</span> 1L<span class="op">:</span>B, <span class="dt">.f =</span> boot)</span>
+<span id="cb50-32"><a href="topicos-em-estatistica-computacional.html#cb50-32"></a>}</span>
+<span id="cb50-33"><a href="topicos-em-estatistica-computacional.html#cb50-33"></a><span class="kw">set.seed</span>(1L) <span class="co"># Fixando uma semente.</span></span>
+<span id="cb50-34"><a href="topicos-em-estatistica-computacional.html#cb50-34"></a><span class="co"># O objeto &quot;amostra&quot; é a amostral original.</span></span>
+<span id="cb50-35"><a href="topicos-em-estatistica-computacional.html#cb50-35"></a>amostra &lt;-<span class="st"> </span><span class="kw">rweibull</span>(<span class="dt">n =</span> 30L, <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="dv">2</span>)</span>
+<span id="cb50-36"><a href="topicos-em-estatistica-computacional.html#cb50-36"></a></span>
+<span id="cb50-37"><a href="topicos-em-estatistica-computacional.html#cb50-37"></a>tictoc<span class="op">::</span><span class="kw">tic</span>()</span>
+<span id="cb50-38"><a href="topicos-em-estatistica-computacional.html#cb50-38"></a><span class="kw">bias_boot</span>(<span class="dt">B =</span> <span class="fl">2e3</span>L, <span class="dt">sample_true =</span> amostra, <span class="dt">f =</span> fdp_weibull,</span>
+<span id="cb50-39"><a href="topicos-em-estatistica-computacional.html#cb50-39"></a>          <span class="dt">kicks =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">idpar =</span> 1L, <span class="dt">method =</span> <span class="st">&quot;BFGS&quot;</span>)</span>
+<span id="cb50-40"><a href="topicos-em-estatistica-computacional.html#cb50-40"></a>tictoc<span class="op">::</span><span class="kw">toc</span>()</span></code></pre></div>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
@@ -1680,7 +1682,32 @@ em que <span class="math inline">\(\widehat{B(T_n)}\)</span> é o viés do estim
 </div>
 </div>
 
-<!-- ### Construindo intervalos aleatórios -->
+</div>
+<div id="construindo-intervalos-aleatorios" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Construindo intervalos aleatórios</h3>
+<p>Um intervalo de confiança (IC) é uma estimativa intervalar para um parâmetro de interesse de uma população. Em vez de estimar o parâmetro por um único valor (estimativa pontual), o intervalo de confiança fornece um conjunto de estimativas possíveis para esse parâmetro de interesse através de um intervalo aleatório. Estimativas intervalares são realizadas sob um nível de confiança <span class="math inline">\(1-\alpha\)</span>, com <span class="math inline">\(\alpha \in (0,1)\)</span>, em que <span class="math inline">\(\alpha\)</span> é o nível de significância adotado e fixado pelo pesquisador. Um intervalo <span class="math inline">\(I_{\gamma}\)</span> (intervalo de nível <span class="math inline">\(\gamma\)</span>) para o parâmetro <span class="math inline">\(\theta\)</span> é tal que
+<span class="math display">\[\begin{equation}
+P(I_\gamma\,\, \mathrm{conter}\,\, \theta) = \gamma.
+\end{equation}\]</span></p>
+<p>Um intervalo de confiança bilateral é delimitado pelos limites inferior e superior <span class="math inline">\(\ell_{\frac{\alpha_1}{2}}\)</span> e <span class="math inline">\(\ell_{1-\frac{\alpha_2}{2}}\)</span> respectivamente, em que, <span class="math inline">\(\alpha_1\)</span> e <span class="math inline">\(\alpha_2\)</span> pertencem ao conjunto de valores possíveis de <span class="math inline">\(\alpha\)</span>, tal que
+<span class="math display">\[\begin{equation}
+P\left(\theta &lt; \ell_{\frac{\alpha_1}{2}}\right) = \frac{\alpha_1}{2}\,\,\,\, \mathrm{e}\,\,\,\, P\left(\theta &lt; \ell_{1-\frac{\alpha_2}{2}} \right) = 1 - \frac{\alpha_2}{2}.
+\end{equation}\]</span></p>
+<p>A cobertura do intervalo <span class="math inline">\(\left[\ell_{\alpha_1/2},\ell_{1-\alpha_2/2}\right]\)</span> é <span class="math inline">\(\gamma = 1 - (\frac{\alpha_1}{2}+\frac{\alpha_2}{2})\)</span>, com <span class="math inline">\(\alpha_1/2+\alpha_2/2 = \alpha\)</span>, sendo <span class="math inline">\(\alpha_1/2\)</span> e <span class="math inline">\(\alpha_2/2\)</span> os erros de coberturas à esquerda e à direta do intervalo <span class="math inline">\(I_\gamma\)</span>, respectivamente. As escolhas de <span class="math inline">\(\alpha_1\)</span> e <span class="math inline">\(\alpha_2\)</span> devem ser feitas de forma que a amplitude de <span class="math inline">\(I_{\gamma}\)</span> seja a menor possível. Na prática é usual escolher <span class="math inline">\(\alpha_1\)</span> e <span class="math inline">\(\alpha_2\)</span> de modo que
+<span class="math display">\[P\left(\theta &lt; \ell_{\frac{\alpha_1}{2}}\right) = P\left(\theta &gt; \ell_{1-\frac{\alpha_2}{2}}\right) = \frac{\alpha}{2}.\]</span></p>
+<p>Uma abordagem frequentemente utilizada na construção de intervalos de confiança paramétricos é considerar um estimador <span class="math inline">\(\widehat{\theta}\)</span> para um parâmetro <span class="math inline">\(\theta\)</span> da população, em que <span class="math inline">\(\widehat{\theta}\)</span> é usualmente um estimador de máxima verossimilhança de <span class="math inline">\(\theta\)</span>. Queremos encontrar um intervalo que contenha <span class="math inline">\(\theta\)</span> com <span class="math inline">\(100\gamma\%\)</span> de confiança. Seja <span class="math inline">\(T_n\)</span> um estimador do escalar <span class="math inline">\(\theta\)</span> baseado em <span class="math inline">\(n\)</span> observações e <span class="math inline">\(t\)</span> sua estimativa. Por simplicidade, suponhamos que <span class="math inline">\(T_n\)</span> seja uma variável aleatória contínua. Denotando-se o <span class="math inline">\(p\)</span>-ésimo quantil da distribuição da variável aleatória <span class="math inline">\(T_n - \theta\)</span> por <span class="math inline">\(a_p\)</span>, temos que
+<span class="math display">\[\begin{equation}\label{eq:ic_parametrico}
+P\left(T_n - \theta \leq a_{\frac{\alpha_1}{2}}\right) = \frac{\alpha}{2} = P\left(T_n - \theta \geq a_{1-\frac{\alpha_2}{2}}\right).
+\end{equation}\]</span></p>
+<p>Como a quantidade <span class="math inline">\(Q = T_n - \theta\)</span> é inversível em <span class="math inline">\(\theta\)</span> e <span class="math inline">\(T_n\)</span> depende apenas da amostra, podemos construir o intervalo de confiança para <span class="math inline">\(\theta\)</span> reescrevendo os eventos, ou seja, podemos reescrever os eventos <span class="math inline">\(T_n -\theta \leq a_{\frac{\alpha_1}{2}}\)</span> e <span class="math inline">\(T_n - \theta \geq a_{1-\frac{\alpha_2}{2}}\)</span> como <span class="math inline">\(\theta &gt; T_n - a_{\frac{\alpha_1}{2}}\)</span> e <span class="math inline">\(\theta &lt; T_n - a_{1-\frac{\alpha_2}{2}}\)</span>, respectivamente. Assim, o intervalo de confiança de nível <span class="math inline">\(\gamma\)</span> é dado pelos limites
+<span class="math display">\[\begin{equation}\label{eq:limites_de_confiancas}
+\ell_{\alpha/2} = t - a_{1-\frac{\alpha_2}{2}}, \, \, \ell_{1-\alpha/2} = t - a_{\frac{\alpha_1}{2}}.
+\end{equation}\]</span></p>
+<p>Em situações em que o intervalo bilateral é de interesse, a soma de <span class="math inline">\(\alpha_1/2\)</span> e <span class="math inline">\(\alpha_2/2\)</span> é igual a <span class="math inline">\(\alpha\)</span>. Quando estamos interessados em intervalos simétricos, temos que <span class="math inline">\(\alpha_1 = \alpha_2 = \alpha\)</span>. Assim,
+<span class="math display">\[\begin{equation}\label{eq:ic_geral}
+\ell_{\alpha/2} = t - a_{1-\alpha/2}, \, \, \ell_{1-\alpha/2} = t - a_{\alpha/2}.
+\end{equation}\]</span></p>
+<p>Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisador está interessado na construção de intervalos de confiança unilaterais, temos que os limites para construção dos intervalos unilateral inferior e unilateral superior são dados por <span class="math inline">\(\ell_{1-\alpha}\)</span> e <span class="math inline">\(\ell_{\alpha}\)</span> respectivamente. Os limites serão obtidos de tal forma que <span class="math inline">\(P\left(\theta &lt; \ell_{\alpha}\right) = P\left(\theta &gt; \ell_{1-\alpha}\right) = \alpha\)</span>.</p>
 <!-- ### Teste de hipótes -->
 </div>
 </div>
