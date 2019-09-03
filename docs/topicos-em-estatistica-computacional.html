@@ -1136,9 +1136,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="topicos-em-estatistica-computacional.html#cb27-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="topicos-em-estatistica-computacional.html#cb27-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.595     0.231     0.690</code></pre>
+##     1.569     0.282     0.822</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="topicos-em-estatistica-computacional.html#cb29-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.9999117</code></pre>
+<pre><code>## [1] 0.9996397</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1231,15 +1231,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="topicos-em-estatistica-computacional.html#cb35-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="topicos-em-estatistica-computacional.html#cb35-2"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.016</code></pre>
+##   2.032</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="topicos-em-estatistica-computacional.html#cb37-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="topicos-em-estatistica-computacional.html#cb37-2"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.774</code></pre>
+##   0.829</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="topicos-em-estatistica-computacional.html#cb39-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="topicos-em-estatistica-computacional.html#cb39-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.604651</code></pre>
+## 2.451146</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="topicos-em-estatistica-computacional.html#cb41-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="topicos-em-estatistica-computacional.html#cb41-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1719,7 +1719,7 @@ cuja transformação para <span class="math inline">\(\theta\)</span> é</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Segundo B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 160, se <span class="math inline">\((B+1)\alpha/2\)</span> não é inteiro devemos considerar <span class="math inline">\([(B+1)\alpha/2]\)</span>, em que <span class="math inline">\([\,\,\cdot\,\,]\)</span> é a função maior inteiro.</p>
+<p>Segundo B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 160, se <span class="math inline">\((B+1)\alpha/2\)</span> não é inteiro devemos considerar <span class="math inline">\([(B+1)\alpha/2]\)</span>, em que <span class="math inline">\([\,\,\cdot\,\,]\)</span> é a função maior inteiro. No <a href="https://www.r-project.org/"><strong>R</strong></a>, utilize a função <code>quantile()</code> para obter os quantis desejados do vetor <span class="math inline">\(t_1^*, \ldots, t_B^*\)</span>.</p>
 </div>
 </div>
 

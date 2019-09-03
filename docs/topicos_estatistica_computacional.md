@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.595     0.231     0.690
+##     1.569     0.282     0.822
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9999117
+## [1] 0.9996397
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.016
+##   2.032
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.774
+##   0.829
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.604651
+## 2.451146
 ```
 
 **Paralelização usando PSOCK**:
@@ -1887,7 +1887,7 @@ Observe que não precisamos conhecer a transformação $h$. O intervalo de níve
 **Nota**:
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
-Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro devemos considerar  $[(B+1)\alpha/2]$, em que $[\,\,\cdot\,\,]$ é a função maior inteiro.
+Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro devemos considerar  $[(B+1)\alpha/2]$, em que $[\,\,\cdot\,\,]$ é a função maior inteiro. No [**R**](https://www.r-project.org/), utilize a função `quantile()` para obter os quantis desejados do vetor $t_1^*, \ldots, t_B^*$.
 </div></div>\EndKnitrBlock{rmdnote}
 
 

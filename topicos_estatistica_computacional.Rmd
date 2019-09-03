@@ -1844,7 +1844,7 @@ Observe que não precisamos conhecer a transformação $h$. O intervalo de níve
 
 ```{block2, type='rmdnote'}
 <div class=text-justify>
-Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro devemos considerar  $[(B+1)\alpha/2]$, em que $[\,\,\cdot\,\,]$ é a função maior inteiro.
+Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro devemos considerar  $[(B+1)\alpha/2]$, em que $[\,\,\cdot\,\,]$ é a função maior inteiro. No [**R**](https://www.r-project.org/), utilize a função `quantile()` para obter os quantis desejados do vetor $t_1^*, \ldots, t_B^*$.
 </div>
 ```
 
