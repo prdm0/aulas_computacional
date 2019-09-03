@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.600     0.260     0.774
+##     1.639     0.289     1.143
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000337
+## [1] 1.000152
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.173
+##   2.159
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.797
+##   0.841
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.726474
+## 2.567182
 ```
 
 **Paralelização usando PSOCK**:
@@ -1784,6 +1784,57 @@ Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introd
 
 $$\frac{|\widehat{B(T_n)}|}{\widehat{se}(T_n)_{\mathrm{boot}}} \leq 0.25,$$
 em que $\widehat{B(T_n)}$ é o viés do estimador $T_n$ estimado por bootstrap, a correção por viés via bootstrap poderá não ser necessária.
+</div></div>\EndKnitrBlock{rmdnote}
+
+**Exemplo**: O exemplo abaixo mostra como incorporar uma **barra de progresso** que informará o quão próximo estamos do fim da execução da função `bias_boot()`. Note a execução repetida de `boot()`, implementada dentro do escopo da função `bootstraping()` é o que verdadeiramente torna custosa a execução da função `bias_boot()`. Dessa forma, escolheu-se dentro de `boot()` atualizar o progresso usando o comando `progress::pb$tick()`. Perceba que antes da definição de `boot()` foi criado o objeto `pb` da classe **progress_bar**, em que foi informado o número total de chamadas à `boot()`. Perceba que é necessário instalar o pacote [**progress**](https://github.com/r-lib/progress) que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções `tic()` e `toc()` do pacote [**tictoc**](https://github.com/collectivemedia/tictoc) como uma alternativa para marcar o tempo de execução da função `bias_boot()`. Trata-se de uma alternativa à função `system.time()` do pacote **base**.
+
+
+```r
+bootstraping <- function(B = 100L, sample_true, f, kicks, idpar = 1L, ...){
+  
+  log_likelihood <- function(par, x){
+    -sum(log(f(par, x)))
+  }
+  
+  # A função resample() obtem uma amostra com reposição de x:
+  resample <- function(x) {
+    n <- length(x)
+    # Selecionando observações uniformemente distribuídas em x.
+    # Poderia ser utilizado a função sample().
+    x[floor(n * runif(n = n, min = 0, max = 1) + 1L)]
+  } # Aqui termina a função resample().
+  
+  # A função boot() calcula uma statística em uma única amostra
+  # bootstrap:
+  pb <- progress::progress_bar$new(total = B) # objeto progress_bar.
+  boot <- function(i) {
+    #result <- double(1L)
+    repeat {
+      result <- optim(par = kicks, fn = log_likelihood, x = resample(sample_true), ...)
+      if (result$convergence == 0L) {
+        result <- result$par[idpar]
+        break
+      }
+    }
+    progress::pb$tick() # Dando um tick().
+    result
+  } # Aqui termina a função boot().
+  purrr::map_dbl(.x = 1L:B, .f = boot)
+}
+set.seed(1L) # Fixando uma semente.
+# O objeto "amostra" é a amostral original.
+amostra <- rweibull(n = 30L, shape = 2, scale = 2)
+
+tictoc::tic()
+bias_boot(B = 2e3L, sample_true = amostra, f = fdp_weibull,
+          kicks = c(1, 1), idpar = 1L, method = "BFGS")
+tictoc::toc()
+```
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+O uso de uma barra informativa sobre o status da execução de uma função poderá adicionar custos computacionais.
 </div></div>\EndKnitrBlock{rmdnote}
 
 <!-- ### Construindo intervalos aleatórios -->
