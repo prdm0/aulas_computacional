@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.584     0.311     0.882
+##     1.595     0.231     0.690
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000397
+## [1] 0.9999117
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.097
+##   2.016
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.968
+##   0.774
 ```
 
 ```r
@@ -1291,7 +1291,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.166322
+## 2.604651
 ```
 
 **Paralelização usando PSOCK**:
@@ -1863,12 +1863,33 @@ Como a quantidade $Q = T_n - \theta$ é inversível em $\theta$ e $T_n$ depende 
 \ell_{\alpha/2} = t - a_{1-\frac{\alpha_2}{2}}, \, \, \ell_{1-\alpha/2} = t - a_{\frac{\alpha_1}{2}}.
 \end{equation}
 
-Em situações em que o intervalo bilateral é de interesse, a soma de $\alpha_1/2$ e $\alpha_2/2$ é igual a $\alpha$. Quando estamos interessados em intervalos simétricos, temos que $\alpha_1 = \alpha_2 = \alpha$. Assim,
+Em situações em que o intervalo bilateral é de interesse, a soma de $\alpha_1/2$ e $\alpha_2/2$ é igual a $\alpha$. Quando estamos interessados em intervalos simétricos, temos que $\alpha_1 = \alpha_2 = \alpha$. Assim, a "**forma geral**" de um intervalo de confiança para um parâmetro $\theta$ é: 
+
 \begin{equation}\label{eq:ic_geral}
 \ell_{\alpha/2} = t - a_{1-\alpha/2}, \, \, \ell_{1-\alpha/2} = t - a_{\alpha/2}.
 \end{equation}
 
 Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisador está interessado na construção de intervalos de confiança unilaterais, temos que os limites para construção dos intervalos unilateral inferior e unilateral superior são dados por $\ell_{1-\alpha}$ e $\ell_{\alpha}$ respectivamente. Os limites serão obtidos de tal forma que $P\left(\theta < \ell_{\alpha}\right) = P\left(\theta > \ell_{1-\alpha}\right) = \alpha$.  
+
+
+#### Bootstrap Percentil
+
+Davison, A. C. & Hinkley, D. V, em  **Bootstrap methods and their application**, Vol. 1, Cambridge university press, p. 202, (1997) afirma que existe alguma transformação de $T_n$, $U = h(T_n)$, tal que $U$ possui uma distribuição simétrica. Suponhamos que sabemos calcular o intervalo de confiança de nível $1-\alpha$ para $\phi = h(\theta)$. Segundo Davison, A. C. & Hinkley, D. V (1997), podemos utilizar bootstrap para obter uma aproximação da distribuição de $T_n-\theta$ utilizando a distribuição de $T_n^* - t$. Dessa forma, estimamos o $p$-ésimo quantil de $T_n-\theta$ pelo $(B+1)p$-ésimo valor ordenado de $t^* - t$, ou seja, o $p$-ésimo quantil de $T_n-\theta$ é estimado por $t_{((B+1)p)}^*-t$. Analogamente, o $p$-ésimo quantil de $h(T_n)-h(\theta) = U - \phi$ poderá ser estimado pelo $(B+1)p$-ésimo valor ordenado de $h(T_n^*)-h(t) = u^* - u$. Seja $b_p$ o $p$-ésimo quantil de $U-\phi$. Como $U$ tem distribuição simétrica, então $U-\phi$ também tem distribuição simétrica, logo é verdade que $b_\frac{\alpha}{2} = - b_{1-\frac{\alpha}{2}}$. Utilizando a forma geral para intervalos de confiança e a simetria de $U-\phi$, temos que $h(\ell_{\alpha/2}) = u+b_{\alpha/2}$ e $h(\ell_{1-\alpha/2}) = u + b_{1-\alpha/2}$. Como $b_{\alpha/2}$ e $b_{1-\alpha/2}$ são quantis da distribuição de $U-\phi$ e sabemos calcular os quantis dessa distribuição, temos que os limites inferior e superior de confiança são dados por $u + (u_{((B+1)\alpha/2)}^* - u)$ e $u + (u_{((B+1)(1-\alpha/2))}^* - u)$, respectivamente, implicando os limites
+
+$$u_{((B+1)\alpha/2)}^*, \,\,\,\, u_{((B+1)(1-\alpha/2))}^*,$$
+cuja transformação para $\theta$ é
+
+$$t_{(B+1)\alpha/2}^{*}, \,\,\,\, t_{(B+1)(1-\alpha/2)}^{*}.$$
+
+Observe que não precisamos conhecer a transformação $h$. O intervalo de nível $1-\alpha$ para o parâmetro $\theta$ não envolve $h$ e pode ser calculado sem o conhecimento desta transformação. O intervalo acima é conhecido como intervalo bootstrap percentil. Segundo Davison, A. C. & Hinkley (1997), p. 203, o método percentil poderá ser aplicado a qualquer estatística.
+
+
+**Nota**:
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
+Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro devemos considerar  $[(B+1)\alpha/2]$, em que $[\,\,\cdot\,\,]$ é a função maior inteiro.
+</div></div>\EndKnitrBlock{rmdnote}
+
 
 
 <!-- ### Teste de hipótes -->
@@ -1892,3 +1913,7 @@ Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisad
 8. Suponha que $T_n = \overline{X}$ e considere $\pmb x = (x_1, \ldots, x_n)$ observações de uma amostra aleatória $\pmb X = (X_1, \ldots, X_n)$, em que $X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)$, com $i = 1, \ldots, n$. Para $n = 50$, construa uma simulação de MC par avaliar $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$. Discuta o resultado. **Dica**: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de $\widehat{se}(T_n)_{\mathrm{boot}}$ e $\widehat{B(T_n)}_{\mathrm{boot}}$.
 
 9. Implemente o exercício anteiror de forma paralela. Obtenha o **speedup**.
+
+10. Defina o método bootstrap percentil para obtenção de um intervalo aleatório para um parâmetro.
+
+11. Implemente a função `percentile_boot(B = 250L, fun, alpha = 0.05, ...)` que obtém um intervalo aleatório para algum parâmetro que indexa uma função densidade de probabilidade passada como argumento à `fun`, sendo `B` a quantidade de réplicas bootstrap considerada (padrão 250) e $\alpha$ o nível de significância adotado (padrão `alpha = 0.05`). Considere $\widehat{T_n}$ a estimativa de máxima verossimilhança do parâmetro ao qual se deseja construir o intervalo. **Dicas**: [1] as estimativas $t$ obtida por $\widehat{T_n}$ são construídas de forma numérica. Assim, você terá que minimizar $-\mathcal{l}(\theta)$ usando a função `optim()`, em que $\mathcal{l}(\theta)$ é a função de log-verossimilhança. [2] Considere o método **BFGS**. [3] Lembre-se de descartar as amostras bootstrap em que não houveram convergência do método **BFGS**. Substituia essas amostras por outra em que a convergência poderá ser observada.

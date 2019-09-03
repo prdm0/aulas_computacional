@@ -1136,9 +1136,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="topicos-em-estatistica-computacional.html#cb27-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="topicos-em-estatistica-computacional.html#cb27-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.584     0.311     0.882</code></pre>
+##     1.595     0.231     0.690</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="topicos-em-estatistica-computacional.html#cb29-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000397</code></pre>
+<pre><code>## [1] 0.9999117</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1231,15 +1231,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="topicos-em-estatistica-computacional.html#cb35-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="topicos-em-estatistica-computacional.html#cb35-2"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.097</code></pre>
+##   2.016</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="topicos-em-estatistica-computacional.html#cb37-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="topicos-em-estatistica-computacional.html#cb37-2"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.968</code></pre>
+##   0.774</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="topicos-em-estatistica-computacional.html#cb39-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="topicos-em-estatistica-computacional.html#cb39-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.166322</code></pre>
+## 2.604651</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="topicos-em-estatistica-computacional.html#cb41-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="topicos-em-estatistica-computacional.html#cb41-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1703,12 +1703,28 @@ P\left(T_n - \theta \leq a_{\frac{\alpha_1}{2}}\right) = \frac{\alpha}{2} = P\le
 <span class="math display">\[\begin{equation}\label{eq:limites_de_confiancas}
 \ell_{\alpha/2} = t - a_{1-\frac{\alpha_2}{2}}, \, \, \ell_{1-\alpha/2} = t - a_{\frac{\alpha_1}{2}}.
 \end{equation}\]</span></p>
-<p>Em situações em que o intervalo bilateral é de interesse, a soma de <span class="math inline">\(\alpha_1/2\)</span> e <span class="math inline">\(\alpha_2/2\)</span> é igual a <span class="math inline">\(\alpha\)</span>. Quando estamos interessados em intervalos simétricos, temos que <span class="math inline">\(\alpha_1 = \alpha_2 = \alpha\)</span>. Assim,
-<span class="math display">\[\begin{equation}\label{eq:ic_geral}
+<p>Em situações em que o intervalo bilateral é de interesse, a soma de <span class="math inline">\(\alpha_1/2\)</span> e <span class="math inline">\(\alpha_2/2\)</span> é igual a <span class="math inline">\(\alpha\)</span>. Quando estamos interessados em intervalos simétricos, temos que <span class="math inline">\(\alpha_1 = \alpha_2 = \alpha\)</span>. Assim, a “<strong>forma geral</strong>” de um intervalo de confiança para um parâmetro <span class="math inline">\(\theta\)</span> é:</p>
+<p><span class="math display">\[\begin{equation}\label{eq:ic_geral}
 \ell_{\alpha/2} = t - a_{1-\alpha/2}, \, \, \ell_{1-\alpha/2} = t - a_{\alpha/2}.
 \end{equation}\]</span></p>
 <p>Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisador está interessado na construção de intervalos de confiança unilaterais, temos que os limites para construção dos intervalos unilateral inferior e unilateral superior são dados por <span class="math inline">\(\ell_{1-\alpha}\)</span> e <span class="math inline">\(\ell_{\alpha}\)</span> respectivamente. Os limites serão obtidos de tal forma que <span class="math inline">\(P\left(\theta &lt; \ell_{\alpha}\right) = P\left(\theta &gt; \ell_{1-\alpha}\right) = \alpha\)</span>.</p>
+<div id="bootstrap-percentil" class="section level4">
+<h4><span class="header-section-number">6.4.3.1</span> Bootstrap Percentil</h4>
+<p>Davison, A. C. &amp; Hinkley, D. V, em <strong>Bootstrap methods and their application</strong>, Vol. 1, Cambridge university press, p. 202, (1997) afirma que existe alguma transformação de <span class="math inline">\(T_n\)</span>, <span class="math inline">\(U = h(T_n)\)</span>, tal que <span class="math inline">\(U\)</span> possui uma distribuição simétrica. Suponhamos que sabemos calcular o intervalo de confiança de nível <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\phi = h(\theta)\)</span>. Segundo Davison, A. C. &amp; Hinkley, D. V (1997), podemos utilizar bootstrap para obter uma aproximação da distribuição de <span class="math inline">\(T_n-\theta\)</span> utilizando a distribuição de <span class="math inline">\(T_n^* - t\)</span>. Dessa forma, estimamos o <span class="math inline">\(p\)</span>-ésimo quantil de <span class="math inline">\(T_n-\theta\)</span> pelo <span class="math inline">\((B+1)p\)</span>-ésimo valor ordenado de <span class="math inline">\(t^* - t\)</span>, ou seja, o <span class="math inline">\(p\)</span>-ésimo quantil de <span class="math inline">\(T_n-\theta\)</span> é estimado por <span class="math inline">\(t_{((B+1)p)}^*-t\)</span>. Analogamente, o <span class="math inline">\(p\)</span>-ésimo quantil de <span class="math inline">\(h(T_n)-h(\theta) = U - \phi\)</span> poderá ser estimado pelo <span class="math inline">\((B+1)p\)</span>-ésimo valor ordenado de <span class="math inline">\(h(T_n^*)-h(t) = u^* - u\)</span>. Seja <span class="math inline">\(b_p\)</span> o <span class="math inline">\(p\)</span>-ésimo quantil de <span class="math inline">\(U-\phi\)</span>. Como <span class="math inline">\(U\)</span> tem distribuição simétrica, então <span class="math inline">\(U-\phi\)</span> também tem distribuição simétrica, logo é verdade que <span class="math inline">\(b_\frac{\alpha}{2} = - b_{1-\frac{\alpha}{2}}\)</span>. Utilizando a forma geral para intervalos de confiança e a simetria de <span class="math inline">\(U-\phi\)</span>, temos que <span class="math inline">\(h(\ell_{\alpha/2}) = u+b_{\alpha/2}\)</span> e <span class="math inline">\(h(\ell_{1-\alpha/2}) = u + b_{1-\alpha/2}\)</span>. Como <span class="math inline">\(b_{\alpha/2}\)</span> e <span class="math inline">\(b_{1-\alpha/2}\)</span> são quantis da distribuição de <span class="math inline">\(U-\phi\)</span> e sabemos calcular os quantis dessa distribuição, temos que os limites inferior e superior de confiança são dados por <span class="math inline">\(u + (u_{((B+1)\alpha/2)}^* - u)\)</span> e <span class="math inline">\(u + (u_{((B+1)(1-\alpha/2))}^* - u)\)</span>, respectivamente, implicando os limites</p>
+<p><span class="math display">\[u_{((B+1)\alpha/2)}^*, \,\,\,\, u_{((B+1)(1-\alpha/2))}^*,\]</span>
+cuja transformação para <span class="math inline">\(\theta\)</span> é</p>
+<p><span class="math display">\[t_{(B+1)\alpha/2}^{*}, \,\,\,\, t_{(B+1)(1-\alpha/2)}^{*}.\]</span></p>
+<p>Observe que não precisamos conhecer a transformação <span class="math inline">\(h\)</span>. O intervalo de nível <span class="math inline">\(1-\alpha\)</span> para o parâmetro <span class="math inline">\(\theta\)</span> não envolve <span class="math inline">\(h\)</span> e pode ser calculado sem o conhecimento desta transformação. O intervalo acima é conhecido como intervalo bootstrap percentil. Segundo Davison, A. C. &amp; Hinkley (1997), p. 203, o método percentil poderá ser aplicado a qualquer estatística.</p>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>Segundo B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 160, se <span class="math inline">\((B+1)\alpha/2\)</span> não é inteiro devemos considerar <span class="math inline">\([(B+1)\alpha/2]\)</span>, em que <span class="math inline">\([\,\,\cdot\,\,]\)</span> é a função maior inteiro.</p>
+</div>
+</div>
+
 <!-- ### Teste de hipótes -->
+</div>
 </div>
 </div>
 <div id="exercicio-4" class="section level2 unnumbered">
@@ -1723,6 +1739,8 @@ P\left(T_n - \theta \leq a_{\frac{\alpha_1}{2}}\right) = \frac{\alpha}{2} = P\le
 <li><p>O estimador <span class="math inline">\(T_n\)</span> corrigido por viés via bootstrap é dado por <span class="math inline">\(T_n^{\mathrm{corrigido-boot}} = 2T_n - \overline{T_n^{*}}\)</span>. Explique como essa correção é obtida.</p></li>
 <li><p>Suponha que <span class="math inline">\(T_n = \overline{X}\)</span> e considere <span class="math inline">\(\pmb x = (x_1, \ldots, x_n)\)</span> observações de uma amostra aleatória <span class="math inline">\(\pmb X = (X_1, \ldots, X_n)\)</span>, em que <span class="math inline">\(X_i \sim \mathrm{Exp}\Big(\lambda = \frac{1}{2}\Big)\)</span>, com <span class="math inline">\(i = 1, \ldots, n\)</span>. Para <span class="math inline">\(n = 50\)</span>, construa uma simulação de MC par avaliar <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span> e <span class="math inline">\(\widehat{B(T_n)}_{\mathrm{boot}}\)</span>. Discuta o resultado. <strong>Dica</strong>: considere 100 mil réplicas de MC e ao final obtenha a média das estimativas de <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span> e <span class="math inline">\(\widehat{B(T_n)}_{\mathrm{boot}}\)</span>.</p></li>
 <li><p>Implemente o exercício anteiror de forma paralela. Obtenha o <strong>speedup</strong>.</p></li>
+<li><p>Defina o método bootstrap percentil para obtenção de um intervalo aleatório para um parâmetro.</p></li>
+<li><p>Implemente a função <code>percentile_boot(B = 250L, fun, alpha = 0.05, ...)</code> que obtém um intervalo aleatório para algum parâmetro que indexa uma função densidade de probabilidade passada como argumento à <code>fun</code>, sendo <code>B</code> a quantidade de réplicas bootstrap considerada (padrão 250) e <span class="math inline">\(\alpha\)</span> o nível de significância adotado (padrão <code>alpha = 0.05</code>). Considere <span class="math inline">\(\widehat{T_n}\)</span> a estimativa de máxima verossimilhança do parâmetro ao qual se deseja construir o intervalo. <strong>Dicas</strong>: [1] as estimativas <span class="math inline">\(t\)</span> obtida por <span class="math inline">\(\widehat{T_n}\)</span> são construídas de forma numérica. Assim, você terá que minimizar <span class="math inline">\(-\mathcal{l}(\theta)\)</span> usando a função <code>optim()</code>, em que <span class="math inline">\(\mathcal{l}(\theta)\)</span> é a função de log-verossimilhança. [2] Considere o método <strong>BFGS</strong>. [3] Lembre-se de descartar as amostras bootstrap em que não houveram convergência do método <strong>BFGS</strong>. Substituia essas amostras por outra em que a convergência poderá ser observada.</p></li>
 </ol>
 
 </div>
