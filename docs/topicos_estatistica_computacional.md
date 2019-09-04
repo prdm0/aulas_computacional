@@ -1146,7 +1146,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.542     0.297     0.821
+##     1.584     0.291     0.844
 ```
 
 ```r
@@ -1154,7 +1154,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9997897
+## [1] 1.000283
 ```
 
 **Importante**:
@@ -1271,7 +1271,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.118
+##   2.089
 ```
 
 ```r
@@ -1281,7 +1281,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.925
+##   1.094
 ```
 
 ```r
@@ -1290,8 +1290,8 @@ time_serial[3]/time_parallel[3]
 ```
 
 ```
-## elapsed 
-## 2.28973
+##  elapsed 
+## 1.909506
 ```
 
 **Paralelização usando PSOCK**:
@@ -1874,7 +1874,7 @@ Para os casos em que apenas um dos limites é de interesse, ou seja, o pesquisad
 
 #### Bootstrap Percentil
 
-Davison, A. C. & Hinkley, D. V, em  **Bootstrap methods and their application**, Vol. 1, Cambridge university press, p. 202, (1997) afirma que existe alguma transformação de $T_n$, $U = h(T_n)$, tal que $U$ possui uma distribuição simétrica. Suponhamos que sabemos calcular o intervalo de confiança de nível $1-\alpha$ para $\phi = h(\theta)$. Segundo Davison, A. C. & Hinkley, D. V (1997), podemos utilizar bootstrap para obter uma aproximação da distribuição de $T_n-\theta$ utilizando a distribuição de $T_n^* - t$. Dessa forma, estimamos o $p$-ésimo quantil de $T_n-\theta$ pelo $(B+1)p$-ésimo valor ordenado de $t^* - t$, ou seja, o $p$-ésimo quantil de $T_n-\theta$ é estimado por $t_{((B+1)p)}^*-t$. Analogamente, o $p$-ésimo quantil de $h(T_n)-h(\theta) = U - \phi$ poderá ser estimado pelo $(B+1)p$-ésimo valor ordenado de $h(T_n^*)-h(t) = u^* - u$. Seja $b_p$ o $p$-ésimo quantil de $U-\phi$. Como $U$ tem distribuição simétrica, então $U-\phi$ também tem distribuição simétrica, logo é verdade que $b_\frac{\alpha}{2} = - b_{1-\frac{\alpha}{2}}$. Utilizando a forma geral para intervalos de confiança e a simetria de $U-\phi$, temos que $h(\ell_{\alpha/2}) = u+b_{\alpha/2}$ e $h(\ell_{1-\alpha/2}) = u + b_{1-\alpha/2}$. Como $b_{\alpha/2}$ e $b_{1-\alpha/2}$ são quantis da distribuição de $U-\phi$ e sabemos calcular os quantis dessa distribuição, temos que os limites inferior e superior de confiança são dados por $u + (u_{((B+1)\alpha/2)}^* - u)$ e $u + (u_{((B+1)(1-\alpha/2))}^* - u)$, respectivamente, implicando os limites
+Davison, A. C. e Hinkley, D. V, em  **Bootstrap methods and their application**, Vol. 1, Cambridge university press, p. 202, (1997) afirma que existe alguma transformação de $T_n$, $U = h(T_n)$, tal que $U$ possui uma distribuição simétrica. Suponhamos que sabemos calcular o intervalo de confiança de nível $1-\alpha$ para $\phi = h(\theta)$. Segundo Davison, A. C. e Hinkley, D. V (1997), podemos utilizar bootstrap para obter uma aproximação da distribuição de $T_n-\theta$ utilizando a distribuição de $T_n^* - t$. Dessa forma, estimamos o $p$-ésimo quantil de $T_n-\theta$ pelo $(B+1)p$-ésimo valor ordenado de $t^* - t$, ou seja, o $p$-ésimo quantil de $T_n-\theta$ é estimado por $t_{((B+1)p)}^*-t$. Analogamente, o $p$-ésimo quantil de $h(T_n)-h(\theta) = U - \phi$ poderá ser estimado pelo $(B+1)p$-ésimo valor ordenado de $h(T_n^*)-h(t) = u^* - u$. Seja $b_p$ o $p$-ésimo quantil de $U-\phi$. Como $U$ tem distribuição simétrica, então $U-\phi$ também tem distribuição simétrica, logo é verdade que $b_\frac{\alpha}{2} = - b_{1-\frac{\alpha}{2}}$. Utilizando a forma geral para intervalos de confiança e a simetria de $U-\phi$, temos que $h(\ell_{\alpha/2}) = u+b_{\alpha/2}$ e $h(\ell_{1-\alpha/2}) = u + b_{1-\alpha/2}$. Como $b_{\alpha/2}$ e $b_{1-\alpha/2}$ são quantis da distribuição de $U-\phi$ e sabemos calcular os quantis dessa distribuição, temos que os limites inferior e superior de confiança são dados por $u + (u_{((B+1)\alpha/2)}^* - u)$ e $u + (u_{((B+1)(1-\alpha/2))}^* - u)$, respectivamente, implicando os limites
 
 $$u_{((B+1)\alpha/2)}^*, \,\,\,\, u_{((B+1)(1-\alpha/2))}^*,$$
 cuja transformação para $\theta$ é
