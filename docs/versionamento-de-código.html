@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ESTATÍSTICA COMPUTACIONAL</title>
+  <title>3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   <meta name="generator" content="bookdown 0.14.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta property="og:title" content="3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://prdm0.github.io/aulas_computacional/" />
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="prdm0/aulas_computacional" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ESTATÍSTICA COMPUTACIONAL" />
+  <meta name="twitter:title" content="3 Versionamento de código | ESTATÍSTICA COMPUTACIONAL" />
   
   <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="prefácio.html"/>
+<link rel="prev" href="o-evangelho-do-gnulinux.html"/>
+<link rel="next" href="relatório-markdown-em-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -230,65 +230,141 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">ESTATÍSTICA COMPUTACIONAL</h1>
-<h2 class="subtitle"><em>Disciplina ministrada à alunos do bacharelado em estatística da UFPB</em></h2>
-<p class="author"><em><strong>Docente</strong>: Prof. Dr. Pedro Rafael Diniz Marinho <br/> <strong>E-mail</strong>: <a href="mailto:pedro.rafael.marinho@gmail.com" class="email">pedro.rafael.marinho@gmail.com</a> / <a href="mailto:pedro@de.ufpb.br" class="email">pedro@de.ufpb.br</a></em></p>
-</div>
-<div id="início" class="section level1 unnumbered">
-<h1>Início</h1>
-<p><strong>Última atualização</strong>: 06/11/2019 <br/>
-<strong>Departamento de Estatística (UFPB)</strong>: <a href="http://www.de.ufpb.br/" class="uri">http://www.de.ufpb.br/</a></p>
-<hr />
-<p align="center">
-<img src="images/logo_livro.png" width="220" height="350"/>
-</p>
-<hr />
-<p><strong>Licença</strong></p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />O material <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Estatística Computacional</span> do <a xmlns:cc="http://creativecommons.org/ns#" href="https://prdm0.github.io/aulas_computacional/" property="cc:attributionName" rel="cc:attributionURL">Prof. Pedro Rafael. D. Marinho</a> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons - Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>. Isso quer dizer:</p>
-<ol style="list-style-type: decimal">
-<li><p>Você tem o dirieto de copiar e redistribuir o material em qualquer suporte ou formato;</p></li>
-<li><p>Você tem o direito de remixar, transformar e criar a partir deste material;</p></li>
-<li><p>Você deve dar crédito apropriado, fornecer um link para a licença e indicar se foram feitas alterações. Você pode fazê-lo de qualquer maneira razoável, mas de nenhuma maneira que sugira que o licenciador endossa você ou seu uso;</p></li>
-<li><p>Você não poderá utilizar o material para fins comerciais;</p></li>
-<li><p>Se você remixar, transformar, ou criar a partir do material, tem de distribuir as suas contribuições sob a mesma licença que o original. Sendo assim, não poderá aplicar termos jurídicos ou medidas de caráter tecnológico que restrinjam legalmente outros de fazerem algo que a licença permita.</p></li>
-</ol>
-<p><strong>Maiores detalhes a respeito da licença em</strong>: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="uri">https://creativecommons.org/licenses/by-nc-sa/4.0/</a>.</p>
-<p><strong>Observação</strong>:</p>
-
-<div class="rmdobservation">
-<div class="text-justify">
-<p>Os códigos que estão presentes nesse material estão sobre os termos <a href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><strong>GNU General Public License</strong></a> (<span class="math inline">\(\geq 3\)</span>, versão três ou superior). Assim, o leitor poderá fazer uso de qualquer código desse material em seus projetos, pacotes, desde que cite a fonte. Além disso, todas as imagens utilizadas nesse material são de uso livre e não comercial.</p>
-<p><strong>Na barra superior desse material você poderá encontrar um ícone para download das minhas aulas de R. Trata-se de um Portable Document Format (PDF) que contém minhas aulas de R. O material das aulas está sujeito a mesma licença desse material. Você é livre para utilizar e remixar, desde que referencie o autor e o <a href="http://www.de.ufpb.br/"><strong>Departamento de Estatística</strong></a> da <a href="https://www.ufpb.br/"><strong>UFPB</strong></a>. Além disso, você deverá deixar claro quais foram as modificações realizadas.</strong></p>
-</div>
-</div>
-
+<div id="versionamento-de-código" class="section level1">
+<h1><span class="header-section-number">3</span> Versionamento de código</h1>
+<p><img src="images/versoes_git.png" width="65%" style="display: block; margin: auto;" /></p>
+<p>Na estatística, bem como em diversas outras áreas, a todo momento estamos editando documentos, como por exemplo, códigos de programação, artigos, relatórios, aulas, apresentações, livros, dentre inúmeros outros possíveis. Nesses processos de edições dos mais variádos documentos, quase sempre sentimos a necessidade de versionar as alterações, uma vez que se não houver um versionamento e se desejarmos voltar à um estado de edição anterior, estariamos sobre uma tarefa extremamente difícil ou mesmo impossível, a depender do número de passos anteriores ao qual desejamos voltar.</p>
+<p>Quando não dominamos nenhum sistema de controle de versão, normalmente o que fazemos para ter a possibilidade de voltar para uma dada versão de edição é armazenar diversas cópias do projeto em diretórios distintos. Versionar dessa forma pode servir quando temos poucas versões, porém, mesmo assim, é comum os desarranjos e atrapalhos no gerenciamento de diversos diretórios. Quando há o domínio de um sistema de controle de versão evitamos esse tipo de problema, uma vez que continuaremos trabalhando sobre um mesmo diretório que terá seus estados modificados quando solicitado, isto é, será possível voltar para a distribuição de arquivos e conteúdos anteriores, mesmo se nesse processo de edição alguns arquivos foram deletados, renomeados ou fortemente modificados.</p>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
 <div class="text-justify">
-<p>Esse material está sob constante aprimoramento e sugestões poderão ser enviadas para o repositório do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> que hospeda este conteúdo.</p>
-<p>Uma vez que o material está sendo mantido e versionado no <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>, as alterações podem ser realizadas diretamente no arquivo fonte do projeto, bastando clicar no ícone em formato de um lápis, no canto superior esquerdo desta página, ou das páginas em que se desejam sugerir alterações, como correções de palavras, mudanças de parágrafos, alteração de códigos, melhoramento de exemplos, inclusão de novos exemplos, etc. As alterações serão bem vindas e serão acatadas (incorporadas ao arquivo orignal) na medida que forem julgadas como sendo convenientes.</p>
+<p>Não se preocupe se você voltar à estados anteriores e desistir. Você poderá retornar à estados mais recentes (incluindo o último) sem nenhum problema. <strong>Deixe o trabalho sujo com o sistema de versionamento</strong>.</p>
+<p>Além disso, para nós estatísticos que vivemos codificando e constantemente alterando códigos de programação, versionar de forma eficiente é algo crucial.</p>
 </div>
 </div>
 
+<div id="git" class="section level2">
+<h2><span class="header-section-number">3.1</span> Git</h2>
+<p>Visando ajudar o desenvolvedor na tarefa de versionamento de projetos/códigos, a ferramenta <a href="https://git-scm.com/"><strong>git</strong></a> foi desenvolvida, escrita utilizando a linguagem C, por <a href="images/linus_torvalds.jpg"><strong>Linus Torvalds</strong></a> (criador do Linux) e atualmente mantido por <a href="images/ju_hamano.jpeg"><strong>Jun Hamano</strong></a>, um engenheiro de sofware japonês. No <a href="https://git-scm.com/"><strong>git</strong></a>, cada diretório de trabalho é um repositório com histórico completo das versões e não depende de acesso à um servidor ou rede central. Essa é uma das características que torna o git uma ferramenta rápida, além, é claro, de ser escrito em C, que reduz a sobrecarga de tempos de execução que é algo normalmente comum em linguagens de nível superior.</p>
+<p>Inicialmente essa ferramenta visava ajudar os desenvolvedores do kernel do Linux na tarefa de versionar, de forma eficiente, as mudanças no kernel que antes eram versionadas por meio do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, um software proprietário desenvolvido pela BitMover Inc, Califórnia. Isso era um dilema entre os desenvolvedores do Linux, uma vez que ao contrário do <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>, o Linux é conhecido por suas <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. À época, o projeto Linux tinha acesso gratuito ao <a href="http://www.bitkeeper.org/"><strong>BitKeeper</strong></a>. Porém, com a acusação de programadores do kernel Linux estarem utilizando engenharia reversa, o acesso gratuito foi removido. Esse foi o fato que forçou Linus Torvalds a desenvolver o git.</p>
+<p>Além do git, atualmente existem algumas ferramentas para versionamento de códigos. Entre tais ferramentas, enumero duas que considero as mais conhecidas:</p>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>: Trata-se de um sistema de versionamento, assim como o git, com <a href="https://opensource.org/"><strong>iniciativas Open Source</strong></a>. Na internet é fácil encontrar diversos comparativos, em que muitos usuários citam como uma de suas vantagens a facilidade. O <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a> é o sistema de versionamento mais popular no <a href="https://bitbucket.org/product/"><strong>Bitbucket</strong></a>, uma plataforma de hospedagem de código fonte que não é tão utilizada quanto o <a href="https://github.com/"><strong>GitHub</strong></a> e o <a href="https://about.gitlab.com/"><strong>GitLab</strong></a>;</p></li>
+<li><p><a href="http://subversion.apache.org/"><strong>subversion</strong></a>: Trata-se de um sistema de versionamento distribuido sobre os termos da <a href="https://pt.wikipedia.org/wiki/Licen%C3%A7a_Apache"><strong>Apache License</strong></a> e que foi desenvolvido pela <a href="https://pt.wikipedia.org/wiki/Apache_Software_Foundation"><strong>Apache Software Foundation</strong></a>. Assim como o <a href="https://www.mercurial-scm.org"><strong>mercurial</strong></a>, o <a href="http://subversion.apache.org/"><strong>subversion</strong></a> não é tão popular quanto o <a href="https://git-scm.com/"><strong>git</strong></a>.</p></li>
+</ol>
+<p>Por se tratar do sistema de versionamento mais amplamente utilizado (mais popular) em versionamentos locais e remotos (a exemplo do <a href="https://github.com/"><strong>GitHub</strong></a> e <a href="https://about.gitlab.com/"><strong>GitLab</strong></a> que são plataformas de hospedagem de código, em que é possível facilmente enviar códigos versionados usando git), trataremos apenas do uso do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Para que seja possível propor alterações é necessário que você saiba utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> e tenha realizado um fork do trabalho em sua conta do <a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a>. Apreder a utilizar o <a href="https://git-scm.com/"><strong>git</strong></a>/<a href="https://github.com/prdm0/aulas_computacional"><strong>GitHub</strong></a> poderá ser muito útil (dentro da academia ou fora dela), uma vez que você saberá versionar seus códigos, artigos e trabalhos em geral.</p>
+<p>A ferramenta <a href="https://git-scm.com/"><strong>git</strong></a> poderá ser facilmente instalada em Linux/Unix, Windows e macOS. Clique <a href="https://git-scm.com/downloads"><strong>aqui</strong></a> e faça o download da versão desejada e instale em seu sistema operacional. Há diversos vídeos na internet ensinando a configurar o <a href="https://git-scm.com/"><strong>git</strong></a> em sistemas Windows.</p>
 </div>
 </div>
 
+<p>Após a instalação do <a href="https://git-scm.com/"><strong>git</strong></a> em seu sistema operacional, abaixo listarei algumas funções interessantes para o uso do <a href="https://git-scm.com/"><strong>git</strong></a> via o prompt de comando (terminal). O terminal ao qual você deverá trabalhar com o git é algo parecido com as imagens abaixo:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="git_files/figure-html/unnamed-chunk-4-1.png" alt="A imagem mais a esquerda refere-se ao terminal bash no linux e a mais a direita refere-se terminal bash instalado no Windows para o uso do git. Essas imagens são meramente ilustrativas e poderão variar um pouco a depender do sitema operacional." width="768" />
+<p class="caption">
+Figura 3.1: A imagem mais a esquerda refere-se ao terminal bash no linux e a mais a direita refere-se terminal bash instalado no Windows para o uso do git. Essas imagens são meramente ilustrativas e poderão variar um pouco a depender do sitema operacional.
+</p>
+</div>
+<p><strong>Observação</strong>:</p>
 
+<div class="rmdobservation">
+<div class="text-justify">
+<p>Para usuários de sistemas operacionais baseados em Arch Linux, por exemplo, usuários do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a>, a instalação do <a href="https://git-scm.com/"><strong>git</strong></a> é bastante fácil. No terminal do Linux, basta fazer: </br></br></p>
+<p><code>sudo pacman -S git</code></p>
+<p>Caso você tenha optado em utilizar alguma distribuição GNU/Linux que não é derivada do Arch, muito provavelmente você não seguiu as considerações da distribuição Linux sugeridas na Seção <a href="o-evangelho-do-gnulinux.html#algumas-distribuições"><strong>Algumas distribuições</strong></a>, em que sugiro o uso do <a href="https://manjaro.org/"><strong>Manjaro Linux</strong></a> ou de distribuições GNU/Linux derivadas do <a href="https://www.archlinux.org/"><strong>Arch</strong></a>. Dessa forma, busque na distribuição GNU/Linux escolhida o comando para a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
+<blockquote>
+<p><strong>Nota</strong>: Se você está utilizando alguma distribuição GNU/Linux baseada em Debian/Ubuntu, você poderá instalar o <a href="https://git-scm.com/"><strong>git</strong></a> fazendo <code>sud apt-get install git</code>. Outros a respetio da instalação do git poderão ser encontrados <a href="https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git"><strong>aqui</strong></a>.</p>
+</blockquote>
+<p>No Linux, o <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, que é instalado por padrão, será o terminal que utilizaremos o <a href="https://git-scm.com/"><strong>git</strong></a>. Não há nenhuma necessidade de utilização de termais complementares. No <a href="https://pt.wikipedia.org/wiki/Bash"><strong>terminal bach</strong></a>, para facilitar, você pode chamar simplesmente de “terminal do linux” é onde configuramos o sistema operacional, instalamos programas, removemos programas, programamos, compilamos, <strong>utilizamos o git</strong>, etc. É incrível a flexibilidade e a quantidade de coisas que podemos fazer no terminal do Linux.</p>
+<p>Usuários do sistema operacional Windows poderão instalar facilmente o <a href="https://git-scm.com/"><strong>git</strong></a> considerando o executável fornecido <a href="https://gitforwindows.org/index.html"><strong>aqui</strong></a>. Se o seu sistema for 64 bits, vá ao final da página e faça o download do arquivo <strong>Git-x-64-bit.exe</strong>, em que <strong>x</strong> dá lugar a versão do <a href="https://git-scm.com/"><strong>git</strong></a>.</p>
+<p>Para esses usuários, durante o processo de instalação, no passo <strong><em>Adjusting your PATH environment</em></strong>, é importante selecionar a última opção, conforme a imagem abaixo:</p>
+</div>
+<p><img src="images/git_windows_opcao.png" width="55%" style="display: block; margin: auto;" /></p>
+<p>Após a instalação do <a href="https://git-scm.com/"><strong>git</strong></a>, em seu sistema operacional, abra o terminal e execute o comando <code>git --version</code>. Em caso de retorno da versão instalada do <a href="https://git-scm.com/"><strong>git</strong></a>, muito provavelmente a instalação ocorreu corretamente.</p>
+</div>
+<p>Após instalar corretamente o git, a primeira coisa que você precisa fazer é configurar o seu nome de usuário e endereço de e-mail. Isso é de grande importância, uma vez que cada <strong><em>commit</em></strong> (compromentimento), a informação do usuário que fez alguma atualização do documento/projeto é utilizada. Ou seja, trata-se de uma espécie de “carimbar” o autor da modificação. Sendo assim, no terminal, faça:</p>
+<pre><code>git config --global user.name &quot;seu nome ou sigla&quot;
+git config --global user.email seu_email</code></pre>
+<p><strong>Nota</strong>:</p>
+
+<div class="rmdnote">
+<div class="text-justify">
+<p>A configuração acima só precisará ser realiazada uma única vez, uma vez que foi utilizado a opção <code>--global</code> no momento de definir o usuário e senha. Além disso, você sempre poderá realizar essas configurações, sem a necessidade de instalar novamente o git, caso deseje trocar o nome do usuário e e-mail utilizado.</p>
+</div>
+</div>
+
+<p>Após instalar e configurar corretamente o <a href="https://git-scm.com/"><strong>git</strong></a> em seu sistema operacional, considere os comandos enumerados adiante. Esses comandos devem ser realizados no diretório ao qual queremos versionar com o <a href="https://git-scm.com/"><strong>git</strong></a>. Dessa forma, você deverá, no terminal estar no diretório a ser versionado.</p>
+<p><strong>Importante</strong>:</p>
+
+<div class="rmdimportant">
+<div class="text-justify">
+<p>Os comandos <code>cd</code>, <code>cd ..</code>, <code>ls</code>, <code>cp</code>, <code>mkdir</code>, <code>rm</code> e <code>mv</code> são comandos úteis do terminal de linux e que normalmente precisamos deles quando estamos trabalhando com o <a href="https://git-scm.com/"><strong>git</strong></a>. Muito provavelmente, esses comandos serão reconhecidos no terminal do git quando instalado no Windows. <strong>Esses comandos foram apresentados em sala de aula</strong>.</p>
+</div>
+</div>
+
+<p><strong>Comando úteis do git</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>git help &lt;verbo&gt;</code>: Esse é o comando mais importante do <a href="https://git-scm.com/"><strong>git</strong></a>. Com ele você encontrará informações a respeito de um <code>&lt;verbo&gt;</code>, em que <code>&lt;verbo&gt;</code> deverá ser substituído por um comando <a href="https://git-scm.com/"><strong>git</strong></a> válido. Por exemplo, faça <code>git help help</code> para obter informações sobre o comando <code>help</code> de <a href="https://git-scm.com/"><strong>git</strong></a>. Outras variantes de <code>git help &lt;verbo&gt;</code> pode ser:</p>
+<ul>
+<li><p><code>git &lt;verbo&gt; --help</code></p></li>
+<li><p><code>man git-&lt;verbo&gt;</code></p></li>
+</ul></li>
+<li><p><code>git --version</code>: Como mencionado anteriormente, esse comando retornará a versão do git que encontra-se instalada no seu sistema operacional.</p></li>
+<li><p><code>git config --list</code>: Esse comando lista as configurações do git que você está utilizando, ou seja, retornará o nome do usuário e e-mail que você configurou ao final da insatalação do git.</p></li>
+<li><p><code>git config --global core.excludesfile .gitignore</code>: O arquivo <strong>.gitignore</strong> trata-se de um arquivo oculto (inicia-se com um ponto) e normalmente é colocado no diretório ao qual estamos querendo versionar. Dentro desse arquivo colocamos os nomes dos arquivos do diretório que estamos versionando e que desejamos não considerar no versionamento. O conteúdo desse arquivo de nome <strong>.gitignore</strong> poderia ser algo como:</p>
+<pre class="{git},"><code>codigo1.R
+codigo2.cpp
+.diretorioOculto
+.ArquivoOculto.Rmd
+meulivro.pdf
+figura.png</code></pre>
+<p>Com o arquivo <strong>.gitignore</strong> acima estaríamos dizendo para o git ingnorar um código R de nome <strong>codigo1.R</strong>, um código em C++ de nome <strong>codigo2.cpp</strong>, o diretório oculto de nome <strong>.diretórioOculto</strong>, um arquivo oculto R Markdown de nome <strong>.ArquivoOculto.Rmd</strong>, um livro em formato PDF de nome <strong>meulivro.pdf</strong> e uma figura no formato png de nome <strong>figura.png</strong>.</p>
+<p><strong>Nota</strong>:</p>
+<p></p>
+<div class="rmdnote">
+<div class="text-justify">
+Normalmente não utilizamos o comando <code>git config --global core.excludesfile .gitignore</code>, uma vez que esse comando irá sempre ignorar do versionamento qualquer um desses arquivos/diretórios que encontram-se listado em <strong>.gitignore</strong>. Algo mais útil seria apenas criar o arquivo <strong>.gitignore</strong> com a lista de diretórios e arquivos ao qual queremos desconsiderar no versionamento do nosso projeto.
+</div>
+</div></li>
+<li><p><code>git init</code>: No terminal, no diretório ao qual se quer versionar, esse comanto irá inicializar o versionamento do repositório. Por exemplo, o código abaixo mostra que estamos versionando o repositório de nome <strong>DocVersionado</strong>:</p>
+<pre><code>cd /home/usuario/DocVersionado
+git init</code></pre></li>
+<li><p><code>git status</code>: verifica o status das modificações dos arquivos e diretórios no interior de <strong>DocVersionado</strong>. Serão listados os arquivos que foram modificados, deletados e acrescentados no projeto.</p></li>
+<li><p><code>git add .</code>: adiciona todas as modificações que foram realizadas no <strong><em>Working Directory</em></strong> na <strong><em>Staging Area</em></strong>.</p></li>
+<li><p><code>git commit -m "comentário útil"</code>: Ao utilizar o comando <code>git add .</code>, as modificações ainda não foram versionadas, ou seja, não foram adicionadas no <strong><em>Git Directory</em></strong>. Para que as modificações adocionadas na <strong><em>Staging Area</em></strong> sejam versionadas, será preciso utilizar o comando <code>git commit -m "comentário útil"</code>, em que <code>"comentário útil"</code>, como o próprio nome diz, é um comentário útil a respeito das modificações realizadas no projeto.</p>
+<p></p>
+<div class="rmdnote">
+<div class="text-justify">
+Cada <strong><em>commit</em></strong> realizado é internamente identificado por uma chave. Será por meio dessa chave que conseguiremos retroagir ou progredir no histórico do versionamento do nosso projeto.
+</div>
+</div></li>
+<li><p><code>git log</code>: exibe os históricos com todas as modificações realizadas, comentários dos <strong><em>commits</em></strong> realizados, as chaves de cada <strong><em>commit</em></strong>, horário da realização da introdução das modificações e informações do usuário que realizou as alterações. Algo parecido com a imagem abaixo:</p>
+<p><img src="images/figura_commit.png" width="75%" style="display: block; margin: auto;" /></p></li>
+<li><p><code>git log --stat</code>: trás informações detalhadas das modificações realizadas em todos os arquivos e diretórios versionados dentro de um projeto. Com esse comando é possível inclusive ver a quantidade de alterações (deleções e inserções).</p></li>
+<li><p><code>git log --pretty=oneline</code>: retorna informações resumidas de todos os <strong><em>commits</em></strong> realizados. Na maioria das vezes é o comnando mais utilizado para obter as chaves a chave de um dado <strong><em>commit</em></strong>, uma vez que não desejamos poluir o terminal com informações que muitas vezes podem ser desnecessárias. Você poderá utiliar o comando <code>clear</code> ou as teclas de atalho <strong>Ctrl + L</strong> para limpar o terminal. A imagem abaixo mostra cada <strong><em>commit</em></strong> em uma linha (chave e comentário):</p>
+<p><img src="images/figura_commit_resumido.png" width="85%" style="display: block; margin: auto;" /></p></li>
+<li><p><code>git checkout chave</code>: modifica o projeto para o estado do <strong><em>commit</em></strong> referente à chave fornecida. Se deserjarmos voltar ao último <strong><em>commit</em></strong>, devemos fazer <code>git checkout master</code>. As chaves poderão ser fornecidas utilizando as diferentes variações do comando <code>git log</code> paresentadas acima.</p></li>
+</ol>
+<p></br></br></p>
+<p><strong>(OUTROS DETALHES FORAM ABORDADOS EM AULA NO DIA 17/06/2019)</strong></p>
+</div>
+<div id="github" class="section level2">
+<h2><span class="header-section-number">3.2</span> GitHub</h2>
+<p><strong>(CONTEÚDO ABORDADO EM SALA DE AULA NO DIA 17/06/2019)</strong></p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="prefácio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="o-evangelho-do-gnulinux.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="relatório-markdown-em-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -319,7 +395,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/prdm0/aulas_computacional/edit/master/index.Rmd",
+"link": "https://github.com/prdm0/aulas_computacional/edit/master/git.Rmd",
 "text": "Editar"
 },
 "history": {
