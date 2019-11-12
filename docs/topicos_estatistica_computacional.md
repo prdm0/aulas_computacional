@@ -634,7 +634,7 @@ Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém v
 
 Os métodos de Monte Carlo (MC) é uma classe de metodologias bastante utilizada na estatística moderna. De um modo geral, tais metodologias calculam quantidades sob amostras aleatórias que são gerada/obtidas de forma iterativa, em que ao final obtem-se estatísticas de interesse com base nos resultados armazenados. Os métodos de MC, por exemplo, poderão ser utilizado para estimar parâmetros da distribuição amostral de uma estatística e para o cálculo do erro quadrático médio (EQM). Estudos de MC podem ser projetados para avaliar a probabilidade de cobertura de um intervalo aleatório (probabilidade do intervalo conter o parâmetro verdadeiro) ou para avaliação do Erro Tipo I em um procedimento de teste de hipóteses. Esses são apenas alguns exemplo do uso dos métodos de MC. 
 
-Os métodos de MC auxiliam os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com "características" prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. Sendo assim, ao utilizar-se um procedimento de MC, torna-se desnecessário escrever as equações diferenciais que descrevem o comportamento do sistema complexo.
+Os métodos de MC auxiliam os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com "características" prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. Sendo assim, ao utilizar-se um procedimento de MC, torna-se desnecessário escrever as equações diferenciais que descrevem o comportamento de um sistema complexo.
 
 Além da estatística, os métodos de MC são bastante utilizados por profissionais em campos díspares como finanças, engenheria, física, biologia, entre outros.
 
@@ -1149,7 +1149,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.562     0.260     0.701
+##     1.100     0.158     0.768
 ```
 
 ```r
@@ -1157,7 +1157,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000355
+## [1] 0.9993782
 ```
 
 **Importante**:
@@ -1274,7 +1274,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   1.956
+##   2.008
 ```
 
 ```r
@@ -1284,7 +1284,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.859
+##   0.834
 ```
 
 ```r
@@ -1294,7 +1294,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.277066
+## 2.407674
 ```
 
 **Paralelização usando PSOCK**:
