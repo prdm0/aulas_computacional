@@ -87,7 +87,7 @@ sum(result == 1)/n
 
 ### Método da aceitação e rejeição
 
-Em situações em que não podemos fazer uso do método da inversão (impossível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do **método a aceitação e rejeição**.
+Em situações em que não podemos fazer uso do método da inversão (situações em que não é possível obter a função quantílica) e nem conhecemos uma transformação que envolve uma variável aleatória ao qual sebemos gerar observações, poderemos fazer uso do **método a aceitação e rejeição**.
 
 Suponha que $X$ e $Y$ são variáveis aleatórias com função densidade de probabilidade (fdp) ou função de probabilidade (fp) $f$ e $g$, respectivamente. Além disso, suponha que existe uma constante $c$ de tal forma que
 
@@ -421,7 +421,7 @@ O termo quasi-Newton é empregado para se referir ao fato de que esses métodos 
 
 #### Otimização não-linear no R
 
-Em  R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é:
+Em R, é comum minimizar uma função objetivo utilizando a função `optim()` do pacote **stats** que está disponível em qualquer instalação básica da linguagem. A forma geral de uso da função `optim()` é:
 
 
 ```r
@@ -632,10 +632,13 @@ Nunca esqueça que minimizar $-f$ é equivalente a maximizar $f$, sendo tabém v
 
 ### Um breve histórico
 
-Os métodos de Monte Carlo (MC) é uma classe de metodologias bastante utilizada na estatística moderna. De um modo geral, tais metodologias calculam quantidades sob amostras aleatórias que são gerada/obtidas de forma iterativa, em que ao final obtem-se estatísticas de interesse com base nos resultados armazenados. Os métodos de MC, por exemplo, poderão ser utilizado para estimar parâmetros da distribuição amostral de uma estatística e para o cálculo do erro quadrático médio (EQM). Estudos de MC podem ser projetados para avaliar a probabilidade de cobertura para a confinaça de um intervalo aleatório ou para avaliação do Erro Tipo I em um procedimento de teste de hipóteses. Esses são apenas alguns exemplo do uso dos métodos de MC. 
+Os métodos de Monte Carlo (MC) é uma classe de metodologias bastante utilizada na estatística moderna. De um modo geral, tais metodologias calculam quantidades sob amostras aleatórias que são gerada/obtidas de forma iterativa, em que ao final obtem-se estatísticas de interesse com base nos resultados armazenados. Os métodos de MC, por exemplo, poderão ser utilizado para estimar parâmetros da distribuição amostral de uma estatística e para o cálculo do erro quadrático médio (EQM). Estudos de MC podem ser projetados para avaliar a probabilidade de cobertura de um intervalo aleatório (probabilidade do intervalo conter o parâmetro verdadeiro) ou para avaliação do Erro Tipo I em um procedimento de teste de hipóteses. Esses são apenas alguns exemplo do uso dos métodos de MC. 
 
-Os métodos de MC auxiliam muito os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com "características" prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. 
+Os métodos de MC auxiliam os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com "características" prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. Sendo assim, ao utilizar-se um procedimento de MC, torna-se desnecessário escrever as equações diferenciais que descrevem o comportamento do sistema complexo.
+
 Além da estatística, os métodos de MC são bastante utilizados por profissionais em campos díspares como finanças, engenheria, física, biologia, entre outros.
+
+
 
 **Nota**:
 
@@ -1146,7 +1149,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.575     0.264     0.914
+##     1.562     0.260     0.701
 ```
 
 ```r
@@ -1154,7 +1157,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000221
+## [1] 1.000355
 ```
 
 **Importante**:
@@ -1271,7 +1274,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.053
+##   1.956
 ```
 
 ```r
@@ -1281,7 +1284,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.854
+##   0.859
 ```
 
 ```r
@@ -1291,7 +1294,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.403981
+## 2.277066
 ```
 
 **Paralelização usando PSOCK**:
