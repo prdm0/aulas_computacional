@@ -18,6 +18,7 @@ monofont: "Source Code Pro"
 description: "Disciplina de Estatística Computacional - Departamento de Estatística"
 ---
 
+
 # Início {-}
 
 **Última atualização**: `r data <- function(){

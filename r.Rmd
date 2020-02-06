@@ -84,7 +84,7 @@ ferver(ingradientes = c(leite,  água,  óleo)) %>%
    misturar(colher_grande = TRUE) %>%
    esperar(tempo = 30) %>% despejar(ingredientes = c("queijo", "ovos")) %>%
    amassar(forma = "mãos") %>% fazer_bolinhas(volume = 1) %>%
-   sirvir(froma = "quentinho")
+   servir(froma = "quentinho")
 ```
 
 É possível observar que o código acima é consideravelmente mais legível que o código apresentado mais acima desta subseção. O código acima é mais legível, por que os verbos/funções são encadeadas na sequência lógica do preparo e não lidos de dentro para fora, como no primeiro exemplo. Olhando rapidamente para cada um dos códigos, percebemos que o código que faz uso do operador `%>%` fornece mais informações a respeito do que se está à fazer. 

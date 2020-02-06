@@ -18,9 +18,10 @@ monofont: "Source Code Pro"
 description: "Disciplina de Estatística Computacional - Departamento de Estatística"
 ---
 
+
 # Início {-}
 
-**Última atualização**: 12/11/2019 <br/>
+**Última atualização**: 06/02/2020 <br/>
 **Departamento de Estatística (UFPB)**: <http://www.de.ufpb.br/> 
 
 ---

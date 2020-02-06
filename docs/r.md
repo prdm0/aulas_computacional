@@ -84,7 +84,7 @@ ferver(ingradientes = c(leite,  água,  óleo)) %>%
    misturar(colher_grande = TRUE) %>%
    esperar(tempo = 30) %>% despejar(ingredientes = c("queijo", "ovos")) %>%
    amassar(forma = "mãos") %>% fazer_bolinhas(volume = 1) %>%
-   sirvir(froma = "quentinho")
+   servir(froma = "quentinho")
 ```
 
 É possível observar que o código acima é consideravelmente mais legível que o código apresentado mais acima desta subseção. O código acima é mais legível, por que os verbos/funções são encadeadas na sequência lógica do preparo e não lidos de dentro para fora, como no primeiro exemplo. Olhando rapidamente para cada um dos códigos, percebemos que o código que faz uso do operador `%>%` fornece mais informações a respeito do que se está à fazer. 
@@ -182,8 +182,7 @@ rnorm(1000L) %>% hist(., main = "Histograma Qualquer", xlab = "x",
 ```
 
 ```
-## Warning in mean.default(.): argumento não é numérico nem lógico: retornando
-## NA
+## Warning in mean.default(.): argumento não é numérico nem lógico: retornando NA
 ```
 
 <img src="r_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" />
@@ -2173,25 +2172,21 @@ methods(generic.function = summary) # or methods(generic.function = "summary")
 ```
 ##  [1] summary.aov                    summary.aovlist*              
 ##  [3] summary.aspell*                summary.check_packages_in_dir*
-##  [5] summary.cohesiveBlocks*        summary.connection            
-##  [7] summary.data.frame             summary.Date                  
-##  [9] summary.default                summary.ecdf*                 
-## [11] summary.factor                 summary.gexf*                 
-## [13] summary.ggplot*                summary.glm                   
-## [15] summary.hcl_palettes*          summary.igraph*               
-## [17] summary.infl*                  summary.lm                    
-## [19] summary.loess*                 summary.manova                
-## [21] summary.matrix                 summary.mlm*                  
-## [23] summary.nls*                   summary.packageStatus*        
-## [25] summary.POSIXct                summary.POSIXlt               
-## [27] summary.ppr*                   summary.prcomp*               
-## [29] summary.princomp*              summary.proc_time             
-## [31] summary.rlang_error*           summary.rlang_trace*          
-## [33] summary.srcfile                summary.srcref                
-## [35] summary.stepfun                summary.stl*                  
-## [37] summary.table                  summary.tukeysmooth*          
-## [39] summary.vctrs_sclr*            summary.vctrs_vctr*           
-## [41] summary.warnings               summary.XMLInternalDocument*  
+##  [5] summary.connection             summary.data.frame            
+##  [7] summary.Date                   summary.default               
+##  [9] summary.ecdf*                  summary.factor                
+## [11] summary.glm                    summary.infl*                 
+## [13] summary.lm                     summary.loess*                
+## [15] summary.manova                 summary.matrix                
+## [17] summary.mlm*                   summary.nls*                  
+## [19] summary.packageStatus*         summary.POSIXct               
+## [21] summary.POSIXlt                summary.ppr*                  
+## [23] summary.prcomp*                summary.princomp*             
+## [25] summary.proc_time              summary.rlang_error*          
+## [27] summary.rlang_trace*           summary.srcfile               
+## [29] summary.srcref                 summary.stepfun               
+## [31] summary.stl*                   summary.table                 
+## [33] summary.tukeysmooth*           summary.warnings              
 ## see '?methods' for accessing help and source code
 ```
 
@@ -2350,8 +2345,7 @@ f(x)
 ```
 
 ```
-## Warning in f.myclass(x): Foi executado o método myclass: mesmo que
-## f.myclass(x)
+## Warning in f.myclass(x): Foi executado o método myclass: mesmo que f.myclass(x)
 ```
 
 ```
@@ -2367,8 +2361,7 @@ f(y)
 ```
 
 ```
-## Warning in f.default(y): Foi executado o método default: mesmo que
-## f.default(x)
+## Warning in f.default(y): Foi executado o método default: mesmo que f.default(x)
 ```
 
 ```

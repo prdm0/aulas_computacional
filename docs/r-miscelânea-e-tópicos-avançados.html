@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 R - miscelânea e tópicos avançados | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.14.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 R - miscelânea e tópicos avançados | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -49,14 +49,14 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
-<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<script src="libs/mermaid-0.3.0/dist/mermaid.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="libs/chromatography-0.1/chromatography.js"></script>
-<script src="libs/DiagrammeR-binding-1.0.1/DiagrammeR.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.5/DiagrammeR.js"></script>
 
 
 <style type="text/css">
@@ -137,34 +137,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Início</a></li>
-<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
+<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a>
+<ul>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#sugestões-de-passos-para-revisão-da-linguagem-r"><i class="fa fa-check"></i>Sugestões de passos para revisão da linguagem R</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a><ul>
+<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a>
+<ul>
 <li class="chapter" data-level="" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html#exercícios-propostos"><i class="fa fa-check"></i>Exercícios propostos</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a><ul>
+<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-histórico"><i class="fa fa-check"></i><b>2.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
 <li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuições"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a><ul>
+<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#git"><i class="fa fa-check"></i><b>3.1</b> Git</a></li>
 <li class="chapter" data-level="3.2" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
-<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
+<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
-<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
+<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a>
+<ul>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-1"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a><ul>
+<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
 <li class="chapter" data-level="5.2.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções-anônimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#escopo-léxico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
@@ -175,28 +184,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.8" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
+<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
 <li class="chapter" data-level="5.3.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-3"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a><ul>
+<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#classes"><i class="fa fa-check"></i><b>5.4.1</b> Classes</a></li>
 <li class="chapter" data-level="5.4.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#criando-funções-genéricas"><i class="fa fa-check"></i><b>5.4.2</b> Criando funções genéricas</a></li>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercício"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
-<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
+<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a>
+<ul>
 <li class="chapter" data-level="6.1.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-transformação-inversa-caso-discreto"><i class="fa fa-check"></i><b>6.1.1</b> Método da Transformação Inversa (Caso Discreto)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-aceitação-e-rejeição"><i class="fa fa-check"></i><b>6.1.2</b> Método da aceitação e rejeição</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-1"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
+<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a>
+<ul>
 <li class="chapter" data-level="6.2.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#metódos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-2"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a><ul>
+<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a>
+<ul>
 <li class="chapter" data-level="6.3.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#um-breve-histórico-1"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="6.3.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#métodos-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.2</b> Métodos de Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#integração-por-monte-carlo"><i class="fa fa-check"></i><b>6.3.3</b> Integração por Monte Carlo</a></li>
@@ -206,7 +221,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.7" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#pacote-parallel"><i class="fa fa-check"></i><b>6.3.7</b> Pacote parallel</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-3"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a><ul>
+<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a>
+<ul>
 <li class="chapter" data-level="6.4.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#estimando-erro-padrão"><i class="fa fa-check"></i><b>6.4.1</b> Estimando erro-padrão</a></li>
 <li class="chapter" data-level="6.4.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#diminuindo-o-viés"><i class="fa fa-check"></i><b>6.4.2</b> Diminuindo o viés</a></li>
 <li class="chapter" data-level="6.4.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#construindo-intervalos-aleatórios"><i class="fa fa-check"></i><b>6.4.3</b> Construindo intervalos aleatórios</a></li>
@@ -258,7 +274,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)</p>
 </div>
 </div>
-
 <p><strong>Ingredientes</strong>: 2 copos americanos de leite, 1 copo americano de água, 1/3 de um copo americano de óleo, 1 colher de sopa de sal, 500g de povilho doce, queijo ralado a gosto, 3 ovos.</p>
 <p><strong>Passos do Preparo</strong>:</p>
 <ol style="list-style-type: decimal">
@@ -291,7 +306,7 @@ Figura 5.1: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><stro
 <span id="cb54-5"><a href="r-miscelânea-e-tópicos-avançados.html#cb54-5"></a><span class="st">   </span><span class="kw">misturar</span>(<span class="dt">colher_grande =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
 <span id="cb54-6"><a href="r-miscelânea-e-tópicos-avançados.html#cb54-6"></a><span class="st">   </span><span class="kw">esperar</span>(<span class="dt">tempo =</span> <span class="dv">30</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">despejar</span>(<span class="dt">ingredientes =</span> <span class="kw">c</span>(<span class="st">&quot;queijo&quot;</span>, <span class="st">&quot;ovos&quot;</span>)) <span class="op">%&gt;%</span></span>
 <span id="cb54-7"><a href="r-miscelânea-e-tópicos-avançados.html#cb54-7"></a><span class="st">   </span><span class="kw">amassar</span>(<span class="dt">forma =</span> <span class="st">&quot;mãos&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fazer_bolinhas</span>(<span class="dt">volume =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb54-8"><a href="r-miscelânea-e-tópicos-avançados.html#cb54-8"></a><span class="st">   </span><span class="kw">sirvir</span>(<span class="dt">froma =</span> <span class="st">&quot;quentinho&quot;</span>)</span></code></pre></div>
+<span id="cb54-8"><a href="r-miscelânea-e-tópicos-avançados.html#cb54-8"></a><span class="st">   </span><span class="kw">servir</span>(<span class="dt">froma =</span> <span class="st">&quot;quentinho&quot;</span>)</span></code></pre></div>
 <p>É possível observar que o código acima é consideravelmente mais legível que o código apresentado mais acima desta subseção. O código acima é mais legível, por que os verbos/funções são encadeadas na sequência lógica do preparo e não lidos de dentro para fora, como no primeiro exemplo. Olhando rapidamente para cada um dos códigos, percebemos que o código que faz uso do operador <code>%&gt;%</code> fornece mais informações a respeito do que se está à fazer.</p>
 <p><strong>Importante</strong>:</p>
 
@@ -299,14 +314,12 @@ Figura 5.1: Logo do pacote <a href="https://github.com/tidyverse/magrittr"><stro
 <p>Apesar de ser um operador útil, não exagere no uso de <code>%&gt;%</code>, principalmente quando se tem um conjunto de passos demasiadamente grande. Nessas situações, procure atribuir parte do código à objetos intermediários e depois componha esses objetos. Além disso, as funções envolvidas possuem diversas entradas e saídas, pode ser que o uso do operador <code>%&gt;%</code> não seja interessante.</p>
 No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> como atalho para escrever mais rapidamente o operador <code>%&gt;%</code>.
 </div>
-
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
 <p>Como curiosidade, o recurso de pipes estão disponíveis em outras linguagens de programação, como <a href="https://pt.wikipedia.org/wiki/F_Sharp"><strong>F#</strong></a>, e os pielines de sistemas *<strong>nix</strong> que usa pipes para a <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)"><strong>comunicação entre os processos</strong></a> utilizando passagem de mensagens.</p>
 </div>
 </div>
-
 <p>Você poderá instalar o <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> diretamente pelo CRAN ou por meio do repositório GitHub do pacote, ou seja, por meio de um dos comandos abaixo:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb55-1"></a><span class="co"># Instalando o pacote magrittr disponível</span></span>
 <span id="cb55-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb55-2"></a><span class="co"># nos repositórios do CRAN.</span></span>
@@ -331,7 +344,6 @@ No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> co
 <p>Instalar diretamente um pacote que está sendo mantido no GitHub dará a possibilidade de instalar versões mais recentes do pacote que ainda não encontram-se no CRAN. Pelo GitHub, você também terá a vantagem de instalar versões mais antigas do pacote. Por exemplo, no repositório do <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a>, no GitHub, você verá que, em <strong><em>Branch</em></strong>, haverá diversas versões versionadas do pacote, em que uma delas chama-se <strong>dev</strong>. Fazer <code>devtools::install_github("tidyverse/magrittr", ref = "dev")</code> fará com que você instale a versão de desenvolvimento do pacote. Dessa forma, aconselho que sempre considere a instalação da versão no <strong><em>branch master</em></strong> de qualquer pacote que venha instalar diretamente do GitHub. Assim, haverá menos possibilidade de você deparar-se com códigos que ainda não funcionam ou que possuam algum(s) bug(s).</p>
 </div>
 </div>
-
 <p>Para um entendimento geral do operador <code>%&gt;%</code>, considere a existência dos objetos <code>x</code>, <code>y</code>e <code>f</code>. Então,</p>
 <pre class="{r},"><code>x %&gt;% f(y)</code></pre>
 <p>irá atribuir o objeto <code>x</code> à <code>f</code>, como <strong>primeiro argumento</strong> da função <code>f</code>, ou seja, será equivalente à fazer <code>f(x, y)</code>.</p>
@@ -354,16 +366,14 @@ No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> co
 <p>Observe que, por exemplo, fazer <code>x %&gt;% f(., y = 1)</code> equivale a fazer <code>x %&gt;% f(y = 1)</code>, uma vez que por padrão, o objeto que está à esquerda de <code>%&gt;%</code>sempre será substituído como primeiro argumento da função que está mais a sua direta, caso não seja utilizado o caractere <code>.</code> para indicar o lugar do substituição.</p>
 </div>
 </div>
-
 <p>Um outro operador útil disponível no pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> é o operator <strong><em>tee</em></strong>, denotado por <code>%T&gt;%</code>. Esse operador funciona de forma muito parecida com o operador <code>%&gt;%</code>, exceto pelo fato de que ele irá retornar o conteúdo do lado esquedo e <strong>não</strong> o resultado da operação do seu lado diretio.</p>
 <p>O uso do operador <code>%T&gt;%</code> não é tão comum. Normalmente a frequência de uso do operador <code>%&gt;%</code> é muito maior. Porém, veja que não é possível resolver o exemplo que segue utilizando apenas o operador <code>%&gt;%</code>.</p>
 <p><strong>Exemplo</strong>: Pelo que entendemos do operador <code>%&gt;%</code>, não faz nenhum sentido o código abaixo:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb59-1"></a><span class="co"># Fixando uma semente.</span></span>
 <span id="cb59-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb59-2"></a><span class="kw">set.seed</span>(<span class="dv">0</span>) </span>
 <span id="cb59-3"><a href="r-miscelânea-e-tópicos-avançados.html#cb59-3"></a><span class="kw">rnorm</span>(1000L) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
-<span id="cb59-4"><a href="r-miscelânea-e-tópicos-avançados.html#cb59-4"></a>                      <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;, col = rgb(1, 0.9, 0.8), border = NA) %&gt;% mean </span></span></code></pre></div>
-<pre><code>## Warning in mean.default(.): argumento não é numérico nem lógico: retornando
-## NA</code></pre>
+<span id="cb59-4"><a href="r-miscelânea-e-tópicos-avançados.html#cb59-4"></a>                      <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">border =</span> <span class="ot">NA</span>) <span class="op">%&gt;%</span><span class="st"> </span>mean </span></code></pre></div>
+<pre><code>## Warning in mean.default(.): argumento não é numérico nem lógico: retornando NA</code></pre>
 <p><img src="r_files/figure-html/unnamed-chunk-9-1.png" width="384" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] NA</code></pre>
 <p>Nesse exemplo, observamos que o histograma foi construído, porém, não faz nenhum sentido passar um gráfico à função <code>mean</code>. Muito provavelmente o desejo de quem viria escrever um código como esse seria tirar a média do vetor resultante do código <code>rnorm(1000L)</code>. Nessas situações, poderemos fazer uso do operador <code>%T&gt;%</code> (operador <strong><em>tee</em></strong>).</p>
@@ -371,7 +381,7 @@ No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> co
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb62-1"></a><span class="co"># Fixando uma semente.</span></span>
 <span id="cb62-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb62-2"></a><span class="kw">set.seed</span>(<span class="dv">0</span>) </span>
 <span id="cb62-3"><a href="r-miscelânea-e-tópicos-avançados.html#cb62-3"></a><span class="kw">rnorm</span>(1000L) <span class="op">%T&gt;%</span><span class="st"> </span><span class="kw">hist</span>(., <span class="dt">main =</span> <span class="st">&quot;Histograma Qualquer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>,</span>
-<span id="cb62-4"><a href="r-miscelânea-e-tópicos-avançados.html#cb62-4"></a>                       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;, col = rgb(1, 0.9, 0.8), border = NA) %&gt;% mean </span></span></code></pre></div>
+<span id="cb62-4"><a href="r-miscelânea-e-tópicos-avançados.html#cb62-4"></a>                       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">border =</span> <span class="ot">NA</span>) <span class="op">%&gt;%</span><span class="st"> </span>mean </span></code></pre></div>
 <p><img src="r_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] -0.01582957</code></pre>
 <p>Um outro operador pipe que é bastante útil é o perador de exposição, denotado por <code>%$%</code>. Trata-se de um operador que é bastante útil quando estamos trabalhando com (quadro de dados) data frames ou matrizes, onde temos variáveis dispostas em suas colunas. Com esse operador, poderemos tornar visíveis as variáveis do objeto à sua esquerda nas funções à sua direita. Considere o exemplo que segue:</p>
@@ -417,8 +427,7 @@ No RStudio, você poderá utilizar o atalho <strong>Ctrl + Shift + M</strong> co
 <p>Alguns pacotes de R possuem vinhetas que facilitam o entendimento das funções empacotadas. Não necessariamente as vinhetas irão dissertar sobre todas as funções implementadas. Porém, essas vinhetas normalmente focam no que há de mais importante no pacote. Você poderá encontrar a vinheta do pacote <a href="https://github.com/tidyverse/magrittr"><strong>magrittr</strong></a> <a href="https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html"><strong>aqui</strong></a>. Normalmente essas vinhetas são mais fáceis de serem lidas do que as documentações dos pacotes. Porém, consultar a documentação é o caminho correto para encontrar as respostas mais difícies e que muitas vezes não são abordadas nas vinhetas.</p>
 </div>
 </div>
-
-<div id="exercícios-1" class="section level3 unnumbered">
+<div id="exercícios-1" class="section level3">
 <h3>Exercícios</h3>
 <p>Resolva os exercícios que seguem. Os operadores pipes que você utilizará para resolver os exercícios não necessariamente irão produzir as melhores soluções. Porém, esses exercícios farão você pensar a respeito do emprego dos operadores e, aqui, é isso o que importará.</p>
 <ol style="list-style-type: decimal">
@@ -481,7 +490,6 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p><strong>Exemplo</strong>: <code>round(sum(c(1.73, 2.47, 7.21, 8.74, NA), na.rm = TRUE), digits = 1)</code></p>
 </div>
 </div>
-
 <p>Uma função em R é dividida em três partes:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Lista de Argumentos</strong>: Conjunto de argumentos, podendo ter as mais variadas estruras de dados que pode inclusive alterar o comportamento da função.</p></li>
@@ -614,7 +622,6 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p>Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma análise de dados, em que queremos deixar claro uma sequência lógica de operações. Porém, note que pipes não irão tornar o seu código mais eficientes do ponto de vista computacional, nem o contrário, ou seja, utilizar pipes não irão tornar os seus códigos menos eficientes.</p>
 </div>
 </div>
-
 </div>
 <div id="escopo-léxico" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Escopo léxico</h3>
@@ -695,7 +702,6 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p>Em R, os operadores <code>&lt;-</code> e <code>&lt;&lt;-</code> também informam o sentido da atribuição, que normalmente é da direita para a esquerda, assim como ocorre ao considerar o operador <code>=</code>. Quase sempre as atribuições são da esquerda para a direita, com exceção das situações em que invertemos os sentidos dos operadores <code>&lt;-</code> e <code>&lt;&lt;-</code>, isto é, quando consideramos as variantes <code>-&gt;</code> e <code>-&gt;&gt;</code>, respectivamente.</p>
 </div>
 </div>
-
 <p><strong>Exemplo</strong>:</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb124-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(){</span>
 <span id="cb124-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb124-2"></a>   <span class="dv">2</span> -&gt;<span class="st"> </span>x</span>
@@ -763,7 +769,7 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <span id="cb133-12"><a href="r-miscelânea-e-tópicos-avançados.html#cb133-12"></a><span class="co"># A função myhist() não possuia a definição dos argumentos col,</span></span>
 <span id="cb133-13"><a href="r-miscelânea-e-tópicos-avançados.html#cb133-13"></a><span class="co"># main, ylab e border.</span></span>
 <span id="cb133-14"><a href="r-miscelânea-e-tópicos-avançados.html#cb133-14"></a><span class="kw">myhist</span>(<span class="dt">x =</span> data, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>), <span class="dt">main =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb133-15"><a href="r-miscelânea-e-tópicos-avançados.html#cb133-15"></a>       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;, border = NA)</span></span></code></pre></div>
+<span id="cb133-15"><a href="r-miscelânea-e-tópicos-avançados.html#cb133-15"></a>       <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;</span>, <span class="dt">border =</span> <span class="ot">NA</span>)</span></code></pre></div>
 <p><img src="r_files/figure-html/unnamed-chunk-47-1.png" width="384" style="display: block; margin: auto;" /></p>
 <pre><code>## $n
 ## [1] 10
@@ -805,7 +811,6 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p>Esses problemas não são suficientes justificar um desaconselho do uso de funções <strong>varargs</strong>. Na verdade é muito importante a construção de funções <strong>varargs</strong> e você deve utilizar, sempre que puder e na medida da necessidade, uma vez que isto tornará suas funções bastante flexíveis.</p>
 </div>
 </div>
-
 </div>
 <div id="funções-infixas" class="section level3">
 <h3><span class="header-section-number">5.2.6</span> Funções infixas</h3>
@@ -906,17 +911,16 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <div class="text-justify">
 <p>A linguagem R possui diversos outros recursos, escritos em forma especial, que também são funções. Abaixo pontuarei alguns desses recursos, para que você tenha uma ideia, porém, existem mais:</p>
 <ul>
-<li><code>(x)</code> com representação prefixa dada por <code>`(`(x)</code>;</li>
+<li><code>(x)</code> com representação prefixa dada por `<code></code>(`(x) ``;</li>
 <li><code>x[i]</code> com representação prefixa dada por <code>`[`(x, i)</code>;</li>
 <li><code>x[[i]]</code> com representação prefixa dada por <code>`[[`(x, i)</code>;</li>
-<li><code>{x}</code> com representação prefixa dada por <code>`{`(x)</code>;</li>
+<li><code>{x}</code> com representação prefixa dada por `<code></code>{`(x) ``;</li>
 <li><code>if(condicao)</code> com representação prefixa dada por <code>`if`(condicao, se_verdade, se_falso)</code>;</li>
 <li><code>for(variável in conjunto) ação</code> com representação prefixa dada por <code>`for`(variável, conjunto, ação)</code>;</li>
 <li><code>while(condição) ação</code> com representação prefixa dada por <code>`while`(cond, action)</code>.</li>
 </ul>
 </div>
 </div>
-
 </div>
 <div id="closures" class="section level3">
 <h3><span class="header-section-number">5.2.8</span> Closures</h3>
@@ -929,7 +933,6 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p><strong>Closure</strong> possui esse nome por se tratar de uma função que encerra o seu ambiente, passando seus parâmetros para o ambiente da função mais interna, função esta que será retornada e que executará o trabalho desejado.</p>
 </div>
 </div>
-
 <p>O trecho de código abaixo exemplifica o uso de <strong>closure</strong>, em que a função <code>potencia()</code> (função pai) poderá gerar novas funções de interesse, cujo trabalho será executado pela função anônima interna à função <code>potencia()</code>. Por exemplo, poderemos criar os objetos <code>quadrado</code> e <code>cubo</code> que serão as funções <code>quadrado()</code> e <code>cubo()</code>, respectivamente, sem a necessidade de implementar cada uma dessas funções.</p>
 <div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb164-1"></a>potencia &lt;-<span class="st"> </span><span class="cf">function</span>(expoente) {</span>
 <span id="cb164-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb164-2"></a>   <span class="co"># Função anônima.</span></span>
@@ -954,9 +957,8 @@ Figura 5.2: Comportamento genérico da função de nome <strong>function</strong
 <p>Perceba que as funções <code>quadrado()</code> e <code>cubo()</code> não foram implementadas diretamente. Além disso, nesse caso, note essas funções retornadas aos objetos <code>quadrado</code> e <code>cubo</code> são funções que possuem <code>x</code> como argumento que era argumento da função anônima.</p>
 </div>
 </div>
-
 </div>
-<div id="exercícios-2" class="section level3 unnumbered">
+<div id="exercícios-2" class="section level3">
 <h3>Exercícios</h3>
 <ol style="list-style-type: decimal">
 <li><p>Quais são os três componentes de uma função?</p></li>
@@ -1073,7 +1075,6 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <p>Poderá existir diversas situações que não poderemos escapar do uso de estruturas de repetições, no caso do R, das estruturas <code>for</code>, <code>while</code> e <code>repeat</code>. Porém, existem diversas outras situações que aquilo que encontra-se dentro do loop é uma estrutura bem definida que poderá ser envolvida em uma função e repetida por um funcional. Dessa forma, sempre procure checar se você poderá envolver em uma função o conteúdo que seria colocado no interior de uma estrutura de repetição. Passar esse conteúdo como uma função à um funcional poderá trazer benefícios ao seu código.</p>
 </div>
 </div>
-
 <div id="apply" class="section level4">
 <h4><span class="header-section-number">5.3.1.1</span> apply()</h4>
 <p>Trata-se de um funcional bastante conhecido em R, implementado no <strong>R Base</strong>. O funcional <code>apply()</code> é normalmente utilizado quando desejamos aplicar uma função em uma das dimensões de uma matriz, data frame ou tibble, sendo este último um estrutura de dados do pacote <a href="https://tibble.tidyverse.org/"><strong>tibble</strong></a>. A estrutura tibble trata-se de uma releitura moderna de um data frame com um método <code>print()</code> aprimorado. Porém, não se preocupe, quase tudo que você sabe sobre data frame será válido para um objeto da classe <strong>tbl</strong>. A forma geral do funcional <code>apply()</code> é dada por:</p>
@@ -1131,7 +1132,6 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <p>Perceba que para o exemplo acima, <code>lapply(X = x, FUN = f)</code> equivale a fazer <code>sapply(X = x, FUN = f, simplify = FALSE)</code>.</p>
 </div>
 </div>
-
 <p>Por sua vez, o funcional <code>vapply()</code> é bastante similar ao funcional <code>sapply()</code>, porém, podemos especificar os tipos de valor de retorno. Considere o trecho de código abaixo que mostra o uso da função <code>vapply()</code>. Perceba, no código de segue, que <code>FUN.VALUE</code> recebe como argumento o tipo esperado de retorno da função <code>f()</code> e o tamanho do vetor retornado ao aplicar a função <code>f()</code> à cada elemento da lista passada à <code>X</code>.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb192-1"></a><span class="co"># Criando um vetor double.</span></span>
 <span id="cb192-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb192-2"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>))</span>
@@ -1151,7 +1151,6 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 <p>O funcional <code>vapply()</code> poderá dar um pouco mais de segurança quando comparado ao funcional <code>sapply()</code>, visto que poderemos especiticar o tipo de retorno esperado. Dessa forma, é de se esperar que a função <code>vapply()</code> poderá “reclamar” um pouco mais que a função <code>sapply()</code>.</p>
 </div>
 </div>
-
 </div>
 <div id="map-mapply" class="section level4">
 <h4><span class="header-section-number">5.3.1.3</span> Map(), mapply()</h4>
@@ -1235,7 +1234,6 @@ com <span class="math inline">\(a &gt; 0\)</span>. Perceba que <span class="math
 </ul>
 </div>
 </div>
-
 </div>
 </div>
 <div id="funcionais-do-pacote-purrr" class="section level3">
@@ -1254,7 +1252,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>As funções do pacote <strong>purrr</strong> são implementadas na linguagem C. Dessa forma, são funções tão eficientes quanto àquelas que são fornecidas pelos funcionais do R Base, com a vantagem de ser menos verbosas.</p>
 </div>
 </div>
-
 <div id="map-e-variantes" class="section level4">
 <h4><span class="header-section-number">5.3.2.1</span> map() e variantes</h4>
 <p>O funcional <code>map()</code> é a função principal do pacote <strong>purrr</strong>, em que recebe como primeiro argumento um vetor/lista, uma função como segundo argumento e necessário, um conjunto de argumentos passado da função atribuida.</p>
@@ -1318,7 +1315,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>É claro que poderiamos resolver o exemplo acima sem uso de funcional algum, uma vez que a linguagem R é vetorizada e poderiamos simplesmente fazer <code>x + 1L</code> para assim obtermos um vetor de interio. Porém, isso é um exemplo didático, em que o objetifo aqui é entender os funcionais do pacote <strong>purrr</strong> e não perdermos mais tempo com o entendimento da função passada ao funcional. Sempre tenha em mente que a função passada à <code>.f</code>, na maioria das vezes, não será tão simples a ponto de justificar resolver o problema sem o uso de um funcional.</p>
 </div>
 </div>
-
 <p><strong>Exemplo (dois argumentos)</strong>: Uso do funcional <code>map()</code>, em que é aplicado a função <code>f()</code> sobre todos os elementos da lista <code>x</code>. O exemplo mostra que a função <code>map()</code> varia sobre os elementos do primeiro argumento <code>.x</code> e fixa o segundo argumento. Além disso, note que é possível passar uma função anônima ou uma fórmula ao argumento <code>.f</code> do funcional <code>map()</code>, assim como no exemplo anterior. Para o caso de passagem de uma fórmula, podemos utilizar <code>.</code> ou <code>.x</code> para se referir ao primeiro argumento de <code>f()</code> e <code>.y</code> para fazer referência ao segundo argumento.</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb212-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="fl">1.1</span>,<span class="fl">4.07</span>,<span class="fl">3.76</span>), <span class="kw">c</span>(<span class="fl">7.1</span>,<span class="fl">2.2</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
 <span id="cb212-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb212-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>)</span>
@@ -1339,7 +1335,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>Note que nesse exemplo não poderemos fazer uso das variantes do funcional <code>map()</code>. Isso se deve ao fato de <code>x</code> ser uma lista, o que implica que a função <code>f()</code> será aplicada à cada elemento da lista <code>x</code>. Sendo assim, esperamos que o retorno de <code>map()</code> será uma lista com a mesma quantidade de elementos de <code>x</code>.</p>
 </div>
 </div>
-
 <p><strong>Exemplo (três ou mais argumentos)</strong>: Esse exemplo é muito parecido com o exemplo antrior (função <code>f()</code> com 2 (dois) argumentos). Aqui, temos que a função <code>f()</code> possui 3 (três) argumentos. Perceba porém, que ao se passar uma fórmula ao argumento <code>.f</code> do funcional <code>map()</code>, poderemos nos referir ao terceiro argumento com a notação <code>..3</code>.</p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb213-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">7</span>, <span class="dv">8</span><span class="op">:</span><span class="dv">10</span>)</span>
 <span id="cb213-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb213-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></span>
@@ -1362,7 +1357,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p><strong>Se <code>f()</code> é uma função com <code>n</code> argumentos, você poderá referenciar os seus argumentos por <code>..1</code> (primeiro argumetno), <code>..2</code> (segundo argumento), <code>..3</code> (terceiro argumento), …, <code>..n</code>, com <code>n</code> um número inteiro qualquer.</strong></p>
 </div>
 </div>
-
 <p><strong>Observação</strong>:</p>
 
 <div class="rmdobservation">
@@ -1370,7 +1364,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>O uso de <code>.</code> para especificar o primeiro elemento de uma função passada como argumento à <code>.f</code> em um dos funcionais do pacote <strong>purrr</strong> poderá gerar conflitos em situações em que você esteja utilizando o pacote <strong>magrittr</strong> em que <code>.</code> tem um outro significado.</p>
 </div>
 </div>
-
 </div>
 <div id="map2-e-variantes" class="section level4">
 <h4><span class="header-section-number">5.3.2.2</span> map2() e variantes</h4>
@@ -1388,7 +1381,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>O uso do funcional <code>map2()</code> é análago ao uso de <code>map()</code> e suas variantes, com a diferença que o segundo argumento não estará fixo.</p>
 </div>
 </div>
-
 <p><strong>Exemplo</strong>: Uso da função <code>map2()</code> em que estão sendo somados, par a par, os elementos dos objetos <code>x</code> e <code>y</code>.</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb215-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">3</span><span class="op">:</span><span class="dv">10</span>)</span>
 <span id="cb215-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb215-2"></a>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="dv">5</span><span class="op">:</span><span class="dv">12</span>)</span>
@@ -1431,7 +1423,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>O funcional <code>pmap()</code> poderá ser utilizado, de forma análoga ao exemplo acima, em situações em que a função passada ao argumento <code>.f</code> possa ter mais de três variáveis não fixadas. Porém, perceba que ao utilizar o funcional <code>pmap()</code>, nada impedirá que você tenha algumas dessas variáveis fixadas, se isso for de interesse. Esse fato também é válido para os funcionais <code>Map()</code> e <code>mapply()</code> do <strong>R Base</strong> e para o funcional <code>map2()</code> do pacote <strong>purrr</strong>.</p>
 </div>
 </div>
-
 <p><strong>Exemplo</strong>: Uso do funcional <code>pmap()</code> variando em duas listas (<code>x</code>, <code>y</code>) e um vetor <code>z</code>. Perceba que a quantidade de elementos nos objetos <code>x</code>, <code>y</code> e <code>z</code> é a mesma, ou seja, os objetos <code>x</code> e <code>y</code> são duas listas com dois vetores, respectivamente e <code>z</code> é um vetor com dois elementos.</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb220-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, z) x <span class="op">+</span><span class="st"> </span>y <span class="op">-</span><span class="st"> </span>z</span>
 <span id="cb220-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb220-2"></a></span>
@@ -1494,7 +1485,7 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 ## [1] 1</code></pre>
 </div>
 </div>
-<div id="exercícios-3" class="section level3 unnumbered">
+<div id="exercícios-3" class="section level3">
 <h3>Exercícios</h3>
 <ol style="list-style-type: decimal">
 <li><p>Considerando o data frame <strong>iris</strong> (150 observações e 5 variáveis), obtenha a média das variáveis quantitativas por meio do uso de um funcional.</p></li>
@@ -1640,25 +1631,21 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <span id="cb243-3"><a href="r-miscelânea-e-tópicos-avançados.html#cb243-3"></a><span class="kw">methods</span>(<span class="dt">generic.function =</span> summary) <span class="co"># or methods(generic.function = &quot;summary&quot;)</span></span></code></pre></div>
 <pre><code>##  [1] summary.aov                    summary.aovlist*              
 ##  [3] summary.aspell*                summary.check_packages_in_dir*
-##  [5] summary.cohesiveBlocks*        summary.connection            
-##  [7] summary.data.frame             summary.Date                  
-##  [9] summary.default                summary.ecdf*                 
-## [11] summary.factor                 summary.gexf*                 
-## [13] summary.ggplot*                summary.glm                   
-## [15] summary.hcl_palettes*          summary.igraph*               
-## [17] summary.infl*                  summary.lm                    
-## [19] summary.loess*                 summary.manova                
-## [21] summary.matrix                 summary.mlm*                  
-## [23] summary.nls*                   summary.packageStatus*        
-## [25] summary.POSIXct                summary.POSIXlt               
-## [27] summary.ppr*                   summary.prcomp*               
-## [29] summary.princomp*              summary.proc_time             
-## [31] summary.rlang_error*           summary.rlang_trace*          
-## [33] summary.srcfile                summary.srcref                
-## [35] summary.stepfun                summary.stl*                  
-## [37] summary.table                  summary.tukeysmooth*          
-## [39] summary.vctrs_sclr*            summary.vctrs_vctr*           
-## [41] summary.warnings               summary.XMLInternalDocument*  
+##  [5] summary.connection             summary.data.frame            
+##  [7] summary.Date                   summary.default               
+##  [9] summary.ecdf*                  summary.factor                
+## [11] summary.glm                    summary.infl*                 
+## [13] summary.lm                     summary.loess*                
+## [15] summary.manova                 summary.matrix                
+## [17] summary.mlm*                   summary.nls*                  
+## [19] summary.packageStatus*         summary.POSIXct               
+## [21] summary.POSIXlt                summary.ppr*                  
+## [23] summary.prcomp*                summary.princomp*             
+## [25] summary.proc_time              summary.rlang_error*          
+## [27] summary.rlang_trace*           summary.srcfile               
+## [29] summary.srcref                 summary.stepfun               
+## [31] summary.stl*                   summary.table                 
+## [33] summary.tukeysmooth*           summary.warnings              
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p>Para saber se uma determinada função é genérica e em caso afirmavo saber qual método foi despachado, o uso do pacote <a href="https://github.com/r-lib/sloop"><strong>sloop</strong></a> poderá ser útil. O pacote encontra-se no CRAN e poderá ser instalado fazendo <code>install.packages("devtools")</code>. Considere o exemplo que segue:</p>
 <p><strong>Exemplo</strong>:</p>
@@ -1698,7 +1685,6 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>Perceba que a classe de um objeto não é nada mais que um atributo do objeto, em que esse atributo tem o nome <strong>class</strong>. Faça, por exemplo <code>attributes(x)</code> para obter uma lista de atributos associados à um objeto. Você poderá incluir qualquer outro atributo ao objeto <code>x</code>, se for de seu interesse, porém, deverá existir apenas um atributo de nome <strong>class</strong> que controla a classe do objeto.</p>
 </div>
 </div>
-
 <p><strong>Exemplo</strong>: Você poderá determinar qual a classe de um objeto fazendo e perguntar se um objeto pertence à uma instância de classe, como mostra o código que segue:</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb253-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>()</span>
 <span id="cb253-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb253-2"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;any_class&quot;</span></span>
@@ -1739,16 +1725,14 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <span id="cb265-11"><a href="r-miscelânea-e-tópicos-avançados.html#cb265-11"></a>x &lt;-<span class="st"> </span>y &lt;-<span class="st"> </span>1L<span class="op">:</span>10L</span>
 <span id="cb265-12"><a href="r-miscelânea-e-tópicos-avançados.html#cb265-12"></a><span class="kw">class</span>(x) &lt;-<span class="st"> &quot;myclass&quot;</span></span>
 <span id="cb265-13"><a href="r-miscelânea-e-tópicos-avançados.html#cb265-13"></a><span class="kw">f</span>(x)</span></code></pre></div>
-<pre><code>## Warning in f.myclass(x): Foi executado o método myclass: mesmo que
-## f.myclass(x)</code></pre>
+<pre><code>## Warning in f.myclass(x): Foi executado o método myclass: mesmo que f.myclass(x)</code></pre>
 <pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11
 ## attr(,&quot;class&quot;)
 ## [1] &quot;myclass&quot;</code></pre>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb268-1"></a><span class="co"># Será executado o método default, uma vez que o objeto</span></span>
 <span id="cb268-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb268-2"></a><span class="co"># y não foi assinado com a classe myclass.</span></span>
 <span id="cb268-3"><a href="r-miscelânea-e-tópicos-avançados.html#cb268-3"></a><span class="kw">f</span>(y)</span></code></pre></div>
-<pre><code>## Warning in f.default(y): Foi executado o método default: mesmo que
-## f.default(x)</code></pre>
+<pre><code>## Warning in f.default(y): Foi executado o método default: mesmo que f.default(x)</code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="r-miscelânea-e-tópicos-avançados.html#cb271-1"></a><span class="co"># Checando se f é um objeto da classe S3 e se trata-se </span></span>
 <span id="cb271-2"><a href="r-miscelânea-e-tópicos-avançados.html#cb271-2"></a><span class="co"># de uma função genérica.</span></span>
@@ -1761,9 +1745,8 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 <p>Perceba que utiliza <code>.</code> no nome de uma função não ocasionará problemas de conflito, mas poderá nos deixar com dúvidas, uma vez que não sabemos se o que está antes do ponto é uma função genérica e logo após o seu método ou se apenas trata-se de uma função que usa <code>.</code> no seu nome. Por exemplo, se olharmos apenas para <code>f.a()</code> não ficará claro se <code>f()</code> é uma função genérica e <code>a()</code> um método de <code>f()</code> ou se temos uma função comum de nome <code>f.a</code>.</p>
 </div>
 </div>
-
 </div>
-<div id="exercício" class="section level3 unnumbered">
+<div id="exercício" class="section level3">
 <h3>Exercício</h3>
 <p>1 - A função função <code>dim()</code> é uma função genérica? Explique. Em caso afirmativo, quantos métodos possui essa função?</p>
 <p>2 - Explique o por quê da saída do código que segue:</p>
@@ -1874,14 +1857,15 @@ Figura 5.3: Logo do pacote <a href="https://purrr.tidyverse.org/"><strong>purrr<
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": true,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "twitter", "linkedin"],
-"github": true
+"all": ["facebook", "google", "twitter", "linkedin"],
+"google": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1893,6 +1877,10 @@ gitbook.start({
 "text": "Editar"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

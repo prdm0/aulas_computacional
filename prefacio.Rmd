@@ -1,6 +1,6 @@
 # Prefácio {-}
 
-Esse material sempre tentará se adequar à ementa da disciplina de Estatística Computacional, sendo esta uma disciplina obrigatória do curso de bacharelado em estatística do Departamento de Estatística da UFPB. Dessa forma, trata-se de um material destinado à alunos do Departamento de Estatística da UFPB. Porém, esse material poderá vir a despertar interesse à outras pessoas que não alunos da instituição.
+Esse material sempre tentará se adequar à ementa da disciplina de Estatística Computacional, sendo esta uma disciplina obrigatória do curso de bacharelado em estatística do Departamento de Estatística da UFPB. Dessa forma, trata-se de um material destinado à alunos do Departamento de Estatística da UFPB. Porém, esse material poderá vir a despertar interesse em pessoas que não alunos da instituição.
 
 A ementa do curso de **Estatística Computacional**, que compõe a estrutura do curso como disciplina obrigatória, poderá ser obtida no [**link**](http://www.de.ufpb.br/graduacao/obrigatorias/EstatisticaComputacional.pdf). Como pode-se observar, a disciplina é dividida no uso de tecnologias (linguagem de marcação e linguagem de programação) e alguns aspectos teóricos que envolvem a teoria de estatística computacional. O bom uso dos conceitos abordados no curso estará alinhado ao perfeito entendimento das tecnologias e teorias apresentadas.
 
