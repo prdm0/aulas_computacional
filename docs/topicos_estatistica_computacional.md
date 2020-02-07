@@ -351,9 +351,9 @@ Seja $H$ uma matriz hessiana como apresentada acima. Abaixo estão listadas algu
    
    * $\pmb a^{'} H \pmb a < 0$ (negativa-definida): A função é estritiamente concava. Essa é a propriedade que estamos considerando, visto que estamos em um problema de maximização de uma função objetivo;
    
-   * $\pmb a^{'} H \pmb a \geq 0$ (positiva-definida): A função é parcialmente convexa;
+   * $\pmb a^{'} H \pmb a \geq 0$ (positiva semidefinida): A função é parcialmente convexa;
 
-   * $\pmb a^{'} H \pmb a \leq 0$ (positiva-definida): A função é parcialmente concava;
+   * $\pmb a^{'} H \pmb a \leq 0$ (negativa semidefinida): A função é parcialmente concava;
    
    * $H$ é uma matriz simétrica;
    
@@ -1149,7 +1149,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     1.547     0.298     0.783
+##     1.562     0.271     0.795
 ```
 
 ```r
@@ -1157,7 +1157,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9997303
+## [1] 1.000376
 ```
 
 **Importante**:
@@ -1274,7 +1274,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.089
+##       2
 ```
 
 ```r
@@ -1284,7 +1284,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.944
+##   0.766
 ```
 
 ```r
@@ -1294,7 +1294,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.212924
+## 2.610966
 ```
 
 **Paralelização usando PSOCK**:

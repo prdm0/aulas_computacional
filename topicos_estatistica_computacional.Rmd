@@ -369,9 +369,9 @@ Seja $H$ uma matriz hessiana como apresentada acima. Abaixo estão listadas algu
    
    * $\pmb a^{'} H \pmb a < 0$ (negativa-definida): A função é estritiamente concava. Essa é a propriedade que estamos considerando, visto que estamos em um problema de maximização de uma função objetivo;
    
-   * $\pmb a^{'} H \pmb a \geq 0$ (positiva-definida): A função é parcialmente convexa;
+   * $\pmb a^{'} H \pmb a \geq 0$ (positiva semidefinida): A função é parcialmente convexa;
 
-   * $\pmb a^{'} H \pmb a \leq 0$ (positiva-definida): A função é parcialmente concava;
+   * $\pmb a^{'} H \pmb a \leq 0$ (negativa semidefinida): A função é parcialmente concava;
    
    * $H$ é uma matriz simétrica;
    
