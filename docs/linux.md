@@ -20,7 +20,7 @@ Em meados de 1970, o Unix foi (**ainda é**) um dos sistemas operacionais mais a
 Nos dias de hoje, o termo **BSD** é utilizado para designar qualquer sistema operacional do tipo Unix (sistemas **Unix-like**). Muitas vezes o termo **Unix-like** é substituído por **UN\*X** ou **\*nix**. Tratam-se de sistemas operacionais baseados em Unix, mas que não necessariamente estão de acordo com a especificação [**Single UNIX**](http://www.unix.org/what_is_unix/single_unix_specification.html).
 </div></div>\EndKnitrBlock{rmdnote}
 
-O sistema Linux (**kernel**) foi baseado no Unix, sendo este o sistema  **Unix-like** mais popular dentre diversos outros que são razoavelmente conhecidos pelo público em geral e bastante conhecidos por profissionais que tem alguma afinidade com a computação.
+O sistema Linux (**kernel**) foi baseado no Unix, sendo este o sistema **Unix-like** mais popular dentre diversos outros que são razoavelmente conhecidos pelo público em geral e bastante conhecidos por profissionais que tem alguma afinidade com a computação.
 
 A maioria dos sistemas BSD's, disponíveis na atualidade, possuem o código fonte aberto, porém fazem o uso da licença [**BSD**](https://opensource.org/licenses/bsd-license.html) que é menos restritiva, permitindo, por exemplo, que apenas os arquivos binários sejam distribuídos. Trata-se de uma licença atraente para aplicativos embarcados, em que empresas não estão obrigadas a disponibilizar o código fonte das suas aplicações, quando estes forem solicitados. 
 
