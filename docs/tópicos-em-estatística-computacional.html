@@ -1141,9 +1141,9 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb309-18"><a href="tópicos-em-estatística-computacional.html#cb309-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb309-19"><a href="tópicos-em-estatística-computacional.html#cb309-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     3.986     0.608     0.782</code></pre>
+##     3.190     0.525     0.644</code></pre>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="tópicos-em-estatística-computacional.html#cb311-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000382</code></pre>
+<pre><code>## [1] 0.9997949</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1236,15 +1236,15 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="tópicos-em-estatística-computacional.html#cb317-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb317-2"><a href="tópicos-em-estatística-computacional.html#cb317-2"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   1.809</code></pre>
+##    1.77</code></pre>
 <div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="tópicos-em-estatística-computacional.html#cb319-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb319-2"><a href="tópicos-em-estatística-computacional.html#cb319-2"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.774</code></pre>
+##   0.801</code></pre>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="tópicos-em-estatística-computacional.html#cb321-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb321-2"><a href="tópicos-em-estatística-computacional.html#cb321-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.337209</code></pre>
+## 2.209738</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="tópicos-em-estatística-computacional.html#cb323-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb323-2"><a href="tópicos-em-estatística-computacional.html#cb323-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
