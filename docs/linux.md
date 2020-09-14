@@ -1,4 +1,4 @@
-# O Evangelho do GNU/Linux
+# Sistemas GNU/Linux
 
 Nesse Capítulo tentarei convencê-lo, sem imposições, que o uso de alguma distribuição GNU/Linux poderá ser um caminho coerente e que trará facilidades para quem deseja um sistema operacional flexível, fácil de manter e livre. Tentarei aqui expressar minhas experiências no uso do Linux, de uma forma geral, e na estatística. Ao final, listarei algumas distribuições GNU/Linux que considero interessantes.
 
