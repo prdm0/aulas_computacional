@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -49,28 +49,30 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
-<script src="libs/mermaid-0.3.0/dist/mermaid.js"></script>
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="libs/chromatography-0.1/chromatography.js"></script>
-<script src="libs/DiagrammeR-binding-1.0.5/DiagrammeR.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.6.1/DiagrammeR.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -90,7 +92,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,43 +139,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Início</a></li>
-<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a>
-<ul>
+<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#sugestões-de-passos-para-revisão-da-linguagem-r"><i class="fa fa-check"></i>Sugestões de passos para revisão da linguagem R</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a>
-<ul>
+<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a><ul>
 <li class="chapter" data-level="" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html#exercícios-propostos"><i class="fa fa-check"></i>Exercícios propostos</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a>
-<ul>
+<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a><ul>
 <li class="chapter" data-level="2.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-histórico"><i class="fa fa-check"></i><b>2.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
 <li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuições"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a>
-<ul>
+<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a><ul>
 <li class="chapter" data-level="3.1" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#git"><i class="fa fa-check"></i><b>3.1</b> Git</a></li>
 <li class="chapter" data-level="3.2" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a>
-<ul>
+<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
+<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a>
-<ul>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-1"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
+<li class="chapter" data-level="" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#exercícios"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a>
-<ul>
+<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
 <li class="chapter" data-level="5.2.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções-anônimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#escopo-léxico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
@@ -182,37 +175,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.6" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções-infixas"><i class="fa fa-check"></i><b>5.2.6</b> Funções infixas</a></li>
 <li class="chapter" data-level="5.2.7" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#função-de-substituição"><i class="fa fa-check"></i><b>5.2.7</b> Função de substituição</a></li>
 <li class="chapter" data-level="5.2.8" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-2"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-1"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a>
-<ul>
+<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
 <li class="chapter" data-level="5.3.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-3"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a>
-<ul>
+<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#classes"><i class="fa fa-check"></i><b>5.4.1</b> Classes</a></li>
 <li class="chapter" data-level="5.4.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#criando-funções-genéricas"><i class="fa fa-check"></i><b>5.4.2</b> Criando funções genéricas</a></li>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercício"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a>
-<ul>
+<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
+<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-transformação-inversa-caso-discreto"><i class="fa fa-check"></i><b>6.1.1</b> Método da Transformação Inversa (Caso Discreto)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-aceitação-e-rejeição"><i class="fa fa-check"></i><b>6.1.2</b> Método da aceitação e rejeição</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-1"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a>
-<ul>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercício"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#metódos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-2"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#um-breve-histórico-1"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-1"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-histórico"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="6.3.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#métodos-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.2</b> Métodos de Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#integração-por-monte-carlo"><i class="fa fa-check"></i><b>6.3.3</b> Integração por Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#aproximando-o-valor-de-pi"><i class="fa fa-check"></i><b>6.3.4</b> Aproximando o valor de <span class="math inline">\(\pi\)</span></a></li>
@@ -220,14 +207,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#speedup"><i class="fa fa-check"></i><b>6.3.6</b> Speedup</a></li>
 <li class="chapter" data-level="6.3.7" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#pacote-parallel"><i class="fa fa-check"></i><b>6.3.7</b> Pacote parallel</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-3"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a>
-<ul>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-2"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#estimando-erro-padrão"><i class="fa fa-check"></i><b>6.4.1</b> Estimando erro-padrão</a></li>
 <li class="chapter" data-level="6.4.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#diminuindo-o-viés"><i class="fa fa-check"></i><b>6.4.2</b> Diminuindo o viés</a></li>
 <li class="chapter" data-level="6.4.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#construindo-intervalos-aleatórios"><i class="fa fa-check"></i><b>6.4.3</b> Construindo intervalos aleatórios</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-4"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-3"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -250,8 +236,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">4</span> Relatório Markdown em R</h1>
 <p>Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-se à construção de documentos (relatórios, manuais, etc). A construção desses documentos é algo que demanda tempo, uma vez que, por exemplo, temos que escrever a respeito das metodologias estatísticas consideradas e justificar o seu uso, organizar as informações obtidas de um modelo estatístico e interpretá-las, tabular os resultados de algumas simulação, escolher o formato de saída do documento e escrever de forma clara e robusta os resultados obtidos (muitos que irão ler seu documento não são estatísticos). Um pouco dessa rotina encontra-se no diagrama a baixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxo"></span>
-<div id="htmlwidget-c09af25bfe42054e9f01" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c09af25bfe42054e9f01">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7ac1592412c3ec830d44" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7ac1592412c3ec830d44">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
 </p>
@@ -265,11 +251,12 @@ Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologi
 <p>Nada impedirá que você venha trabalhar com problemas não estatísticos em <a href="https://www.r-project.org"><strong>R</strong></a>. <a href="https://www.r-project.org"><strong>R</strong></a> é uma linguagem elegante, flexível e que permite se comunicar com diversas outras linguagens de programação.</p>
 </div>
 </div>
+
 <p>Como mostra o diagrama <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
 <p>Note que no diagrama <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a> para <a href="relatório-markdown-em-r.html#fig:diagramafluxor">4.2</a> otimizando assim, as suas análises.</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxor"></span>
-<div id="htmlwidget-6ffa64a30c466a3b18d5" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6ffa64a30c466a3b18d5">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ab9f0e6d80f3d62387d4" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ab9f0e6d80f3d62387d4">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
 </p>
@@ -281,6 +268,7 @@ Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a>
 <p>Esse material que você está lendo agora mostra um pouco do que você consegue fazer com o <a href="https://www.r-project.org"><strong>R</strong></a> + <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> utilizando algumas ferramentas (pacotes) disponíveis para o <a href="https://www.r-project.org"><strong>R</strong></a>. As ferramentas que integram <a href="https://www.r-project.org"><strong>R</strong></a> com <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> são bem integradas com a IDE de programação <a href="https://www.rstudio.com/"><strong>RStudio</strong></a>, o que facilita um pouco o trabalho de edição.</p>
 </div>
 </div>
+
 <div id="markdown" class="section level2">
 <h2><span class="header-section-number">4.1</span> Markdown</h2>
 <p><a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é uma linguagem de marcação desenvolvida em 2004 por <a href="https://en.wikipedia.org/wiki/John_Gruber"><strong>John Gruber</strong></a> com a colaboração de <a href="https://en.wikipedia.org/wiki/Aaron_Swartz"><strong>Aaron Swartz</strong></a>. <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é uma linguagem muito leve e diponível sob os termos de uma licença de código aberto no estilo BSD.</p>
@@ -291,6 +279,7 @@ Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a>
 <p>Algo curioso com relação a linguagem <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> é que o seu lançamento inicial se deu em 19 de março de 2004 e o seu último lançamento (versão 1.0.1) foi em 17 de dezembro do mesmo ano. A versão 1.0.1 do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> possui apenas <strong>18 KB</strong>.</p>
 </div>
 </div>
+
 <p></br></p>
 <div class="figure" style="text-align: center"><span id="fig:logomarkdown"></span>
 <img src="images/logo_markdown.png" alt="Logo da linguagem de marcação [**Markdown**](https://daringfireball.net/projects/markdown/) utilizada para conversão de texto em [**HTML**](https://pt.wikipedia.org/wiki/HTML)." width="40%" />
@@ -306,6 +295,7 @@ Figura 4.3: Logo da linguagem de marcação <a href="https://daringfireball.net/
 <p>Arquivos em <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> devem possuir a extensão <strong>.md</strong>.</p>
 </div>
 </div>
+
 <p></br></p>
 <p>A linguagem <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> faz com que a tarefa de construir páginas em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a> seja algo bem mais fácil e prazeroso. Sinceramente, você não estaria lendo esse material se eu tivesse que escrever todo esse conteúdo diretamente em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>. Para entender um pouco do que estou falando, logo abaixo você encontrará dois exemplos do mesmo texto escrito utilizando as linguagens de marcação <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> e <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>, respectivamente. Ambos nos levarão ao mesmo resultado de uma página em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>. Note como é mais claro e limpo o código em <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> em comparação ao código em <a href="https://pt.wikipedia.org/wiki/HTML"><strong>HTML</strong></a>.</p>
 <p></br></p>
@@ -420,6 +410,7 @@ Figura 4.3: Logo da linguagem de marcação <a href="https://daringfireball.net/
 <p>A boa notícia é que você não precisará alterar em nada o código escrito em <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> para obtenção de uma saída mais agradável. Você apenas precisará associá-lo à ferramenta correta dispiníveis em <a href="https://www.r-project.org"><strong>R</strong></a>.</p>
 </div>
 </div>
+
 <p>Antes de conversarmos a respeito das ferramentas disponíveis, em <a href="https://www.r-project.org"><strong>R</strong></a>, para a construção de saídas em HTML mais atraentes, precisaremos entender melhor a sintaxe do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>. A seção que segue é dedicada ao entendimento da sintaxe do <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>.</p>
 <div id="sintaxe" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Sintaxe</h3>
@@ -487,6 +478,7 @@ Por falar em <a href="https://stackoverflow.com"><strong>Stack Overflow</strong>
 <p>É importante dizer que esse comportamento poderá veriar de uma ferramenta que suporta a sintaxe de <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> para outra. Com o uso frequente de alguma dessas ferramentas, você irá familiarizar-se com algumas possíveis divergências.</p>
 </div>
 </div>
+
 <p></br></p>
 </div>
 <div id="seçõessubseções-aninhadas" class="section level4">
@@ -619,7 +611,7 @@ Por falar em <a href="https://stackoverflow.com"><strong>Stack Overflow</strong>
 <div class="text-justify">
 Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>-</code>. Ou seja, você poderá fazer:
 </div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb42-1"><a href="relatório-markdown-em-r.html#cb42-1"></a><span class="st">* Meu primeiro item;</span></span>
+<div class="sourceCode" id="cb42"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb42-1"><a href="relatório-markdown-em-r.html#cb42-1"></a>* <span class="st">Meu primeiro item;</span></span>
 <span id="cb42-2"><a href="relatório-markdown-em-r.html#cb42-2"></a><span class="st">+ Meu segundo item;</span></span>
 <span id="cb42-3"><a href="relatório-markdown-em-r.html#cb42-3"></a><span class="st">- Meu terceiro item.</span></span></code></pre></div>
 <blockquote>
@@ -631,7 +623,7 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <div id="enumerando-itens" class="section level4">
 <h4><span class="header-section-number">4.1.1.6</span> Enumerando Itens</h4>
 <p>As vezes necessitamos de itens dispostos segundo uma ordem. Você poderá ordenar os itens utilizando um número seguido de um ponto. Considere o exemplo abaixo:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb43-1"><a href="relatório-markdown-em-r.html#cb43-1"></a><span class="st">1. Meu primeiro item enumerado;</span></span>
+<div class="sourceCode" id="cb43"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb43-1"><a href="relatório-markdown-em-r.html#cb43-1"></a>1. <span class="st">Meu primeiro item enumerado;</span></span>
 <span id="cb43-2"><a href="relatório-markdown-em-r.html#cb43-2"></a><span class="st">2. Meu segundo item enumerado;</span></span>
 <span id="cb43-3"><a href="relatório-markdown-em-r.html#cb43-3"></a><span class="st">3. Meu terceiro item enumerado.</span></span></code></pre></div>
 <blockquote>
@@ -644,27 +636,27 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <p>Os itens enumerados ou não enumerados podem ser formados por parágrafos. Você deverá colocar 4 (quatro) espaços para iniciar um parágrafo de um respectivo item. Considere o código abaixo:</p>
 </br>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="relatório-markdown-em-r.html#cb44-1"></a><span class="st">1.    Aqui é o meu primeiro item.</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="relatório-markdown-em-r.html#cb44-1"></a>1. <span class="st">   Aqui é o meu primeiro item.</span></span>
 <span id="cb44-2"><a href="relatório-markdown-em-r.html#cb44-2"></a><span class="st">     </span></span>
 <span id="cb44-3"><a href="relatório-markdown-em-r.html#cb44-3"></a><span class="st">      Aqui é um novo parágrafo do meu primeiro item.</span></span>
 <span id="cb44-4"><a href="relatório-markdown-em-r.html#cb44-4"></a></span>
-<span id="cb44-5"><a href="relatório-markdown-em-r.html#cb44-5"></a><span class="st">2.    Aqui é o meu segundo item.</span></span>
+<span id="cb44-5"><a href="relatório-markdown-em-r.html#cb44-5"></a>2. <span class="st">   Aqui é o meu segundo item.</span></span>
 <span id="cb44-6"><a href="relatório-markdown-em-r.html#cb44-6"></a><span class="st">     </span></span>
 <span id="cb44-7"><a href="relatório-markdown-em-r.html#cb44-7"></a><span class="st">      Aqui é um novo parágrafo do meu segundo item.</span></span>
 <span id="cb44-8"><a href="relatório-markdown-em-r.html#cb44-8"></a></span>
-<span id="cb44-9"><a href="relatório-markdown-em-r.html#cb44-9"></a><span class="st">3.    Aqui é o meu terceiro item.</span></span>
+<span id="cb44-9"><a href="relatório-markdown-em-r.html#cb44-9"></a>3. <span class="st">   Aqui é o meu terceiro item.</span></span>
 <span id="cb44-10"><a href="relatório-markdown-em-r.html#cb44-10"></a><span class="st">     </span></span>
 <span id="cb44-11"><a href="relatório-markdown-em-r.html#cb44-11"></a><span class="st">      Aqui é um novo parágrafo do meu terceiro item.</span></span></code></pre></div>
 <p>Essa mesma regra vale para os itens não enumerados. Considere o código abaixo:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="relatório-markdown-em-r.html#cb45-1"></a><span class="st">*     Aqui é o meu primeiro item.</span></span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb45-1"><a href="relatório-markdown-em-r.html#cb45-1"></a>* <span class="st">    Aqui é o meu primeiro item.</span></span>
 <span id="cb45-2"><a href="relatório-markdown-em-r.html#cb45-2"></a><span class="st">     </span></span>
 <span id="cb45-3"><a href="relatório-markdown-em-r.html#cb45-3"></a><span class="st">      Aqui é um novo parágrafo do meu primeiro item.</span></span>
 <span id="cb45-4"><a href="relatório-markdown-em-r.html#cb45-4"></a></span>
-<span id="cb45-5"><a href="relatório-markdown-em-r.html#cb45-5"></a><span class="st">*     Aqui é o meu segundo item.</span></span>
+<span id="cb45-5"><a href="relatório-markdown-em-r.html#cb45-5"></a>* <span class="st">    Aqui é o meu segundo item.</span></span>
 <span id="cb45-6"><a href="relatório-markdown-em-r.html#cb45-6"></a><span class="st">     </span></span>
 <span id="cb45-7"><a href="relatório-markdown-em-r.html#cb45-7"></a><span class="st">      Aqui é um novo parágrafo do meu segundo item.</span></span>
 <span id="cb45-8"><a href="relatório-markdown-em-r.html#cb45-8"></a></span>
-<span id="cb45-9"><a href="relatório-markdown-em-r.html#cb45-9"></a><span class="st">*     Aqui é o meu terceiro item.</span></span>
+<span id="cb45-9"><a href="relatório-markdown-em-r.html#cb45-9"></a>* <span class="st">    Aqui é o meu terceiro item.</span></span>
 <span id="cb45-10"><a href="relatório-markdown-em-r.html#cb45-10"></a><span class="st">     </span></span>
 <span id="cb45-11"><a href="relatório-markdown-em-r.html#cb45-11"></a><span class="st">      Aqui é um novo parágrafo do meu terceiro item.</span></span></code></pre></div>
 <blockquote>
@@ -736,6 +728,7 @@ Você poderá intercambiar os caracteres <code>*</code>, <code>+</code> e <code>
 <p>Note que o exemplo acima poderá ser útil em situações que que repetimos linkamos uma palavra ao longo de todo o texto. Nesses casos, a linkagem considerando a numeração dos links poderá ser menos cansativa.</p>
 </div>
 </div>
+
 </div>
 <div id="inserindo-figuras-no-texto" class="section level4">
 <h4><span class="header-section-number">4.1.1.8</span> Inserindo figuras no texto</h4>
@@ -783,7 +776,7 @@ Figura: Logo da linguagem de programação <strong>R</strong> obtido em <a href=
 </ul>
 </div>
 </div>
-<div id="exercícios" class="section level4">
+<div id="exercícios" class="section level4 unnumbered">
 <h4>Exercícios</h4>
 <ol style="list-style-type: decimal">
 <li><p>Construa um código em Markdown que retorne a saída abaixo:</p>
@@ -906,10 +899,11 @@ Figura 4.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmar
 <p>Com o <strong>R Markdown</strong> teremos a nossa disposição diversas ferramentas e ainda poderemos usufruir da simplicidade do <strong>Markdown</strong>.</p>
 </div>
 </div>
+
 <p>O funcionamento geral e interações entre o pacote <strong>rmarkdown</strong> com o pacote <strong>knitr</strong> e o <strong>Pandoc</strong> poderão ser resumidos com diagrama abaixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramaRmd"></span>
-<div id="htmlwidget-9f492d1a778c6d11a4e8" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9f492d1a778c6d11a4e8">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8eb69f8fe4d19ffd39f2" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8eb69f8fe4d19ffd39f2">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
 </p>
@@ -928,6 +922,7 @@ Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite traba
 <p>Uma outra funcionalidade do pacote <strong>knitr</strong> que vale a pena ser destacada aqui, é a possibilidade de utilizar uma de suas função para incorporá figuras previamente salvas (os formatos mais populares de imagens são suportados) e controrar seu tamanhol, título, alinhamento bem como outras características de interesse.</p>
 </div>
 </div>
+
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -935,6 +930,7 @@ Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite traba
 <p>Tudo que você aprendeu a respeito de <strong>Markdown</strong> continuará valendo para arquivos <strong>R Markdown</strong> (arquivos com extensão <strong>.Rmd</strong>).</p>
 </div>
 </div>
+
 <p>Antes de iniciarmos as próximas seções a respeito do <strong>R Markdown</strong>, certifique-se que você possue o <strong>rmarkdown</strong> e o <strong>knitr</strong> instalados. Muito provavelmente esses pacotes juntamente com o Pandoc já estarão instalados, caso você esteja utilizando o RStudio.</p>
 <p>Em todos os exemplos que seguem nas seções que seguem, no <strong>RStudio</strong>, acesse as opções <em>File</em>, <em>New File</em> e <em>R Markdown</em>, respectivamente, para criar um novo arquivo <strong>R Mardown</strong> (arquivo com extensão <strong>.Rmd</strong>). Você também poderá utilizar as teclas de atalho <strong>Ctrl + Shift + N</strong> para criar um arquivo com extensão <strong>.R</strong> e no momento de salvar mude a extensão do arquivo para <strong>.Rmd</strong>.</p>
 <p><strong>Nota</strong>:</p>
@@ -949,6 +945,7 @@ Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite traba
 </ol>
 </div>
 </div>
+
 
 </div>
 </div>

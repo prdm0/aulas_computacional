@@ -2398,17 +2398,10 @@ t(x)
 ```
 
 ```
-## 
-## 	One Sample t-test
-## 
-## data:  x
-## t = 5.7446, df = 9, p-value = 0.0002782
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  3.334149 7.665851
-## sample estimates:
-## mean of x 
-##       5.5
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    2    3    4    5    6    7    8    9    10
+## attr(,"class")
+## [1] "test"
 ```
     
 3 - Crie o método `print.conc(x, y, sep = "", ...)` para a função genérica `print()`. O método deverá concatenar dois objetos da classe **conc**. O método deverá funcionar da forma abaixo:

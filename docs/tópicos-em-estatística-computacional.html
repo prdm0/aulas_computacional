@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Tópicos em Estatística Computacional | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Tópicos em Estatística Computacional | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -49,28 +49,30 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
-<script src="libs/mermaid-0.3.0/dist/mermaid.js"></script>
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
 <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
 <script src="libs/chromatography-0.1/chromatography.js"></script>
-<script src="libs/DiagrammeR-binding-1.0.5/DiagrammeR.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.6.1/DiagrammeR.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -90,7 +92,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,43 +139,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Início</a></li>
-<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a>
-<ul>
+<li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html"><i class="fa fa-check"></i>Prefácio</a><ul>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#tecnologias-abordadas-no-curso"><i class="fa fa-check"></i>Tecnologias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#teorias-abordadas-no-curso"><i class="fa fa-check"></i>Teorias abordadas no curso</a></li>
 <li class="chapter" data-level="" data-path="prefácio.html"><a href="prefácio.html#sugestões-de-passos-para-revisão-da-linguagem-r"><i class="fa fa-check"></i>Sugestões de passos para revisão da linguagem R</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a>
-<ul>
+<li class="chapter" data-level="1" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html"><i class="fa fa-check"></i><b>1</b> Revisão básica da linguagem R</a><ul>
 <li class="chapter" data-level="" data-path="revisão-básica-da-linguagem-r.html"><a href="revisão-básica-da-linguagem-r.html#exercícios-propostos"><i class="fa fa-check"></i>Exercícios propostos</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a>
-<ul>
+<li class="chapter" data-level="2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html"><i class="fa fa-check"></i><b>2</b> O Evangelho do GNU/Linux</a><ul>
 <li class="chapter" data-level="2.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-histórico"><i class="fa fa-check"></i><b>2.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="2.2" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#vantagens-em-utilizar-gnulinux"><i class="fa fa-check"></i><b>2.2</b> Vantagens em utilizar GNU/Linux</a></li>
 <li class="chapter" data-level="2.3" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#algumas-distribuições"><i class="fa fa-check"></i><b>2.3</b> Algumas distribuições</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a>
-<ul>
+<li class="chapter" data-level="3" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html"><i class="fa fa-check"></i><b>3</b> Versionamento de código</a><ul>
 <li class="chapter" data-level="3.1" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#git"><i class="fa fa-check"></i><b>3.1</b> Git</a></li>
 <li class="chapter" data-level="3.2" data-path="versionamento-de-código.html"><a href="versionamento-de-código.html#github"><i class="fa fa-check"></i><b>3.2</b> GitHub</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a>
-<ul>
+<li class="chapter" data-level="4" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html"><i class="fa fa-check"></i><b>4</b> Relatório Markdown em R</a><ul>
+<li class="chapter" data-level="4.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#markdown"><i class="fa fa-check"></i><b>4.1</b> Markdown</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#sintaxe"><i class="fa fa-check"></i><b>4.1.1</b> Sintaxe</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#r-markdown"><i class="fa fa-check"></i><b>4.2</b> R Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a>
-<ul>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-1"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="5" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html"><i class="fa fa-check"></i><b>5</b> R - miscelânea e tópicos avançados</a><ul>
+<li class="chapter" data-level="5.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#operador---pipe"><i class="fa fa-check"></i><b>5.1</b> Operador %&gt;% - Pipe</a><ul>
+<li class="chapter" data-level="" data-path="relatório-markdown-em-r.html"><a href="relatório-markdown-em-r.html#exercícios"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a>
-<ul>
+<li class="chapter" data-level="5.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções"><i class="fa fa-check"></i><b>5.2</b> Funções</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#passando-atributos"><i class="fa fa-check"></i><b>5.2.1</b> Passando atributos</a></li>
 <li class="chapter" data-level="5.2.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções-anônimas"><i class="fa fa-check"></i><b>5.2.2</b> Funções anônimas</a></li>
 <li class="chapter" data-level="5.2.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#escopo-léxico"><i class="fa fa-check"></i><b>5.2.3</b> Escopo léxico</a></li>
@@ -182,37 +175,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.6" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funções-infixas"><i class="fa fa-check"></i><b>5.2.6</b> Funções infixas</a></li>
 <li class="chapter" data-level="5.2.7" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#função-de-substituição"><i class="fa fa-check"></i><b>5.2.7</b> Função de substituição</a></li>
 <li class="chapter" data-level="5.2.8" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#closures"><i class="fa fa-check"></i><b>5.2.8</b> Closures</a></li>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-2"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-1"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a>
-<ul>
+<li class="chapter" data-level="5.3" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais"><i class="fa fa-check"></i><b>5.3</b> Funcionais</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-r-base"><i class="fa fa-check"></i><b>5.3.1</b> Funcionais do R Base</a></li>
 <li class="chapter" data-level="5.3.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#funcionais-do-pacote-purrr"><i class="fa fa-check"></i><b>5.3.2</b> Funcionais do pacote purrr</a></li>
-<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-3"><i class="fa fa-check"></i>Exercícios</a></li>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercícios-2"><i class="fa fa-check"></i>Exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a>
-<ul>
+<li class="chapter" data-level="5.4" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#sistema-s3"><i class="fa fa-check"></i><b>5.4</b> Sistema S3</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#classes"><i class="fa fa-check"></i><b>5.4.1</b> Classes</a></li>
 <li class="chapter" data-level="5.4.2" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#criando-funções-genéricas"><i class="fa fa-check"></i><b>5.4.2</b> Criando funções genéricas</a></li>
 <li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercício"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a>
-<ul>
+<li class="chapter" data-level="6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html"><i class="fa fa-check"></i><b>6</b> Tópicos em Estatística Computacional</a><ul>
+<li class="chapter" data-level="6.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#geração-de-números-pseudo-aleatórios"><i class="fa fa-check"></i><b>6.1</b> Geração de Números Pseudo-Aleatórios</a><ul>
 <li class="chapter" data-level="6.1.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-transformação-inversa-caso-discreto"><i class="fa fa-check"></i><b>6.1.1</b> Método da Transformação Inversa (Caso Discreto)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#método-da-aceitação-e-rejeição"><i class="fa fa-check"></i><b>6.1.2</b> Método da aceitação e rejeição</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-1"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a>
-<ul>
+<li class="chapter" data-level="" data-path="r-miscelânea-e-tópicos-avançados.html"><a href="r-miscelânea-e-tópicos-avançados.html#exercício"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#otimização-não-linear"><i class="fa fa-check"></i><b>6.2</b> Otimização Não-Linear</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#metódos-gradiente"><i class="fa fa-check"></i><b>6.2.1</b> Metódos Gradiente</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-2"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#um-breve-histórico-1"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-1"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#monte-carlo"><i class="fa fa-check"></i><b>6.3</b> Monte Carlo</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="o-evangelho-do-gnulinux.html"><a href="o-evangelho-do-gnulinux.html#um-breve-histórico"><i class="fa fa-check"></i><b>6.3.1</b> Um breve histórico</a></li>
 <li class="chapter" data-level="6.3.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#métodos-de-monte-carlo"><i class="fa fa-check"></i><b>6.3.2</b> Métodos de Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#integração-por-monte-carlo"><i class="fa fa-check"></i><b>6.3.3</b> Integração por Monte Carlo</a></li>
 <li class="chapter" data-level="6.3.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#aproximando-o-valor-de-pi"><i class="fa fa-check"></i><b>6.3.4</b> Aproximando o valor de <span class="math inline">\(\pi\)</span></a></li>
@@ -220,14 +207,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.6" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#speedup"><i class="fa fa-check"></i><b>6.3.6</b> Speedup</a></li>
 <li class="chapter" data-level="6.3.7" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#pacote-parallel"><i class="fa fa-check"></i><b>6.3.7</b> Pacote parallel</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-3"><i class="fa fa-check"></i>Exercício</a></li>
-<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a>
-<ul>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-2"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="6.4" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#bootstrap"><i class="fa fa-check"></i><b>6.4</b> Bootstrap</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#estimando-erro-padrão"><i class="fa fa-check"></i><b>6.4.1</b> Estimando erro-padrão</a></li>
 <li class="chapter" data-level="6.4.2" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#diminuindo-o-viés"><i class="fa fa-check"></i><b>6.4.2</b> Diminuindo o viés</a></li>
 <li class="chapter" data-level="6.4.3" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#construindo-intervalos-aleatórios"><i class="fa fa-check"></i><b>6.4.3</b> Construindo intervalos aleatórios</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-4"><i class="fa fa-check"></i>Exercício</a></li>
+<li class="chapter" data-level="" data-path="tópicos-em-estatística-computacional.html"><a href="tópicos-em-estatística-computacional.html#exercício-3"><i class="fa fa-check"></i>Exercício</a></li>
 </ul></li>
 </ul>
 
@@ -324,6 +310,7 @@ para todo valor de <span class="math inline">\(t\)</span>, com <span class="math
 <p>É importante que a v.a. <span class="math inline">\(Y\)</span> escolhida seja de tal forma que você consiga gerar facilmente suas observações. Isso se deve ao fato do método da aceitação e rejeição ser computacionalmente mais intensivo que métodos mais diretos como o método da transformação ou o método da inversão que exige apenas a regração de números pseudo-aleatórios com distribuição uniforme.</p>
 </div>
 </div>
+
 <p><strong>Algoritmo do Método da Aceitação e Rejeição</strong>:</p>
 <p>1 - Gere uma observação <span class="math inline">\(y\)</span> proveniente de uma v.a. <span class="math inline">\(Y\)</span> com fdp/fp <span class="math inline">\(g\)</span>;</p>
 <p>2 - Gere uma observação <span class="math inline">\(u\)</span> de uma v.a. <span class="math inline">\(U\sim \mathcal{U} (0, 1)\)</span>;</p>
@@ -342,6 +329,7 @@ O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</
 <p>Perceba que para reduzir o custo computacional do método, deveremos escolher <span class="math inline">\(c\)</span> de tal forma que possamos maximizar <span class="math inline">\(P(aceitar)\)</span>. Sendo assim, escolher um valor exageradamente grande da constante <span class="math inline">\(c\)</span> irá reduzir a probabilidade de aceitar uma observação de <span class="math inline">\(Y\)</span> como sendo observação da v.a. <span class="math inline">\(X\)</span>.</p>
 </div>
 </div>
+
 <p><strong>Nota</strong>:</p>
 
 <div class="rmdnote">
@@ -349,9 +337,10 @@ O resultado logo acima, mostra que aceitar <span class="math inline">\(x = y\)</
 <p>Computacionalmente, é conveniente considerar <span class="math inline">\(Y\)</span> como sendo uma v.a. com distribuição uniforme no suporte de <span class="math inline">\(f\)</span>, uma vez que gerar observações de uma distribuição uniforme é algo simples em qualquer computador. Para o caso discreto, considerar <span class="math inline">\(Y\)</span> com distribuição uniforme discreta poderá ser uma boa alternativa.</p>
 </div>
 </div>
+
 </div>
 </div>
-<div id="exercício-1" class="section level2">
+<div id="exercício" class="section level2 unnumbered">
 <h2>Exercício</h2>
 <ol style="list-style-type: decimal">
 <li><p>Quais as propriedades de um bom gerador de números pseudo-aleatórios? Disserte sobre cada uma delas.</p></li>
@@ -449,6 +438,7 @@ P(X = 6) &amp;=&amp; 0.01. \nonumber\\
 <p>Aqui, o termo <strong>otimizar</strong> estará se referindo à <strong>minimiar</strong> ou <strong>maximizar</strong> uma função objetivo. Dessa forma, por meio do contexto em que o termo esteja sendo utilizado, a ideia estará implícita. Além disso, por uma simples modificação na função objetivo, um algoritmo utilizado para maximizar uma função poderá ser convertido em um algoritmo para minimização de uma função.</p>
 </div>
 </div>
+
 <p>Suponha que temos interesse em maximizar uma função objetivo, seja ela <span class="math inline">\(\psi(\pmb{\Theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subspaço do <span class="math inline">\(\mathbb{R}^p\)</span>. Dessa forma, queremos encontrar o vetor <span class="math inline">\(\pmb{\theta}\)</span> (<span class="math inline">\(p \times 1\)</span>) que maximiza a função objetivo <span class="math inline">\(\psi(\cdot)\)</span>. Ou seja, queremos encontar</p>
 <p><span class="math display">\[ \underset{\pmb{\theta}\, \in\, \pmb{\Theta}}{\mathrm{arg\,max}}\,\psi(\pmb{\theta}).\]</span></p>
 <p>A maioria das situações práticas nos levam à problemas com a condição de primeira ordem,</p>
@@ -465,6 +455,7 @@ P(X = 6) &amp;=&amp; 0.01. \nonumber\\
 <p>O vetor gradiente fornece a direção e o sentido de deslocamento, apartir de um ponto especificado, de subida que fornece um incremento em uma grandeza. No nosso caso, <span class="math inline">\(\pmb\Delta_t\)</span> (<span class="math inline">\(p \times 1\)</span>) irá indicar o sentido de subida, em que poderemos atualizar o valor de <span class="math inline">\(\pmb \theta\)</span> para um ponto que maximiza <span class="math inline">\(\psi(\cdot)\)</span>. Dessa forma, <span class="math inline">\(-\pmb\Delta_t\)</span> fornecerá a direção e o sentido de atualização de <span class="math inline">\(\pmb\theta\)</span> que nos levam à pontos que minimizam <span class="math inline">\(\psi(\cdot)\)</span>.</p>
 </div>
 </div>
+
 <p>Note também que, em cada iteração do algoritmo, temos <span class="math inline">\(\pmb \theta_t\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> são conhecidos, uma vez que <span class="math inline">\(\pmb \theta_t\)</span> é o ponto <span class="math inline">\(\pmb \theta\)</span> atualizado na iteração <span class="math inline">\(t-1\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> é o vetor gradiente da função objetivo avaliado em <span class="math inline">\(\pmb \theta_t\)</span>.</p>
 <p>Dado o conhecimento dessas quantidade, perceba que precisamos obter o “tamanho do passo” <span class="math inline">\(\lambda_t\)</span>. Assim, iremos recair em um problema de otimização secundário, denominado de <strong>procura em linha</strong>. Sendo assim, busca-se <span class="math inline">\(\lambda_t\)</span> de tal forma que</p>
 <p><span class="math display">\[\frac{\partial \pmb\,\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t)}{\partial \lambda_t} = \delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\pmb \Delta_t = 0,\]</span>
@@ -482,6 +473,7 @@ Figura 6.1: Poblema de <strong>procura em linha</strong>, em que a função obje
 <p>É importante observar que o processo de busca em linha em um algoritmo de otimização não-linear tornará esse algoritmo computacionalmente intensivo. Dessa forma, muitos algoritmos adotam um conjunto de regras <em>ad hoc</em> que são computacionalmente menos custosas. Essa classe de algoritmos é o que denominamos de <strong>classe de métodos gradiente</strong>.</p>
 </div>
 </div>
+
 <p>Na classe de métodos gradiente, fazemos</p>
 <p><span class="math display">\[\pmb \Delta_t = M_t\delta_t,\]</span>
 em que <span class="math inline">\(M_t\)</span> (<span class="math inline">\(p \times p\)</span>) é uma matriz positiva-definida e <span class="math inline">\(\delta_t\)</span> (<span class="math inline">\(p \times 1\)</span>) é o gradiente de <span class="math inline">\(\pmb\psi\)</span>, ambos na <span class="math inline">\(t\)</span>-ésima iteração. Para deixar claro, temos que <span class="math inline">\(\delta_t\)</span> = <span class="math inline">\(\delta_t(\pmb \theta_t) = \partial \, \psi(\pmb \theta_t)/\partial\, \pmb \theta_t\)</span>.</p>
@@ -506,6 +498,7 @@ em que <span class="math inline">\(I\)</span> é a matriz identidade (<span clas
 <p>Esse algoritmo tende a ser pouco utilizado na prática, uma vez que apresenta convergência lenta. Esse método é muito semelhante ao algoritmo gradiente descendente <a href="https://en.wikipedia.org/wiki/Gradient_descent"><strong>steepest descent</strong></a>, utilizado para minimização. Não confunda <strong>steepest descent</strong> citado aqui com um método de aproximação de integrais que leva o mesmo nome.</p>
 </div>
 </div>
+
 </div>
 <div id="newton-raphson" class="section level4">
 <h4><span class="header-section-number">6.2.1.2</span> Newton-Raphson</h4>
@@ -531,6 +524,7 @@ ou seja, temos que <span class="math inline">\(H\)</span> é a matriz <a href="h
 </ul>
 </div>
 </div>
+
 <p>O método de <strong>Newton-Raphson</strong> normalmente é utilizado para encontar os zeros de uma função. Quando aplicado sobre a condição de primeira ordem, o método de <strong>Newton-Raphson</strong> nos conduzirá aos pontos críticos da função. Como fazemos uso do vetor gradiente, estaremos sempre a caminhar para os pontos de máximo de <span class="math inline">\(\psi(\cdot)\)</span>. Dessa forma, os pontos críticos são os pontos de máximo da função objetivo.</p>
 <p>Para que possamos entender melhor a ideia do método, considere uma <a href="https://pt.wikipedia.org/wiki/S%C3%A9rie_de_Taylor"><strong>expansão de Taylor</strong></a> da condição de primeira ordem em torno de um ponto qualquer <span class="math inline">\(\pmb \theta_0\)</span>. Assim, temos que</p>
 <p><span class="math display">\[\frac{\partial\,\psi(\pmb \theta)}{\partial\, \pmb \theta} \approx f(\pmb \theta_0) + H(\pmb \theta_0) (\pmb \theta - \pmb\theta_0).\]</span></p>
@@ -544,6 +538,7 @@ ou seja, temos que <span class="math inline">\(H\)</span> é a matriz <a href="h
 <p>O método de <strong>Newton-Raphson</strong> apesar de funcionar bem em diversas situações, poderá fornecer estimativas ruins em alguns casos. Por exemplo, um problema comum é quando <span class="math inline">\(\pmb \theta_t\)</span> é um ponto distante do ponto que maximiza <span class="math inline">\(\psi(\cdot)\)</span>, uma vez que nesses pontos, a matriz <span class="math inline">\(M_t = -H^{-1}\)</span> pode não ser positiva-definida.</p>
 </div>
 </div>
+
 </div>
 <div id="bhhh" class="section level4">
 <h4><span class="header-section-number">6.2.1.3</span> BHHH</h4>
@@ -555,6 +550,7 @@ ou seja, temos que <span class="math inline">\(H\)</span> é a matriz <a href="h
 <p>A vantagem do método <strong>BHHH</strong> está no fato de não necessitarmos calcular segundas derivadas. Trata-se de um método muito utilizado em aplicações ecnonométricas. O método <strong>BHHH</strong> poderá enfrentar o mesmo problema de convergência que o método de <strong>Newton-Raphson</strong>.</p>
 </div>
 </div>
+
 </div>
 <div id="métodos-quasi-newton" class="section level4">
 <h4><span class="header-section-number">6.2.1.4</span> Métodos quasi-Newton</h4>
@@ -576,6 +572,7 @@ sendo <span class="math inline">\(N_t\)</span> uma matriz positiva-definida. Ass
 <p>O termo quasi-Newton é empregado para se referir ao fato de que esses métodos não fazem uso da matriz hessiana. Porém, esses métodos utilizam uma aproximação iterativa de uma matriz <span class="math inline">\(M_t\)</span> que converge para a matriz de segundas derivadas. Dessa forma, não entenda o termo quasi-Newton como se esses métodos fossem inferiores aos métodos de <strong>Newton-Raphson</strong>. Na verdade, os métodos quasi-Newton normalmente apresentam desempenho superior.</p>
 </div>
 </div>
+
 </div>
 <div id="otimização-não-linear-no-r" class="section level4">
 <h4><span class="header-section-number">6.2.1.5</span> Otimização não-linear no R</h4>
@@ -641,6 +638,7 @@ Figura 6.2: Gráfico da superfície da função Rosenbrock introduzida por Howar
 <p>Para o exemplo acima, <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> são chamadas de <strong>variáveis</strong>, visto que a função de Rosenbrock é determinística. Porém, em problemas estatísticos, por exemplo, quando desejamos maximizar uma função de log-verossimilhança, a otimização é realizada em termos dos <strong>parâmetros</strong> que indexam o modelo estatístico. Nesse caso, cada ponto da função</p>
 </div>
 </div>
+
 <p>O argumento <code>...</code> é muito importante para nós que necessitamos frequentemente maximizar uma função de log-vessimilhança <span class="math inline">\(\mathcal{l}(\pmb \theta)\)</span>. É por meio desse argumento que passamos a amostra para <span class="math inline">\(\mathcal{l}(\pmb \theta)\)</span>. Sem ele, teríamos que implementa uma função de verossimilhança para cada tamanho de amostra, o que seria impraticável. Com a amostra especificada, poderemos proceder a minimização de <span class="math inline">\(-\mathcal{l}(\pmb \theta)\)</span> e obter o vetor <span class="math inline">\(\pmb \theta\)</span> com as estimativas de máxima verossimilhança dos parâmetros que indexam um modelo probablístico.</p>
 <p><strong>Exemplo</strong>: Considere o conjunto de dados obtido abaixo:</p>
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="tópicos-em-estatística-computacional.html#cb290-1"></a><span class="kw">set.seed</span>(0L)</span>
@@ -679,10 +677,11 @@ Figura 6.2: Gráfico da superfície da função Rosenbrock introduzida por Howar
 <p>Nunca esqueça que minimizar <span class="math inline">\(-f\)</span> é equivalente a maximizar <span class="math inline">\(f\)</span>, sendo tabém verdadeira a recíproca. Além disso, lembre-se também que a função <code>optim()</code> é implementada de forma a minimizar uma função objetivo.</p>
 </div>
 </div>
+
 </div>
 </div>
 </div>
-<div id="exercício-2" class="section level2">
+<div id="exercício-1" class="section level2 unnumbered">
 <h2>Exercício</h2>
 <ol style="list-style-type: decimal">
 <li><p>Defina matematicamente o método gradiente para maximização de uma função <span class="math inline">\(\psi(\pmb{\theta}): \pmb{\Theta} \rightarrow \mathbb{R}\)</span>, em que <span class="math inline">\(\pmb{\Theta}\)</span> é um subespaço do <span class="math inline">\(\mathbb{R}^p\)</span>.</p></li>
@@ -744,7 +743,7 @@ com <span class="math inline">\(x &gt; 0\)</span> e <span class="math inline">\(
 </div>
 <div id="monte-carlo" class="section level2">
 <h2><span class="header-section-number">6.3</span> Monte Carlo</h2>
-<div id="um-breve-histórico-1" class="section level3">
+<div id="um-breve-histórico" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Um breve histórico</h3>
 <p>Os métodos de Monte Carlo (MC) é uma classe de metodologias bastante utilizada na estatística moderna. De um modo geral, tais metodologias calculam quantidades sob amostras aleatórias que são gerada/obtidas de forma iterativa, em que ao final obtem-se estatísticas de interesse com base nos resultados armazenados. Os métodos de MC, por exemplo, poderão ser utilizado para estimar parâmetros da distribuição amostral de uma estatística e para o cálculo do erro quadrático médio (EQM). Estudos de MC podem ser projetados para avaliar a probabilidade de cobertura de um intervalo aleatório (probabilidade do intervalo conter o parâmetro verdadeiro) ou para avaliação do Erro Tipo I em um procedimento de teste de hipóteses. Esses são apenas alguns exemplo do uso dos métodos de MC.</p>
 <p>Os métodos de MC auxiliam os estatísticos no processo de compararem modelos/estatísticas, em que cada um(a) desses modelos/estatísticas serão submetidos à amostras com “características” prefixadas. Normalmente essas comparações serão realizadas em situações em que evidências analíticas não são possíveis de serem obtidas devido à complexidade dos modelos/estatísticas envolvidas. Sendo assim, ao utilizar-se um procedimento de MC, torna-se desnecessário escrever as equações diferenciais que descrevem o comportamento de um sistema complexo.</p>
@@ -756,6 +755,7 @@ com <span class="math inline">\(x &gt; 0\)</span> e <span class="math inline">\(
 <p>Para implementar um método de MC é necessário ter uma fonte de geração de números pseudo-aleatórios além da capacidade de controlarmos a sequência de números gerados. No R, como vimos anteriormente, teremos a nossa disposição diversas funções para a geração de números pseudo-aleatórios uniforme e não-uniformes e poderemos controlar a sequência gerada utilizando a função <code>set.seed()</code>.</p>
 </div>
 </div>
+
 <p>De acordo com Hammersley, no livro <a href="https://www.springer.com/gp/book/9789400958210"><strong>Monte Carlo Methods</strong></a>, 1964, o nome “Monte Carlo” surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá. O projeto tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. O projeto foi uma das maiores colaborações científicas já realizadas que deram origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-23"></span>
 <img src="images/trinity.png" alt="Primeiro teste nuclear (nome de código **Trinity**), uma das três bombas atômicas produzidas pelo Projeto Manhattan. Teste realizado em 16 de julho de 1945. Com apenas 0.025 segundos após a detonação, o impacto já tomava conta de uma região com 100 metros de diâmetro." width="75%" />
@@ -838,6 +838,7 @@ em que <span class="math inline">\(\overline{h}\)</span> é aproximado por MC.</
 <p>Para obtermos uma aproximação para a integral de uma função <span class="math inline">\(h(x)\)</span> com <span class="math inline">\(x \in [a, b]\)</span>, precisamos apenas calcular o ponto médio da função e multiplicar por <span class="math inline">\((b-a)\)</span>. Dessa forma, estimando o ponto médio de uma função por MC nos conduz diretamente ao método de MC para obter <span class="math inline">\(\int_a^b h(x) dx\)</span>.</p>
 </div>
 </div>
+
 <p><strong>Exemplo</strong>: Seja <span class="math inline">\(X\)</span> uma v.a. tal que <span class="math inline">\(X \sim Weibull(\alpha, \beta)\)</span>, com <span class="math inline">\(\alpha, \beta &gt; 0\)</span> e <span class="math inline">\(x \geq 0\)</span>. Implemente a função <code>intmc(N = 1e3L, fun, lower = NULL, upper = NULL, ...)</code>, que aproxima por MC a integral de uma função, em que <code>N</code> é o número de réplicas de MC, <code>fun</code> é a função que desejamos integrar, <code>lower</code> é o limite inferior de integração, <code>upper</code> é o limite superior de integração e <code>...</code> é o operador dot-dot-dot. Por meio da função <code>intmc()</code> e da função <code>integrate()</code>, obtenha uma aproximação para <span class="math inline">\(P(X \leq 2)\)</span>.</p>
 <div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="tópicos-em-estatística-computacional.html#cb293-1"></a>fdp_weibull &lt;-<span class="st"> </span><span class="cf">function</span>(x, alpha, beta) <span class="kw">dweibull</span>(x, <span class="dt">shape =</span> alpha, <span class="dt">scale =</span> beta)</span>
 <span id="cb293-2"><a href="tópicos-em-estatística-computacional.html#cb293-2"></a></span>
@@ -936,15 +937,15 @@ Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</sp
 <span id="cb299-2"><a href="tópicos-em-estatística-computacional.html#cb299-2"></a><span class="co"># teste de Shapiro-Wilk:</span></span>
 <span id="cb299-3"><a href="tópicos-em-estatística-computacional.html#cb299-3"></a><span class="kw">shapiro.test</span>(result<span class="op">$</span>vec_ihat)</span></code></pre></div>
 <pre><code>## 
-##  Shapiro-Wilk normality test
+## 	Shapiro-Wilk normality test
 ## 
 ## data:  result$vec_ihat
 ## W = 0.99969, p-value = 0.6642</code></pre>
 <p>Uma vez que são médias, perceba que as estimativas obtidas por <span class="math inline">\(\hat{I}_1, \ldots, \hat{I}_n\)</span> aparentemente segue uma distribuição normal, em que <span class="math inline">\(\hat{I}_i \sim \mathcal{N}(I, \sigma^2/n)\)</span>, o que é garantido pelo <a href="https://pt.wikipedia.org/wiki/Teorema_central_do_limite"><strong>Teorema Central do Limite</strong></a>.</p>
 <p>Construindo um histograma e realizando um teste de normalidade, temos:</p>
 <div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="tópicos-em-estatística-computacional.html#cb301-1"></a><span class="kw">hist</span>(result<span class="op">$</span>vec_ihat, <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Estimativas &quot;</span>, <span class="kw">hat</span>(I)[i])), </span>
-<span id="cb301-2"><a href="tópicos-em-estatística-computacional.html#cb301-2"></a>     <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">hat</span>(I)[i]), <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;</span>,</span>
-<span id="cb301-3"><a href="tópicos-em-estatística-computacional.html#cb301-3"></a>     <span class="dt">border =</span> <span class="ot">NA</span>, <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">1</span>, <span class="fl">0.9</span>, <span class="fl">0.8</span>))</span></code></pre></div>
+<span id="cb301-2"><a href="tópicos-em-estatística-computacional.html#cb301-2"></a>     <span class="dt">xlab =</span> <span class="kw">expression</span>(<span class="kw">hat</span>(I)[i]), <span class="dt">ylab =</span> <span class="st">&quot;Frequência&quot;,</span></span>
+<span id="cb301-3"><a href="tópicos-em-estatística-computacional.html#cb301-3"></a><span class="st">     border = NA, col = rgb(1, 0.9, 0.8))</span></span></code></pre></div>
 <p><img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><strong>Observação</strong>:</p>
 
@@ -953,6 +954,7 @@ Assim, um estimador para <span class="math inline">\(\mathrm{Var}(\hat{I})\)</sp
 <p>Note que a distribuição de <span class="math inline">\(\hat{I}_i, \forall \, i\)</span> é centrada no valor da integral que desejamos calcular. No caso do exercício acima, como a função é uma f.d.p, então a distribuição será centrada em 1.</p>
 </div>
 </div>
+
 </div>
 <div id="aproximando-o-valor-de-pi" class="section level3">
 <h3><span class="header-section-number">6.3.4</span> Aproximando o valor de <span class="math inline">\(\pi\)</span></h3>
@@ -1047,6 +1049,7 @@ Figura 6.10: Representação de um processador <strong>multicore</strong> (múlt
 <p><strong>Também é importante deixar destacar que nem sempre os custos que o computador tem em gerir diversos processos justifica a paralelização de um código. Por exemplo, é possível que um código funcione de forma mais eficiente quando executado de forma serial quando comparado ao seu análogo paralelo.</strong></p>
 </div>
 </div>
+
 </div>
 <div id="speedup" class="section level3">
 <h3><span class="header-section-number">6.3.6</span> Speedup</h3>
@@ -1076,6 +1079,7 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <p>O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o <strong>speedup</strong>. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.</p>
 </div>
 </div>
+
 </div>
 <div id="pacote-parallel" class="section level3">
 <h3><span class="header-section-number">6.3.7</span> Pacote parallel</h3>
@@ -1137,9 +1141,9 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb309-18"><a href="tópicos-em-estatística-computacional.html#cb309-18"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb309-19"><a href="tópicos-em-estatística-computacional.html#cb309-19"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     1.583     0.247     0.784</code></pre>
+##     3.505     0.559     0.746</code></pre>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="tópicos-em-estatística-computacional.html#cb311-1"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.9997499</code></pre>
+<pre><code>## [1] 1.000105</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1148,6 +1152,7 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <p>Em Windows, uma abordagem paralelizada também poderá ser implementada utilizando o pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a>, a custo de <strong>um pouco mais</strong> de passos, já que não há suporte à <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>. Como função <code>mclapply()</code> e funções derivadas fazem uso de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>, deveremos considerar funções que não fazem uso de <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>.</p>
 </div>
 </div>
+
 <p><strong>Exemplo</strong>: Implementação da função <code>intvarmc_parallel()</code> para que funcione de forma paralelizada em Windows. Perceba que foi necessário incluir mais passos e substituir a função <code>mclapply()</code> pela função <code>parLapply()</code> que também está disponível no pacote <a href="https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf"><strong>parallel</strong></a>.</p>
 <p>Assim como o <a href="https://en.wikipedia.org/wiki/Fork_(system_call)"><strong>FORK</strong></a>, o <strong>PSOCK</strong> é também uma chamada de sistema <a href="https://pt.wikipedia.org/wiki/POSIX"><strong>POSIX</strong></a> que define uma nova forma de transporte de dados e comunicação entre as threads e o processo mestre. O <strong>PSOCK</strong> faz algumas execuções do comando <code>Rscript</code>, conforme a quantidade de núcleos utilizados para realizar um trabalho. Nesse sistema, a comunicação das threads com o processo mestre se dá utilizando conecções de soquete. Sendo assim, quando deseja-se fazer uso de paralelismo <strong>multicore</strong>, em Windows, há a necessidade da criação de um cluster do tipo <strong>PSOCK</strong>.</p>
 <p><strong>Nota</strong>:</p>
@@ -1157,6 +1162,7 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <p>É sempre uma boa prática desligar as theads chamando a função <code>stopCluster()</code> ao final da execução da função em paralelo, muito embora em alguns tipos de clusters o encerramento é automático. Caso contrário, poderemos correr o risco de transbordar threads, por exemplo, se o tipo de cluster for alterado, o que poderá gerar diversos conflitos e inconsistências.</p>
 </div>
 </div>
+
 <div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="tópicos-em-estatística-computacional.html#cb313-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb313-2"><a href="tópicos-em-estatística-computacional.html#cb313-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
 <span id="cb313-3"><a href="tópicos-em-estatística-computacional.html#cb313-3"></a>cores &lt;-<span class="st"> </span><span class="kw">getOption</span>(<span class="st">&quot;mc.cores&quot;</span>, parallel<span class="op">::</span><span class="kw">detectCores</span>())</span>
@@ -1226,19 +1232,19 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb315-23"><a href="tópicos-em-estatística-computacional.html#cb315-23"></a><span class="co"># Uma aproximação para integral de uma função</span></span>
 <span id="cb315-24"><a href="tópicos-em-estatística-computacional.html#cb315-24"></a><span class="co"># utilizando um procedimento de MC:</span></span>
 <span id="cb315-25"><a href="tópicos-em-estatística-computacional.html#cb315-25"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.9998191</code></pre>
+<pre><code>## [1] 0.9993872</code></pre>
 <div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="tópicos-em-estatística-computacional.html#cb317-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb317-2"><a href="tópicos-em-estatística-computacional.html#cb317-2"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   1.987</code></pre>
+##   1.761</code></pre>
 <div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="tópicos-em-estatística-computacional.html#cb319-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb319-2"><a href="tópicos-em-estatística-computacional.html#cb319-2"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.885</code></pre>
+##   0.772</code></pre>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="tópicos-em-estatística-computacional.html#cb321-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb321-2"><a href="tópicos-em-estatística-computacional.html#cb321-2"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.245198</code></pre>
+## 2.281088</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="tópicos-em-estatística-computacional.html#cb323-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb323-2"><a href="tópicos-em-estatística-computacional.html#cb323-2"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1280,7 +1286,7 @@ Figura 6.11: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb323-38"><a href="tópicos-em-estatística-computacional.html#cb323-38"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 </div>
 </div>
-<div id="exercício-3" class="section level2">
+<div id="exercício-2" class="section level2 unnumbered">
 <h2>Exercício</h2>
 <p>1 - Explique o que é um procedimento de Monte Carlo (MC)?</p>
 <p>2 - Enuncie um procedimento de MC para o cálculo de uma integral de uma função contínua em um intervalo <span class="math inline">\([a, b]\)</span>. Depois, escreva um algoritmo para o procedimento enunciado.</p>
@@ -1496,6 +1502,7 @@ Figura 6.14: Histograma construído com base nas estimativas obtidas nas amostra
 <p>O método de bootstrap não deverá ser utilizado para estimar <span class="math inline">\(\theta\)</span>. Por exemplo, <span class="math inline">\(1/B \sum_{i = 1}^B t_i^*\)</span> pode não ser uma boa estimativa para <span class="math inline">\(\theta\)</span>. O bootstrap fornece boas aproximações para a forma e amplitude da distribuição de <span class="math inline">\(T_n\)</span> mas não necessariamente para a sua locação. Isso se deve ao fato que temos duas contes de erro, uma vez a função de distribuição empírica <span class="math inline">\(F_n^*\)</span> obtida por <span class="math inline">\(\pmb x^*\)</span> aproxima a distribuição teórica de <span class="math inline">\(X^*\)</span> que é <span class="math inline">\(F_n\)</span> e esta por sua vez aproxima <span class="math inline">\(F\)</span> por meio de <span class="math inline">\(\pmb x\)</span>.</p>
 </div>
 </div>
+
 <div id="estimando-erro-padrão" class="section level3">
 <h3><span class="header-section-number">6.4.1</span> Estimando erro-padrão</h3>
 <p>A estimativa bootstrap para o erro-padrão de <span class="math inline">\(T_n\)</span> poderá ser escrito como:</p>
@@ -1508,6 +1515,7 @@ em que <span class="math inline">\(\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^
 <p>Para obtenção de uma boa estimativa do erro-padrão de <span class="math inline">\(T_n\)</span>, considere <span class="math inline">\(B \geq 250\)</span>.</p>
 </div>
 </div>
+
 <p><strong>Exemplo</strong>: O código que segue calcula uma estimativa via bootstrap para o estimador <span class="math inline">\(\overline{X} = n^{-1}\sum_1^n X_i\)</span> de <span class="math inline">\(\mu\)</span>, com <span class="math inline">\(X_i, \ldots, X_n\)</span> sendo amostra aleatória tal que <span class="math inline">\(X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)\)</span>. Note que a função <code>bootstraping()</code> implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (<code>N = 1e3L</code>) sobre uma amostra original (<code>sample_true = amostra</code>) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (<code>stat = mean</code>). Assim, fazer <code>sd(bootstraping())</code> é calcular uma estimativa do erro-padrão de <span class="math inline">\(\overline{X}\)</span> utilizando o estimador bootstrap <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>. Perceba que <span class="math inline">\(\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}\)</span> e que a estimativa bootstrap do erro-padrão de <span class="math inline">\(T_n = \overline{X}\)</span> é bem aproximada por <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>.</p>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="tópicos-em-estatística-computacional.html#cb326-1"></a><span class="co"># Fixando uma semente.</span></span>
 <span id="cb326-2"><a href="tópicos-em-estatística-computacional.html#cb326-2"></a><span class="kw">set.seed</span>(1L)</span>
@@ -1526,6 +1534,7 @@ em que <span class="math inline">\(\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^
 <p>A amostra original não precisa ser observações de v.a.’s com distribuição normal. Utilizamos o caso da normal para facilitar as contas. O método bootstrap poderá ser aplicado à observações de uma amostra aleatória com distribuição qualquer.</p>
 </div>
 </div>
+
 </div>
 <div id="diminuindo-o-viés" class="section level3">
 <h3><span class="header-section-number">6.4.2</span> Diminuindo o viés</h3>
@@ -1586,6 +1595,7 @@ Portanto, o estimador <span class="math inline">\(T_n\)</span> corrigido por boo
 <p>Assim como na implementação anterior da função <code>bootstraping()</code>, no exemplo logo acima, temos que <code>resample()</code> é uma função simples que é resposável por reamostrar com reposição da amostra original passada à <code>sample_true()</code>. A função <code>resample()</code> é utilizada dentro da função <code>boot()</code>. A função <code>boot()</code> obtem as estimativas numéricas de máxima verossimilhaça sobre uma amostra bootstrap. Perceba que utiliza-se a estrutura de repetição <code>repeat</code> para repetir o processo de optimização sobre outra amostras bootstrap, caso não haja convergência do método de otimização, uma vez que <code>result$convergence</code> diferente de zero indica não convergência do método iterativo de minimização. Não haver convergência sobre uma dada amostra bootstrap implica que as estimativas obtidas não são estimativas de máxima verossimilhança. Precisamos que <span class="math inline">\(T_n^*\)</span> sejam estimativas de máxima veorissmilhança, o que convêm substituir uma amostra que não houve convergência por outra amostra em que a convergência é observada.</p>
 </div>
 </div>
+
 <p>No código abaixo é implementado a função <code>fdp_weibull()</code> que sejá passado como argumento para a função <code>bias_boot()</code> que é responsável por corrigir por viés, via bootstrap, a estimativa de máxima verossimilhança de um dos parâmetros que indexa <code>fdp_weibull()</code>. Por padrão, o argumento é o primeiro, isto é, <code>idpar = 1L</code>. Perceba que a função <code>bias_boot()</code> faz uso da função <code>bootstraping()</code> que é responsável por fazer todo o trabalho pesado. Ao final, <code>bias_boot()</code> retornará uma lista com a estimativa de máxima verossimilhança sem correção e a restivativa corrigida por viés, via bootstrap, respectivamente.</p>
 <div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="tópicos-em-estatística-computacional.html#cb330-1"></a><span class="co"># Função densidade da Weibull:</span></span>
 <span id="cb330-2"><a href="tópicos-em-estatística-computacional.html#cb330-2"></a>fdp_weibull &lt;-<span class="st"> </span><span class="cf">function</span>(par, x){</span>
@@ -1627,6 +1637,7 @@ Portanto, o estimador <span class="math inline">\(T_n\)</span> corrigido por boo
 em que <span class="math inline">\(\widehat{B(T_n)}\)</span> é o viés do estimador <span class="math inline">\(T_n\)</span> estimado por bootstrap, a correção por viés via bootstrap poderá não ser necessária.</p>
 </div>
 </div>
+
 <p><strong>Exemplo</strong>: O exemplo abaixo mostra como incorporar uma <strong>barra de progresso</strong> (usando caracteres ASCII) que informará o quão próximo estamos do fim da execução da função <code>bias_boot()</code>. Note a execução repetida de <code>boot()</code>, implementada dentro do escopo da função <code>bootstraping()</code> é o que verdadeiramente torna custosa a execução da função <code>bias_boot()</code>. Dessa forma, escolheu-se dentro de <code>boot()</code> atualizar o progresso usando o comando <code>pb$tick()</code>. Perceba que antes da definição de <code>boot()</code> foi criado o objeto <code>pb</code> da classe <strong>progress_bar</strong>, em que foi informado o número total de chamadas à <code>boot()</code>. Perceba que é necessário instalar o pacote <a href="https://github.com/r-lib/progress"><strong>progress</strong></a> que está disponível nos repositórios do CRAN. Note também que foram utilizadas as funções <code>tic()</code> e <code>toc()</code> do pacote <a href="https://github.com/collectivemedia/tictoc"><strong>tictoc</strong></a> como uma alternativa para marcar o tempo de execução da função <code>bias_boot()</code>. Trata-se de uma alternativa à função <code>system.time()</code> do pacote <strong>base</strong>.</p>
 <div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="tópicos-em-estatística-computacional.html#cb332-1"></a><span class="kw">library</span>(progress)</span>
 <span id="cb332-2"><a href="tópicos-em-estatística-computacional.html#cb332-2"></a>bootstraping &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">B =</span> 100L, sample_true, f, kicks, <span class="dt">idpar =</span> 1L, ...){</span>
@@ -1675,6 +1686,7 @@ em que <span class="math inline">\(\widehat{B(T_n)}\)</span> é o viés do estim
 <p>O uso de uma barra informativa sobre o status da execução de uma função poderá adicionar custos computacionais.</p>
 </div>
 </div>
+
 </div>
 <div id="construindo-intervalos-aleatórios" class="section level3">
 <h3><span class="header-section-number">6.4.3</span> Construindo intervalos aleatórios</h3>
@@ -1717,11 +1729,12 @@ cuja transformação para <span class="math inline">\(\theta\)</span> é</p>
 <p>Como limite superior do intervalo, tome o valor na posição <span class="math inline">\((B + 1 - k)\)</span> do vetor ordenado. No <a href="https://www.r-project.org/"><strong>R</strong></a>, utilize a função <code>quantile()</code> para obter os quantis desejados do vetor <span class="math inline">\(t_1^*, \ldots, t_B^*\)</span>.</p>
 </div>
 </div>
+
 <!-- ### Teste de hipótes -->
 </div>
 </div>
 </div>
-<div id="exercício-4" class="section level2">
+<div id="exercício-3" class="section level2 unnumbered">
 <h2>Exercício</h2>
 <ol style="list-style-type: decimal">
 <li><p>Defina função de distribuição empírica <span class="math inline">\(F_n(\cdot)\)</span>. Implemente a função <code>empirical(data, t)</code> que recebe como argumento um conjunto de dados passado como argumento à <code>data</code> e retorna <span class="math inline">\(F_n(t)\)</span>.</p></li>

@@ -130,8 +130,7 @@ A google disponibilizou um [guia de estilo](https://google.github.io/styleguide/
     ```
     
     ```
-    ## [1] a b c
-    ## Levels: a b c
+    ## [1] "a" "b" "c"
     ```
     Qual a estrutura de dados de `df$y`? Como poderemos alterar o comportamento do data frame `df` para que `df$y` retorne um vetor atômico com elementos do tipo **character**?
 
