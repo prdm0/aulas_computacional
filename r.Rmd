@@ -50,7 +50,7 @@ Esse material não garantirá que você terá sucesso, caso seja curioso e tente
    
    4. **Espere** esfriar (30 minutos) e **despeje** o queijo ralado e os ovos;
    
-   5. **Misture** a massa com a mão **amassando** até ficar homogênea;
+   5. **Amasse** a massa com as mãos até ficar homogênea;
    
    6. **Faça** bolinhas do tamanho que preferir;
    
@@ -59,7 +59,16 @@ Esse material não garantirá que você terá sucesso, caso seja curioso e tente
 Assuma, por absurdo, que poderemos fazer nossos pães de queijo no R que que os verbos destacados nos passos acima são funções que implementamos em R. Dessa forma, forma, pelo que sabemos de R, poderemos fazer nossos pães de queijo de forma que segue:
 
 ```r
-sirva(fazer(misture(despeje(esperar(misture(ingredientes = c(povilho, sal), add = ferver(c(leite, óleo), add_agua = TRUE), colher_grande = TRUE), tempo = 30), homogenea = TRUE), modo = "amassando"), formato = "bolinha"), modo = "quentinho")
+sirva(fazer(misture(despeje(
+  esperar(
+    misture(
+      ingredientes = c(povilho, sal),
+      add = ferver(c(leite,  óleo), add_agua = TRUE),
+      colher_grande = TRUE
+    ),
+    tempo = 30
+  ), homogenea = TRUE
+), modo = "amassando"), formato = "bolinha"), modo = "quentinho")
 ```
 
 Perceba que o código acima poderá ser um pouco confuso, uma vez que envolve muitas composições de funções. Porém, nada impede que você esteja salvando os resultados intermediários em objetos, de modo a facilitar a leitura do código ao relacionar esses objetos intermediários. Fazer isso funciona bem e eu particularmente utilizo muito. Porém, você também poderá fazer uso de pipes (operador `%>%`) que poderá, nessas situações, deixar a leitura do código mais fácil, lógica e consequentimente mais compreensível., como veremos adiante.
