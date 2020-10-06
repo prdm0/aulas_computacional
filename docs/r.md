@@ -621,7 +621,7 @@ Utilizar os operadores pipes pode ser interessante quando estamos a fazer uma an
 
 ### Escopo léxico
 
-Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programção o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.
+Em computação, o escopo é o que delimita a relação de objetos e expressões, ou seja, em que partes do código um ou mais objetos são reconhecidos por uma dada expressão ou conjunto de expressões. Na maioria das linguagens de programação o escopo é léxico, também chamado de escopo estático, uma vez que podem ser delimitados estaticamente, antes da execução do programa por meio da sintaxe da linguagem, ou seja, por meio da estrutura léxica da linguagem.
 
 A linguagem R tem escopo léxico, assim como diversas outras linguagens de programação. Trata-se de tipo de escopo comum em linguagens como Pascal, C, C++, Ada, Go, Haskell, R, Julia, Python, Ruby, entre diversas outras. Considere o exemplo apresentado no código abaixo:
 
@@ -638,7 +638,7 @@ f <- function(){
 ## [1] "dentro"
 ```
 
-Para quem já programa um pouco em R, o retorno da função `f()` era esperado, uma vez que olhando para o código, entendemos facilmente qual a saída, uma vez que a sintaxe nos acusa (escopo léxico). Na verdade, o termo vem de ***lexing***, que refere-se ao processo de conversão de partes significativas do código intendíveis para o interpretador. 
+Para quem já programa um pouco em R, o retorno da função `f()` era esperado, uma vez que olhando para o código, entendemos facilmente qual a saída. Na verdade, o termo vem de ***lexing***, que refere-se ao processo de conversão de partes significativas do código intendíveis para o interpretador. 
 
 Existem linguagens que fazem uso de [**escopo dinâmico**](https://pt.wikipedia.org/wiki/Escopo_(computa%C3%A7%C3%A3o)#Escopo_din%C3%A2mico), como é o caso do Emacs Lisp, shell Bash, LaTeX (linguagem de marcação), entre outras. Como esse não é o caso da linguagem R que frequentemente nos deparamos em R, aqui não é o lugar para dissertar em relação à esse assunto. 
 

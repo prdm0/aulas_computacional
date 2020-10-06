@@ -1149,7 +1149,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.190     0.525     0.644
+##     3.660     0.907     0.845
 ```
 
 ```r
@@ -1157,7 +1157,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9997949
+## [1] 0.999961
 ```
 
 **Importante**:
@@ -1274,7 +1274,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##    1.77
+##   2.955
 ```
 
 ```r
@@ -1284,7 +1284,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.801
+##   0.964
 ```
 
 ```r
@@ -1294,7 +1294,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.209738
+## 3.065353
 ```
 
 **Paralelização usando PSOCK**:
