@@ -34,7 +34,7 @@ Para que possamos entender a utilidade dos operadores pipe, em especial do opera
 
 ```{block2, type='rmdnote'}
 <div class=text-justify>
-Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)
+Esse material não garantirá que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)
 </div>
 ```
 

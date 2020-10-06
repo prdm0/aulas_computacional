@@ -33,7 +33,7 @@ Para que possamos entender a utilidade dos operadores pipe, em especial do opera
 **Nota**:
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
-Esse material não garante que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)
+Esse material não garantirá que você terá sucesso, caso seja curioso e tente fazer a receita. Foque apenas no código. E se você for de Minas Gerais e saiba fazer pão de queijo, desconsidere qualquer inconsistência na receita. =)
 </div></div>\EndKnitrBlock{rmdnote}
 
 **Ingredientes**: 2 copos americanos de leite, 1 copo americano de água, 1/3 de um copo americano de óleo, 1 colher de sopa de sal, 500g de povilho doce, queijo ralado a gosto, 3 ovos.
