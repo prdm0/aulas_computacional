@@ -155,9 +155,9 @@ Os comandos `cd`, `cd ..`, `ls`, `cp`, `mkdir`, `rm` e `mv` são comandos úteis
 
 </br></br>
 
-**(OUTROS DETALHES FORAM ABORDADOS EM AULA NO DIA 17/06/2019)**
+**(OUTROS DETALHES FORAM ABORDADOS EM AULA)**
 
 ## GitHub
 
-**(CONTEÚDO ABORDADO EM SALA DE AULA NO DIA 17/06/2019)**
+**(CONTEÚDO ABORDADO EM AULA)**
 
