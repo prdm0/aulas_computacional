@@ -280,7 +280,7 @@ Note também que, em cada iteração do algoritmo, temos que $\pmb \theta_t$ e $
 Dado o conhecimento dessas quantidade, perceba que precisamos obter o "tamanho do passo" $\lambda_t$. Assim, iremos recair em um problema de otimização secundário, denominado de **procura em linha**. Sendo assim, busca-se $\lambda_t$ de tal forma que
 
 $$\frac{\partial \pmb\,\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t)}{\partial \lambda_t} = \delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{'}\pmb \Delta_t = 0,$$
-em que  $\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{'}$ é o vetor gradiente tansposto ($1 \times p$) da função objetivo avaliado no ponto $\pmb \theta_t + \lambda_t\pmb\Delta_t.$    
+em que  $\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{'}$ é o vetor gradiente transposto ($1 \times p$) da função objetivo avaliado no ponto $\pmb \theta_t + \lambda_t\pmb\Delta_t.$    
 
 <div class="figure" style="text-align: center">
 <img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-8-1.png" alt="Poblema de **procura em linha**, em que a função objetivo é função penas do tamanho do passo." width="672" />
@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     2.992     0.421     0.881
+##     2.960     0.480     0.888
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.00001
+## [1] 1.000411
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.298
+##   2.272
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##    0.99
+##   0.989
 ```
 
 ```r
@@ -1292,8 +1292,8 @@ time_serial[3]/time_parallel[3]
 ```
 
 ```
-##  elapsed 
-## 2.321212
+## elapsed 
+## 2.29727
 ```
 
 **Paralelização usando PSOCK**:

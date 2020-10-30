@@ -471,7 +471,7 @@ P(X = 6) &amp;=&amp; 0.01. \nonumber\\
 <p>Note também que, em cada iteração do algoritmo, temos que <span class="math inline">\(\pmb \theta_t\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> são conhecidos, uma vez que <span class="math inline">\(\pmb \theta_t\)</span> é o ponto <span class="math inline">\(\pmb \theta\)</span> atualizado na iteração <span class="math inline">\(t-1\)</span> e <span class="math inline">\(\pmb \Delta_t\)</span> é o vetor gradiente da função objetivo avaliado em <span class="math inline">\(\pmb \theta_t\)</span>.</p>
 <p>Dado o conhecimento dessas quantidade, perceba que precisamos obter o “tamanho do passo” <span class="math inline">\(\lambda_t\)</span>. Assim, iremos recair em um problema de otimização secundário, denominado de <strong>procura em linha</strong>. Sendo assim, busca-se <span class="math inline">\(\lambda_t\)</span> de tal forma que</p>
 <p><span class="math display">\[\frac{\partial \pmb\,\psi(\pmb \theta_t + \lambda_t\pmb\Delta_t)}{\partial \lambda_t} = \delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\pmb \Delta_t = 0,\]</span>
-em que <span class="math inline">\(\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\)</span> é o vetor gradiente tansposto (<span class="math inline">\(1 \times p\)</span>) da função objetivo avaliado no ponto <span class="math inline">\(\pmb \theta_t + \lambda_t\pmb\Delta_t.\)</span></p>
+em que <span class="math inline">\(\delta(\pmb \theta_t + \lambda_t\pmb\Delta_t)^{&#39;}\)</span> é o vetor gradiente transposto (<span class="math inline">\(1 \times p\)</span>) da função objetivo avaliado no ponto <span class="math inline">\(\pmb \theta_t + \lambda_t\pmb\Delta_t.\)</span></p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
 <img src="topicos_estatistica_computacional_files/figure-html/unnamed-chunk-8-1.png" alt="Poblema de **procura em linha**, em que a função objetivo é função penas do tamanho do passo." width="672" />
 <p class="caption">
@@ -1140,9 +1140,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="tópicos-em-estatística-computacional.html#cb27-18" aria-hidden="true"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="tópicos-em-estatística-computacional.html#cb27-19" aria-hidden="true"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     2.992     0.421     0.881</code></pre>
+##     2.960     0.480     0.888</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tópicos-em-estatística-computacional.html#cb29-1" aria-hidden="true"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.00001</code></pre>
+<pre><code>## [1] 1.000411</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1233,15 +1233,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tópicos-em-estatística-computacional.html#cb35-1" aria-hidden="true"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="tópicos-em-estatística-computacional.html#cb35-2" aria-hidden="true"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.298</code></pre>
+##   2.272</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tópicos-em-estatística-computacional.html#cb37-1" aria-hidden="true"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="tópicos-em-estatística-computacional.html#cb37-2" aria-hidden="true"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##    0.99</code></pre>
+##   0.989</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="tópicos-em-estatística-computacional.html#cb39-1" aria-hidden="true"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="tópicos-em-estatística-computacional.html#cb39-2" aria-hidden="true"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
-<pre><code>##  elapsed 
-## 2.321212</code></pre>
+<pre><code>## elapsed 
+## 2.29727</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tópicos-em-estatística-computacional.html#cb41-1" aria-hidden="true"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="tópicos-em-estatística-computacional.html#cb41-2" aria-hidden="true"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
