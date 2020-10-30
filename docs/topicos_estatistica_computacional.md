@@ -68,7 +68,6 @@ Note que fazer $x = j$ quando $nu \leq j - 1$ equivale a fazer $x = \mathrm{Int}
 ```r
 rbernoulli <- function(n = 1L, p){
   u <- runif(n = n, min = 0, max = 1)
-  cond <- (u < 1 - p)
   comp <- function(x){
     ifelse(x < 1 - p, 0L, 1L)
   }
@@ -246,7 +245,7 @@ P(X = 6) &=& 0.01. \nonumber\\
 
 ## Otimização Não-Linear
 
-Na estatísticas, em muitas simtuações práticas, temos o interesse de maximizar ou minimizar uma função objetivo. Por exemplo, na inferência esatística, é comum o nosso interesse na obtenção dos estimadores de máxima verossimilhança de parâmetros que indexam modelos ou distribuições de probabilidade. Um outro problema comum na estatística, mais precisamente na área de regressão é o de minimizar a soma dos quadrados de um conjunto de erros, em um modelo de regressão não-linear, por meio de mínimos quadrados não-lineares.
+Na estatísticas, em muitas situações práticas, temos o interesse de maximizar ou minimizar uma função objetivo. Por exemplo, na inferência esatística, é comum o nosso interesse na obtenção dos estimadores de máxima verossimilhança de parâmetros que indexam modelos ou distribuições de probabilidade. Um outro problema comum na estatística, mais precisamente na área de regressão é o de minimizar a soma dos quadrados de um conjunto de erros, em um modelo de regressão não-linear por meio de mínimos quadrados não-lineares.
 
 **Nota**:
 
@@ -1149,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.822     0.947     0.931
+##     3.229     0.509     0.910
 ```
 
 ```r
@@ -1157,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000379
+## [1] 0.9994468
 ```
 
 **Importante**:
@@ -1274,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.836
+##   2.345
 ```
 
 ```r
@@ -1284,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.976
+##   1.036
 ```
 
 ```r
@@ -1294,7 +1293,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.905738
+## 2.263514
 ```
 
 **Paralelização usando PSOCK**:

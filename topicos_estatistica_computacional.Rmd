@@ -62,7 +62,6 @@ Note que fazer $x = j$ quando $nu \leq j - 1$ equivale a fazer $x = \mathrm{Int}
 ```{r}
 rbernoulli <- function(n = 1L, p){
   u <- runif(n = n, min = 0, max = 1)
-  cond <- (u < 1 - p)
   comp <- function(x){
     ifelse(x < 1 - p, 0L, 1L)
   }
@@ -242,7 +241,7 @@ P(X = 6) &=& 0.01. \nonumber\\
 
 ## Otimização Não-Linear
 
-Na estatísticas, em muitas simtuações práticas, temos o interesse de maximizar ou minimizar uma função objetivo. Por exemplo, na inferência esatística, é comum o nosso interesse na obtenção dos estimadores de máxima verossimilhança de parâmetros que indexam modelos ou distribuições de probabilidade. Um outro problema comum na estatística, mais precisamente na área de regressão é o de minimizar a soma dos quadrados de um conjunto de erros, em um modelo de regressão não-linear, por meio de mínimos quadrados não-lineares.
+Na estatísticas, em muitas situações práticas, temos o interesse de maximizar ou minimizar uma função objetivo. Por exemplo, na inferência esatística, é comum o nosso interesse na obtenção dos estimadores de máxima verossimilhança de parâmetros que indexam modelos ou distribuições de probabilidade. Um outro problema comum na estatística, mais precisamente na área de regressão é o de minimizar a soma dos quadrados de um conjunto de erros, em um modelo de regressão não-linear por meio de mínimos quadrados não-lineares.
 
 **Nota**:
 
