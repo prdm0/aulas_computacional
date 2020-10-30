@@ -275,7 +275,7 @@ $$\pmb\theta_{t+1} = \pmb\theta_t + \lambda_t \pmb \Delta_t.$$
 O vetor gradiente fornece a direção e o sentido de deslocamento, apartir de um ponto especificado, de subida que fornece um incremento em uma grandeza. No nosso caso, $\pmb\Delta_t$ ($p \times 1$) irá indicar o sentido de subida, em que poderemos atualizar o valor de $\pmb \theta$ para um ponto que maximiza $\psi(\cdot)$. Dessa forma, $-\pmb\Delta_t$ fornecerá a direção e o sentido de atualização de $\pmb\theta$ que nos levam à pontos que minimizam $\psi(\cdot)$.
 </div></div>\EndKnitrBlock{rmdimportant}
 
-Note também que, em cada iteração do algoritmo, temos $\pmb \theta_t$ e $\pmb \Delta_t$ são conhecidos, uma vez que $\pmb \theta_t$ é o ponto $\pmb \theta$ atualizado na iteração $t-1$ e $\pmb \Delta_t$ é o vetor gradiente da função objetivo avaliado em $\pmb \theta_t$. 
+Note também que, em cada iteração do algoritmo, temos que $\pmb \theta_t$ e $\pmb \Delta_t$ são conhecidos, uma vez que $\pmb \theta_t$ é o ponto $\pmb \theta$ atualizado na iteração $t-1$ e $\pmb \Delta_t$ é o vetor gradiente da função objetivo avaliado em $\pmb \theta_t$. 
 
 Dado o conhecimento dessas quantidade, perceba que precisamos obter o "tamanho do passo" $\lambda_t$. Assim, iremos recair em um problema de otimização secundário, denominado de **procura em linha**. Sendo assim, busca-se $\lambda_t$ de tal forma que
 
@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.254     0.506     0.923
+##     2.992     0.421     0.881
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.00063
+## [1] 1.00001
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.347
+##   2.298
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   1.013
+##    0.99
 ```
 
 ```r
@@ -1293,7 +1293,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.316881
+## 2.321212
 ```
 
 **Paralelização usando PSOCK**:
