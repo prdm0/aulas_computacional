@@ -1076,7 +1076,7 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="rmdnote">
 <div class="text-justify">
 <p>Existem diversas métricas para entender o comportamento de um aplicação paralela em face ao número de núcleos utilizados, em que todas elas tem suas limitações. A principal limitação da Lei de Amdahl é o fato dela ingnorar ao gerenciar-se diversos processos.</p>
-<p>O que é mais importante para os nossos objetivos é a conciência da existência de uma barreira assintótica para o <strong>speedup</strong>. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.</p>
+<p>O que é mais importante para os nossos objetivos é a consciência da existência de uma barreira assintótica para o <strong>speedup</strong>. Na prática, essa barreira torna-se-á bastante frequênte devido aos custos computacionais relacionados ao transporte de dados entre os processos que será muito provavelmente diminuído com o passar dos anos.</p>
 </div>
 </div>
 </div>
@@ -1140,9 +1140,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="tópicos-em-estatística-computacional.html#cb27-18" aria-hidden="true"></a>                                                 <span class="dt">lower =</span> <span class="dv">0</span>, <span class="dt">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="tópicos-em-estatística-computacional.html#cb27-19" aria-hidden="true"></a>                                                 <span class="dt">alpha =</span> <span class="fl">1.5</span>, <span class="dt">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     2.841     0.490     0.881</code></pre>
+##     2.745     0.449     0.562</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tópicos-em-estatística-computacional.html#cb29-1" aria-hidden="true"></a>result_parallel<span class="op">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000623</code></pre>
+<pre><code>## [1] 0.9997045</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1233,15 +1233,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tópicos-em-estatística-computacional.html#cb35-1" aria-hidden="true"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="tópicos-em-estatística-computacional.html#cb35-2" aria-hidden="true"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.157</code></pre>
+##   2.073</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tópicos-em-estatística-computacional.html#cb37-1" aria-hidden="true"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="tópicos-em-estatística-computacional.html#cb37-2" aria-hidden="true"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.765</code></pre>
+##   0.615</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="tópicos-em-estatística-computacional.html#cb39-1" aria-hidden="true"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="tópicos-em-estatística-computacional.html#cb39-2" aria-hidden="true"></a>time_serial[<span class="dv">3</span>]<span class="op">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.819608</code></pre>
+## 3.370732</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tópicos-em-estatística-computacional.html#cb41-1" aria-hidden="true"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="tópicos-em-estatística-computacional.html#cb41-2" aria-hidden="true"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
