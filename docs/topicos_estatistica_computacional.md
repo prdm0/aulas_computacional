@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     7.495     1.920     1.783
+##     3.168     0.472     0.713
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.00036
+## [1] 0.9995861
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   6.033
+##   2.696
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   1.736
+##   0.863
 ```
 
 ```r
@@ -1292,8 +1292,8 @@ time_serial[3]/time_parallel[3]
 ```
 
 ```
-## elapsed 
-## 3.47523
+##  elapsed 
+## 3.123986
 ```
 
 **Paralelização usando PSOCK**:
@@ -1617,7 +1617,7 @@ hist(result, probability = TRUE, main = expression(paste("Aproximação para a d
 **Importante**:
 
 \BeginKnitrBlock{rmdimportant}<div class="rmdimportant"><div class=text-justify>
-O método de bootstrap não deverá ser utilizado para estimar $\theta$. Por exemplo, $1/B \sum_{i = 1}^B t_i^*$ pode não ser uma boa estimativa para $\theta$. O bootstrap fornece boas aproximações para a forma e amplitude da distribuição de $T_n$ mas não necessariamente para a sua locação. Isso se deve ao fato que temos duas contes de erro, uma vez a função de distribuição empírica $F_n^*$ obtida por $\pmb x^*$ aproxima a distribuição teórica de $X^*$ que é $F_n$ e esta por sua vez aproxima $F$ por meio de $\pmb x$.
+O método de bootstrap não deverá ser utilizado para estimar $\theta$. Por exemplo, $1/B \sum_{i = 1}^B t_i^*$ pode não ser uma boa estimativa para $\theta$. O bootstrap fornece boas aproximações para a forma e amplitude da distribuição de $T_n$ mas não necessariamente para a sua locação. Isso se deve ao fato que temos duas fontes de erro, uma vez a função de distribuição empírica $F_n^*$ obtida por $\pmb x^*$ aproxima a distribuição teórica de $X^*$ que é $F_n$ e esta por sua vez aproxima $F$ por meio de $\pmb x$.
 </div></div>\EndKnitrBlock{rmdimportant}
 
 ### Estimando erro-padrão
