@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.168     0.472     0.713
+##     3.841     0.541     0.744
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9995861
+## [1] 1.000342
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   2.696
+##    2.68
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.863
+##   0.949
 ```
 
 ```r
@@ -1293,7 +1293,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 3.123986
+## 2.824025
 ```
 
 **Paralelização usando PSOCK**:
@@ -1622,7 +1622,7 @@ O método de bootstrap não deverá ser utilizado para estimar $\theta$. Por exe
 
 ### Estimando erro-padrão
 
-A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser escrito como:
+A estimativa bootstrap para o erro-padrão de $T_n$ poderá ser escrita como:
 
 $$\widehat{se}(T_n)_{\mathrm{boot}} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},$$
 em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o estimador $T_n$ com base na $i$-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro  B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap $B$ muito grande. Segundos os autores, $B = 50$ é um número suficientemente grande na maioria dos casos e $B > 200$ é raramente necessário.
@@ -1633,7 +1633,7 @@ em que $\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}$, sendo $T_n^{*,i}$ o
 Para obtenção de uma boa estimativa do erro-padrão de $T_n$, considere $B \geq 250$.
 </div></div>\EndKnitrBlock{rmdnote}
 
-**Exemplo**: O código que segue calcula uma estimativa via bootstrap para o estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{\mathrm{boot}}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{\mathrm{boot}}$.
+**Exemplo**: O código que segue calcula uma estimativa via bootstrap para o erro-padrão do estimador $\overline{X} = n^{-1}\sum_1^n X_i$ de $\mu$, com $X_i, \ldots, X_n$ sendo amostra aleatória tal que $X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)$. Note que a função `bootstraping()` implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (`N = 1e3L`) sobre uma amostra original (`sample_true = amostra`) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (`stat = mean`). Assim, fazer `sd(bootstraping())` é calcular uma estimativa do erro-padrão de $\overline{X}$ utilizando o estimador bootstrap $\widehat{se}(T_n)_{\mathrm{boot}}$. Perceba que $\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}$ e que a estimativa bootstrap do erro-padrão de $T_n = \overline{X}$ é bem aproximada por $\widehat{se}(T_n)_{\mathrm{boot}}$.
 
 
 

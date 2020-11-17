@@ -1140,9 +1140,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="tópicos-em-estatística-computacional.html#cb27-18" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="tópicos-em-estatística-computacional.html#cb27-19" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">alpha =</span> <span class="fl">1.5</span>, <span class="at">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     3.168     0.472     0.713</code></pre>
+##     3.841     0.541     0.744</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tópicos-em-estatística-computacional.html#cb29-1" aria-hidden="true" tabindex="-1"></a>result_parallel<span class="sc">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 0.9995861</code></pre>
+<pre><code>## [1] 1.000342</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1233,15 +1233,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tópicos-em-estatística-computacional.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="tópicos-em-estatística-computacional.html#cb35-2" aria-hidden="true" tabindex="-1"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   2.696</code></pre>
+##    2.68</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tópicos-em-estatística-computacional.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="tópicos-em-estatística-computacional.html#cb37-2" aria-hidden="true" tabindex="-1"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.863</code></pre>
+##   0.949</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="tópicos-em-estatística-computacional.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="tópicos-em-estatística-computacional.html#cb39-2" aria-hidden="true" tabindex="-1"></a>time_serial[<span class="dv">3</span>]<span class="sc">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 3.123986</code></pre>
+## 2.824025</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tópicos-em-estatística-computacional.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="tópicos-em-estatística-computacional.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1501,7 +1501,7 @@ Figura 6.15: Histograma construído com base nas estimativas obtidas nas amostra
 </div>
 <div id="estimando-erro-padrão" class="section level3" number="6.5.1">
 <h3><span class="header-section-number">6.5.1</span> Estimando erro-padrão</h3>
-<p>A estimativa bootstrap para o erro-padrão de <span class="math inline">\(T_n\)</span> poderá ser escrito como:</p>
+<p>A estimativa bootstrap para o erro-padrão de <span class="math inline">\(T_n\)</span> poderá ser escrita como:</p>
 <p><span class="math display">\[\widehat{se}(T_n)_{\mathrm{boot}} = \sqrt{\frac{1}{B-1}\sum_{i=1}^B(T_n^{*,i} - \overline{T_n^*})^2},\]</span>
 em que <span class="math inline">\(\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^{*,i}\)</span>, sendo <span class="math inline">\(T_n^{*,i}\)</span> o estimador <span class="math inline">\(T_n\)</span> com base na <span class="math inline">\(i\)</span>-ésima amostra bootstrap. Segundo Efron e Tibshirani, no livro B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 52, não é necessário um número de amostras bootstrap <span class="math inline">\(B\)</span> muito grande. Segundos os autores, <span class="math inline">\(B = 50\)</span> é um número suficientemente grande na maioria dos casos e <span class="math inline">\(B &gt; 200\)</span> é raramente necessário.</p>
 <p><strong>Nota</strong>:</p>
@@ -1511,7 +1511,7 @@ em que <span class="math inline">\(\overline{T_n^*} = \frac{1}{B}\sum_{i=1}^B T^
 <p>Para obtenção de uma boa estimativa do erro-padrão de <span class="math inline">\(T_n\)</span>, considere <span class="math inline">\(B \geq 250\)</span>.</p>
 </div>
 </div>
-<p><strong>Exemplo</strong>: O código que segue calcula uma estimativa via bootstrap para o estimador <span class="math inline">\(\overline{X} = n^{-1}\sum_1^n X_i\)</span> de <span class="math inline">\(\mu\)</span>, com <span class="math inline">\(X_i, \ldots, X_n\)</span> sendo amostra aleatória tal que <span class="math inline">\(X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)\)</span>. Note que a função <code>bootstraping()</code> implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (<code>N = 1e3L</code>) sobre uma amostra original (<code>sample_true = amostra</code>) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (<code>stat = mean</code>). Assim, fazer <code>sd(bootstraping())</code> é calcular uma estimativa do erro-padrão de <span class="math inline">\(\overline{X}\)</span> utilizando o estimador bootstrap <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>. Perceba que <span class="math inline">\(\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}\)</span> e que a estimativa bootstrap do erro-padrão de <span class="math inline">\(T_n = \overline{X}\)</span> é bem aproximada por <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>.</p>
+<p><strong>Exemplo</strong>: O código que segue calcula uma estimativa via bootstrap para o erro-padrão do estimador <span class="math inline">\(\overline{X} = n^{-1}\sum_1^n X_i\)</span> de <span class="math inline">\(\mu\)</span>, com <span class="math inline">\(X_i, \ldots, X_n\)</span> sendo amostra aleatória tal que <span class="math inline">\(X_i \sim \mathcal{N}(\mu = 0, \sigma^2 = 1)\)</span>. Note que a função <code>bootstraping()</code> implementada em exemplo anterior realiza a reamostragem por bootstrap não-paramétrico, mais precisamente mil amostras bootstrap (<code>N = 1e3L</code>) sobre uma amostra original (<code>sample_true = amostra</code>) e obtem sobre cada uma das amostras bootstrap uma estimativa da média amostral (<code>stat = mean</code>). Assim, fazer <code>sd(bootstraping())</code> é calcular uma estimativa do erro-padrão de <span class="math inline">\(\overline{X}\)</span> utilizando o estimador bootstrap <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>. Perceba que <span class="math inline">\(\sqrt{\mathrm{Var}(\overline{X})} = \sqrt{1/250}\)</span> e que a estimativa bootstrap do erro-padrão de <span class="math inline">\(T_n = \overline{X}\)</span> é bem aproximada por <span class="math inline">\(\widehat{se}(T_n)_{\mathrm{boot}}\)</span>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="tópicos-em-estatística-computacional.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixando uma semente.</span></span>
 <span id="cb44-2"><a href="tópicos-em-estatística-computacional.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(1L)</span>
 <span id="cb44-3"><a href="tópicos-em-estatística-computacional.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># O objeto &quot;amostra&quot; é a amostral original.</span></span>
