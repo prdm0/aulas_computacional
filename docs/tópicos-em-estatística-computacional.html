@@ -1140,9 +1140,9 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <span id="cb27-18"><a href="tópicos-em-estatística-computacional.html#cb27-18" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">10</span>,</span>
 <span id="cb27-19"><a href="tópicos-em-estatística-computacional.html#cb27-19" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">alpha =</span> <span class="fl">1.5</span>, <span class="at">beta =</span> <span class="fl">1.5</span>))</span></code></pre></div>
 <pre><code>##   usuário   sistema decorrido 
-##     3.841     0.541     0.744</code></pre>
+##     3.802     0.713     0.799</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tópicos-em-estatística-computacional.html#cb29-1" aria-hidden="true" tabindex="-1"></a>result_parallel<span class="sc">$</span>i_hat</span></code></pre></div>
-<pre><code>## [1] 1.000342</code></pre>
+<pre><code>## [1] 0.9997058</code></pre>
 <p><strong>Importante</strong>:</p>
 
 <div class="rmdimportant">
@@ -1233,15 +1233,15 @@ Figura 6.12: Speedup estimado utilizando a Lei de Amdhal levando em consideraç�
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tópicos-em-estatística-computacional.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tempo em serial:</span></span>
 <span id="cb35-2"><a href="tópicos-em-estatística-computacional.html#cb35-2" aria-hidden="true" tabindex="-1"></a>time_serial[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##    2.68</code></pre>
+##   1.809</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tópicos-em-estatística-computacional.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tempo em paralelo:</span></span>
 <span id="cb37-2"><a href="tópicos-em-estatística-computacional.html#cb37-2" aria-hidden="true" tabindex="-1"></a>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## elapsed 
-##   0.949</code></pre>
+##   0.582</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="tópicos-em-estatística-computacional.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Speedup:</span></span>
 <span id="cb39-2"><a href="tópicos-em-estatística-computacional.html#cb39-2" aria-hidden="true" tabindex="-1"></a>time_serial[<span class="dv">3</span>]<span class="sc">/</span>time_parallel[<span class="dv">3</span>]</span></code></pre></div>
 <pre><code>##  elapsed 
-## 2.824025</code></pre>
+## 3.108247</code></pre>
 <p><strong>Paralelização usando PSOCK</strong>:</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tópicos-em-estatística-computacional.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No Windows --------------------------------------------------------------</span></span>
 <span id="cb41-2"><a href="tópicos-em-estatística-computacional.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Atribuindo a quantidade de núcleos disponíveis.</span></span>
@@ -1715,7 +1715,7 @@ cuja transformação para <span class="math inline">\(\theta\)</span> é</p>
 
 <div class="rmdnote">
 <div class="text-justify">
-<p>Segundo B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 160, se <span class="math inline">\((B+1)\alpha/2\)</span> não é inteiro, devemos considerar como limite inferior, o valor na posição <span class="math inline">\(\lfloor(B+1)\alpha/2\rfloor\)</span> do vetor ordenado <span class="math inline">\(t_1^*, \ldots, t_B^*\)</span>, em que <span class="math inline">\(\lfloor\,\, x \,\,\rfloor\)</span> é a a parte inteira de <span class="math inline">\(x\)</span>, isto é,</p>
+<p>Segundo B. Efron and R. J. Tibshirani. <strong>An Introduction to the Bootstrap</strong>. Chapman &amp; Hall/CRC, Boca Raton, FL, 1993, p. 160, se <span class="math inline">\((B+1)\alpha/2\)</span> não é inteiro, devemos considerar como limite inferior, o valor na posição <span class="math inline">\(\lfloor(B+1)\alpha/2\rfloor\)</span> do vetor ordenado <span class="math inline">\(t_1^*, \ldots, t_B^*\)</span>, em que <span class="math inline">\(\lfloor\,\, x \,\,\rfloor\)</span> é a parte inteira de <span class="math inline">\(x\)</span>, isto é,</p>
 <p><span class="math display">\[\lfloor\,\, x \,\,\rfloor = \max\{n \in \mathbb{Z}\, :\, n \leq x\}.\]</span></p>
 <p>Como limite superior do intervalo, tome o valor na posição <span class="math inline">\((B + 1 - k)\)</span> do vetor ordenado. No <a href="https://www.r-project.org/"><strong>R</strong></a>, utilize a função <code>quantile()</code> para obter os quantis desejados do vetor <span class="math inline">\(t_1^*, \ldots, t_B^*\)</span>.</p>
 </div>

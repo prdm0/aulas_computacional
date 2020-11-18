@@ -1846,7 +1846,7 @@ Observe que não precisamos conhecer a transformação $h$. O intervalo de níve
 
 ```{block2, type='rmdnote'}
 <div class=text-justify>
-Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro, devemos considerar como limite inferior, o valor na posição $\lfloor(B+1)\alpha/2\rfloor$ do vetor ordenado $t_1^*, \ldots, t_B^*$, em que $\lfloor\,\, x \,\,\rfloor$ é a a parte inteira de $x$, isto é,
+Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro, devemos considerar como limite inferior, o valor na posição $\lfloor(B+1)\alpha/2\rfloor$ do vetor ordenado $t_1^*, \ldots, t_B^*$, em que $\lfloor\,\, x \,\,\rfloor$ é a parte inteira de $x$, isto é,
 
 $$\lfloor\,\, x \,\,\rfloor = \max\{n \in \mathbb{Z}\, :\, n \leq x\}.$$
 

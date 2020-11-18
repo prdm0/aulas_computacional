@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.841     0.541     0.744
+##     3.802     0.713     0.799
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 1.000342
+## [1] 0.9997058
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##    2.68
+##   1.809
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.949
+##   0.582
 ```
 
 ```r
@@ -1293,7 +1293,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 2.824025
+## 3.108247
 ```
 
 **Paralelização usando PSOCK**:
@@ -1889,7 +1889,7 @@ Observe que não precisamos conhecer a transformação $h$. O intervalo de níve
 **Nota**:
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote"><div class=text-justify>
-Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro, devemos considerar como limite inferior, o valor na posição $\lfloor(B+1)\alpha/2\rfloor$ do vetor ordenado $t_1^*, \ldots, t_B^*$, em que $\lfloor\,\, x \,\,\rfloor$ é a a parte inteira de $x$, isto é,
+Segundo B. Efron and R. J. Tibshirani. **An Introduction to the Bootstrap**. Chapman & Hall/CRC, Boca Raton, FL, 1993, p. 160, se $(B+1)\alpha/2$ não é inteiro, devemos considerar como limite inferior, o valor na posição $\lfloor(B+1)\alpha/2\rfloor$ do vetor ordenado $t_1^*, \ldots, t_B^*$, em que $\lfloor\,\, x \,\,\rfloor$ é a parte inteira de $x$, isto é,
 
 $$\lfloor\,\, x \,\,\rfloor = \max\{n \in \mathbb{Z}\, :\, n \leq x\}.$$
 
