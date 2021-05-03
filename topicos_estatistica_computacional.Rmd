@@ -660,7 +660,7 @@ Para implementar um método de MC é necessário ter uma fonte de geração de n
 </div>   
 ```
 
-De acordo com Hammersley, no livro [**Monte Carlo Methods**](https://www.springer.com/gp/book/9789400958210), 1964, o nome "Monte Carlo" surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá. O projeto tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. O projeto foi uma das maiores colaborações científicas já realizadas que deram origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear. 
+De acordo com Hammersley, no livro [**Monte Carlo Methods**](https://www.springer.com/gp/book/9789400958210), 1964, o nome "Monte Carlo" surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá e tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. A pesquisa foi uma das maiores colaborações científicas já realizadas e deu origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear. 
 
 ```{r echo = FALSE, out.width = '75%', fig.align = "center", fig.cap = "Primeiro teste nuclear (nome de código **Trinity**), uma das três bombas atômicas produzidas pelo Projeto Manhattan. Teste realizado em 16 de julho de 1945. Com apenas 0.025 segundos após a detonação, o impacto já tomava conta de uma região com 100 metros de diâmetro."}
 knitr::include_graphics("images/trinity.png")

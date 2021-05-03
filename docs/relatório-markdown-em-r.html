@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL</title>
   <meta name="description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Relatório Markdown em R | ESTATÍSTICA COMPUTACIONAL" />
   <meta property="og:type" content="book" />
@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Disciplina de Estatística Computacional - Departamento de Estatística" />
   
 
-<meta name="author" content="Docente: Prof. Dr. Pedro Rafael Diniz Marinho   E-mail: pedro.rafael.marinho@gmail.com / pedro@de.ufpb.br   Website: https://prdm0.rbind.io" />
+<meta name="author" content="Docente: Prof. Dr. Pedro Rafael Diniz Marinho   E-mail: pedro.rafael.marinho@gmail.com   Website: https://prdm0.rbind.io" />
 
 
 
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="versionamento-de-código.html"/>
 <link rel="next" href="r-miscelânea-e-tópicos-avançados.html"/>
-<script src="libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,9 +50,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/d3-3.3.8/d3.min.js"></script>
 <script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
 <link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
@@ -66,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -125,6 +126,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -254,8 +256,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">4</span> Relatório Markdown em R</h1>
 <p>Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-se à construção de documentos (relatórios, manuais, etc). A construção desses documentos é algo que demanda tempo, uma vez que, por exemplo, temos que escrever a respeito das metodologias estatísticas consideradas e justificar o seu uso, organizar as informações obtidas de um modelo estatístico e interpretá-las, tabular os resultados de algumas simulação, escolher o formato de saída do documento e escrever de forma clara e robusta os resultados obtidos (muitos que irão ler seu documento não são estatísticos). Um pouco dessa rotina encontra-se no diagrama a baixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxo"></span>
-<div id="htmlwidget-e9bbb8202f9c6b8fe5c2" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e9bbb8202f9c6b8fe5c2">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0cc9d9749b00dd4cc02c" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0cc9d9749b00dd4cc02c">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.
 </p>
@@ -272,8 +274,8 @@ Figura 4.1: Fluxo de trabalho - organização dos dados, escolhas das metodologi
 <p>Como mostra o diagrama <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a>, a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> está no meio de importantes etapas de um estudo. O estatístico poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para organizar os dados, implementar as metodologias estatísticas adotadas no estudo e se quiser, poderá utilizar o <a href="https://www.r-project.org"><strong>R</strong></a> para construir o relatório.</p>
 <p>Note que no diagrama <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a>, descrevemos a linguagem <a href="https://www.r-project.org"><strong>R</strong></a> como uma ferramenta que está presente entre quase todos os passos na construção dos resultados de um estudo. Integrando o <a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a> com a linguagem <a href="https://www.r-project.org"><strong>R</strong></a>, você fará com que o <a href="https://www.r-project.org"><strong>R</strong></a> esteja presente entre todos os processos do estudo, o que certamente trará grande flexibilidade (possibilidades) às suas análises. Assim, seu fluxo de trabalho passará de <a href="relatório-markdown-em-r.html#fig:diagramafluxo">4.1</a> para <a href="relatório-markdown-em-r.html#fig:diagramafluxor">4.2</a> otimizando assim, as suas análises.</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramafluxor"></span>
-<div id="htmlwidget-ad94dfa0bee6c1de1638" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad94dfa0bee6c1de1638">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a4517357b2ea808c020b" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a4517357b2ea808c020b">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.2: Linguagem <a href="https://www.r-project.org"><strong>R</strong></a> entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de <a href="https://www.r-project.org"><strong>R</strong></a> para a construção de um relatório.
 </p>
@@ -401,9 +403,9 @@ Figura 4.3: Logo da linguagem de marcação <a href="https://daringfireball.net/
 <span id="cb30-37"><a href="relatório-markdown-em-r.html#cb30-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-38"><a href="relatório-markdown-em-r.html#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;hr</span> <span class="kw">/&gt;</span></span>
 <span id="cb30-39"><a href="relatório-markdown-em-r.html#cb30-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-40"><a href="relatório-markdown-em-r.html#cb30-40" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://prdm0.github.io/aulas_computacional&quot;</span><span class="kw">&gt;&lt;strong&gt;</span>Estatística Computacional<span class="kw">&lt;/strong&gt;&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></span>
+<span id="cb30-40"><a href="relatório-markdown-em-r.html#cb30-40" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>Um bom curso de estatística computacional utilizando R poderá ser encontrado em <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;https://prdm0.github.io/aulas_computacional&quot;</span><span class="kw">&gt;&lt;strong&gt;</span>Estatística Computacional<span class="kw">&lt;/strong&gt;&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></span>
 <span id="cb30-41"><a href="relatório-markdown-em-r.html#cb30-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-42"><a href="relatório-markdown-em-r.html#cb30-42" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Logo da linguagem de programação R.&quot;</span><span class="ot"> title=</span><span class="st">&quot;icon&quot;</span> <span class="kw">/&gt;&lt;/p&gt;</span></span>
+<span id="cb30-42"><a href="relatório-markdown-em-r.html#cb30-42" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;&lt;img</span> <span class="er">src</span><span class="ot">=</span><span class="st">&quot;https://www.r-project.org/logo/Rlogo.png&quot;</span> <span class="er">alt</span><span class="ot">=</span><span class="st">&quot;Logo da linguagem de programação R.&quot;</span> <span class="er">title</span><span class="ot">=</span><span class="st">&quot;icon&quot;</span> <span class="kw">/&gt;&lt;/p&gt;</span></span>
 <span id="cb30-43"><a href="relatório-markdown-em-r.html#cb30-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-44"><a href="relatório-markdown-em-r.html#cb30-44" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;p&gt;</span>Lembre-se:<span class="kw">&lt;/p&gt;</span></span>
 <span id="cb30-45"><a href="relatório-markdown-em-r.html#cb30-45" aria-hidden="true" tabindex="-1"></a></span>
@@ -912,8 +914,8 @@ Figura 4.4: Logo do pacote <a href="https://cran.r-project.org/web/packages/rmar
 </div>
 <p>O funcionamento geral e interações entre o pacote <strong>rmarkdown</strong> com o pacote <strong>knitr</strong> e o <strong>Pandoc</strong> poderão ser resumidos com diagrama abaixo:</p>
 <div class="figure" style="text-align: center"><span id="fig:diagramaRmd"></span>
-<div id="htmlwidget-65f186816c9d39b4e4a7" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-65f186816c9d39b4e4a7">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-0591c6012a425fa08c52" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0591c6012a425fa08c52">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figura 4.5: Funcionamento do pacote <strong>rmarkdown</strong> que permite trabalharmos com arquivos .Rmd e sua interação com o <strong>knitr</strong> e <strong>Pandoc</strong> na converção para formatos intermediários.
 </p>
@@ -985,6 +987,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "google", "twitter", "linkedin"],
 "google": false
 },

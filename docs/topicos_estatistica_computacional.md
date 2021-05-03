@@ -645,7 +645,7 @@ Além da estatística, os métodos de MC são bastante utilizados por profission
 Para implementar um método de MC é necessário ter uma fonte de geração de números pseudo-aleatórios além da capacidade de controlarmos a sequência de números gerados. No R, como vimos anteriormente, teremos a nossa disposição diversas funções para a geração de números pseudo-aleatórios uniforme e não-uniformes e poderemos controlar a sequência gerada utilizando a função `set.seed()`.
 </div>   </div>\EndKnitrBlock{rmdnote}
 
-De acordo com Hammersley, no livro [**Monte Carlo Methods**](https://www.springer.com/gp/book/9789400958210), 1964, o nome "Monte Carlo" surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá. O projeto tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. O projeto foi uma das maiores colaborações científicas já realizadas que deram origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear. 
+De acordo com Hammersley, no livro [**Monte Carlo Methods**](https://www.springer.com/gp/book/9789400958210), 1964, o nome "Monte Carlo" surgiu durante o projeto Manhattan na época da Segunda Guerra Mundial. O Projeto Manhattan foi liderado pelos Estados Unidos com o apoio do Reino Unido e Canadá e tinha como objetivo desenvolver pesquisas para a produção das primeiras bombas atômicas durante o período de guerra. A pesquisa foi uma das maiores colaborações científicas já realizadas e deu origem a inúmeras novas tecnologias, indo muito além do aproveitamente da fissão nuclear. 
 
 <div class="figure" style="text-align: center">
 <img src="images/trinity.png" alt="Primeiro teste nuclear (nome de código **Trinity**), uma das três bombas atômicas produzidas pelo Projeto Manhattan. Teste realizado em 16 de julho de 1945. Com apenas 0.025 segundos após a detonação, o impacto já tomava conta de uma região com 100 metros de diâmetro." width="75%" />
@@ -1148,7 +1148,7 @@ system.time(result_parallel <- intvarmc_parallel(N = 5e3L, fun = fdp_weibull,
 
 ```
 ##   usuário   sistema decorrido 
-##     3.802     0.713     0.799
+##     5.301     1.602     2.968
 ```
 
 ```r
@@ -1156,7 +1156,7 @@ result_parallel$i_hat
 ```
 
 ```
-## [1] 0.9997058
+## [1] 0.9998725
 ```
 
 **Importante**:
@@ -1273,7 +1273,7 @@ time_serial[3]
 
 ```
 ## elapsed 
-##   1.809
+##   4.239
 ```
 
 ```r
@@ -1283,7 +1283,7 @@ time_parallel[3]
 
 ```
 ## elapsed 
-##   0.582
+##    1.15
 ```
 
 ```r
@@ -1293,7 +1293,7 @@ time_serial[3]/time_parallel[3]
 
 ```
 ##  elapsed 
-## 3.108247
+## 3.686087
 ```
 
 **Paralelização usando PSOCK**:
