@@ -5,8 +5,8 @@ Uma das tarefas mais importantes e frequentes na vida de um estatístico refere-
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div id="htmlwidget-0cc9d9749b00dd4cc02c" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0cc9d9749b00dd4cc02c">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ae5f0549bd772f86247c" style="width:700px;height:600px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ae5f0549bd772f86247c">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->|Frequente|G((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:diagramafluxo)Fluxo de trabalho - organização dos dados, escolhas das metodologias, implementações e edição de documento.</p>
@@ -30,8 +30,8 @@ Note que no diagrama \@ref(fig:diagramafluxo), descrevemos a linguagem [**R**](h
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div id="htmlwidget-a4517357b2ea808c020b" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a4517357b2ea808c020b">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5d4b89009ee513ca50dc" style="width:780px;height:670px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5d4b89009ee513ca50dc">{"x":{"diagram":"\ngraph TD\n\nA((fa:fa-database DADOS))-->B((R))\nB-->C(ORGANIZAÇÃO DOS DADOS)\nD(ESCOLHA DAS METODOLOGIAS)\nC-->|Implementar|E((R))\nD-->|Implementar|E\nE-->F(ORGANIZAÇÃO DOS RESULTADOS)\nF-->G((R))\nG-->|R com Markdown|H((Documento))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ff8900\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:diagramafluxor)Linguagem [**R**](https://www.r-project.org) entre todos os fluxos de trabalho de um estudo estatístico. Destaque para o uso de [**R**](https://www.r-project.org) para a construção de um relatório.</p>
@@ -749,8 +749,8 @@ O funcionamento geral e interações entre o pacote **rmarkdown** com o pacote *
 <div class="figure" style="text-align: center">
 
 ```{=html}
-<div id="htmlwidget-0591c6012a425fa08c52" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0591c6012a425fa08c52">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4d1511f108a07fb7a053" style="width:800px;height:400px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4d1511f108a07fb7a053">{"x":{"diagram":"\ngraph TD\n\nA((.Rmd))-->|knitr|B((.md))\nB-->|Pandoc|C((.html))\nB-->|Pandoc|D((.pdf))\nB-->|Pandoc|E((.epub))\nB-->|Pandoc|F((.odt))\nB-->|Pandoc|G((.docx))\nB-->|Pandoc|H((.tex))\nB-->|Pandoc|I((outros))\n\nstyle A fill:#ffe5cc\nstyle B fill:#ffe5cc\nstyle C fill:#ffe5cc\nstyle D fill:#ffe5cc\nstyle E fill:#ffe5cc\nstyle F fill:#ffe5cc\nstyle G fill:#ffe5cc\nstyle H fill:#ffe5cc\nstyle H fill:#ffe5cc\n"},"evals":[],"jsHooks":[]}</script>
 ```
 
 <p class="caption">(\#fig:diagramaRmd)Funcionamento do pacote **rmarkdown** que permite trabalharmos com arquivos .Rmd e sua interação com o **knitr** e **Pandoc** na converção para formatos intermediários.</p>
